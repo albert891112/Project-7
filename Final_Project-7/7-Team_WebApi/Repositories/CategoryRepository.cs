@@ -5,13 +5,37 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
-using System.Web;
+using System.Reflection;
+using System.Text;
+using System.Text.Json;
 
 namespace _7_Team_WebApi.Repositories
 {
     public class CategoryRepository
     {
+        
+
+        #region 測試連線
+        /// <summary>
+        /// 讀取測試json資料
+        /// </summary>
+        List<CategoryEntity> TestEntities = new List<CategoryEntity>();
+
+        public CategoryRepository()
+        {
+            string filename =Path.Combine( AppDomain.CurrentDomain.BaseDirectory , @".\TestData\Categories.json");
+           
+
+            string jsonString = File.ReadAllText(filename);
+            List<CategoryEntity> result = JsonSerializer.Deserialize<List<CategoryEntity>>(jsonString);
+            this.TestEntities = result;
+        }
+        #endregion 測試連線
+
+
+
         /// <summary>
 		/// get all Categories table data
 		/// </summary>
@@ -24,14 +48,24 @@ namespace _7_Team_WebApi.Repositories
 
             Func<SqlConnection, string, List<CategoryEntity>> func = (conn, s) =>
             {
+
                 return conn.Query<CategoryEntity>(sql).ToList();
+
             };
 
-            List<CategoryEntity> result = connection.GetAll<List<CategoryEntity>>(sql, "default", func);
+
+            //正式連線
+            //List<CategoryEntity> result = this.connection.GetAll<List<CategoryEntity>>(sql, "default", func);
+
+            //測試連線
+            List<CategoryEntity> result = this.TestEntities;
+
 
             return result;
 
         }
+
+
 
         /// <summary>
         /// Create Category 
@@ -57,7 +91,7 @@ namespace _7_Team_WebApi.Repositories
         /// Update Category
         /// </summary>
         /// <param name="dto"></param>
-        public void Update(CategoryDTO dto)
+        public void Update(CategoryEntity entity)
         {
             SqlDb connection = new SqlDb();
 
@@ -65,8 +99,8 @@ namespace _7_Team_WebApi.Repositories
 
             object obj = new
             {
-                Id = dto.Id,
-                Name = dto.Name,
+                Id = entity.Id,
+                Name = entity.Name,
             };
 
             connection.Update(sql, "default", obj);

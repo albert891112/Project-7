@@ -1,0 +1,14 @@
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\bin\Debug\net7.0\TestDataGenerator.exe
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\bin\Debug\net7.0\TestDataGenerator.deps.json
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\bin\Debug\net7.0\TestDataGenerator.runtimeconfig.json
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\bin\Debug\net7.0\TestDataGenerator.dll
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\bin\Debug\net7.0\TestDataGenerator.pdb
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\obj\Debug\net7.0\TestDataGenerator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\obj\Debug\net7.0\TestDataGenerator.AssemblyInfoInputs.cache
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\obj\Debug\net7.0\TestDataGenerator.AssemblyInfo.cs
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\obj\Debug\net7.0\TestDataGenerator.csproj.CoreCompileInputs.cache
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\obj\Debug\net7.0\TestDataGenerator.dll
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\obj\Debug\net7.0\refint\TestDataGenerator.dll
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\obj\Debug\net7.0\TestDataGenerator.pdb
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\obj\Debug\net7.0\TestDataGenerator.genruntimeconfig.cache
+C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\TestDataGeneral\TestDataGenerator\obj\Debug\net7.0\ref\TestDataGenerator.dll
