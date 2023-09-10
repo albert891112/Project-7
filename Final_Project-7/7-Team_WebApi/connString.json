@@ -1,0 +1,6 @@
+[
+  {
+    "Name": "default",
+    "ConnStr": "Data Source = 66D1;Initial Catalog =EStoreDb2023;User Id=Albert;Password=Aa0976276312;TrustServerCertificate=true"
+  }
+]
