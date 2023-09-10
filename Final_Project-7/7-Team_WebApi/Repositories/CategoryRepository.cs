@@ -13,9 +13,9 @@ using System.Text.Json;
 
 namespace _7_Team_WebApi.Repositories
 {
-    public class CategoryRepository
+    public class CategoryRepository : IRepository<CategoryEntity>
     {
-        
+        SqlDb connection = new SqlDb();
 
         #region 測試連線
         /// <summary>
@@ -42,7 +42,7 @@ namespace _7_Team_WebApi.Repositories
 		/// <returns></returns>
 		public List<CategoryEntity> GetAll()
         {
-            SqlDb connection = new SqlDb();
+            
 
             string sql = "SELECT * FROM Categories Order By Id;";
 
@@ -66,6 +66,23 @@ namespace _7_Team_WebApi.Repositories
         }
 
 
+        /// <summary>
+        /// Get by Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public CategoryEntity Get(int Id)
+        {
+            string sql = "SELECT * FROM Categories WHERE Id = @Id";
+
+            object obj = new { Id = Id };
+
+            CategoryEntity result = this.connection.Get<CategoryEntity>(sql, "default", obj);
+
+            return result;
+        }
+
+
 
         /// <summary>
         /// Create Category 
@@ -73,7 +90,7 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="dto"></param>
         public void Create(CategoryEntity entity)
         {
-            SqlDb connection = new SqlDb();
+            
 
             string sql = "INSERT INTO Categories(Name) VALUES (@Name)";
 
@@ -82,7 +99,7 @@ namespace _7_Team_WebApi.Repositories
                 Name = entity.Name,
             };
 
-            connection.Create(sql, "default", obj);
+            this.connection.Create(sql, "default", obj);
 
         }
 
@@ -93,7 +110,7 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="dto"></param>
         public void Update(CategoryEntity entity)
         {
-            SqlDb connection = new SqlDb();
+            
 
             string sql = "UPDATE　Categories SET Name = @Name WHERE Id = @Id";
 
@@ -103,7 +120,7 @@ namespace _7_Team_WebApi.Repositories
                 Name = entity.Name,
             };
 
-            connection.Update(sql, "default", obj);
+            this.connection.Update(sql, "default", obj);
         }
 
 
@@ -113,13 +130,13 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="id"></param>
         public void Delete(int id)
         {
-            SqlDb connection = new SqlDb();
+          
 
             string sql = "DELETE Categories WHERE Id = @Id";
 
             object obj = new { Id = id };
 
-            connection.Delete(sql, "default", obj);
+            this.connection.Delete(sql, "default", obj);
         }
     }
 
