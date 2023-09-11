@@ -1,4 +1,5 @@
 ﻿using _7_Team_WebApi.Models.Entities;
+using _7_Team_WebApi.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,5 +33,20 @@ namespace _7_Team_WebApi.Models.DTOs
                 AccountStatus = entity.AccountStatus
             };
         }
-    }s
+
+        public static MemberDTO ToDTO(this MemberVM vm)
+        {
+            return new MemberDTO()
+            {
+                Id = vm.Id,
+                FristName = vm.FristName,
+                LastName = vm.LastName,
+                Email = vm.Email,
+                Password = vm.Password,
+                AccountStatus = vm.AccountStatus
+            };
+        }
+    }
+
+
 }
