@@ -26,8 +26,7 @@ namespace _7_Team_WebApi.Repositories
         {
             string sql = "SELECT * FROM Member Order By Id";
 
-    
-            
+
             List<MemberEntity> entities = connection.GetAll<MemberEntity>(sql ,"default");
 
             return entities;
