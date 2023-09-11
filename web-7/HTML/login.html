@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="js/bootstrap.bundle.js"></script>
+  <title>Document</title>
+  <style>
+    .login {
+      padding-top: 150px;
+    }
+
+    .mb-3 {
+      padding-bottom: 20px;
+    }
+
+    .btn {
+      margin-left: 25%;
+      height: 40px;
+    }
+
+    .checkbox {
+      margin-left: 26%;
+      margin-top: 0%;
+    }
+
+    /* .breadcrumb {
+      margin-top: 5%;
+      margin-left: 5%;
+    } */
+
+    #forgetpw {
+      margin-left: 26%;
+      margin-bottom: 0%;
+    }
+
+    #footer {
+      margin-top: 150px;
+      text-align: center;
+    }
+
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -999;
+    }
+
+    .bg img {
+      min-height: 100%;
+      width: 100%;
+      opacity: 80%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg">
+    <img src="/image/pic-login.jpg">
+  </div>
+
+  <!-- 導覽列begin -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">首頁</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              男裝
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">上衣</a></li>
+              <li><a class="dropdown-item" href="#">下身</a></li>
+              <li><a class="dropdown-item" href="#">其他</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              女裝
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">上衣</a></li>
+              <li><a class="dropdown-item" href="#">下身</a></li>
+              <li><a class="dropdown-item" href="#">其他</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- 導覽列end -->
+
+  <!-- 麵包屑bigin -->
+  <!-- <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">首頁</a></li>
+      <li class="breadcrumb-item active" aria-current="page">會員登入</li>
+    </ol>
+  </nav> -->
+  <!-- 麵包屑end -->
+
+  <!-- 表單欄位begin -->
+  <form class="login">
+    <div class="mb-3">
+      <!-- <label for="exampleInputEmail1" class="form-label">帳號</label> -->
+      <input type="email" class="form-control rounded-pill mx-auto" placeholder="帳號" id="exampleInputEmail1"
+        aria-describedby="emailHelp" style="width: 50%; height: 50px;">
+      <div id="emailHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+      <!-- <label for="exampleInputPassword1" class="form-label">密碼</label> -->
+      <input type="password" class="form-control rounded-pill mx-auto" placeholder="密碼" id="exampleInputPassword1"
+        style="width: 50%; height: 50px;">
+    </div>
+
+    <div class="mb-3 checkbox">
+      <input type="checkbox" class="form-check-input mx-auto" id="exampleCheck1">
+      <label class="form-check-label mx-auto" for="exampleCheck1">記住我</label>
+    </div>
+
+    <div class="mb-3">
+      <p id="forgetpw"><a href="...">忘記密碼</a></p>
+    </div>
+
+    <button type="submit" class="btn btn-success rounded-pill text-center" style="width: 50%;">登入</button>
+  </form>
+  <!-- 表單欄位end -->
+
+  <div id="footer">
+    <p>Photo by Alyssa Strohmann on Unsplash</p>
+  </div>
+
+</body>
+
+</html>
