@@ -42,20 +42,13 @@ namespace _7_Team_WebApi.Repositories
 		/// <returns></returns>
 		public List<CategoryEntity> GetAll()
         {
-            
+
 
             string sql = "SELECT * FROM Categories Order By Id;";
 
-            Func<SqlConnection, string, List<CategoryEntity>> func = (conn, s) =>
-            {
-
-                return conn.Query<CategoryEntity>(sql).ToList();
-
-            };
-
 
             //正式連線
-            //List<CategoryEntity> result = this.connection.GetAll<List<CategoryEntity>>(sql, "default", func);
+            //List<CategoryEntity> result = this.connection.GetAll<CategoryEntity>(sql, "default");
 
             //測試連線
             List<CategoryEntity> result = this.TestEntities;

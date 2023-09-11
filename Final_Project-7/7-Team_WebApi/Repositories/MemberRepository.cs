@@ -22,16 +22,13 @@ namespace _7_Team_WebApi.Repositories
         /// Get all members data
         /// </summary>
         /// <returns></returns>
-        public  IEnumerable<MemberEntity> GetAll()
+        public  List<MemberEntity> GetAll()
         {
-            string sql = "SELECT * FROM Member";
+            string sql = "SELECT * FROM Member Order By Id";
 
-            Func<SqlConnection, string, List<MemberEntity>> func = (conn, s) =>
-            {
-                return conn.Query<MemberEntity>(sql).ToList();
-            };
+    
             
-            List<MemberEntity> entities = connection.GetAll<List<MemberEntity>>(sql ,"default", func);
+            List<MemberEntity> entities = connection.GetAll<MemberEntity>(sql ,"default");
 
             return entities;
         }
