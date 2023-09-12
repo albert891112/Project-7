@@ -13,9 +13,10 @@ namespace _7_Team_WebApi.Models.DTOs
         public string FristName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string  Account { get; set; }
         public string Password { get; set; }
 
-        public bool AccountStatus { get; set; }
+        public bool Enable { get; set; }
     }
 
 
@@ -30,7 +31,7 @@ namespace _7_Team_WebApi.Models.DTOs
                 LastName = entity.LastName,
                 Email = entity.Email,
                 Password = entity.Password,
-                AccountStatus = entity.AccountStatus
+                Enable = entity.Enable
             };
         }
 
@@ -43,7 +44,7 @@ namespace _7_Team_WebApi.Models.DTOs
                 LastName = vm.LastName,
                 Email = vm.Email,
                 Password = vm.Password,
-                AccountStatus = vm.AccountStatus
+                Enable = vm.Enable
             };
         }
     }

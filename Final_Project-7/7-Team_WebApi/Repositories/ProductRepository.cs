@@ -29,6 +29,7 @@ namespace _7_Team_WebApi.Repositories
 				"(Categroysies_Products as CP INNER JOIN Categories as C ON CP.CategoryId = C.Id)  " +
 				"ON P.id = CP.ProductId " +
 				"INNER JOIN Stock as S ON S.Id = P.StockId " +
+                "WHERE P.Id = @Id " +
 				"ORDER BY P.id";
 
             object obj = new
@@ -36,14 +37,42 @@ namespace _7_Team_WebApi.Repositories
                 Id = id
             };
 
-            ProductEntity entity = this.connection.Get<ProductEntity>(sql, "defualt" , obj);
+            //Delegate for get all products
+            Func<SqlConnection, string, object , ProductEntity> func = (conn, s , o) =>
+            {
+                ProductEntity p = null;
+
+                conn.Query<ProductEntity, CategoryEntity, StockEntity, ProductEntity>(s, (product, category, stock) =>
+                {
+                    if (p ==  null)
+                    {
+                        product.Stock = stock;
+                        product.Categories = new List<CategoryEntity>
+                        {
+                            category
+                        };
+                        p = product;
+                    }
+                    else
+                    {
+                        p.Categories.Add(category);
+                    }
+                    return p;
+
+                } , o);
+
+                return p;
+            };
+
+
+            ProductEntity entity = this.connection.Get<ProductEntity>(sql, "defualt" , obj , func);
 
             return entity;
         }
 
-
+        
         /// <summary>
-        /// 
+        /// Get all products
         /// </summary>
         /// <returns></returns>
         public List<ProductEntity> GetAll()
@@ -66,8 +95,10 @@ namespace _7_Team_WebApi.Repositories
                     if (!products.TryGetValue(product.Id, out ProductEntity p))
                     {
                         product.Stock = stock;
-                        product.Categories = new List<CategoryEntity>();
-                        product.Categories.Add(category);
+                        product.Categories = new List<CategoryEntity>
+                        {
+                            category
+                        };
                         products.Add(product.Id, product);
                     }
                     else
@@ -76,7 +107,7 @@ namespace _7_Team_WebApi.Repositories
                     }
                     return p;
 
-                }, commandType: CommandType.StoredProcedure);
+                });
 
                 return products.Values.ToList();
             };
@@ -88,9 +119,27 @@ namespace _7_Team_WebApi.Repositories
         }
 
 
+        /// <summary>
+        /// Create new product
+        /// </summary>
+        /// <param name="entity"></param>
         public void Create(ProductEntity entity)
         {
-            throw new NotImplementedException();
+            string sql = "INSERT INTO Products " +
+                "(Name, Price, Image, Description, StockId, Enable) " +
+                "VALUES (@Name, @Price, @Image, @Description, @StockId, @Enable)";
+
+            object obj = new
+            {
+                Name = entity.Name,
+                Price = entity.Price,
+                Image = entity.Image,
+                Description = entity.Description,
+                StockId = entity.Stock.Id,
+                Enable = entity.Enable
+            };
+
+            this.connection.Create(sql, "defualt" , obj);
         }
 
         public void Delete(int id)

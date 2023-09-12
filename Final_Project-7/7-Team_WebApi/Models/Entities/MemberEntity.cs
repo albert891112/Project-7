@@ -12,9 +12,10 @@ namespace _7_Team_WebApi.Models.Entities
         public string FristName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string  Account { get; set; }
         public string Password { get; set; }
         
-        public bool AccountStatus { get; set; }
+        public bool Enable { get; set; }
     }
 
     public static class MemberEntityExtension
@@ -28,7 +29,7 @@ namespace _7_Team_WebApi.Models.Entities
                 LastName = dto.LastName,
                 Email = dto.Email,
                 Password = dto.Password,
-                AccountStatus = dto.AccountStatus
+                Enable = dto.Enable
             };
         }
     }
