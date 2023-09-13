@@ -63,7 +63,7 @@ namespace _7_Team_WebApi.Repositories
                 LastName = entity.LastName, 
                 Email = entity.Email, 
                 Password = entity.Password,
-                AccountStatus = entity.AccountStatus
+                Enable = entity.Enable
             };
 
             connection.Create(sql, "default", obj);
@@ -83,7 +83,7 @@ namespace _7_Team_WebApi.Repositories
                 LastName = entity.LastName,
                 Email = entity.Email,
                 Password = entity.Password,
-                AccountStatus = entity.AccountStatus
+                Enable = entity.Enable
             };
 
             connection.Update(sql, "default", obj);
