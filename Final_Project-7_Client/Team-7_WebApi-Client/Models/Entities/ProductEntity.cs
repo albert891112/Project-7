@@ -20,7 +20,7 @@ namespace Team_7_WebApi_Client.Models.Entities
 
     public class ProductSearchEntity
     {
-        public List<CategoryEntity> Categiries { get; set; }
+        public List<CategoryEntity> Categories { get; set; }
         public string Name { get; set; }
         public int HeightPrice { get; set; }
         public int LowPrice { get; set; }
@@ -33,7 +33,7 @@ namespace Team_7_WebApi_Client.Models.Entities
         {
             return new ProductSearchEntity
             {
-                Categiries = dto.Categories.Select(c => c.ToEntity()).ToList(),
+                Categories = dto.Categories.Select(c => c.ToEntity()).ToList(),
                 Name = dto.Name,
                 HeightPrice = dto.HeightPrice,
                 LowPrice = dto.LowPrice
