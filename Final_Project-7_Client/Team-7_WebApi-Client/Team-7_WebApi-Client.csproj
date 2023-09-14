@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Albert.Lib">
+      <HintPath>..\..\..\..\Albert.Lib.Solution\Albert.Lib\bin\Debug\Albert.Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.151\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -161,9 +167,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOS\ProductDTO.cs" />
+    <Compile Include="Models\Entities\CategoryEntity.cs" />
     <Compile Include="Models\Entities\ProductEntity.cs" />
+    <Compile Include="Models\Entities\StockEntity.cs" />
     <Compile Include="Models\Views\ProductVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
