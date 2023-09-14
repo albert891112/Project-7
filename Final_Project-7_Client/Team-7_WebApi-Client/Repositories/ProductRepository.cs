@@ -6,13 +6,20 @@ using System.Linq;
 using System.Web;
 using Team_7_WebApi_Client.Models.Entities;
 using Dapper;
+using Team_7_WebApi_Client.Models.Views;
 
 namespace Team_7_WebApi_Client.Repositories
 {
-    public class ProductRepository : IRepository<ProductEntity>
+    public class ProductRepository 
     {
         SqlDb connection = new SqlDb();
 
+
+        /// <summary>
+        /// Get Product by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ProductEntity Get(int id)
         {
             string sql = "SELECT p.* , C.* , S.* " +
@@ -62,6 +69,11 @@ namespace Team_7_WebApi_Client.Repositories
             return entity;
         }
 
+
+        /// <summary>
+        /// Get all products
+        /// </summary>
+        /// <returns></returns>
         public List<ProductEntity> GetAll()
         {
             string sql = "SELECT p.* , C.* , S.* " +
@@ -105,19 +117,11 @@ namespace Team_7_WebApi_Client.Repositories
             return entities;
         }
 
-        public void Create(ProductEntity entity)
+
+        public List<ProductEntity> Search(ProductSearchEntity entity)
         {
-            
+
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(ProductEntity entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

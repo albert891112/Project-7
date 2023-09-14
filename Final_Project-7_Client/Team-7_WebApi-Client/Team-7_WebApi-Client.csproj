@@ -162,15 +162,18 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Products\ProductApiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOS\CategoryDTO.cs" />
     <Compile Include="Models\DTOS\ProductDTO.cs" />
     <Compile Include="Models\Entities\CategoryEntity.cs" />
     <Compile Include="Models\Entities\MemberEntity.cs" />
     <Compile Include="Models\Entities\ProductEntity.cs" />
     <Compile Include="Models\Entities\StockEntity.cs" />
+    <Compile Include="Models\Views\CategoryVM.cs" />
     <Compile Include="Models\Views\ProductVM.cs" />
     <Compile Include="Models\Views\RegisterVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -222,6 +225,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="connString.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

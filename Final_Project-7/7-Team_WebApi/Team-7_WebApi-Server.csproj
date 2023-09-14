@@ -200,6 +200,7 @@
     <Compile Include="Models\DTOs\MemberDTO.cs" />
     <Compile Include="Models\DTOs\OrderDTO.cs" />
     <Compile Include="Models\DTOs\OrderItemDTO.cs" />
+    <Compile Include="Models\DTOs\ProductDTO.cs" />
     <Compile Include="Models\DTOs\StatusDTO.cs" />
     <Compile Include="Models\Entities\CategoryEntity.cs" />
     <Compile Include="Models\Entities\MemberEntity.cs" />
