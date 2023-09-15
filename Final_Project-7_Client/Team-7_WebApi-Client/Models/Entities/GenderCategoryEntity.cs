@@ -19,7 +19,7 @@ namespace Team_7_WebApi_Client.Models.Entities
             return new GenderCategoryEntity
             {
                 Id = dto.Id,
-                Gender = dto.Gender,
+                Gender = dto.Gender
             };
         }
     }

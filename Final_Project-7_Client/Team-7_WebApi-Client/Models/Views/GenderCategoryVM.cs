@@ -8,7 +8,7 @@ namespace Team_7_WebApi_Client.Models.Views
 {
     public class GenderCategoryVM
     {
-        public int Id   { get; set; }]
+        public int Id   { get; set; }
         public bool Gender { get; set; }
     }
 }
