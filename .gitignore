@@ -20,6 +20,18 @@
 # Mono auto generated files
 mono_crash.*
 
+# Others
+[Bb]in
+[Oo]bj
+sql
+TestResults
+[Tt]est[Rr]esult*
+*.Cache
+ClientBin
+[Ss]tyle[Cc]op.*
+~$*
+*.dbmdl
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -48,6 +60,7 @@ Release/
 *.opensdf
 *.tlog
 *.log
+.cache
 TestResult.xml
 *.VisualState.xml
 Version.cs
