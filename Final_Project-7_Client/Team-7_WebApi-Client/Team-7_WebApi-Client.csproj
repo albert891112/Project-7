@@ -170,13 +170,15 @@
     <Compile Include="Models\DTOS\CategoryDTO.cs" />
     <Compile Include="Models\DTOS\ProductDTO.cs" />
     <Compile Include="Models\Entities\CategoryEntity.cs" />
+    <Compile Include="Models\Entities\GenderCategoryDTO.cs" />
+    <Compile Include="Models\Entities\GenderCategoryEntity.cs" />
     <Compile Include="Models\Entities\MemberEntity.cs" />
     <Compile Include="Models\Entities\ProductEntity.cs" />
     <Compile Include="Models\Entities\StockEntity.cs" />
-    <Compile Include="Models\Infra\HashUtility.cs" />
     <Compile Include="Models\Views\CategoryVM.cs" />
+    <Compile Include="Models\Views\GenderCategoryVM.cs" />
     <Compile Include="Models\Views\ProductVM.cs" />
-    <Compile Include="Models\Views\Members\RegisterVm.cs" />
+    <Compile Include="Models\Views\RegisterVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Services\ProductService.cs" />
@@ -201,7 +203,6 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Views\Members\TextFile1.txt" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
