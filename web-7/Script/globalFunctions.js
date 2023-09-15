@@ -296,3 +296,17 @@ let formHelper = {
         });
     },
 };
+
+
+let TemplateHelper = {
+
+    // 取得 template 的內容, 並回傳一個 jQuery 物件
+    getTemplate : function(name){
+
+        var templateName = "template." +  name ;
+
+        var template = $(templateName).html();
+
+        return $(template).clone();
+    }
+};

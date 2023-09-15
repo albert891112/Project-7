@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.SessionState;
 using Team_7_WebApi_Client.Models.DTOS;
 
 namespace Team_7_WebApi_Client.Models.Entities
@@ -9,7 +10,8 @@ namespace Team_7_WebApi_Client.Models.Entities
     public class ProductEntity
     {
         public int Id { get; set; }
-        public List<CategoryEntity> Categories { get; set; }
+        public CategoryEntity Categories { get; set; }
+        public GenderCategoryEntity Gender { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Image { get; set; }
@@ -20,25 +22,42 @@ namespace Team_7_WebApi_Client.Models.Entities
 
     public class ProductSearchEntity
     {
-        public List<CategoryEntity> Categories { get; set; }
+        public CategoryEntity Categories { get; set; }
         public string Name { get; set; }
         public int HeightPrice { get; set; }
         public int LowPrice { get; set; }
     }
 
-    public static class ProductEntityExtensions
+    public static class ProductEntityExtenssion
     {
+        public static ProductEntity ToEntity(this ProductDTO dto)
+        {
+            return new ProductEntity
+            {
+                Id = dto.Id,
+                Categories = dto.Categories.ToEntity(),
+                Name = dto.Name,
+                Price = dto.Price,
+                Image = dto.Image,
+                Description = dto.Description,
+                Stock = dto.Stock,
+                Enable = dto.Enable
+            };
+        }
 
-        public static ProductSearchEntity ToEntity(this ProductSearchDTO dto)
+
+        public static ProductSearchEntity ToEntiy(this ProductSearchDTO dto)
         {
             return new ProductSearchEntity
             {
-                Categories = dto.Categories.Select(c => c.ToEntity()).ToList(),
+                Categories = dto.Categories.ToEntity(),
                 Name = dto.Name,
                 HeightPrice = dto.HeightPrice,
                 LowPrice = dto.LowPrice
-            };
+            } ;
         }
     }
+
+   
     
 }
