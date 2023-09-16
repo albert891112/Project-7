@@ -3,4 +3,9 @@ Register
 	add Register Vm [v]
 	add Infra--hashpassword [v]
 	put salt in appsettings(key="salt", value="r#@i99ve!#r") [v]
-	RegisterExts-hashpassword
+	add Members controller
+		add Register action(Get,Post)-- //todo post還沒寫完
+		add Views/Members/Register.cshtml,RegisterConfirm.cshtml
+		modify_Layout.cshtml（modify frontend), add Register link
+	
+	//todo RegisterExts-hashpassword to EFModels

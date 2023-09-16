@@ -51,10 +51,17 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.151\lib\net461\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -171,6 +178,27 @@
     <Compile Include="Models\DTOS\CategoryDTO.cs" />
     <Compile Include="Models\DTOS\OrderDTO.cs" />
     <Compile Include="Models\DTOS\ProductDTO.cs" />
+    <Compile Include="Models\EFModels\AppDbContext.cs" />
+    <Compile Include="Models\EFModels\Cart.cs" />
+    <Compile Include="Models\EFModels\CartItem.cs" />
+    <Compile Include="Models\EFModels\Category.cs" />
+    <Compile Include="Models\EFModels\Coupon.cs" />
+    <Compile Include="Models\EFModels\Coupons_Members.cs" />
+    <Compile Include="Models\EFModels\GenderCategory.cs" />
+    <Compile Include="Models\EFModels\Member.cs" />
+    <Compile Include="Models\EFModels\Order.cs" />
+    <Compile Include="Models\EFModels\OrderItem.cs" />
+    <Compile Include="Models\EFModels\Payment.cs" />
+    <Compile Include="Models\EFModels\Premission.cs" />
+    <Compile Include="Models\EFModels\Product.cs" />
+    <Compile Include="Models\EFModels\Review.cs" />
+    <Compile Include="Models\EFModels\Role.cs" />
+    <Compile Include="Models\EFModels\Roles_Permissions.cs" />
+    <Compile Include="Models\EFModels\Shipping.cs" />
+    <Compile Include="Models\EFModels\Status.cs" />
+    <Compile Include="Models\EFModels\Stock.cs" />
+    <Compile Include="Models\EFModels\User.cs" />
+    <Compile Include="Models\EFModels\Users_Roles.cs" />
     <Compile Include="Models\Entities\CartEntity.cs" />
     <Compile Include="Models\Entities\CategoryEntity.cs" />
     <Compile Include="Models\Entities\CouponEntity.cs" />
@@ -181,8 +209,10 @@
     <Compile Include="Models\Entities\ProductEntity.cs" />
     <Compile Include="Models\Entities\StatusEntity.cs" />
     <Compile Include="Models\Entities\StockEntity.cs" />
+    <Compile Include="Models\Infra\HashUtility.cs" />
     <Compile Include="Models\Views\CategoryVM.cs" />
     <Compile Include="Models\Views\GenderCategoryVM.cs" />
+    <Compile Include="Models\Views\Members\RegisterVm.cs" />
     <Compile Include="Models\Views\OrderVM.cs" />
     <Compile Include="Models\Views\ProductVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -209,6 +239,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Models\Views\Members\TextFile1.txt" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -258,7 +289,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\EFModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />
