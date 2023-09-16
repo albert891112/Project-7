@@ -9,3 +9,7 @@ Register
 		modify_Layout.cshtml（modify frontend), add Register link
 	
 	//todo RegisterExts-hashpassword to EFModels
+
+	9/16
+
+	//todo RegisterView modify validation
