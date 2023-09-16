@@ -10,7 +10,7 @@ namespace Team_7_WebApi_Client.Models.Entities
     public class ProductEntity
     {
         public int Id { get; set; }
-        public CategoryEntity Categories { get; set; }
+        public CategoryEntity Category { get; set; }
         public GenderCategoryEntity Gender { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
@@ -22,10 +22,12 @@ namespace Team_7_WebApi_Client.Models.Entities
 
     public class ProductSearchEntity
     {
-        public CategoryEntity Categories { get; set; }
+        public CategoryEntity Category { get; set; }
         public string Name { get; set; }
         public int HeightPrice { get; set; }
         public int LowPrice { get; set; }
+
+        public GenderCategoryEntity Gender { get; set; }
     }
 
     public static class ProductEntityExtenssion
@@ -35,7 +37,7 @@ namespace Team_7_WebApi_Client.Models.Entities
             return new ProductEntity
             {
                 Id = dto.Id,
-                Categories = dto.Categories.ToEntity(),
+                Category = dto.Category.ToEntity(),
                 Name = dto.Name,
                 Price = dto.Price,
                 Image = dto.Image,
@@ -46,14 +48,15 @@ namespace Team_7_WebApi_Client.Models.Entities
         }
 
 
-        public static ProductSearchEntity ToEntiy(this ProductSearchDTO dto)
+        public static ProductSearchEntity ToEntity(this ProductSearchDTO dto)
         {
             return new ProductSearchEntity
             {
-                Categories = dto.Categories.ToEntity(),
+                Category = dto.Category.ToEntity(),
                 Name = dto.Name,
                 HeightPrice = dto.HeightPrice,
-                LowPrice = dto.LowPrice
+                LowPrice = dto.LowPrice,
+                Gender = dto.Gender.ToEntit()
             } ;
         }
     }

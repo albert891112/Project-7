@@ -24,23 +24,33 @@ namespace Team_7_WebApi_Client.Repositories
         /// <returns></returns>
         public ProductEntity Get(int id)
         {
-            string sql = "SELECT p.* , C.* , S.* " +
-                "FROM Products as P " +
-                "INNER JOIN " +
-                "(Categroysies_Products as CP INNER JOIN Categories as C ON CP.CategoryId = C.Id)  " +
-                "ON P.id = CP.ProductId " +
-                "INNER JOIN Stock as S ON S.Id = P.StockId " +
-                "WHERE P.Id = @Id " +
-                "ORDER BY P.id";
+            string sql = "SELECT P.* , GC.* , C.* FROM Products as P " +
+                "INNER JOIN GenderCategories as GC ON P.GenderId = GC.Id " +
+                "INNER JOIN Categories as C ON P.CategoryId = C.Id;" +
+                "WHERE P.Id = @Id";
 
             object obj = new
             {
                 Id = id
             };
 
-      
+            Func<SqlConnection, string, object, ProductEntity> func = (conn, s, o) =>
+            {
+                return conn.Query<ProductEntity, GenderCategoryEntity, CategoryEntity, ProductEntity>(s, (p, gc, c) =>
+                {
+                    p.Gender = gc;
+                    p.Category = c;
+                    return p;
+                }, o).FirstOrDefault();
 
-            return new ProductEntity();
+            };
+
+
+            ProductEntity product = this.connection.Get<ProductEntity>(sql, "default", obj, func);
+
+
+            return product;
+
         }
 
 
@@ -54,11 +64,26 @@ namespace Team_7_WebApi_Client.Repositories
                 "INNER JOIN GenderCategories as GC ON P.GenderId = GC.Id " +
                 "INNER JOIN Categories as C ON P.CategoryId = C.Id;";
 
-           
 
-                return new List<ProductEntity>();
- 
-         
+
+            Func<SqlConnection, string, List<ProductEntity>> func = (conn, s ) =>
+            {
+                
+                return conn.Query<ProductEntity, GenderCategoryEntity, CategoryEntity, ProductEntity>(s, (p, gc, c) =>
+                {
+                 
+                    p.Gender = gc;
+                    p.Category = c;
+                    return p;
+
+                }).ToList();
+
+            };
+
+            List<ProductEntity> products = this.connection.GetAll<ProductEntity>(sql, "default", func);
+
+            return products;
+
         }
 
 
@@ -71,18 +96,42 @@ namespace Team_7_WebApi_Client.Repositories
         {
             string sql = "SELECT P.* , GC.* , C.* FROM Products as P " +
                 "INNER JOIN GenderCategories as GC ON P.GenderId = GC.Id " +
-                "INNER JOIN Categories as C ON P.CategoryId = C.Id;";
+                "INNER JOIN Categories as C ON P.CategoryId = C.Id " +
+                "WHERE (@CategoryId IS NULL OR C.Id = @CategoryId) " +
+                "AND (@Name IS NULL OR P.Name LIKE '%' + @Name +'%') " +
+                "AND (@LowPrice IS NULL OR P.Price >= @LowPrice) " +
+                "AND (@HeightPrice IS NULL OR P.Price <= @HightPrice) " +
+                "AND (@GenderId IS NULL OR GC.Id = @GenderId)" +
+                "Order By p.Id";
 
             object obj = new
             {
              
-                name = entity.Name,
-                pricelow = entity.LowPrice,
-                pricehight = entity.HeightPrice,
+                Name = entity.Name,
+                LowPrice= entity.LowPrice,
+                HeightPrice = entity.HeightPrice,
+                Genderid = entity.Gender.Id,
+                CategoryId = entity.Category.Id
 
             };
 
-            return new List<ProductEntity>();
+            Func<SqlConnection, string, object, List<ProductEntity>> func = (conn, s, o) =>
+            {
+                return conn.Query<ProductEntity, GenderCategoryEntity, CategoryEntity, ProductEntity>(s, (p, gc, c) =>
+                {
+                    p.Gender = gc;
+                    p.Category = c;
+                    return p;
+                }, o).ToList();
+
+            };
+
+
+            List<ProductEntity> products = this.connection.Search<List<ProductEntity>>(sql, "default", obj, func);
+
+
+
+            return products;
         }
 
     }

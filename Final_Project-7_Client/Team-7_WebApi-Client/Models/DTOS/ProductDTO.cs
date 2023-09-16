@@ -11,7 +11,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
     public class ProductDTO
     {
         public int Id { get; set; }
-        public CategoryDTO Categories { get; set; }
+        public CategoryDTO Category { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Image { get; set; }
@@ -22,10 +22,12 @@ namespace Team_7_WebApi_Client.Models.DTOS
 
     public class ProductSearchDTO
     {
-        public CategoryDTO Categories { get; set; }
+        public CategoryDTO Category { get; set; }
         public string Name { get; set; }
         public int HeightPrice { get; set; }
         public int LowPrice { get; set; }
+
+        public GenderCategoryDTO Gender { get; set; }
     }
 
     public static class ProductDTOExtenssion
@@ -35,7 +37,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
             return new ProductDTO
             {
                 Id = entity.Id,
-                Categories = entity.Categories.ToDTO(),
+                Category = entity.Category.ToDTO(),
                 Name = entity.Name,
                 Price = entity.Price,
                 Image = entity.Image,
@@ -50,7 +52,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
             return new ProductDTO
             {
                 Id = vm.Id,
-                Categories = vm.Categories.ToDTO(),
+                Category = vm.Category.ToDTO(),
                 Name = vm.Name,
                 Price = vm.Price,
                 Image = vm.Image,
@@ -64,10 +66,11 @@ namespace Team_7_WebApi_Client.Models.DTOS
         {
             return new ProductSearchDTO
             {
-                Categories = entity.Categories.ToDTO(),
+                Category = entity.Category.ToDTO(),
                 Name = entity.Name,
                 HeightPrice = entity.HeightPrice,
-                LowPrice = entity.LowPrice
+                LowPrice = entity.LowPrice,
+                Gender = entity.Gender.ToDTO()
             };
         }
 
@@ -75,10 +78,11 @@ namespace Team_7_WebApi_Client.Models.DTOS
         {
             return new ProductSearchDTO
             {
-                Categories = vm.Categories.ToDTO(),
+                Category = vm.Category.ToDTO(),
                 Name = vm.Name,
                 HeightPrice = vm.HeightPrice,
-                LowPrice = vm.LowPrice
+                LowPrice = vm.LowPrice,
+                Gender = vm.Gender.ToDTO()
             };
         }
     }

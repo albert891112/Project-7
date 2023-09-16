@@ -1,6 +1,7 @@
+
 [
   {
     "Name": "default",
-    "ConnStr": "Data Source=.\\sql2022;Initial Catalog=Team-7_Database;User ID=sa5;Password=sa5;TrustServerCertificate=true"
+    "ConnStr": "Data Source=66D1;Initial Catalog=Team-7_Database;User ID=Albert;Password=Aa0976276312;TrustServerCertificate=true"
   }
 ]
