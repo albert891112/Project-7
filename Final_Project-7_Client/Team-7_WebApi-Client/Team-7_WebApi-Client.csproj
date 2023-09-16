@@ -167,10 +167,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOS\CartDTO.cs" />
     <Compile Include="Models\DTOS\CategoryDTO.cs" />
     <Compile Include="Models\DTOS\OrderDTO.cs" />
     <Compile Include="Models\DTOS\ProductDTO.cs" />
+    <Compile Include="Models\Entities\CartEntity.cs" />
     <Compile Include="Models\Entities\CategoryEntity.cs" />
+    <Compile Include="Models\Entities\CouponEntity.cs" />
     <Compile Include="Models\Entities\GenderCategoryDTO.cs" />
     <Compile Include="Models\Entities\GenderCategoryEntity.cs" />
     <Compile Include="Models\Entities\MemberEntity.cs" />
