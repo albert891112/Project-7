@@ -220,6 +220,7 @@
     <Compile Include="Models\Views\CategoryVM.cs" />
     <Compile Include="Models\Views\CouponVM.cs" />
     <Compile Include="Models\Views\GenderCategoryVM.cs" />
+    <Compile Include="Models\Views\Members\RegisterExts.cs" />
     <Compile Include="Models\Views\Members\RegisterVm.cs" />
     <Compile Include="Models\Views\OrderVM.cs" />
     <Compile Include="Models\Views\ProductVM.cs" />
@@ -330,7 +331,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Files\pic01.JPG" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Views\Members\TextFile1.txt" />
     <Content Include="obj\Release\Team-7_WebApi-Client.csproj.AssemblyReference.cache" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -390,6 +390,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Members\Register.cshtml" />
+    <Content Include="Views\Members\RegisterConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

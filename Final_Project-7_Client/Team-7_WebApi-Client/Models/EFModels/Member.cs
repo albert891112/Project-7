@@ -39,7 +39,7 @@ namespace Team_7_WebApi_Client.Models.EFModels
         [StringLength(50)]
         public string Account { get; set; }
 
-        public bool Enable { get; set; }
+        public bool? Enable { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
