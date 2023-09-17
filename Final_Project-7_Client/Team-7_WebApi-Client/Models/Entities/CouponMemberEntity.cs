@@ -5,9 +5,11 @@ using System.Web;
 
 namespace Team_7_WebApi_Client.Models.Entities
 {
-	public class StatusEntity
+	public class CouponMemberEntity
 	{
 		public int Id { get; set; }
-		public string Status { get; set; }
-	}
+        public MemberEntity Member { get; set; }
+        public CouponEntity Coupon { get; set; }
+
+    }
 }

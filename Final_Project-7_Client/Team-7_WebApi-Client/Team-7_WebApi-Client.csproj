@@ -183,6 +183,7 @@
     </Compile>
     <Compile Include="Models\DTOS\CartDTO.cs" />
     <Compile Include="Models\DTOS\CategoryDTO.cs" />
+    <Compile Include="Models\DTOS\CouponDTO.cs" />
     <Compile Include="Models\DTOS\OrderDTO.cs" />
     <Compile Include="Models\DTOS\ProductDTO.cs" />
     <Compile Include="Models\DTOS\StockDTO.cs" />
@@ -210,15 +211,17 @@
     <Compile Include="Models\Entities\CartEntity.cs" />
     <Compile Include="Models\Entities\CategoryEntity.cs" />
     <Compile Include="Models\Entities\CouponEntity.cs" />
+    <Compile Include="Models\Entities\CouponMemberEntity.cs" />
     <Compile Include="Models\Entities\GenderCategoryDTO.cs" />
     <Compile Include="Models\Entities\GenderCategoryEntity.cs" />
     <Compile Include="Models\Entities\MemberEntity.cs" />
     <Compile Include="Models\Entities\OrderEntity.cs" />
     <Compile Include="Models\Entities\ProductEntity.cs" />
-    <Compile Include="Models\Entities\StatusEntity.cs" />
     <Compile Include="Models\Entities\StockEntity.cs" />
     <Compile Include="Models\Infra\HashUtility.cs" />
+    <Compile Include="Models\Views\CartVM.cs" />
     <Compile Include="Models\Views\CategoryVM.cs" />
+    <Compile Include="Models\Views\CouponVM.cs" />
     <Compile Include="Models\Views\GenderCategoryVM.cs" />
     <Compile Include="Models\Views\Members\RegisterExts.cs" />
     <Compile Include="Models\Views\Members\RegisterVm.cs" />
