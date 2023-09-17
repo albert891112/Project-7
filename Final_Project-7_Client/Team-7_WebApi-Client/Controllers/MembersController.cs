@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Team_7_WebApi_Client.Models.EFModels;
 using Team_7_WebApi_Client.Models.Views;
+using Team_7_WebApi_Client.Models.Views.Members;
 
 namespace Team_7_WebApi_Client.Controllers
 {
@@ -29,7 +31,7 @@ namespace Team_7_WebApi_Client.Controllers
 			}
 			try
 			{
-				//RegisterMember(vm);
+				RegisterMember(vm);
 			}
 			catch (Exception ex)
 			{
@@ -37,6 +39,24 @@ namespace Team_7_WebApi_Client.Controllers
 				return View(vm);
 			}
 			return View("RegisterConfirm");
+		}
+
+		private void RegisterMember(RegisterVm vm)
+		{
+			var db = new AppDbContext();
+
+			var memberInDb=db.Members.FirstOrDefault(p=>p.Account==vm.Account);
+			if (memberInDb!=null)
+			{
+				throw new Exception("該帳號已有人使用");
+			}
+
+			//vm to Member
+			var member = vm.ToEFModel();
+
+			//EF存進資料庫
+			db.Members.Add(member);
+			db.SaveChanges();
 		}
 	}
 }

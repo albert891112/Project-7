@@ -26,6 +26,7 @@ namespace Team_7_WebApi_Client.Models.Entities
         public string Name { get; set; }
         public int HeightPrice { get; set; }
         public int LowPrice { get; set; }
+
         public GenderCategoryEntity Gender { get; set; }
     }
 
