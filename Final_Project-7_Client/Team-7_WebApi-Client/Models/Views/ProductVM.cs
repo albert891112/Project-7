@@ -11,6 +11,8 @@ namespace Team_7_WebApi_Client.Models.Views
     {
         public int Id { get; set; }
         public CategoryVM Category { get; set; }
+
+        public GenderCategoryVM Gender { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Image { get; set; }
@@ -38,6 +40,7 @@ namespace Team_7_WebApi_Client.Models.Views
             {
                 Id = dto.Id,
                 Category = dto.Category.ToVM(),
+                Gender = dto.Gender.ToVM(),
                 Name = dto.Name,
                 Price = dto.Price,
                 Image = dto.Image,

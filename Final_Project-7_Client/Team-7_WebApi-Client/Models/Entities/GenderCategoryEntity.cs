@@ -10,6 +10,7 @@ namespace Team_7_WebApi_Client.Models.Entities
     {
         public int Id { get; set; }
         public bool Gender { get; set; }
+
     }
 
     public static class GenderCategoryEntityExtenssion

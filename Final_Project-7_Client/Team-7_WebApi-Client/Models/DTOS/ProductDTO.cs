@@ -12,6 +12,8 @@ namespace Team_7_WebApi_Client.Models.DTOS
     {
         public int Id { get; set; }
         public CategoryDTO Category { get; set; }
+        
+        public GenderCategoryDTO Gender { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Image { get; set; }
@@ -38,6 +40,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
             {
                 Id = entity.Id,
                 Category = entity.Category.ToDTO(),
+                Gender = entity.Gender.ToDTO(),
                 Name = entity.Name,
                 Price = entity.Price,
                 Image = entity.Image,
@@ -53,6 +56,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
             {
                 Id = vm.Id,
                 Category = vm.Category.ToDTO(),
+                Gender = vm.Gender.ToDTO(),
                 Name = vm.Name,
                 Price = vm.Price,
                 Image = vm.Image,
