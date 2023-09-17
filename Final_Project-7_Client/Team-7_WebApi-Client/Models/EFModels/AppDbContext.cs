@@ -164,5 +164,8 @@ namespace Team_7_WebApi_Client.Models.EFModels
 				.WithRequired(e => e.User)
 				.WillCascadeOnDelete(false);
 		}
-	}
+
+        object placeHolderVariable;
+        public System.Data.Entity.DbSet<Team_7_WebApi_Client.Models.Views.CategoryVM> CategoryVMs { get; set; }
+    }
 }

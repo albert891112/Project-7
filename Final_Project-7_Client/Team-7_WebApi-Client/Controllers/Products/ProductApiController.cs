@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Team_7_WebApi_Client.Models.DTOS;
+using Team_7_WebApi_Client.Models.Views;
 using Team_7_WebApi_Client.Services;
 
 namespace Team_7_WebApi_Client.Controllers.Products
@@ -39,6 +40,16 @@ namespace Team_7_WebApi_Client.Controllers.Products
 
             return Ok(dtos);
         }
+
+        [HttpGet]
+        public IHttpActionResult Search(ProductSearchVM vm)
+        {
+            ProductSearchDTO dto = vm.ToDTO();
+
+            List<ProductDTO> dtos = this.service.Search(dto);
+
+            return Ok(dtos);
+        }   
    
     }
 }

@@ -24,9 +24,10 @@ namespace Team_7_WebApi_Client.Repositories
         /// <returns></returns>
         public ProductEntity Get(int id)
         {
-            string sql = "SELECT P.* , GC.* , C.* FROM Products as P " +
+            string sql = "SELECT P.* , GC.* , C.* , S.* FROM Products as P " +
                 "INNER JOIN GenderCategories as GC ON P.GenderId = GC.Id " +
-                "INNER JOIN Categories as C ON P.CategoryId = C.Id;" +
+                "INNER JOIN Categories as C ON P.CategoryId = C.Id " +
+                "INNER JOIN Stocks as S ON P.StockId = S.Id " +
                 "WHERE P.Id = @Id";
 
             object obj = new
@@ -36,10 +37,11 @@ namespace Team_7_WebApi_Client.Repositories
 
             Func<SqlConnection, string, object, ProductEntity> func = (conn, s, o) =>
             {
-                return conn.Query<ProductEntity, GenderCategoryEntity, CategoryEntity, ProductEntity>(s, (p, gc, c) =>
+                return conn.Query<ProductEntity, GenderCategoryEntity, CategoryEntity, StockEntity ,ProductEntity>(s, (p, gc, c , st) =>
                 {
                     p.Gender = gc;
                     p.Category = c;
+                    p.Stock = st;
                     return p;
                 }, o).FirstOrDefault();
 
@@ -94,13 +96,14 @@ namespace Team_7_WebApi_Client.Repositories
         /// <returns></returns>
         public List<ProductEntity> Search(ProductSearchEntity entity)
         {
-            string sql = "SELECT P.* , GC.* , C.* FROM Products as P " +
+            string sql = "SELECT P.* , GC.* , C.* , S.* FROM Products as P " +
                 "INNER JOIN GenderCategories as GC ON P.GenderId = GC.Id " +
                 "INNER JOIN Categories as C ON P.CategoryId = C.Id " +
+                "INNER JOIN Stocks as S ON P.StockId = S.Id " +
                 "WHERE (@CategoryId IS NULL OR C.Id = @CategoryId) " +
                 "AND (@Name IS NULL OR P.Name LIKE '%' + @Name +'%') " +
                 "AND (@LowPrice IS NULL OR P.Price >= @LowPrice) " +
-                "AND (@HeightPrice IS NULL OR P.Price <= @HightPrice) " +
+                "AND (@HightPrice IS NULL OR P.Price <= @HightPrice) " +
                 "AND (@GenderId IS NULL OR GC.Id = @GenderId)" +
                 "Order By p.Id";
 
@@ -109,18 +112,19 @@ namespace Team_7_WebApi_Client.Repositories
              
                 Name = entity.Name,
                 LowPrice= entity.LowPrice,
-                HeightPrice = entity.HeightPrice,
-                Genderid = entity.Gender.Id,
-                CategoryId = entity.Category.Id
+                HightPrice = entity.HightPrice,
+                Genderid = entity.LowPrice,
+                CategoryId = entity.CategoryId
 
             };
 
             Func<SqlConnection, string, object, List<ProductEntity>> func = (conn, s, o) =>
             {
-                return conn.Query<ProductEntity, GenderCategoryEntity, CategoryEntity, ProductEntity>(s, (p, gc, c) =>
+                return conn.Query<ProductEntity, GenderCategoryEntity, CategoryEntity, StockEntity ,  ProductEntity>(s, (p, gc, c , st) =>
                 {
                     p.Gender = gc;
                     p.Category = c;
+                    p.Stock = st;
                     return p;
                 }, o).ToList();
 

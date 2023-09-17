@@ -11,6 +11,7 @@ namespace Team_7_WebApi_Client.Models.Views
     {
         public int Id { get; set; }
         public CategoryVM Category { get; set; }
+        public GenderCategoryVM Gender { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Image { get; set; }
@@ -22,12 +23,12 @@ namespace Team_7_WebApi_Client.Models.Views
 
     public class ProductSearchVM
     {
-        public CategoryVM Category { get; set; }
+        public string CategoryId { get; set; }
         public string Name { get; set; }
-        public int HeightPrice { get; set; }
-        public int LowPrice { get; set; }
+        public string HightPrice { get; set; }
+        public string LowPrice { get; set; }
 
-        public GenderCategoryVM Gender { get; set; }
+        public string Gender { get; set; }
     }
 
     public static class ProductVMExtenssion
@@ -38,6 +39,7 @@ namespace Team_7_WebApi_Client.Models.Views
             {
                 Id = dto.Id,
                 Category = dto.Category.ToVM(),
+                Gender = dto.Gender.ToVM(),
                 Name = dto.Name,
                 Price = dto.Price,
                 Image = dto.Image,

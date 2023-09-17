@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using Team_7_WebApi_Client.Models.Entities;
 using Team_7_WebApi_Client.Models.Views;
+using Albert.Lib;
 
 namespace Team_7_WebApi_Client.Models.DTOS
 {
@@ -12,6 +13,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
     {
         public int Id { get; set; }
         public CategoryDTO Category { get; set; }
+        public GenderCategoryDTO Gender { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Image { get; set; }
@@ -22,12 +24,12 @@ namespace Team_7_WebApi_Client.Models.DTOS
 
     public class ProductSearchDTO
     {
-        public CategoryDTO Category { get; set; }
+        public int? CategoryId { get; set; }
         public string Name { get; set; }
-        public int HeightPrice { get; set; }
-        public int LowPrice { get; set; }
+        public int? HightPrice { get; set; }
+        public int? LowPrice { get; set; }
 
-        public GenderCategoryDTO Gender { get; set; }
+        public int? Gender { get; set; }
     }
 
     public static class ProductDTOExtenssion
@@ -38,12 +40,14 @@ namespace Team_7_WebApi_Client.Models.DTOS
             {
                 Id = entity.Id,
                 Category = entity.Category.ToDTO(),
+                Gender = entity.Gender.ToDTO(),
                 Name = entity.Name,
                 Price = entity.Price,
                 Image = entity.Image,
                 Description = entity.Description,
                 Stock = entity.Stock,
                 Enable = entity.Enable
+                
             };
         }
 
@@ -62,27 +66,16 @@ namespace Team_7_WebApi_Client.Models.DTOS
             };
         }
 
-        public static ProductSearchDTO ToDTO(this ProductSearchEntity entity)
-        {
-            return new ProductSearchDTO
-            {
-                Category = entity.Category.ToDTO(),
-                Name = entity.Name,
-                HeightPrice = entity.HeightPrice,
-                LowPrice = entity.LowPrice,
-                Gender = entity.Gender.ToDTO()
-            };
-        }
 
         public static ProductSearchDTO ToDTO(this ProductSearchVM vm)
         {
             return new ProductSearchDTO
             {
-                Category = vm.Category.ToDTO(),
+                CategoryId = vm.CategoryId.IntHasValue(),
                 Name = vm.Name,
-                HeightPrice = vm.HeightPrice,
-                LowPrice = vm.LowPrice,
-                Gender = vm.Gender.ToDTO()
+                HightPrice = vm.HightPrice.IntHasValue(),
+                LowPrice = vm.LowPrice.IntHasValue(),
+                Gender = vm.Gender.IntHasValue()
             };
         }
     }
