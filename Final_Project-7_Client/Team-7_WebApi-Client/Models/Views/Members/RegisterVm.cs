@@ -13,18 +13,18 @@ namespace Team_7_WebApi_Client.Models.Views
 
         [Display(Name = "帳號")]
         [Required]
-        [StringLength(30)]
+        [StringLength(50)]
         public string Account { get; set; }
 
         [Display(Name = "密碼")]
         [Required]
-        [StringLength(50)]
+        [StringLength(70)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Display(Name = "確認密碼")]
         [Required]
-        [StringLength(50)]
+        [StringLength(70)]
         [Compare(nameof(Password))]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
@@ -36,12 +36,12 @@ namespace Team_7_WebApi_Client.Models.Views
 
         [Display(Name = "名")]
         [Required]
-        [StringLength(10)]
+        [StringLength(50)]
         public string FirstName { get; set; }
 
         [Display(Name = "姓")]
         [Required]
-        [StringLength(10)]
+        [StringLength(50)]
         public string LastName { get; set; }
     }
 }

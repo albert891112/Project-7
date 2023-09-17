@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -35,6 +36,7 @@ namespace Team_7_WebApi_Client.Controllers
 			}
 			catch (Exception ex)
 			{
+				Console.WriteLine();
 				ModelState.AddModelError("", ex.Message);
 				return View(vm);
 			}
