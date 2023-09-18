@@ -19,6 +19,8 @@ namespace Team_7_WebApi_Client.Models.Entities
 		public DateTime OrderTime { get; set; }
 		public int Total { get; set; }
 		//public List<OrderItemEntity> OrderItemList { get; set; }
+
+
 	}
 	public class OrderItemEntity
 	{

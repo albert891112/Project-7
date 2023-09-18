@@ -212,7 +212,7 @@
     <Compile Include="Models\Entities\CategoryEntity.cs" />
     <Compile Include="Models\Entities\CouponEntity.cs" />
     <Compile Include="Models\Entities\CouponMemberEntity.cs" />
-    <Compile Include="Models\Entities\GenderCategoryDTO.cs" />
+    <Compile Include="Models\DTOS\GenderCategoryDTO.cs" />
     <Compile Include="Models\Entities\GenderCategoryEntity.cs" />
     <Compile Include="Models\Entities\MemberEntity.cs" />
     <Compile Include="Models\Entities\OrderEntity.cs" />

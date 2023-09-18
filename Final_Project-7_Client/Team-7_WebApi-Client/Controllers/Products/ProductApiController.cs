@@ -41,7 +41,7 @@ namespace Team_7_WebApi_Client.Controllers.Products
             return Ok(dtos);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult Search(ProductSearchVM vm)
         {
             ProductSearchDTO dto = vm.ToDTO();
