@@ -18,7 +18,7 @@ namespace Team_7_WebApi_Client.Repositories
         public List<CategoryEntity> Get(int Gender)
         {
             string sql = "SELECT C.* FROM GenderCategories as G " +
-                "INNER JOIN GenderCategory_Category as GC ON G.Id = GC.GenderCategoryId " +
+                "INNER JOIN GenderCategories_Categories as GC ON G.Id = GC.GenderCategoryId " +
                 "INNER JOIN Categories as C ON C.Id = CategoryId " +
                 "WHERE G.Gender = @Gender;";
 
