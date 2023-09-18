@@ -104,7 +104,7 @@ namespace Team_7_WebApi_Client.Repositories
                 "AND (@Name IS NULL OR P.Name LIKE '%' + @Name +'%') " +
                 "AND (@LowPrice IS NULL OR P.Price >= @LowPrice) " +
                 "AND (@HightPrice IS NULL OR P.Price <= @HightPrice) " +
-                "AND (@GenderId IS NULL OR GC.Id = @GenderId)" +
+                "AND (@Gender IS NULL OR GC.Gender = @Gender)" +
                 "Order By p.Id";
 
             object obj = new
@@ -113,7 +113,7 @@ namespace Team_7_WebApi_Client.Repositories
                 Name = entity.Name,
                 LowPrice= entity.LowPrice,
                 HightPrice = entity.HightPrice,
-                Genderid = entity.LowPrice,
+                Gender = entity.Gender,
                 CategoryId = entity.CategoryId
 
             };

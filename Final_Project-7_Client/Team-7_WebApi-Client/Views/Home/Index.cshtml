@@ -1,26 +1,197 @@
-﻿<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="aspnetTitle">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-            a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-            is an ideal platform for building RESTful applications on the .NET Framework.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-        </section>>
+﻿<style>
+    .btncolor {
+        background-color: white;
+        border: 1px solid white;
+        border-color: white;
+    }
+
+    .Homecolor {
+        border: 1px solid rgba(248, 249, 250);
+        border-color: rgba(248, 249, 250)
+    }
+
+    .categorybtn {
+        background-color: rgb(217, 213, 213);
+        border: 1px solid rgb(217, 213, 213);
+        border-color: rgb(217, 213, 213);
+    }
+
+    .currentbtn {
+        background-color: rgb(11, 18, 28);
+        color: white;
+        border: 1px solid rgb(255, 255, 255);
+        border-color: rgb(255, 255, 255);
+    }
+</style>
+<body>
+    <!--商品模板-->
+    <template class="product_list">
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="item my-3 mx-1">
+                <a class="product" href="">
+                    <div class="card bg-light text-white">
+                        <img src="" class="card-img photo w-100" alt="...">
+                        <div class="card-img-overlay">
+                            <h5 class="card-title name"></h5>
+                            <p class="card-text price"></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </template>
+    <!--商品模板-->
+    <!--分類模板-->
+    <template class="Category_button">
+        <button class="btn mx-2 categorybtn category" gender="" categoryId=""></button>
+    </template>
+    <!--分類模板-->
+
+    <!--導覽頁-->
+    <!--<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <button class="ToHome bg-light Homecolor mt-1">Home</button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>-->
+    <!--導覽頁-->
+
+    <!--輪播頁-->
+    <div class="container mt-5">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <button class="ToMen w-100 btncolor"><img src="../../Files/men.jpeg" class="d-block w-100" alt="..."></button>
+                </div>
+                <div class="carousel-item">
+                    <button class="ToWomen w-100 btncolor"><img src="../../Files/women.jpeg" class="d-block w-100" alt="..."></button>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
-</main>
+    <!--輪播頁-->
+    <!--首頁-->
+    <div class="home">
+        <!--首頁文字-->
+        <div class="container my-5">
+            <div class="row">
+                <div class="item text-center">
+                    <h4>哇洗宜蘭郎</h4>
+                    <p>透過最新的風格選品，同步享受與世界同步的生活與風尚，今天開始搭配美好的一天。</p>
+                </div>
+            </div>
+        </div>
+        <!--首頁文字-->
+        <!--全部商品-->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="item text-center">
+                    <h4>全部商品</h4>
+                </div>
+            </div>
+        </div>
+        <!--全部商品-->
+        <!--商品列-->
+        <div class="container my-3">
+            <div class="row product_show_list">
+
+            </div>
+        </div>
+        <!--商品列-->
+    </div>
+
+    <!--男裝-->
+    <div class="men">
+        <!--顯示分類-->
+        <div class="container w-100">
+            <div class="item my-5">
+                <h3 class="text-center">男裝</h3>
+                <div class="categories" style="display: flex; justify-content: center;">
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <!--顯示分類-->
+        <!--商品列-->
+        <div class="container my-4">
+            <div class="row product_show_list">
+
+            </div>
+        </div>
+        <!--商品列-->
+    </div>
+
+    <!--女裝-->
+    <div class="women">
+        <!--顯示分類-->
+        <div class="container w-100">
+            <div class="item my-5">
+                <h3 class="text-center">女裝</h3>
+                <div class="categories" style="display: flex; justify-content: center;">
+
+
+
+                </div>
+            </div>
+        </div>
+        <!--顯示分類-->
+        <!--商品列-->
+        <div class="container my-3">
+            <div class="row product_show_list">
+
+            </div>
+        </div>
+        <!--商品列-->
+    </div>
+
+    </body>
+
+@section scripts{ 
+    <script src="~/Js/HomePage.js"></script>
+    }
