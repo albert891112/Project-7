@@ -12,7 +12,7 @@ namespace Team_7_WebApi_Client.Models.Views.Members
 		public static Member ToEFModel(this RegisterVm vm)
 		{
 			var salt=HashUtility.GetSalt();
-			var hashPassword=HashUtility.ToSHA256(vm.Password, salt);
+			var hashPassword=HashUtility.ToSHA256(salt,vm.Password);
 
 			return new Member
 			{

@@ -32,7 +32,7 @@ namespace Team_7_WebApi_Client.Models.EFModels
         public string Email { get; set; }
 
         [Required]
-        [StringLength(15)]
+        [StringLength(70)]
         public string Password { get; set; }
 
         [Required]
