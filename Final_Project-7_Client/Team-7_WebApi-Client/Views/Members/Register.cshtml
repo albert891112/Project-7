@@ -20,11 +20,11 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="mb-3">
+        <div class="mb-3" >
             @*@Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "form-label col-md-2" })*@
 
             @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control rounded-pill mx-auto", placeholder = Html.DisplayNameFor(m => m.Account) } })
-            @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger text-center" })
 
         </div>
 
@@ -32,7 +32,7 @@
             @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "form-label col-md-2" })*@
 
             @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-pill mx-auto", placeholder = Html.DisplayNameFor(m => m.Password) } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger text-center" })
 
         </div>
 
@@ -40,7 +40,7 @@
             @*@Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "form-label col-md-2" })*@
 
             @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control rounded-pill mx-auto", placeholder = Html.DisplayNameFor(m => m.ConfirmPassword) } })
-            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger text-center" })
 
         </div>
 
@@ -49,14 +49,14 @@
             @*@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "form-label col-md-2" })*@
 
             @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control rounded-pill mx-auto", placeholder = Html.DisplayNameFor(m => m.LastName) } })
-            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger text-center" })
 
         </div>
         <div class="mb-3">
             @*@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "form-label col-md-2" })*@
 
             @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control rounded-pill mx-auto", placeholder = Html.DisplayNameFor(m => m.FirstName) } })
-            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger text-center" })
 
         </div>
 
@@ -64,7 +64,7 @@
             @*@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label col-md-2" })*@
 
             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control rounded-pill mx-auto", placeholder = Html.DisplayNameFor(m => m.Email) } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger text-center" })
 
         </div>
 
@@ -116,11 +116,11 @@
             z-index: -999;
         }
 
-            .bg img {
-                min-height: 100%;
-                width: 100%;
-                opacity: 80%;
-            }
+        .bg img {
+             min-height: 100%;
+             width: 100%;
+             opacity: 30%;
+        }
 
         #footer {
             margin-top: 10px;
@@ -134,10 +134,14 @@
 
         .mb-3 {
             padding-bottom: 30px;
+            text-align:center;
         }
 
-        .text-danger {
-            text-align: center
+        /*.text-danger {
+            text-align:center
         }
+        #danger{
+            text-align:center
+        }*/
     </style>
 }
