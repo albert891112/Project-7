@@ -18,6 +18,6 @@ namespace Team_7_WebApi_Client.Models.Views.Members
         public string Password { get; set; }
 
         [Display(Name ="記住我")]
-        public bool RememberMe { get; set; }=false;
+        public bool RememberMe { get; set; }
     }
 }
