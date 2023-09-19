@@ -224,7 +224,9 @@
     <Compile Include="Models\Views\CategoryVM.cs" />
     <Compile Include="Models\Views\CouponVM.cs" />
     <Compile Include="Models\Views\GenderCategoryVM.cs" />
+    <Compile Include="Models\Views\Members\EditProfileVm.cs" />
     <Compile Include="Models\Views\Members\LoginVm.cs" />
+    <Compile Include="Models\Views\Members\MemberExts.cs" />
     <Compile Include="Models\Views\Members\RegisterExts.cs" />
     <Compile Include="Models\Views\Members\RegisterVm.cs" />
     <Compile Include="Models\Views\OrderVM.cs" />
@@ -425,6 +427,7 @@
     <Content Include="Views\Members\Login.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\ShowProduct\Show.cshtml" />
+    <Content Include="Views\Members\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
