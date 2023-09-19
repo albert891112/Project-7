@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Xml.Linq;
 using Team_7_WebApi_Client.Models.DTOS;
+using static Dapper.SqlMapper;
 
-namespace Team_7_WebApi_Client.Models.Entities
+namespace Team_7_WebApi_Client.Models.Views
 {
-	public class MemberEntity
+	public class MemberVM
 	{
 		public int Id { get; set; }
 
@@ -25,11 +24,11 @@ namespace Team_7_WebApi_Client.Models.Entities
 		public bool Enable { get; set; }
 	}
 
-	public static class MemberEntityExtenssion
+	public static class MemberVMExtenssion
 	{
-		public static MemberEntity ToEntity(this MemberDTO dto)
+		public static MemberVM ToVM(this MemberDTO dto)
 		{
-			return new MemberEntity
+			return new MemberVM
 			{
 				Id = dto.Id,
 				Account = dto.Account,
