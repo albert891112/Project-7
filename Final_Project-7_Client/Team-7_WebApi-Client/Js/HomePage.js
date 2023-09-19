@@ -193,8 +193,8 @@
   
       $.each(data  , function(key , ele){
           var item = template.clone();
-          item.find(".product").attr("href" , "ShowProduct.html?data="+ele.Name);
-          item.find(".photo").attr("src" , "https://tw.906studio.kr/web/product/big/202106/48428bb00743bc5ed42b869240bf7048.jpg");
+          item.find(".product").attr("href" , "./ShowProduct/Show?Id="+ ele.Id);
+          item.find(".photo").attr("src" , "../../Files/" + ele.Image);
           item.find(".name").text(ele.Name);
           item.find(".price").text("$" + ele.Price);
           $(".product_show_list").append(item);

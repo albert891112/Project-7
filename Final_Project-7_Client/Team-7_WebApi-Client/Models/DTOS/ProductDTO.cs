@@ -61,7 +61,6 @@ namespace Team_7_WebApi_Client.Models.DTOS
                 Price = vm.Price,
                 Image = vm.Image,
                 Description = vm.Description,
-                Stock = vm.Stock,
                 Enable = vm.Enable
             };
         }

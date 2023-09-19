@@ -16,7 +16,10 @@ namespace Team_7_WebApi_Client.Models.Views
         public int Price { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }
-        public StockEntity Stock { get; set; }
+        public int S { get; set; }
+        public int M { get; set; }
+        public int L { get; set; }
+        public int XL { get; set; }
         public bool Enable { get; set; }
     }
 
@@ -44,7 +47,10 @@ namespace Team_7_WebApi_Client.Models.Views
                 Price = dto.Price,
                 Image = dto.Image,
                 Description = dto.Description,
-                Stock = dto.Stock,
+                S = dto.Stock.S,
+                M = dto.Stock.M,
+                L = dto.Stock.L,
+                XL = dto.Stock.XL,
                 Enable = dto.Enable
             };
         }

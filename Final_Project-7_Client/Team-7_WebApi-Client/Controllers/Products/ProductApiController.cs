@@ -25,7 +25,9 @@ namespace Team_7_WebApi_Client.Controllers.Products
         {
             ProductDTO dto = this.service.Get(id);
 
-            return Ok(dto);
+            ProductVM vm   = dto.ToVM();
+
+            return Ok(vm);
         }
 
 

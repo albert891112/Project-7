@@ -1,0 +1,84 @@
+﻿<style>
+    .btncolor {
+        background-color: white;
+        border: 1px solid white;
+        border-color: white;
+    }
+
+    .Homecolor {
+        border: 1px solid rgba(248, 249, 250);
+        border-color: rgba(248, 249, 250)
+    }
+
+    .sizebtn {
+        background-color: rgb(217, 213, 213);
+        border: 1px solid rgb(217, 213, 213);
+        border-color: rgb(217, 213, 213);
+    }
+
+    .currentbtn {
+        background-color: rgb(12, 12, 13);
+        color: white;
+        border: 1px solid rgb(255, 255, 255);
+        border-color: rgb(255, 255, 255);
+    }
+</style>
+</head>
+<body>
+
+    <!--商品描述-->
+
+    <div class="comtainer mt-5 w-75 mx-auto">
+        <div class="row show_detail">
+            <!--商品描述模板-->
+            <template class="product_detail">
+                <div class="col-12 col-md-6 mt-5">
+                    <img src="" alt="" class="photo w-75">
+                </div>
+                <div class="col-12 col-md-6 mt-5 text-center">
+                    <h3 class="mt-5 name">商品名稱</h3>
+                    <p class="price my-4">商品價格</p>
+                    <div class="box" style="height: 150px;">
+                        <p class="Description">商品描述</p>
+                    </div>
+                    <hr>
+                    <div class="size my-4">
+                        <button id="size" class="btn mx-2 sizebtn S" num="">S</button>
+                        <button id="size" class="btn mx-2 sizebtn M" num="">M</button>
+                        <button id="size" class="btn mx-2 sizebtn L" num="">L</button>
+                        <button id="size" class="btn mx-2 sizebtn XL" num="">XL</button>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <button class="btn btn-outline-secondary minus disabled" type="button">-</button>
+                                    <input type="text" value="0" class="form-control text-center numOfProduct" readonly>
+                                    <button class="btn btn-outline-secondary plus" type="button">+</button>
+                                </div>
+                                <div class="alert alert-danger" role="alert">
+                                    以達到商品庫存上限
+                                </div>
+
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <a href=""><button class="btn btn-dark">加入購物車</button></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </template>
+            <!--商品描述模板-->
+        </div>
+    </div>
+
+
+</body>
+
+
+
+
+@section scripts{
+    <script src="~/Js/ShowProduct.js"></script>
+}
