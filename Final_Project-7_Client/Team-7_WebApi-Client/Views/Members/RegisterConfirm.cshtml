@@ -3,5 +3,40 @@
     ViewBag.Title = "RegisterConfirm";
 }
 
-<h2>RegisterConfirm</h2>
+<div class="bg">
+    <img src="/Files/pic-login.jpg">
+</div>
 
+<h2 class="greet">註冊成功！</h2>
+<br />
+<h4 class="function">快登入開始您的選物之旅吧</h4>
+
+@section css{
+    <style>
+        .greet {
+            margin-top: 100px;
+            text-align: center;
+            font-family: 'Yu Gothic UI';
+        }
+
+        .function {
+            text-align: center;
+            font-family: 'Yu Gothic UI' ;
+            padding-bottom: 200px;
+        }
+        .bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -999;
+        }
+
+        .bg img {
+            min-height: 100%;
+            width: 100%;
+            opacity: 30%;
+        }
+    </style>
+    }

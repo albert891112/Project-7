@@ -39,8 +39,8 @@
                             @*<li><a href="/Members/Index/" class="nav-link">@(User.Identity.Name)</a></li>*@
 
                             <li>@Html.ActionLink("購物車", "Info", "Cart", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("登出會員", "Logout", "Members", new { area = "" }, new { @class = "nav-link" })</li>
                             <li>@Html.ActionLink("會員中心", "Index", "Members", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("登出會員", "Logout", "Members", new { area = "" }, new { @class = "nav-link" })</li>
 
                         }
                         else

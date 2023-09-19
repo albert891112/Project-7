@@ -148,5 +148,22 @@ namespace Team_7_WebApi_Client.Controllers
 			db.Members.Add(member);
 			db.SaveChanges();
 		}
+
+		//private bool CheckAccountExists(RegisterVm vm)
+		//{
+		//	using(var db = new AppDbContext())
+		//	{
+		//		//check account in members
+		//		return db.Members.Any(p=>p.Account==vm.Account);
+		//	}
+  //      }
+
+		//[HttpPost]
+		//public JsonResult CheckAccountAvailability(RegisterVm vm)
+		//{
+		//	bool isAccountExists=CheckAccountExists(vm);
+
+		//	return Json(new {available=!isAccountExists});
+		//}
 	}
 }
