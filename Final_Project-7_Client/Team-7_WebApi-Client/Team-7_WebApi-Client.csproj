@@ -423,6 +423,7 @@
     <Content Include="Views\Members\Register.cshtml" />
     <Content Include="Views\Members\RegisterConfirm.cshtml" />
     <Content Include="Views\Members\Login.cshtml" />
+    <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\ShowProduct\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
