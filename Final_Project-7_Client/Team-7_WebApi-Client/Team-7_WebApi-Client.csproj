@@ -173,6 +173,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Cart\ApiController.cs" />
     <Compile Include="Controllers\Category\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -428,6 +429,7 @@
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\ShowProduct\Show.cshtml" />
     <Content Include="Views\Members\EditProfile.cshtml" />
+    <Content Include="Views\Api\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
