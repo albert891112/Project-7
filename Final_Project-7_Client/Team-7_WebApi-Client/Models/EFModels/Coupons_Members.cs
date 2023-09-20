@@ -14,6 +14,8 @@ namespace Team_7_WebApi_Client.Models.EFModels
 
         public int CouponId { get; set; }
 
+        public bool Enabled { get; set; }
+
         public virtual Coupon Coupon { get; set; }
 
         public virtual Member Member { get; set; }

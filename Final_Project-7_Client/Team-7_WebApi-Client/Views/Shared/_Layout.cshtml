@@ -30,8 +30,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li>@Html.ActionLink("首頁", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("男裝", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("女裝", "Index", "Category", new { area = "" }, new { @class = "nav-link" })</li>
+                   
 
                     @{
                         if (User.Identity.IsAuthenticated)

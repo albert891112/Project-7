@@ -173,6 +173,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Cart\ApiController.cs" />
     <Compile Include="Controllers\Category\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -183,10 +184,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOS\CartDTO.cs" />
+    <Compile Include="Models\DTOS\CartItemDTO.cs" />
     <Compile Include="Models\DTOS\CategoryDTO.cs" />
     <Compile Include="Models\DTOS\CouponDTO.cs" />
+    <Compile Include="Models\DTOS\CouponMemberDTO.cs" />
+    <Compile Include="Models\DTOS\MemberDTO.cs" />
     <Compile Include="Models\DTOS\OrderDTO.cs" />
+    <Compile Include="Models\DTOS\OrderItemDTO.cs" />
+    <Compile Include="Models\DTOS\OrderStatusDTO.cs" />
+    <Compile Include="Models\DTOS\PaymentDTO.cs" />
     <Compile Include="Models\DTOS\ProductDTO.cs" />
+    <Compile Include="Models\DTOS\ShippingDTO.cs" />
     <Compile Include="Models\DTOS\StockDTO.cs" />
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\Cart.cs" />
@@ -194,10 +202,13 @@
     <Compile Include="Models\EFModels\Category.cs" />
     <Compile Include="Models\EFModels\Coupon.cs" />
     <Compile Include="Models\EFModels\Coupons_Members.cs" />
+    <Compile Include="Models\EFModels\DiscountType.cs" />
+    <Compile Include="Models\EFModels\GenderCategories_Categories.cs" />
     <Compile Include="Models\EFModels\GenderCategory.cs" />
     <Compile Include="Models\EFModels\Member.cs" />
     <Compile Include="Models\EFModels\Order.cs" />
     <Compile Include="Models\EFModels\OrderItem.cs" />
+    <Compile Include="Models\EFModels\OrderStatu.cs" />
     <Compile Include="Models\EFModels\Payment.cs" />
     <Compile Include="Models\EFModels\Premission.cs" />
     <Compile Include="Models\EFModels\Product.cs" />
@@ -205,11 +216,11 @@
     <Compile Include="Models\EFModels\Role.cs" />
     <Compile Include="Models\EFModels\Roles_Permissions.cs" />
     <Compile Include="Models\EFModels\Shipping.cs" />
-    <Compile Include="Models\EFModels\Status.cs" />
     <Compile Include="Models\EFModels\Stock.cs" />
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\Users_Roles.cs" />
     <Compile Include="Models\Entities\CartEntity.cs" />
+    <Compile Include="Models\Entities\CartItemEntity.cs" />
     <Compile Include="Models\Entities\CategoryEntity.cs" />
     <Compile Include="Models\Entities\CouponEntity.cs" />
     <Compile Include="Models\Entities\CouponMemberEntity.cs" />
@@ -217,18 +228,32 @@
     <Compile Include="Models\Entities\GenderCategoryEntity.cs" />
     <Compile Include="Models\Entities\MemberEntity.cs" />
     <Compile Include="Models\Entities\OrderEntity.cs" />
+    <Compile Include="Models\Entities\OrderItemEntity.cs" />
+    <Compile Include="Models\Entities\OrderStatusEntity.cs" />
+    <Compile Include="Models\Entities\PaymentEntity.cs" />
     <Compile Include="Models\Entities\ProductEntity.cs" />
+    <Compile Include="Models\Entities\ShippingEntity.cs" />
     <Compile Include="Models\Entities\StockEntity.cs" />
     <Compile Include="Models\Infra\HashUtility.cs" />
+    <Compile Include="Models\Views\CartItemVM.cs" />
     <Compile Include="Models\Views\CartVM.cs" />
     <Compile Include="Models\Views\CategoryVM.cs" />
+    <Compile Include="Models\Views\CouponMemberVM.cs" />
     <Compile Include="Models\Views\CouponVM.cs" />
     <Compile Include="Models\Views\GenderCategoryVM.cs" />
+    <Compile Include="Models\Views\Members\EditPasswordVm.cs" />
+    <Compile Include="Models\Views\Members\EditProfileVm.cs" />
     <Compile Include="Models\Views\Members\LoginVm.cs" />
+    <Compile Include="Models\Views\Members\MemberExts.cs" />
     <Compile Include="Models\Views\Members\RegisterExts.cs" />
     <Compile Include="Models\Views\Members\RegisterVm.cs" />
+    <Compile Include="Models\Views\MemberVM.cs" />
+    <Compile Include="Models\Views\OrderItemVM.cs" />
+    <Compile Include="Models\Views\OrderStatusVM.cs" />
     <Compile Include="Models\Views\OrderVM.cs" />
+    <Compile Include="Models\Views\PaymentVM.cs" />
     <Compile Include="Models\Views\ProductVM.cs" />
+    <Compile Include="Models\Views\ShippingVM.cs" />
     <Compile Include="Models\Views\StockVM.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -425,6 +450,9 @@
     <Content Include="Views\Members\Login.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\ShowProduct\Show.cshtml" />
+    <Content Include="Views\Members\EditProfile.cshtml" />
+    <Content Include="Views\Api\Cart.cshtml" />
+    <Content Include="Views\Members\EditPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

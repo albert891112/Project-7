@@ -10,7 +10,7 @@ namespace Team_7_WebApi_Client.Models.Entities
 	{
 		public int Id { get; set; }
 		public MemberEntity Member { get; set; }
-		public StatusEntity OrderStatus { get; set; }
+		public OrderStatusEntity OrderStatus { get; set; }
 		public string PhoneNumber { get; set; }
 		public string Address { get; set; }
 		public CouponEntity Coupon { get; set; }
@@ -18,41 +18,26 @@ namespace Team_7_WebApi_Client.Models.Entities
 		public PaymentEntity Payment { get; set; }
 		public DateTime OrderTime { get; set; }
 		public int Total { get; set; }
-		//public List<OrderItemEntity> OrderItemList { get; set; }
-
-
-	}
-	public class OrderItemEntity
-	{
-		public int Id { get; set; }
-		public OrderEntity Order { get; set; }
-		public ProductEntity Product { get; set; }
-		public string ProductName { get; set; }
-		public int Qty { get; set; }
-		public int Price { get; set; }
-		public string Size { get; set; }
-		public int Subtotal { get; set; }
-
-	}
-
-	public class StatusEntity
-	{
-		public int Id { get; set; }
-		public string Status { get; set; }
+		public List<OrderItemEntity> OrderItemList { get; set; }
 	}
 
 
-
-	public class ShippingEntity
+	public static class OrderEntityExtensions
 	{
-		public int Id { get; set; }
-		public string ShippingMethod { get; set; }
-		public int Price { get; set; }
+		public static OrderEntity ToEntity(this OrderDTO dto)
+		{
+			return new OrderEntity
+			{
+				Id = dto.Id,
+				OrderStatus = dto.OrderStatus.ToEntity(),
+				PhoneNumber = dto.PhoneNumber,
+				Address = dto.Address,
+				Coupon = dto.Coupon.ToEntity(),
+				Shipping = dto.Shipping.ToEntity(),
+				Payment = dto.Payment.ToEntity(),
+				OrderTime = dto.OrderTime,
+				Total = dto.Total,
+			};
+		}
 	}
-
-	public class PaymentEntity
-	{
-		public int Id { get; set; }
-		public string PaymentMethod { get; set; }
-	}	
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using Team_7_WebApi_Client.Models.Entities;
+using Team_7_WebApi_Client.Models.Views;
 
 namespace Team_7_WebApi_Client.Models.DTOS
 {
@@ -46,6 +47,23 @@ namespace Team_7_WebApi_Client.Models.DTOS
 				Image = entity.Image,			
 			};
 		}
+
+		public static CouponDTO ToDTO(this CouponVM vm)
+		{
+			return new CouponDTO
+			{
+				Id = vm.Id,
+				CouponCode = vm.CouponCode,
+				CouponName = vm.CouponName,
+				Discount = vm.Discount.ToDTO(),
+				DiscountValue = vm.DiscountValue,
+				CouponDescription = vm.CouponDescription,
+				ExpiratinDate = vm.ExpiratinDate,
+				UsageCount = vm.UsageCount,
+				Enable = vm.Enable,
+				Image = vm.Image,
+			};
+		}
 	}
 
 
@@ -57,6 +75,15 @@ namespace Team_7_WebApi_Client.Models.DTOS
 			{
 				Id = entity.Id,				
 				Type = entity.Type,				
+			};
+		}
+
+		public static DiscountTypeDTO ToDTO(this DiscountTypeVM vm)
+		{
+			return new DiscountTypeDTO
+			{
+				Id = vm.Id,
+				Type = vm.Type,
 			};
 		}
 	}

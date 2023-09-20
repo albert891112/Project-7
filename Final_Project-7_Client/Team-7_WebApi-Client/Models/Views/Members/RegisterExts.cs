@@ -20,7 +20,7 @@ namespace Team_7_WebApi_Client.Models.Views.Members
 				Account = vm.Account,
 				Password = hashPassword,
 				Email = vm.Email,
-				FristName = vm.FirstName,
+				FirstName = vm.FirstName,
 				LastName = vm.LastName,
 				Enable = true,
 			};

@@ -4,29 +4,18 @@ using System.Linq;
 using System.Web;
 using Team_7_WebApi_Client.Models.EFModels;
 using Team_7_WebApi_Client.Models.Entities;
+using Team_7_WebApi_Client.Models.Views;
 
 namespace Team_7_WebApi_Client.Models.DTOS
 {
 	public class CartDTO
 	{
 		public int Id { get; set; }
-		//todo public MemberEntity Member { get; set; }
+	    public MemberDTO Member { get; set; }
+
+		public List<CartItemDTO> CartItems { get; set; }
 	}
-
-
-	public class CartItemDTO
-	{
-		public int Id { get; set; }
-		public OrderDTO Order { get; set; }
-		public ProductDTO Product { get; set; }
-		public string ProductName { get; set; }
-		public int Qty { get; set; }
-		public int Price { get; set; }
-		public string Size { get; set; }
-		public int SubTotal { get; set; }
-	}
-
-
+	
 	public static class CartDTOExtenssion
 	{
 		public static CartDTO ToDTO(this CartEntity entity)
@@ -34,28 +23,39 @@ namespace Team_7_WebApi_Client.Models.DTOS
 			return new CartDTO
 			{
 				Id = entity.Id,
-				//todo Member = entity.MemberEntity.Id,
-
+				Member = entity.Member.ToDTO(),
+				CartItems = entity.CartItems.Select(x => new CartItemDTO
+				{
+					Id = x.Id,					
+					ProductName = x.ProductName,
+					Qty = x.Qty,
+					Price = x.Price,
+					Size = x.Size,
+					SubTotal = x.SubTotal,
+				}).ToList()
 			};
-		}		
-	}
+		}
 
 
-	public static class CartItemDTOExtenssion
-	{
-		public static CartItemDTO ToDTO(this CartItemEntity entity)
+		public static CartDTO ToDTO(this CartVM vm)
 		{
-			return new CartItemDTO
+			return new CartDTO
 			{
-				Id = entity.Id,
-				Order =entity.Order.ToDTO(),
-				Product = entity.Product.ToDTO(),
-				ProductName = entity.ProductName,
-				Qty = entity.Qty,
-				Price = entity.Price,
-				Size = entity.Size,
-				SubTotal = entity.SubTotal,
+				Id = vm.Id,
+				Member = vm.Member.ToDTO(),
+				CartItems = vm.CartItems.Select(x => new CartItemDTO
+				{
+					Id = x.Id,
+					ProductName = x.ProductName,
+					Qty = x.Qty,
+					Price = x.Price,
+					Size = x.Size,
+					SubTotal = x.SubTotal,
+				}).ToList()
 			};
 		}
 	}
+
+
+	
 }

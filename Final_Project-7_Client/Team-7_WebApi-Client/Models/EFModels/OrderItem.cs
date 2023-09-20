@@ -14,8 +14,6 @@ namespace Team_7_WebApi_Client.Models.EFModels
 
         public int ProductId { get; set; }
 
-        public int Qty { get; set; }
-
         [Required]
         [StringLength(50)]
         public string ProductName { get; set; }
@@ -25,6 +23,8 @@ namespace Team_7_WebApi_Client.Models.EFModels
         [Required]
         [StringLength(50)]
         public string Size { get; set; }
+
+        public int Qty { get; set; }
 
         public int SubTotal { get; set; }
 

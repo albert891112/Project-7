@@ -5,14 +5,15 @@ using System.Web;
 using static Team_7_WebApi_Client.Models.Entities.OrderEntity;
 using Team_7_WebApi_Client.Models.Entities;
 using System.Net;
+using Team_7_WebApi_Client.Models.Views;
 
 namespace Team_7_WebApi_Client.Models.DTOS
 {
 	public class OrderDTO
 	{
 		public int Id { get; set; }
-		//todo public MemberDTO Member { get; set; }
-		public StatusDTO OrderStatus { get; set; }
+	    public MemberDTO Member { get; set; }
+		public OrderStatusDTO OrderStatus { get; set; }
 		public string PhoneNumber { get; set; }
 		public string Address { get; set; }
 		public CouponDTO Coupon { get; set; }
@@ -20,20 +21,8 @@ namespace Team_7_WebApi_Client.Models.DTOS
 		public PaymentDTO Payment { get; set; }
 		public DateTime OrderTime { get; set; }
 		public int Total { get; set; }
-		//public List<OrderItemDTO> OrderItemList { get; set; }
-	}
-
-	public class OrderItemDTO
-	{
-		public int Id { get; set; }
-		public OrderDTO Order { get; set; }
-		public ProductDTO Product { get; set; }
-		public string ProductName { get; set; }
-		public string Size { get; set; }
-		public int Qty { get; set; }
-		public int Price { get; set; }
-		public int Subtotal { get; set; }
-	}
+		public List<OrderItemDTO> OrderItemList { get; set; }
+	}	
 
 	//public class OrderSearchDTO
 	//{
@@ -53,28 +42,6 @@ namespace Team_7_WebApi_Client.Models.DTOS
 	//	public string Size { get; set; }
 	//}
 
-	public class StatusDTO
-	{
-		public int Id { get; set; }
-		public string Status { get; set; }
-	}
-
-
-
-	public class ShippingDTO
-	{
-		public int Id { get; set; }
-		public string ShippingMethod { get; set; }
-		public int Price { get; set; }
-	}
-
-	public class PaymentDTO
-	{
-		public int Id { get; set; }
-		public string PaymentMethod { get; set; }
-	}
-
-
 	public static class OrderDTOExtensions
 	{
 		public static OrderDTO ToDTO(this OrderEntity entity)
@@ -92,52 +59,20 @@ namespace Team_7_WebApi_Client.Models.DTOS
 				Total = entity.Total,
 			};
 		}
-
-		public static StatusDTO ToDTO(this StatusEntity entity)
+		public static OrderDTO ToDTO(this OrderVM vm)
 		{
-			return new StatusDTO
+			return new OrderDTO
 			{
-				Id = entity.Id,
-				Status = entity.Status,				
+				Id = vm.Id,
+				OrderStatus = vm.OrderStatus.ToDTO(),
+				PhoneNumber = vm.PhoneNumber,
+				Address = vm.Address,
+				Coupon = vm.Coupon.ToDTO(),
+				Shipping = vm.Shipping.ToDTO(),
+				Payment = vm.Payment.ToDTO(),
+				OrderTime = vm.OrderTime,
+				Total = vm.Total,
 			};
 		}
-
-		public static ShippingDTO ToDTO(this ShippingEntity entity)
-		{
-			return new ShippingDTO
-			{
-				Id = entity.Id,
-				ShippingMethod = entity.ShippingMethod,
-				Price = entity.Price,
-			};
-		}
-
-
-		public static PaymentDTO ToDTO(this PaymentEntity entity)
-		{
-			return new PaymentDTO
-			{
-				Id = entity.Id,
-				PaymentMethod = entity.PaymentMethod,
-			};
-		}
-	}
-
-	public static class OrderItemDTOExtensions
-	{
-		public static OrderItemDTO ToDTO(this OrderItemEntity entity)
-		{
-			return new OrderItemDTO
-			{
-				Id = entity.Id,
-				Order = entity.Order.ToDTO(),
-				Product = entity.Product.ToDTO(),
-				ProductName = entity.Product.Name,
-				Size = entity.Size,
-				Qty = entity.Qty,
-				Price = entity.Price,
-				Subtotal = entity.Subtotal,
-			};
-		}
-	}
+	}	
 }
