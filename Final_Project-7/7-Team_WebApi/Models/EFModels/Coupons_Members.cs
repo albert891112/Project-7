@@ -1,4 +1,4 @@
-namespace Team_7_WebApi_Client.Models.EFModels
+namespace _7_Team_WebApi.Models.EFModels
 {
     using System;
     using System.Collections.Generic;

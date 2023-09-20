@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI.WebControls;
 using Team_7_WebApi_Client.Models.EFModels;
 using Team_7_WebApi_Client.Models.Infra;
 using Team_7_WebApi_Client.Models.Views;
 using Team_7_WebApi_Client.Models.Views.Members;
-
 
 namespace Team_7_WebApi_Client.Controllers
 {
@@ -21,7 +22,11 @@ namespace Team_7_WebApi_Client.Controllers
             return View();
         }
 
-		public ActionResult Register()
+		/// <summary>
+        /// 註冊
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Register()
 		{
 			return View();
 		}
@@ -45,7 +50,10 @@ namespace Team_7_WebApi_Client.Controllers
 			return View("RegisterConfirm");
 		}
 
-		//Login View
+		/// <summary>
+        /// 登入
+        /// </summary>
+        /// <returns></returns>
 		public ActionResult Login()
 		{
 			return View();
@@ -71,6 +79,10 @@ namespace Team_7_WebApi_Client.Controllers
 			return Redirect(processResult.ReturnUrl);
 		}
 
+        /// <summary>
+        /// 登出
+        /// </summary>
+        /// <returns></returns>
 		public ActionResult Logout() 
 		{
 			Session.Abandon();
@@ -78,6 +90,10 @@ namespace Team_7_WebApi_Client.Controllers
 			return Redirect("/Members/Login");
 		}
 
+        /// <summary>
+        /// 修改用戶資料
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         public ActionResult EditProfile()
         {
@@ -101,6 +117,58 @@ namespace Team_7_WebApi_Client.Controllers
                 ModelState.AddModelError("",ex.Message); return View(vm);
             }
             return RedirectToAction("Index"); 
+        }
+
+        /// <summary>
+        /// 修改密碼（知道原密碼）
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        public ActionResult EditPassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditPassword(EditPasswordVm vm)
+        {
+            if (!ModelState.IsValid) { return View(vm); }
+            try
+            {
+                var currentAccount = User.Identity.Name;
+                ChangePassword(vm, currentAccount);
+            }catch(Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(vm);
+            }
+            return RedirectToAction("Index");
+        }
+
+        private void ChangePassword(EditPasswordVm vm, string currentAccount)
+        {
+            var db = new AppDbContext();
+            var memberInDb = new AppDbContext().Members.FirstOrDefault(p => p.Account == currentAccount);
+
+            if (memberInDb == null)
+            {
+                throw new Exception("帳號不存在");
+            }
+            var salt = HashUtility.GetSalt();
+
+            //compare origin password
+            var hashedOrignPassword = HashUtility.ToSHA256(salt, vm.OriginalPassword);
+            if (string.Compare(memberInDb.Password, hashedOrignPassword, true) != 0)
+            {
+                throw new Exception("原始密碼不正確");
+            }
+
+            //hash new password
+            var hashedPassword = HashUtility.ToSHA256(salt, vm.Password);
+
+            memberInDb.Password = hashedPassword;
+            db.SaveChanges();
         }
 
         private void RegisterMember(RegisterVm vm)
@@ -160,6 +228,10 @@ namespace Team_7_WebApi_Client.Controllers
             if (member == null)
             {
                 throw new Exception("帳號或密碼錯誤");
+            }
+            if (member.Enable == false)
+            {
+                throw new Exception("該帳號已被停用");
             }
 
             //Hash then compare

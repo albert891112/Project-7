@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 
-namespace Team_7_WebApi_Client.Models.EFModels
+namespace _7_Team_WebApi.Models.EFModels
 {
     public partial class AppDbContext : DbContext
     {
