@@ -71,10 +71,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                <select name="" id="sort" class="form-select-sm mb-3" style="width:200px;">
-                                    <option value="" selected>按購買順序</option>
-                                    <option value="unitprice">按單價排序</option>
-                                    <option value="qty">按數量遞減/ 單價遞增排序</option>
+                                <select name="" id="sort" class="form-select-sm mb-3" style="width:200px;">                                    
+                                    <option value="unitprice">按單價排序</option>                                    
                                     <option value="subtotal">按小計遞減排序</option>
                                 </select>
                             </div>
@@ -110,7 +108,12 @@
                 </div>
             </div>
         </div>
-    </div>    
-    </body>
+    </div>
+</body>
+
+@section scripts{
+    <script src="~/Js/Cart.js"></script>
+}
+
 
 
