@@ -6,18 +6,16 @@ namespace Team_7_WebApi_Client.Models.EFModels
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Coupons_Members
+    public partial class GenderCategories_Categories
     {
         public int Id { get; set; }
 
-        public int MemberId { get; set; }
+        public int GenderCategoryId { get; set; }
 
-        public int CouponId { get; set; }
+        public int CategoryId { get; set; }
 
-        public bool Enabled { get; set; }
+        public virtual Category Category { get; set; }
 
-        public virtual Coupon Coupon { get; set; }
-
-        public virtual Member Member { get; set; }
+        public virtual GenderCategory GenderCategory { get; set; }
     }
 }

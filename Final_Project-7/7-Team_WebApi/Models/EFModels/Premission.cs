@@ -1,4 +1,4 @@
-namespace Team_7_WebApi_Client.Models.EFModels
+namespace _7_Team_WebApi.Models.EFModels
 {
     using System;
     using System.Collections.Generic;
@@ -6,21 +6,26 @@ namespace Team_7_WebApi_Client.Models.EFModels
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Payment
+    [Table("Premission")]
+    public partial class Premission
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Payment()
+        public Premission()
         {
-            Orders = new HashSet<Order>();
+            Roles_Permissions = new HashSet<Roles_Permissions>();
         }
 
         public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string PaymentMethod { get; set; }
+        public string PermissionName { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string PermissionDescription { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Roles_Permissions> Roles_Permissions { get; set; }
     }
 }
