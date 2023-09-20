@@ -197,12 +197,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\CategoryDTO.cs" />
+    <Compile Include="Models\DTOs\GenderCategoryDTO.cs" />
     <Compile Include="Models\DTOs\MemberDTO.cs" />
     <Compile Include="Models\DTOs\OrderDTO.cs" />
     <Compile Include="Models\DTOs\OrderItemDTO.cs" />
     <Compile Include="Models\DTOs\ProductDTO.cs" />
     <Compile Include="Models\DTOs\StatusDTO.cs" />
     <Compile Include="Models\Entities\CategoryEntity.cs" />
+    <Compile Include="Models\Entities\GenderCategoryEntity.cs" />
     <Compile Include="Models\Entities\MemberEntity.cs" />
     <Compile Include="Models\Entities\OrderEntity.cs" />
     <Compile Include="Models\Entities\OrderItemEntity.cs" />
@@ -210,6 +212,7 @@
     <Compile Include="Models\Entities\StatusEntity.cs" />
     <Compile Include="Models\Entities\StockEntity.cs" />
     <Compile Include="Models\ViewModels\CategoryVM.cs" />
+    <Compile Include="Models\ViewModels\GenderCategoryVM.cs" />
     <Compile Include="Models\ViewModels\MemberVM.cs" />
     <Compile Include="Models\ViewModels\OrderVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
