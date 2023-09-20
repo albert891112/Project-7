@@ -20,10 +20,10 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="mb-3" >
+        <div class="mb-3">
             @*@Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "form-label col-md-2" })*@
 
-            @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control rounded-pill mx-auto", placeholder = Html.DisplayNameFor(m => m.Account),id="accountInput" } })
+            @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control rounded-pill mx-auto", placeholder = Html.DisplayNameFor(m => m.Account), id = "accountInput" } })
             @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger text-center" })
             <span id="accountAvailability"></span>
 
@@ -81,31 +81,6 @@
     <!--@Html.ActionLink("Back to List", "Index")
     </div>-->*@
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-
-    @*<script>
-        $(document).ready(function () {
-            $('#accountInput').on('input', function () {
-                var account = $(this).val();
-
-                $.ajax({
-                    url: '/Members/CheckAccountAvailability'
-                    type: 'post',
-                    data: { account: account },
-                    success: function (result) {
-                        if (result.available) {
-                            $('#accountAvailability').text('該帳號可使用');
-                        } else {
-                            $('#accountAvailability').text('該帳號已被使用');
-                        }
-                    }
-                })
-            })
-        })
-    </script>*@
-}
-
 @section css{
     <style>
         #guide {
@@ -138,11 +113,11 @@
             z-index: -999;
         }
 
-        .bg img {
-             min-height: 100%;
-             width: 100%;
-             opacity: 30%;
-        }
+            .bg img {
+                min-height: 100%;
+                width: 100%;
+                opacity: 30%;
+            }
 
         #footer {
             margin-top: 10px;
@@ -156,14 +131,43 @@
 
         .mb-3 {
             padding-bottom: 30px;
-            text-align:center;
+            text-align: center;
         }
 
         .text-danger {
-            text-align:center
+            text-align: center
         }
         /*#danger{
             text-align:center
         }*/
     </style>
 }
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#accountInput").keyup(function () {
+                var account = $("#accountInput").val();
+                $.ajax({
+                    url: "/Members/ValidateAccount",
+                    type: "POST",
+                    data: { account: account },
+                    success: function (result) {
+                        if (result==false) {
+                            $("#accountAvailability").text("此帳號已被註冊");
+                            $("#accountAvailability").css("color", "red");
+                        }
+                        else {
+                            $("#accountAvailability").text("此帳號可使用");
+                            $("#accountAvailability").css("color", "green");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

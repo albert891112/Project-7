@@ -34,7 +34,8 @@ namespace Team_7_WebApi_Client.Controllers
 		[HttpPost]
 		public ActionResult Register(RegisterVm vm)
 		{
-			if (!ModelState.IsValid)
+            
+            if (!ModelState.IsValid)
 			{
 				return View(vm);
 			}
@@ -47,14 +48,24 @@ namespace Team_7_WebApi_Client.Controllers
 				ModelState.AddModelError("", ex.Message);
 				return View(vm);
 			}
+            
 			return View("RegisterConfirm");
 		}
 
-		/// <summary>
+        public ActionResult ValidateAccount(RegisterVm vm)
+        {
+            var db = new AppDbContext();
+            var memberInDb = db.Members.FirstOrDefault(p => p.Account == vm.Account);
+
+            bool result=memberInDb==null;
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// 登入
         /// </summary>
         /// <returns></returns>
-		public ActionResult Login()
+        public ActionResult Login()
 		{
 			return View();
 		}
@@ -149,7 +160,7 @@ namespace Team_7_WebApi_Client.Controllers
         private void ChangePassword(EditPasswordVm vm, string currentAccount)
         {
             var db = new AppDbContext();
-            var memberInDb = new AppDbContext().Members.FirstOrDefault(p => p.Account == currentAccount);
+            var memberInDb = db.Members.FirstOrDefault(p => p.Account == currentAccount);
 
             if (memberInDb == null)
             {
@@ -159,7 +170,7 @@ namespace Team_7_WebApi_Client.Controllers
 
             //compare origin password
             var hashedOrignPassword = HashUtility.ToSHA256(salt, vm.OriginalPassword);
-            if (string.Compare(memberInDb.Password, hashedOrignPassword, true) != 0)
+            if (string.Compare(memberInDb.Password.Trim(), hashedOrignPassword, true) != 0)
             {
                 throw new Exception("原始密碼不正確");
             }
@@ -277,22 +288,5 @@ namespace Team_7_WebApi_Client.Controllers
 
             db.SaveChanges();
         }
-
-        //private bool CheckAccountExists(RegisterVm vm)
-        //{
-        //	using(var db = new AppDbContext())
-        //	{
-        //		//check account in members
-        //		return db.Members.Any(p=>p.Account==vm.Account);
-        //	}
-        //      }
-
-        //[HttpPost]
-        //public JsonResult CheckAccountAvailability(RegisterVm vm)
-        //{
-        //	bool isAccountExists=CheckAccountExists(vm);
-
-        //	return Json(new {available=!isAccountExists});
-        //}
     }
 }
