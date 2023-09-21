@@ -11,6 +11,7 @@ using Team_7_WebApi_Client.Models.EFModels;
 using Team_7_WebApi_Client.Models.Infra;
 using Team_7_WebApi_Client.Models.Views;
 using Team_7_WebApi_Client.Models.Views.Members;
+using Newtonsoft.Json.Linq;
 
 namespace Team_7_WebApi_Client.Controllers
 {
@@ -287,6 +288,41 @@ namespace Team_7_WebApi_Client.Controllers
             member.Email = vm.Email;
 
             db.SaveChanges();
+        }
+
+        [Route("GetMembers")]
+        [Route("{GetMembers}/{id}")]
+        public ActionResult GetMembers(int? id)
+        {
+            var db = new AppDbContext();
+            var obj = new JObject();
+
+
+            if (!string.IsNullOrWhiteSpace(id.ToString()))
+            {
+                var memberInDb = db.Members.Where(x => x.Id == id).Select(x => new { x.Id, x.Account, x.Email, x.FirstName, x.LastName, x.Enable }).ToList();
+
+                if (!memberInDb.Any())
+                {
+                    throw new Exception("帳號不存在");
+
+                }
+                obj.Add("members", JToken.FromObject(memberInDb));
+
+
+            }
+            else
+            {
+                var memberInDb = db.Members.Select(x => new { x.Id, x.Account, x.Email, x.FirstName, x.LastName, x.Enable }).ToList();
+                var members_count = db.Members.Count();
+
+                obj.Add("members", JToken.FromObject(memberInDb));
+                obj.Add("members_count", members_count);
+            }
+
+
+            return Content(obj.ToString(), "application/json");
+
         }
     }
 }
