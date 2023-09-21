@@ -10,7 +10,7 @@ namespace _7_Team_WebApi.Models.DTOs
     public class MemberDTO
     {
         public int Id { get; set; }
-        public string FristName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string  Account { get; set; }
@@ -27,7 +27,8 @@ namespace _7_Team_WebApi.Models.DTOs
             return new MemberDTO()
             {
                 Id = entity.Id,
-                FristName = entity.FristName,
+                Account = entity.Account,
+                FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 Email = entity.Email,
                 Password = entity.Password,
@@ -40,10 +41,10 @@ namespace _7_Team_WebApi.Models.DTOs
             return new MemberDTO()
             {
                 Id = vm.Id,
-                FristName = vm.FristName,
+                Account= vm.Account,
+                FirstName = vm.FirstName,
                 LastName = vm.LastName,
                 Email = vm.Email,
-                Password = vm.Password,
                 Enable = vm.Enable
             };
         }

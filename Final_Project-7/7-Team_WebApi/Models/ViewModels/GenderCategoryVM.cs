@@ -9,7 +9,7 @@ namespace _7_Team_WebApi.Models.ViewModels
     public class GenderCategoryVM
     {
         public int Id { get; set; }
-        public bool Gender { get; set; }
+        public int Gender { get; set; }
     }
 
     public static class GenderCategoryExtenssion

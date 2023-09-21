@@ -15,8 +15,17 @@ namespace _7_Team_WebApi.Models.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<GenderCategoryDTO> GenderCategories { get; set; }
     }
 
+    public  class CategoryCreateDTO
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<int> Gender { get; set; }
+    }
+
+ 
 
 
     /// <summary>
@@ -35,7 +44,8 @@ namespace _7_Team_WebApi.Models.DTOs
             return new CategoryDTO
             {
                 Id = entity.Id,
-                Name = entity.Name
+                Name = entity.Name,
+                GenderCategories = entity.GenderCategories.Select(x => x.ToDTO()).ToList()
             };
         }
 
@@ -49,9 +59,26 @@ namespace _7_Team_WebApi.Models.DTOs
             return new CategoryDTO
             {
                 Id = vm.Id,
-                Name = vm.Name
+                Name = vm.Name,
+                GenderCategories = vm.GenderCategories.Select(x => x.ToDTO()).ToList()
             };
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        public static CategoryCreateDTO ToDTO(this CategoryCreateVM vm)
+        {
+            return new CategoryCreateDTO
+            {
+                Id = vm.Id,
+                Name = vm.Name,
+                Gender = vm.Gender,
+            };
+        }
+
     }
     
 }

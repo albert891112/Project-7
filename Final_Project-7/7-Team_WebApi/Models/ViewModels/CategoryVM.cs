@@ -10,7 +10,15 @@ namespace _7_Team_WebApi.Models.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<GenderCategoryVM> GenderCategories { get; set; }
 
+    }
+
+    public class CategoryCreateVM
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<int> Gender { get; set; }
     }
 
     public static class CategoryVMExtensions
@@ -20,7 +28,8 @@ namespace _7_Team_WebApi.Models.ViewModels
             return new CategoryVM
             {
                 Id = dto.Id,
-                Name = dto.Name
+                Name = dto.Name,
+                GenderCategories = dto.GenderCategories.Select(x => x.ToVM()).ToList()
             };
         }
     }

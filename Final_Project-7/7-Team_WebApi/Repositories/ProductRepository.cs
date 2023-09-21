@@ -88,6 +88,7 @@ namespace _7_Team_WebApi.Repositories
         }
 
 
+     
         /// <summary>
         /// Search product 
         /// </summary>
@@ -110,7 +111,9 @@ namespace _7_Team_WebApi.Repositories
             {
 
                 Name = entity.Name,
-                Gender = entity.GenderId,
+                LowPrice = entity.LowPrice,
+                HightPrice = entity.HightPrice,
+                Gender = entity.Gender,
                 CategoryId = entity.CategoryId
 
             };
@@ -135,13 +138,14 @@ namespace _7_Team_WebApi.Repositories
             return products;
         }
 
-    
 
-    /// <summary>
-    /// Create new product
-    /// </summary>
-    /// <param name="entity"></param>
-    public void Create(ProductEntity entity)
+
+
+        /// <summary>
+        /// Create new product
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Create(ProductEntity entity)
     {
         string sql = "INSERT INTO Products " +
             "(Name, Price, Image, Description, StockId, Enable) " +

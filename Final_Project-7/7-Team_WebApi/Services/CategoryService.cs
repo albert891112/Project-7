@@ -10,7 +10,7 @@ using System.Web;
 
 namespace _7_Team_WebApi.Services
 {
-    public class CategoryService : IService<CategoryDTO>
+    public class CategoryService 
     {
         /// <summary>
         /// category repository
@@ -35,6 +35,37 @@ namespace _7_Team_WebApi.Services
 
 
         /// <summary>
+        /// Get Categories by Gender
+        /// </summary>
+        /// <param name="Gender"></param>
+        /// <returns></returns>
+        public List<CategoryDTO> GetByGender(int Gender)
+        {
+            List<CategoryEntity> entities = this.repo.GetAll();
+
+            //get category that GenderCategory contain Gender
+            entities = entities.Select(x => x).Where(x => 
+            {
+                bool result = false;
+                //if GenderCategory contain gender , set result to true
+                foreach(var item in x.GenderCategories)
+                {
+                    if(item.Gender == Gender)
+                    {
+                        result = true;
+                    }
+                }
+                return result;
+
+            }).ToList();
+
+            List<CategoryDTO> dtos = entities.Select(x => x.ToDTO()).ToList();
+
+            return dtos;
+        }
+
+
+        /// <summary>
         /// Get by Id
         /// </summary>
         /// <param name="id"></param>
@@ -53,9 +84,15 @@ namespace _7_Team_WebApi.Services
         /// Create new category
         /// </summary>
         /// <param name="dto"></param>
-        public void Create(CategoryDTO dto)
+        public void Create(CategoryCreateDTO dto)
         {
-            CategoryEntity entities = dto.ToEntity();
+            List<GenderCategoryEntity> genderCategories = dto.Gender.Select(x => new GenderCategoryEntity
+            {
+                Id = x
+
+            }).ToList();
+            
+            CategoryEntity entities = dto.ToEntity(genderCategories);
 
             this.repo.Create(entities);
         }
@@ -65,10 +102,15 @@ namespace _7_Team_WebApi.Services
         /// 
         /// </summary>
         /// <param name="dto"></param>
-        public void Update(CategoryDTO dto)
+        public void Update(CategoryCreateDTO dto)
         {
+            List<GenderCategoryEntity> genderCategories = dto.Gender.Select(x => new GenderCategoryEntity
+            {
+                Id = x
 
-            CategoryEntity entities = dto.ToEntity();
+            }).ToList();
+
+            CategoryEntity entities = dto.ToEntity(genderCategories);
 
             this.repo.Update(entities);
         }
@@ -79,7 +121,16 @@ namespace _7_Team_WebApi.Services
         /// <param name="id"></param>
         public void Delete(int id)
         {
-            this.repo.Delete(id);
+            var product = new ProductRepository().Search(new ProductSearchEntity { CategoryId = id });
+            
+            if(product.Count != 0)
+            {
+                throw new Exception("Category is using");
+            }
+            else
+            {
+                this.repo.Delete(id);
+            }
         }
 
     }

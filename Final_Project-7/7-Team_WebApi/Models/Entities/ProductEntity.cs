@@ -21,9 +21,12 @@ namespace _7_Team_WebApi.Models.Entities
 
     public class ProductSearchEntity
     {
-        public int Id { get; set; }
-        public int CategoryId { get; set; }
-        public int GenderId { get; set; }
+        public int? CategoryId { get; set; }
         public string Name { get; set; }
+
+        public int? Gender { get; set; }
+        public int? HightPrice { get; set; }
+        public int? LowPrice { get; set; }
+
     }
 }
