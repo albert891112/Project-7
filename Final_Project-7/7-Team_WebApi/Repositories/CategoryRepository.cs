@@ -1,10 +1,14 @@
 ﻿using _7_Team_WebApi.Models.DTOs;
+using _7_Team_WebApi.Models.EFModels;
 using _7_Team_WebApi.Models.Entities;
+using _7_Team_WebApi.Models.ViewModels;
 using Albert.Lib;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+
 
 
 namespace _7_Team_WebApi.Repositories
@@ -13,26 +17,48 @@ namespace _7_Team_WebApi.Repositories
     {
         SqlDb connection = new SqlDb();
 
-
-
+    
         /// <summary>
 		/// get all Categories table data
 		/// </summary>
 		/// <returns></returns>
 		public List<CategoryEntity> GetAll()
         {
+            string sql = @"SELECT  G.*, C.*
+                    FROM[dbo].[GenderCategories_Categories] AS GC
+                    INNER JOIN[dbo].[GenderCategories] AS G ON GC.[GenderCategoryId] = G.[Id]
+                    INNER JOIN[dbo].[Categories] AS C ON GC.[CategoryId] = C.[Id]";
 
 
-            string sql = "SELECT * FROM Categories Order By Id;";
+            Func<SqlConnection, string, List<CategoryEntity>> func = (conn, s) =>
+            {
+                Dictionary<int, CategoryEntity> dict = new Dictionary<int, CategoryEntity>();
 
+                conn.Query<GenderCategoryEntity, CategoryEntity, CategoryEntity>(s, (G, C) =>
+                {
+                    if (dict.TryGetValue(C.Id, out CategoryEntity category))
+                    {
+                        GenderCategoryEntity entity = G;
+                        category.GenderCategories.Add(entity);
 
-            List<CategoryEntity> result = this.connection.GetAll<CategoryEntity>(sql, "default");
+                    }
+                    else
+                    {
+                        C.GenderCategories = new List<GenderCategoryEntity>();
+                        C.GenderCategories.Add(G);
+                        dict.Add(C.Id, C);
+                    }
 
+                    return category;
 
+                });
 
+                return dict.Values.ToList();    
+            };
+
+            List<CategoryEntity> result = this.connection.GetAll<CategoryEntity>(sql, "default", func);
 
             return result;
-
         }
 
 
@@ -43,15 +69,41 @@ namespace _7_Team_WebApi.Repositories
         /// <returns></returns>
         public CategoryEntity Get(int Id)
         {
-            string sql = "SELECT * FROM Categories WHERE Id = @Id";
+            string sql = @"SELECT C.*  , G.* FROM Categories as C 
+                            INNER JOIN GenderCategories_Categories as GC ON C.Id = GC.CategoryId
+                            INNER JOIN GenderCategories as G ON GC.GenderCategoryId = G.Id
+                            WHERE C.Id = @Id";
 
             object obj = new { Id = Id };
 
-            CategoryEntity result = this.connection.Get<CategoryEntity>(sql, "default", obj);
+            Func<SqlConnection, string, object ,CategoryEntity> func = (conn, s , o) =>
+            {
+                CategoryEntity result = null;
 
-            return result;
+                conn.Query<CategoryEntity, GenderCategoryEntity, CategoryEntity>(s, (C, G) =>
+                {
+                    if (result == null)
+                    {
+                        result = C;
+                        result.GenderCategories = new List<GenderCategoryEntity>();
+                        result.GenderCategories.Add(G);
+                    }
+                    else
+                    {
+                        result.GenderCategories.Add(G);
+                    }
+                    return C;
+
+                }, o);
+
+                return result;
+            };
+
+            CategoryEntity entity = this.connection.Get<CategoryEntity>(sql, "default", obj ,func);
+
+            return entity;
+        
         }
-
 
 
         /// <summary>
@@ -61,15 +113,37 @@ namespace _7_Team_WebApi.Repositories
         public void Create(CategoryEntity entity)
         {
             
-
-            string sql = "INSERT INTO Categories(Name) VALUES (@Name)";
+            //Create new Category
+            string sql = "INSERT INTO Categories(Name) VALUES (@Name) SELECT CAST(SCOPE_IDENTITY() as int);";
 
             object obj = new
             {
                 Name = entity.Name,
             };
 
-            this.connection.Create(sql, "default", obj);
+            Func<SqlConnection, string, object, int> func = (conn, s, o) =>
+            {
+                int id = conn.QuerySingle<int>(sql, o);
+                return id;
+            };
+
+            int newId = this.connection.CreateAndGetId(sql, "default", obj , func);
+
+            
+            //Set Gender Reference
+            string sql2 = @"INSERT INTO GenderCategories_Categories (GenderCategoryId , CategoryId)
+                            VALUES(@GenderCategoryId , @CategoryId) ";
+
+            foreach (var item in entity.GenderCategories)
+            {
+                object obj2 = new
+                {
+                    GenderCategoryId = item.Id,
+                    CategoryId = newId
+                };
+
+                this.connection.Create(sql2, "default", obj2);
+            }
 
         }
 
@@ -80,9 +154,8 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="dto"></param>
         public void Update(CategoryEntity entity)
         {
-            
-
-            string sql = "UPDATE　Categories SET Name = @Name WHERE Id = @Id";
+            //Update Category datas
+            string createNewCategory = "UPDATE　Categories SET Name = @Name WHERE Id = @Id";
 
             object obj = new
             {
@@ -90,23 +163,65 @@ namespace _7_Team_WebApi.Repositories
                 Name = entity.Name,
             };
 
-            this.connection.Update(sql, "default", obj);
+            this.connection.Update(createNewCategory, "default", obj);
+
+
+            //Delete all GenderCategory reference in GenderCategories_Categories
+            string deleteAllReference = "DELETE FROM GenderCategories_Categories WHERE CategoryId = @CategoryId";
+
+            object obj2 = new
+            {
+                CategoryId = entity.Id,
+            };
+
+            this.connection.Delete(deleteAllReference, "default", obj2);
+
+
+            //Set new GenderCategory reference in GenderCategories_Categories
+            string setNewReference = @"INSERT INTO GenderCategories_Categories (GenderCategoryId , CategoryId)
+                            VALUES(@GenderCategoryId , @CategoryId)";
+
+            foreach (var item in entity.GenderCategories)
+            {
+                object obj3 = new
+                {
+                    GenderCategoryId = item.Id,
+                    CategoryId = entity.Id,
+                };
+
+                this.connection.Create(setNewReference, "default", obj3);
+            }
+
+            
         }
 
 
         /// <summary>
-        /// Delete category
+        /// Delele Category by Id
         /// </summary>
-        /// <param name="id"></param>
-        public void Delete(int id)
+        /// <param name="Id"></param>
+        public void Delete(int Id)
         {
-          
+            
+            //Delete all GEnderCategory reference in GenderCategories_Categories
+            string deleteAllReferende = "DELETE FROM GenderCategories_Categories WHERE CategoryId = @CategoryId";
 
-            string sql = "DELETE Categories WHERE Id = @Id";
+            object obj2 = new
+            {
+                CategoryId = Id,
+            };
 
-            object obj = new { Id = id };
+            this.connection.Delete(deleteAllReferende, "default", obj2);
 
-            this.connection.Delete(sql, "default", obj);
+            //Delete Category by id
+            string deleteCategory = "DELETE FROM Categories WHERE Id = @Id";
+
+            object obj = new
+            {
+                Id = Id,
+            };
+
+            this.connection.Delete(deleteCategory, "default", obj);
         }
     }
 

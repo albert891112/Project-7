@@ -1,4 +1,5 @@
 ﻿using _7_Team_WebApi.Models.Entities;
+using _7_Team_WebApi.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace _7_Team_WebApi.Models.DTOs
     public class GenderCategoryDTO
     {
         public int Id { get; set; }
-        public bool Gender { get; set; }
+        public int Gender { get; set; }
     }
 
     public static class GenderCategoryDTOEntenssion
