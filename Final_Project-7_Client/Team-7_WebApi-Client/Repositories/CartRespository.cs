@@ -31,7 +31,7 @@ INNER JOIN Members as M ON C.MemberId = M.Id";
 				{
 					if (!cartDictionary.TryGetValue(c.Id, out var cart))
 					{
-						cart = c;
+						cart = c;						
 						cart.CartItems = new List<CartItemEntity>();
 						cart.Member = m;
 						cartDictionary.Add(c.Id, cart);

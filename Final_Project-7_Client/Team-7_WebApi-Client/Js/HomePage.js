@@ -124,15 +124,17 @@
       console.log(err);
     });
 
-    
+   
 
-    //   var products=[
-    //   {name:"高腰牛仔短褲", price:865, src:"https://tw.906studio.kr/web/product/big/202106/48428bb00743bc5ed42b869240bf7048.jpg", cart:false, follow:false},
-    //   {name:"綁帶A字長裙", price:840, src:"https://tw.906studio.kr/web/product/big/202105/fc9aee31a0c05b6ef536216c8566cd69.jpg", cart:false, follow:false},
-    //   {name:"短版針織外套", price:599, src:"https://tw.906studio.kr/web/product/big/202106/1cd6fbcde8a5b8df1984c992ef86e73b.jpg", cart:false, follow:false},
-    //   {name:"風衣長洋裝", price:2205, src:"https://tw.906studio.kr/web/product/big/202105/6c5e6c93b6342932d639143da1fb1652.jpg", cart:false, follow:false},
-    // ];
-  
+      // var products=[
+      // {name:"高腰牛仔短褲", price:865, src:"https://tw.906studio.kr/web/product/big/202106/48428bb00743bc5ed42b869240bf7048.jpg", cart:false, follow:false},
+      // {name:"綁帶A字長裙", price:840, src:"https://tw.906studio.kr/web/product/big/202105/fc9aee31a0c05b6ef536216c8566cd69.jpg", cart:false, follow:false},
+      // {name:"短版針織外套", price:599, src:"https://tw.906studio.kr/web/product/big/202106/1cd6fbcde8a5b8df1984c992ef86e73b.jpg", cart:false, follow:false},
+      // {name:"風衣長洋裝", price:2205, src:"https://tw.906studio.kr/web/product/big/202105/6c5e6c93b6342932d639143da1fb1652.jpg", cart:false, follow:false},
+      //];
+
+      //setProduct(products)
+    
   }
   
   

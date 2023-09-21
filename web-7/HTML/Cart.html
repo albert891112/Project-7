@@ -8,17 +8,17 @@
     <title>購物車</title>
 
     <style>
-    
+        
         .blue-box,
         .gray-box {
-                width: 200px;
+                width: 180px;
                 height: 150px;
                 border-radius: 20px;
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
-                margin: 0 10px; 
+                
         }
 
 
@@ -59,6 +59,7 @@
             align-items: center;
         }
 
+
     </style>
 </head>
 <body>
@@ -67,21 +68,21 @@
  <div class="container">
     <div class="row">
         <div class="col-md-3 col-sm-12 ">
-            <div class="blue-box text-center">
+            <div class="blue-box text-center " >
                 購物車
             </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-12 d-none d-md-block">
             <div class="gray-box text-center">
                 付款方式
             </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-12 d-none d-md-block">
             <div class="gray-box text-center">
                 填寫資料
             </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-12 d-none d-md-block">
             <div class="gray-box text-center">
                 核對資料
             </div>
@@ -134,13 +135,15 @@
                             <input type="button" class="btn btn-secondary" value="下一步" id="btnCheckoutNext" style="margin-left: 50px;">
                         </div>
                     </div>
-                    
-   
+                </div>
+            </div> 
+        </div>
+    </div>
 </body>
 
 <script>
    // 使用 JSON 字串模擬購物車數據
-   const cartDataJSON = `
+   var cartDataJSON = `
     [
         {"id": 1, "image": "product1.jpg", "name": "商品1", "unitPrice": 10.99, "quantity": 2, "subtotal": 21.98},
         {"id": 2, "image": "product2.jpg", "name": "商品2", "unitPrice": 19.99, "quantity": 1, "subtotal": 19.99},
@@ -149,7 +152,7 @@
         {"id": 5, "image": "product5.jpg", "name": "商品5", "unitPrice": 14.49, "quantity": 4, "subtotal": 57.96}
     ]`;
 // 解析 JSON 字串為 JavaScript 物件
-const cartData = JSON.parse(cartDataJSON);
+var cartData = JSON.parse(cartDataJSON);
 
 // 購物車排序方式（預設為單價排序）
 let sortBy = 'unitprice';
