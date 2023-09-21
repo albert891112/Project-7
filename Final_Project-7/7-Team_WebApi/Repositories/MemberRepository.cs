@@ -9,7 +9,8 @@ using System.Web.UI.WebControls;
 using Dapper;
 using _7_Team_WebApi.Models.Entities;
 using System.Diagnostics.Contracts;
-
+using static Dapper.SqlMapper;
+using System.Security.Principal;
 
 namespace _7_Team_WebApi.Repositories
 {
@@ -24,8 +25,7 @@ namespace _7_Team_WebApi.Repositories
         /// <returns></returns>
         public  List<MemberEntity> GetAll()
         {
-            string sql = "SELECT * FROM Member Order By Id";
-
+            string sql = "SELECT * FROM Members Order By Id";
 
             List<MemberEntity> entities = connection.GetAll<MemberEntity>(sql ,"default");
 
@@ -40,7 +40,7 @@ namespace _7_Team_WebApi.Repositories
         /// <returns></returns>
         public MemberEntity Get(int id)
         {
-            string sql = "SELECT * FROM Member WHERE Id = @Id";
+            string sql = "SELECT * FROM Members WHERE Id = @Id";
 
             object obj = new { Id = id };   
 
@@ -55,11 +55,12 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="entity"></param>
         public void Create(MemberEntity entity)
         {
-            string sql = "INSERT INTO Member (FristName, LastName, Email, Password, AccountStatus) VALUES (@FristName, @LastName, @Email, @Password, @AccountStatus)";
+            string sql = "INSERT INTO Members (Account, FristName, LastName, Email, Password, Enable) VALUES (@Account, @FristName, @LastName, @Email, @Password, @Enable)";
 
             object obj = new 
             { 
-                FristName = entity.FristName, 
+                Account= entity.Account,
+                FristName = entity.FirstName, 
                 LastName = entity.LastName, 
                 Email = entity.Email, 
                 Password = entity.Password,
@@ -75,11 +76,12 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="entity"></param>
         public void Update(MemberEntity entity)
         {
-            string sql = "UPDATE Member SET FristName = @FristName, LastName = @LastName, Email = @Email, Password = @Password, AccountStatus = @AccountStatus WHERE Id = @Id";
+            string sql = "UPDATE Members SET Enable = @Enable WHERE Id = @Id";
 
             object obj = new
             {
-                FristName = entity.FristName,
+                Id= entity.Id,
+                FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 Email = entity.Email,
                 Password = entity.Password,
@@ -96,7 +98,7 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="id"></param>
         public void Delete(int id)
         {
-            string sql = "DELETE FROM Member WHERE Id = @Id";
+            string sql = "DELETE FROM Members WHERE Id = @Id";
 
             object obj = new { Id = id };
 

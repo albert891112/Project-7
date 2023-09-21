@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>結帳資料</title>
+    <!-- 引入 Bootstrap CSS -->   
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.css">
+    <script src="../Bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- <script src="../Script/Cart.js"></script> -->
+    <!-- 自定義 CSS -->
+    <style>
+        .startcontainer {
+            margin-top: 80px;
+        }
+
+        .blue-box,
+        .gray-box {
+                width: 200px;
+                height: 150px;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                margin: 0 10px; 
+        }
+
+
+        .blue-box {
+            background-color: rgb(119, 119, 189);
+        }
+
+        .gray-box {
+            background-color: rgb(179, 179, 189);
+        }
+
+        .text-center {
+            font-size: 30px;
+            color: aliceblue;
+        }
+        .congracontainer-box{
+                
+                width: 500px;
+                height: 250px;
+                border-radius: 60px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                background-color: rgb(50, 199, 199,0.1); 
+                color: black;               
+                   
+        }
+    </style>
+</head>
+<body>
+<!-- 狀態START -->
+    <div class="startcontainer">
+        <div class="row">
+            <div class="col-md-3 col-sm-12 ">
+                <div class="gray-box text-center">
+                    購物車清單
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="gray-box text-center">
+                    填寫結帳資料
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="gray-box text-center">
+                    確認結帳資料
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="blue-box text-center">
+                    完成
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 狀態END -->
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="congracontainer-box text-center">
+                謝謝您的訂購
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row">                
+        <div class="col-12 text-center mt-5">
+            <input type="button" class="btn btn-secondary" value="回到首頁" id="btnCheckoutLast" style="margin-right: 50px;">            
+        </div>  
+      </div>
+
+</body>
+</html>

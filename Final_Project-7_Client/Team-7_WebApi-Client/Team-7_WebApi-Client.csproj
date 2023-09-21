@@ -173,10 +173,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\Cart\ApiController.cs" />
+    <Compile Include="Controllers\Cart\CartsController.cs" />
     <Compile Include="Controllers\Category\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\Orders\OrdersController.cs" />
     <Compile Include="Controllers\Products\ProductApiController.cs" />
     <Compile Include="Controllers\Products\ShowProductController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -257,8 +258,10 @@
     <Compile Include="Models\Views\StockVM.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CartRespository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
@@ -365,8 +368,9 @@
     <Content Include="Files\men.jpeg" />
     <Content Include="Files\pic-login.jpg" />
     <Content Include="Files\pic01.JPG" />
+    <Content Include="Files\urassic World鬆緊短褲.jpeg" />
     <Content Include="Files\women.jpeg" />
-    <Content Include="Files\卡其短褲.jpeg" />
+    <Content Include="Files\休閒九分褲.jpeg" />
     <Content Include="Files\印花鬆緊短褲-.jpeg" />
     <Content Include="Files\可口可樂刷毛圓領衫.jpeg" />
     <Content Include="Files\史努比系列鬆緊短褲.jpeg" />
@@ -378,6 +382,8 @@
     <Content Include="Files\棉麻立領長袖襯衫.jpeg" />
     <Content Include="Files\涼感九分褲.jpeg" />
     <Content Include="Files\燈芯絨九分褲.jpeg" />
+    <Content Include="Files\牛仔短裙.jpeg" />
+    <Content Include="Files\白卡其短褲.jpeg" />
     <Content Include="Files\磨毛柔棉寬版五分袖T恤.jpeg" />
     <Content Include="Files\純棉拉克蘭七分袖T恤.jpeg" />
     <Content Include="Files\純棉粗紡圓領口袋長袖T恤-男（ 棕色 -S）.jpeg" />
@@ -453,6 +459,8 @@
     <Content Include="Views\Members\EditProfile.cshtml" />
     <Content Include="Views\Api\Cart.cshtml" />
     <Content Include="Views\Members\EditPassword.cshtml" />
+    <Content Include="Views\Carts\Cart.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

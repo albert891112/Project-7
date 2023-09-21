@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace Team_7_WebApi_Client.Controllers.Cart
 {
-    public class ApiController : Controller
+    public class CartsController : Controller
     {
-        // GET: Api
-        public ActionResult Index()
+        // GET: Carts
+        public ActionResult Cart()
         {
             return View();
         }
