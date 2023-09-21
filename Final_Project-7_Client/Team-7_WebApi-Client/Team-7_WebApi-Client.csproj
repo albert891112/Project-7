@@ -261,6 +261,7 @@
     <Compile Include="Repositories\CartRespository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
@@ -458,6 +459,8 @@
     <Content Include="Views\Members\EditProfile.cshtml" />
     <Content Include="Views\Api\Cart.cshtml" />
     <Content Include="Views\Members\EditPassword.cshtml" />
+    <Content Include="Views\Carts\Cart.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

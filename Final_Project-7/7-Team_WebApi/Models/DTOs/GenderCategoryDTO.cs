@@ -1,4 +1,5 @@
 ﻿using _7_Team_WebApi.Models.Entities;
+using _7_Team_WebApi.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

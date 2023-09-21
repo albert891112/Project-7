@@ -1,6 +1,7 @@
 ﻿using _7_Team_WebApi.Models.DTOs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,12 +10,20 @@ namespace _7_Team_WebApi.Models.ViewModels
     public class MemberVM
     {
         public int Id { get; set; }
-        public string FristName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Account { get; set; }
-        public string Password { get; set; }
 
+        [Display(Name="姓名")]
+        public string FirstName { get; set; }
+
+        [Display(Name ="姓氏")]
+        public string LastName { get; set; }
+
+        [Display(Name ="電子郵件")]
+        public string Email { get; set; }
+
+        [Display(Name ="帳號")]
+        public string Account { get; set; }
+
+        [Display(Name ="帳號可用狀態")]
         public bool Enable { get; set; }
     }
 
@@ -25,10 +34,10 @@ namespace _7_Team_WebApi.Models.ViewModels
             return new MemberVM()
             {
                 Id = dto.Id,
-                FristName = dto.FristName,
+                FirstName = dto.FirstName,
                 LastName = dto.LastName,
+                Account = dto.Account,
                 Email = dto.Email,
-                Password = dto.Password,
                 Enable = dto.Enable
             };
         }
