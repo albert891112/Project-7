@@ -16,7 +16,7 @@ namespace _7_Team_WebApi.Models.Entities
 
     public static class GenderCategoryEntityExtenssion
     {
-        public static GenderCategoryEntity ToEntit(this GenderCategoryDTO dto)
+        public static GenderCategoryEntity ToEntity(this GenderCategoryDTO dto)
         {
             return new GenderCategoryEntity
             {

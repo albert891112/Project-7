@@ -60,7 +60,7 @@ namespace _7_Team_WebApi.Models.DTOs
             {
                 Id = vm.Id,
                 Name = vm.Name,
-                GenderCategories = vm.GenderCategories.Select(x => x.ToDTO()).ToList()
+               GenderCategories = vm.GenderCategories.Select(x => x.ToDTO()).ToList()
             };
         }
 

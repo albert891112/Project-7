@@ -9,13 +9,12 @@ namespace Team_7_WebApi_Client.Models.Views
 	public class CartItemVM
 	{
 		public int Id { get; set; }
-		public OrderVM Order { get; set; }
-		public ProductVM Product { get; set; }
-		public string ProductName { get; set; }
+        public int CartId { get; set; }
+        public int ProductId { get; set; }
+        public ProductVM Product { get; set; }
 		public int Qty { get; set; }
-		public int Price { get; set; }
-		public string Size { get; set; }
-		public int SubTotal { get; set; }
+        public string Size { get; set; }
+        public int SubTotal=>Product.Price*Qty;
 	}
 
 	public static class CartItemVMExtenssion
@@ -25,13 +24,8 @@ namespace Team_7_WebApi_Client.Models.Views
 			return new CartItemVM
 			{
 				Id = dto.Id,
-				Order = dto.Order.ToVM(),
 				Product = dto.Product.ToVM(),
-				ProductName = dto.ProductName,
 				Qty = dto.Qty,
-				Price = dto.Price,
-				Size = dto.Size,
-				SubTotal = dto.SubTotal,
 			};
 		}
 	}

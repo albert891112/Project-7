@@ -37,23 +37,23 @@ namespace Team_7_WebApi_Client.Models.DTOS
 		}
 
 
-		public static CartDTO ToDTO(this CartVM vm)
-		{
-			return new CartDTO
-			{
-				Id = vm.Id,
-				Member = vm.Member.ToDTO(),
-				CartItems = vm.CartItems.Select(x => new CartItemDTO
-				{
-					Id = x.Id,
-					ProductName = x.ProductName,
-					Qty = x.Qty,
-					Price = x.Price,
-					Size = x.Size,
-					SubTotal = x.SubTotal,
-				}).ToList()
-			};
-		}
+		//public static CartDTO ToDTO(this CartVM vm)
+		//{
+		//	return new CartDTO
+		//	{
+		//		Id = vm.Id,
+		//		Member = vm.Member.ToDTO(),
+		//		CartItems = vm.CartItems.Select(x => new CartItemDTO
+		//		{
+		//			Id = x.Id,
+		//			ProductName = x.ProductName,
+		//			Qty = x.Qty,
+		//			Price = x.Price,
+		//			Size = x.Size,
+		//			SubTotal = x.SubTotal,
+		//		}).ToList()
+		//	};
+		//}
 	}
 
 

@@ -110,7 +110,6 @@ C:\Users\yangchengru\source\repos\Final_Project-7\Project-7\Final_Project-7\7-Te
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\7-Team_WebApi.dll.config
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\7-Team_WebApi.dll
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\7-Team_WebApi.pdb
-C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\roslyn\connString.json
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\roslyn\csc.exe
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\roslyn\csc.exe.config
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\roslyn\csc.rsp
@@ -186,9 +185,6 @@ C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\System.Web.
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\System.Web.WebPages.dll
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\System.Web.WebPages.Razor.dll
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\WebGrease.dll
-C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\Albert.Lib.pdb
-C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\Albert.Lib.xml
-C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\Albert.Lib.dll.config
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\Dapper.xml
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\EntityFramework.xml
 C:\Users\River\Documents\Project-7\Final_Project-7\7-Team_WebApi\bin\EntityFramework.SqlServer.xml

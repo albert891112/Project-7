@@ -76,6 +76,31 @@ namespace _7_Team_WebApi.Models.DTOs
                 Gender = vm.Gender.IntHasValue()
             };
         }
+
+        public static ProductDTO ToDTO(this ProductCreateVM vm)
+        {
+            return new ProductDTO
+            {
+                Id = vm.Id,
+                Category = new CategoryDTO { Id = vm.CategoryId },
+                Gender = new GenderCategoryDTO { Id = vm.GenderId },
+                Name = vm.Name,
+                Price = vm.Price,
+                Image = vm.Image,
+                Description = vm.Description,
+                Stock = new StockDTO
+                {
+                    S = vm.S,
+                    M = vm.M,
+                    L = vm.L,
+                    XL = vm.XL
+                },
+                Enable = vm.Enable
+
+
+            };
+        }
+
     }
 
 }

@@ -200,6 +200,7 @@
     <Compile Include="Controllers\Categories\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Members\MemberController.cs" />
+    <Compile Include="Controllers\Products\ProductApiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

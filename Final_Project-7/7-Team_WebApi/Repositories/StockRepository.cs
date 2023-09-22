@@ -19,7 +19,7 @@ namespace _7_Team_WebApi.Repositories
         /// <returns></returns>
         public int Create(StockEntity entity)
         {
-            string sql = "INSERT INTO Stocks (Quantity) VALUES (@Quantity); SELECT CAST(SCOPE_IDENTITY() as int)";
+            string sql = "INSERT INTO Stocks (S , M , L  , XL) VALUES (@S , @M , @L  , @XL); SELECT CAST(SCOPE_IDENTITY() as int)";
 
             object obj = new
             {
@@ -74,7 +74,7 @@ namespace _7_Team_WebApi.Repositories
                 ProductId = entity.ProductId,
                 Id = entity.Id
             };
-
+            
             this.connection.Update(sql, "default", obj);
         }
     }
