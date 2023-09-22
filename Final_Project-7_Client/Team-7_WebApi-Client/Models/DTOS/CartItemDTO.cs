@@ -36,19 +36,19 @@ namespace Team_7_WebApi_Client.Models.DTOS
 			};
 		}
 
-		public static CartItemDTO ToDTO(this CartItemVM vm)
-		{
-			return new CartItemDTO
-			{
-				Id = vm.Id,
-				Order = vm.Order.ToDTO(),
-				Product = vm.Product.ToDTO(),
-				ProductName = vm.ProductName,
-				Qty = vm.Qty,
-				Price = vm.Price,
-				Size = vm.Size,
-				SubTotal = vm.SubTotal,
-			};
-		}
+		//public static CartItemDTO ToDTO(this CartItemVM vm)
+		//{
+		//	return new CartItemDTO
+		//	{
+		//		Id = vm.Id,
+		//		Order = vm.Order.ToDTO(),
+		//		Product = vm.Product.ToDTO(),
+		//		ProductName = vm.ProductName,
+		//		Qty = vm.Qty,
+		//		Price = vm.Price,
+		//		Size = vm.Size,
+		//		SubTotal = vm.SubTotal,
+		//	};
+		//}
 	}
 }

@@ -391,6 +391,7 @@
     <Content Include="Files\純棉蝴蝶結短褲.jpeg" />
     <Content Include="Files\風衣長洋裝.jpeg" />
     <Content Include="Global.asax" />
+    <Content Include="Js\addCart.js" />
     <Content Include="Js\Cart.js" />
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\ShowProduct.js" />

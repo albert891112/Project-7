@@ -12,29 +12,30 @@ namespace Team_7_WebApi_Client.Models.Views
 	public class CartVM
 	{
 		public int Id { get; set; }
-		public MemberVM Member { get; set; }
+		public int MemberId { get; set; }
 
-		public IEnumerable<CartItemVM> CartItems { get; set; }
+        public IEnumerable<CartItemVM> CartItems { get; set; }
+
+		public int Total=> CartItems.Sum(x => x.SubTotal);
+
+		public bool AllowCheckout => CartItems.Any();
 	}
 
-	public static class CartVMExtenssion
-	{
-		public static CartVM ToVM(this CartDTO dto)
-		{
-			return new CartVM
-			{
-				Id = dto.Id,
-			    Member = dto.Member.ToVM(),
-				CartItems = dto.CartItems.Select(x => new CartItemVM
-				{
-					Id = x.Id,
-					ProductName = x.ProductName,
-					Qty = x.Qty,
-					Price = x.Price,
-					Size = x.Size,
-					SubTotal = x.SubTotal,
-				}).ToList()
-			};
-		}
-	}
+	//public static class CartVMExtenssion
+	//{
+	//	public static CartVM ToVM(this CartDTO dto)
+	//	{
+	//		return new CartVM
+	//		{
+	//			Id = dto.Id,
+	//			MemberId = dto.Member.ToVM(),
+	//			CartItems = dto.CartItems.Select(x => new CartItemVM
+	//			{
+	//				Id = x.Id,
+	//				Qty = x.Qty,
+
+	//			}).ToList()
+	//		};
+	//	}
+	//}
 }
