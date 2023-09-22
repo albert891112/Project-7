@@ -170,9 +170,5 @@ namespace Team_7_WebApi_Client.Models.EFModels
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
         }
-
-        public System.Data.Entity.DbSet<Team_7_WebApi_Client.Models.Views.CartVM> CartVMs { get; set; }
-
-        public System.Data.Entity.DbSet<Team_7_WebApi_Client.Models.Views.CartItemVM> CartItemVMs { get; set; }
     }
 }

@@ -16,6 +16,8 @@ namespace Team_7_WebApi_Client.Models.EFModels
 
         public int Qty { get; set; }
 
+        [Required]
+        [StringLength(50)]
         public string Size { get; set; }
 
         public virtual Cart Cart { get; set; }

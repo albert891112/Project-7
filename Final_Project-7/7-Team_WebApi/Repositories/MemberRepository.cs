@@ -60,7 +60,7 @@ namespace _7_Team_WebApi.Repositories
             object obj = new 
             { 
                 Account= entity.Account,
-                FristName = entity.FirstName, 
+                FirstName = entity.FirstName, 
                 LastName = entity.LastName, 
                 Email = entity.Email, 
                 Password = entity.Password,
