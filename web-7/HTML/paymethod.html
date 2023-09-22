@@ -8,16 +8,20 @@
     <title>購物車</title>
 
     <style>
+         .startcontainer {
+            margin-top: 80px;
+        }
+
         .blue-box,
         .gray-box {
-            width: 200px;
-            height: 150px;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-             
+                
+                height: 150px;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                margin: 0 10px; 
         }
 
         .blue-box {
@@ -65,30 +69,31 @@
             font-size: 20px;
             color: red;
         }
+      
 
     </style>
 </head>
 <body>
-
+<!--狀態確認 begin-->
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-12 ">
-                <div class="gray-box text-center d-none d-md-block">
+            <div class="col-md-3 col-sm-12 d-none d-md-block">
+                <div class="gray-box text-center">
                     購物車
                 </div>
             </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="blue-box text-center ">
+            <div class="col-md-3 col-sm-12 ">
+                <div class="blue-box text-center">
                     付款方式
                 </div>
             </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="gray-box text-center d-none d-md-block">
+            <div class="col-md-3 col-sm-12 d-none d-md-block">
+                <div class="gray-box text-center">
                     填寫資料
                 </div>
             </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="gray-box text-center d-none d-md-block">
+            <div class="col-md-3 col-sm-12 d-none d-md-block">
+                <div class="gray-box text-center">
                     核對資料
                 </div>
             </div>
