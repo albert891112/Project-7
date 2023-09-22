@@ -1,0 +1,75 @@
+﻿using _7_Team_WebApi.Models.DTOs;
+using _7_Team_WebApi.Models.Entities;
+using _7_Team_WebApi.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace _7_Team_WebApi.Services
+{
+    public class ProductService
+    {
+        ProductRepository repo = new ProductRepository();
+
+        /// <summary>
+        /// Get Product By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ProductDTO Get(int id)
+        {
+            ProductEntity product = this.repo.Get(id);
+
+            var dto = product.ToDTO();
+
+            return dto;
+        }
+
+        /// <summary>
+        /// Get all Products
+        /// </summary>
+        /// <returns></returns>
+        public List<ProductDTO> GetAll()
+        {
+            List<ProductEntity> products = this.repo.GetAll();
+
+            var dtos = products.Select(p => p.ToDTO()).ToList();
+
+            return dtos;
+        }
+
+        /// <summary>
+        /// Create new Product
+        /// </summary>
+        /// <param name="dto"></param>
+        public void Create(ProductDTO dto)
+        {
+            ProductEntity product = dto.ToEntity();
+
+            this.repo.Create(product);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        public void Update(ProductDTO dto)
+        {
+            ProductEntity product = dto.ToEntity();
+
+            this.repo.Update(product);
+        }
+
+        /// <summary>
+        /// Update Stock
+        /// </summary>
+        /// <param name="stock"></param>
+        public void UpdateStock(StockEntity stock)
+        {
+            StockRepository stockRepository = new StockRepository();
+
+            stockRepository.Update(stock);
+        }
+    }
+}

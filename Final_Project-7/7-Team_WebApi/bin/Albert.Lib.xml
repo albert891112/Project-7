@@ -44,6 +44,16 @@
             <param name="func"></param>
             <returns></returns>
         </member>
+        <member name="M:Albert.Lib.SqlDb.CreateAndGetId(System.String,System.String,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="connString"></param>
+            <param name="Parameters"></param>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
         <member name="M:Albert.Lib.SqlDb.Search``1(System.String,System.String,System.Object,System.Func{System.Data.SqlClient.SqlConnection,System.String,System.Object,``0})">
             <summary>
             

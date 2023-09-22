@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _7_Team_WebApi.Models.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace _7_Team_WebApi.Models.Entities
     public class ProductEntity
     {
         public int Id { get; set; }
-        public CategoryEntity Category{ get; set; }
+        public CategoryEntity Category { get; set; }
         public GenderCategoryEntity Gender { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
@@ -29,4 +30,36 @@ namespace _7_Team_WebApi.Models.Entities
         public int? LowPrice { get; set; }
 
     }
+
+    public static class ProductEntityExtenssion
+    {
+        public static ProductEntity ToEntity(this ProductDTO dto)
+        {
+            return new ProductEntity
+            {
+                Id = dto.Id,
+                Category = dto.Category.ToEntity(),
+                Name = dto.Name,
+                Price = dto.Price,
+                Image = dto.Image,
+                Description = dto.Description,
+                Stock = dto.Stock,
+                Enable = dto.Enable
+            };
+        }
+
+
+        public static ProductSearchEntity ToEntity(this ProductSearchDTO dto)
+        {
+            return new ProductSearchEntity
+            {
+                CategoryId = dto.CategoryId,
+                Name = dto.Name,
+                HightPrice = dto.HightPrice,
+                LowPrice = dto.LowPrice,
+                Gender = dto.Gender
+            };
+        }
+    }
+
 }

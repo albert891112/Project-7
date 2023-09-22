@@ -11,10 +11,11 @@ using System.Data;
 
 namespace _7_Team_WebApi.Repositories
 {
-    public class ProductRepository : IRepository<ProductEntity>
+    public class ProductRepository 
     {
 
         SqlDb connection = new SqlDb();
+        
 
         /// <summary>
         /// Get Product by id
@@ -61,9 +62,11 @@ namespace _7_Team_WebApi.Repositories
         /// <returns></returns>
         public List<ProductEntity> GetAll()
         {
-            string sql = "SELECT P.* , GC.* , C.* FROM Products as P " +
+            string sql = "SELECT P.* , GC.* , C.* , S.* FROM Products as P " +
                 "INNER JOIN GenderCategories as GC ON P.GenderId = GC.Id " +
-                "INNER JOIN Categories as C ON P.CategoryId = C.Id;";
+                "INNER JOIN Categories as C ON P.CategoryId = C.Id " +
+                "INNER JOIN Stocks as S ON P.StockId = S.Id " +
+                "ORDER BY P.Id ";
 
 
 
@@ -88,7 +91,6 @@ namespace _7_Team_WebApi.Repositories
         }
 
 
-     
         /// <summary>
         /// Search product 
         /// </summary>
@@ -126,6 +128,7 @@ namespace _7_Team_WebApi.Repositories
                     p.Category = c;
                     p.Stock = st;
                     return p;
+
                 }, o).ToList();
 
             };
@@ -142,37 +145,76 @@ namespace _7_Team_WebApi.Repositories
 
 
         /// <summary>
-        /// Create new product
+        /// Create new product and get its id
         /// </summary>
         /// <param name="entity"></param>
         public void Create(ProductEntity entity)
-    {
-        string sql = "INSERT INTO Products " +
-            "(Name, Price, Image, Description, StockId, Enable) " +
-            "VALUES (@Name, @Price, @Image, @Description, @StockId, @Enable)";
-
-        object obj = new
         {
-            Name = entity.Name,
-            Price = entity.Price,
-            Image = entity.Image,
-            Description = entity.Description,
-            StockId = entity.Stock.Id,
-            Enable = entity.Enable
-        };
+            //Create new Stock and get its id
+            StockRepository stockRepository = new StockRepository();
 
-        this.connection.Create(sql, "defualt" , obj);
-    }
+            int stockId = stockRepository.Create(entity.Stock);
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
+
+            //Create new Product and get its id
+            string sql = "INSERT INTO Products " +
+                "(Name, Price, Image, Description, StockId, Enable) " +
+                "VALUES (@Name, @Price, @Image, @Description, @StockId, @Enable) " +
+                "SELECT CAST(SCOPE_IDENTITY() as int);";
+
+            object obj = new
+            {
+                Name = entity.Name,
+                Price = entity.Price,
+                Image = entity.Image,
+                Description = entity.Description,
+                StockId = stockId,
+                Enable = entity.Enable
+            };
+
+            int productId = this.connection.CreateAndGetId(sql, "defualt" , obj);
+
+
+            //Update Stock with ProductId
+            var stock = new StockEntity
+            {
+                Id = stockId,
+                ProductId = productId,
+            };  
+
+            stockRepository.setProductId(stock);
+  
         }
 
         
+        /// <summary>
+        /// Update products
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <exception cref="NotImplementedException"></exception>
         public void Update(ProductEntity entity)
         {
-            throw new NotImplementedException();
+            string sql = "UPDATE Products SET " +
+                "Name = CASE WHEN @Name IS NULL THEN Name ELSE @Name END, " +
+                "Price = CASE WHEN @Price IS NULL THEN Price ELSE @Price END, " +
+                "Image = CASE WHEN @Image IS NULL THEN Image ELSE @Image END, " +
+                "Description = CASE WHEN @Description IS NULL THEN Description ELSE @Description END, " +
+                "StockId = CASE WHEN @StockId IS NULL THEN StockId ELSE @StockId END, " +
+                "Enable = CASE WHEN @Enable IS NULL THEN Enable ELSE @Enable END" +
+                "WHERE Id = @Id";
+
+            object obj = new
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Price = entity.Price,
+                Image = entity.Image,
+                Description = entity.Description,
+                StockId = entity.Stock.Id,
+                Enable = entity.Enable
+            };
+
+            this.connection.Update(sql, "default", obj);
         }
     }
 }
