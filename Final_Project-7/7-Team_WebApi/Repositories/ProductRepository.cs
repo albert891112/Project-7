@@ -41,6 +41,7 @@ namespace _7_Team_WebApi.Repositories
                 {
                     p.Gender = gc;
                     p.Category = c;
+                    p.Category.GenderCategories = new List<GenderCategoryEntity>();
                     p.Stock = st;
                     return p;
                 }, o).FirstOrDefault();
@@ -73,11 +74,13 @@ namespace _7_Team_WebApi.Repositories
             Func<SqlConnection, string, List<ProductEntity>> func = (conn, s) =>
             {
 
-                return conn.Query<ProductEntity, GenderCategoryEntity, CategoryEntity, ProductEntity>(s, (p, gc, c) =>
+                return conn.Query<ProductEntity, GenderCategoryEntity, CategoryEntity, StockEntity , ProductEntity>(s, (p, gc, c , st) =>
                 {
 
                     p.Gender = gc;
                     p.Category = c;
+                    p.Category.GenderCategories = new List<GenderCategoryEntity>();
+                    p.Stock = st;
                     return p;
 
                 }).ToList();
@@ -142,8 +145,6 @@ namespace _7_Team_WebApi.Repositories
         }
 
 
-
-
         /// <summary>
         /// Create new product and get its id
         /// </summary>
@@ -158,8 +159,8 @@ namespace _7_Team_WebApi.Repositories
 
             //Create new Product and get its id
             string sql = "INSERT INTO Products " +
-                "(Name, Price, Image, Description, StockId, Enable) " +
-                "VALUES (@Name, @Price, @Image, @Description, @StockId, @Enable) " +
+                "(Name, Price, Image, Description, StockId, Enable ,CategoryId , GenderId) " +
+                "VALUES (@Name, @Price, @Image, @Description, @StockId, @Enable , @CategoryId , @GenderId ) " +
                 "SELECT CAST(SCOPE_IDENTITY() as int);";
 
             object obj = new
@@ -167,12 +168,14 @@ namespace _7_Team_WebApi.Repositories
                 Name = entity.Name,
                 Price = entity.Price,
                 Image = entity.Image,
+                CategoryId = entity.Category.Id,
+                GenderId = entity.Gender.Id, 
                 Description = entity.Description,
                 StockId = stockId,
                 Enable = entity.Enable
             };
 
-            int productId = this.connection.CreateAndGetId(sql, "defualt" , obj);
+            int productId = this.connection.CreateAndGetId(sql, "default" , obj);
 
 
             //Update Stock with ProductId
@@ -194,12 +197,13 @@ namespace _7_Team_WebApi.Repositories
         /// <exception cref="NotImplementedException"></exception>
         public void Update(ProductEntity entity)
         {
+
+            //Update Product data
             string sql = "UPDATE Products SET " +
                 "Name = CASE WHEN @Name IS NULL THEN Name ELSE @Name END, " +
                 "Price = CASE WHEN @Price IS NULL THEN Price ELSE @Price END, " +
                 "Image = CASE WHEN @Image IS NULL THEN Image ELSE @Image END, " +
                 "Description = CASE WHEN @Description IS NULL THEN Description ELSE @Description END, " +
-                "StockId = CASE WHEN @StockId IS NULL THEN StockId ELSE @StockId END, " +
                 "Enable = CASE WHEN @Enable IS NULL THEN Enable ELSE @Enable END" +
                 "WHERE Id = @Id";
 
@@ -210,11 +214,16 @@ namespace _7_Team_WebApi.Repositories
                 Price = entity.Price,
                 Image = entity.Image,
                 Description = entity.Description,
-                StockId = entity.Stock.Id,
                 Enable = entity.Enable
             };
 
             this.connection.Update(sql, "default", obj);
+
+
+            //Update Stock data
+            StockRepository stockRepository = new StockRepository();
+
+            stockRepository.Update(entity.Stock);
         }
     }
 }

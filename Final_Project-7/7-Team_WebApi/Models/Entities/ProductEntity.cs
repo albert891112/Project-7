@@ -39,11 +39,12 @@ namespace _7_Team_WebApi.Models.Entities
             {
                 Id = dto.Id,
                 Category = dto.Category.ToEntity(),
+                Gender = dto.Gender.ToEntity(),
                 Name = dto.Name,
                 Price = dto.Price,
                 Image = dto.Image,
                 Description = dto.Description,
-                Stock = dto.Stock,
+                Stock = dto.Stock.ToEntity(),
                 Enable = dto.Enable
             };
         }
