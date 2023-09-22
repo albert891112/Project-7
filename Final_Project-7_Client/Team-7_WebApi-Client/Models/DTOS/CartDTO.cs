@@ -11,7 +11,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 	public class CartDTO
 	{
 		public int Id { get; set; }
-	    public MemberDTO Member { get; set; }
+	    public int MemberId{ get; set; }
 
 		public List<CartItemDTO> CartItems { get; set; }
 	}

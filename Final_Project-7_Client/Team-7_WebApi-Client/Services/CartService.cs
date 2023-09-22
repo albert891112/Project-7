@@ -11,13 +11,30 @@ namespace Team_7_WebApi_Client.Services
 	public class CartService
 	{
 		CartRepository repo = new CartRepository();
-		public List<CartDTO> GetAll()
+
+		/// <summary>
+		/// Check if a cart exist by MemberId
+		/// </summary>
+		/// <param name="MemberId"></param>
+		/// <returns></returns>
+		public CartEntity IsCartExist(int MemberId)
 		{
-			List<CartEntity> carts = repo.GetAll();
+            return repo.Search(MemberId);
+        }
 
-			List<CartDTO> cartDTOs = carts.Select(c => c.ToDTO()).ToList();
 
-			return cartDTOs;
+		/// <summary>
+		/// Check if a cart item exist by Size and ProductId , return the CartItemId or null
+		/// </summary>
+		/// <param name=""></param>
+		/// <returns></returns>
+		public CartItemDTO IsCartItemExist(CartDTO dto , int ProductId , string Size)
+		{
+			var Cartitems = dto.CartItems;
+
+			var CartItem = Cartitems.Select(c => c).Where(c => c.Id == ProductId && c.Size == Size).FirstOrDefault();
+
+			return CartItem;
 		}
 	}
 }

@@ -16,7 +16,9 @@ namespace Team_7_WebApi_Client.Controllers.Cart
 		public ActionResult AddItem(int productId)
 		{
 			string buyer= User.Identity.Name;
+
             int memberId = GetMemberIdByAccount(buyer);
+
 			AddToCart(memberId, productId,1);
 
 			return new EmptyResult();
