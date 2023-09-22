@@ -14,7 +14,7 @@ namespace Team_7_WebApi_Client.Models.Views
 		public int Id { get; set; }
 		public MemberVM Member { get; set; }
 
-		public List<CartItemVM> CartItems { get; set; }
+		public IEnumerable<CartItemVM> CartItems { get; set; }
 	}
 
 	public static class CartVMExtenssion

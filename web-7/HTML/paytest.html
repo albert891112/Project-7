@@ -17,7 +17,7 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
-             
+            margin: 0 10px; 
         }
 
         .blue-box {
@@ -70,31 +70,32 @@
 </head>
 <body>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-12 ">
-                <div class="gray-box text-center d-none d-md-block">
-                    購物車
-                </div>
+   <!--狀態確認 begin-->
+ <div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-12 ">
+            <div class="blue-box text-center">
+                購物車
             </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="blue-box text-center ">
-                    付款方式
-                </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="gray-box text-center">
+                付款方式
             </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="gray-box text-center d-none d-md-block">
-                    填寫資料
-                </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="gray-box text-center">
+                填寫資料
             </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="gray-box text-center d-none d-md-block">
-                    核對資料
-                </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="gray-box text-center">
+                核對資料
             </div>
         </div>
     </div>
-    <!-- 狀態確認 end -->
+</div>
+
     
     <div>
         <div class="m-5">
@@ -339,18 +340,18 @@
          calculateTotalAmount(totalAmount, additionalFee);
      };
      
-     document.addEventListener("DOMContentLoaded", function () {    
-
-       
-    // 做出選擇後，顯示注意事項
+     document.addEventListener("DOMContentLoaded", function () {        
+   
     var paymethodMethod = document.getElementById("paymethodMethod");    
     var shippingMethod = document.getElementById("shippingMethod");   
    
+    //預設隱藏
     document.getElementById("carddesc").style.display = "none";
     document.getElementById("shippinghomedesc").style.display = "none";
     document.getElementById("shippingsuperstoredesc").style.display = "none";
     document.getElementById("coupondesc").style.display = "none";
     
+    //選擇付款方式注意事項
     paymethodMethod.addEventListener("change", function () 
     {                     
        if(paymethodMethod.value == "card"){        
@@ -361,6 +362,7 @@
     
     });
 
+    //選擇運送方式注意事項
     var shippingMethod = document.getElementById("shippingMethod");
     shippingMethod.addEventListener("change", function () 
     {        
@@ -372,13 +374,10 @@
        if(shippingMethod.value == "shippingsupstore"){
         document.getElementById("shippingsuperstoredesc").style.display = "block";
         document.getElementById("shippinghomedesc").style.display = "none";
-       }
-       
-    
+       }       
     });
-
 });
-     </script>
+ </script>
     
 </body>
 

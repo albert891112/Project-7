@@ -173,7 +173,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\Cart\CartsController.cs" />
+    <Compile Include="Controllers\Cart\CartController.cs" />
     <Compile Include="Controllers\Category\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -391,6 +391,7 @@
     <Content Include="Files\純棉蝴蝶結短褲.jpeg" />
     <Content Include="Files\風衣長洋裝.jpeg" />
     <Content Include="Global.asax" />
+    <Content Include="Js\Cart.js" />
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\ShowProduct.js" />
     <Content Include="obj\Release\Team-7_WebApi-Client.csproj.AssemblyReference.cache" />
@@ -457,10 +458,9 @@
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\ShowProduct\Show.cshtml" />
     <Content Include="Views\Members\EditProfile.cshtml" />
-    <Content Include="Views\Api\Cart.cshtml" />
     <Content Include="Views\Members\EditPassword.cshtml" />
-    <Content Include="Views\Carts\Cart.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
