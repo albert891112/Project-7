@@ -39,11 +39,23 @@ namespace Team_7_WebApi_Client.Controllers.Orders
                     Id = order.Id,
                     OrderDate = order.OrderTime,
                     OrderItems = order.OrderItemList, 
-                    Status = order.OrderStatus 
+                    Status = order.OrderStatus.Status
                 }
             ).ToList();
 
             return View(vmList);
+        }
+
+        public ActionResult GetOrderItems()
+        {
+            //todo
+            var buyer = User.Identity.Name;
+
+            int memberId = GetMemberIdByAccount(buyer);
+
+            //List<OrderItemEntity> orderItems = _orderRepository.GetOrderItemsbyMember(memberId);
+
+            return View();
         }
 
         private int GetMemberIdByAccount(string buyer)
