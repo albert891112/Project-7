@@ -211,7 +211,14 @@ document.getElementById("btnNextCheckout").addEventListener("click", function() 
 
         emailError.textContent = "請輸入信箱";
         return;
-    }else if (inputAddress === "" && shippingMethodSelect.value === "送到府") {
+    }else if(! /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(inputEmail)){
+        //如果信箱不符合格式,顯示錯誤訊息
+        showEmailError();
+        emailError.textContent = "請輸入對的信箱格式";
+        return;
+    }
+    
+    else if (inputAddress === "" && shippingMethodSelect.value === "送到府") {
         //如果地址為空值,顯示錯誤訊息
      
         showAddressError();
@@ -245,15 +252,12 @@ document.getElementById("btnNextCheckout").addEventListener("click", function() 
 
 });
 
-
     //顯示上一頁payHtml
     $("#btnLastPay").click(function(){
             
         showpay();         
 
-    }); 
-
-  
+    });  
 
 
 
@@ -262,14 +266,29 @@ document.getElementById("btnNextCheckout").addEventListener("click", function() 
 
 //checkout  begin======================================================
 
-
-
 $("#btnNextOrderFinish").click(function(){
 
     OrderFinish();    
+    var postOrderData = function(){
+    
+        let url = '/api/CartApi/Post';
+    
+        fetch(url, {
+            method: 'Post',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then(function (response) {
+          return response.json();
+        }).then(function (result) {
+          setPostOrderData(result);
+        }).catch(function (err) {
+          console.log(err);
+        });
+   
+    }
         
 }); 
-
 
 
 $("#btnLastOrderData").click(function(){
@@ -277,8 +296,6 @@ $("#btnLastOrderData").click(function(){
     showOrderData();    
         
 }); 
-
-
 
 
 //coupon begin======================================================
@@ -298,8 +315,7 @@ var showcheckout = function(){
     $(".orderDataHtml").hide("slow" , "swing")
     $(".checkoutHtml").show("slow" , "swing")   
   
-  }
-  
+  } 
         
 
 //設定顯示orderDataHtml
