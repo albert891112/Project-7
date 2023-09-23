@@ -23,6 +23,6 @@ namespace Team_7_WebApi_Client.Models.Views.Members
         public List<OrderItemEntity> OrderItems { get; set; }
 
         [Display(Name ="運送狀態")]
-        public OrderStatusEntity Status { get; set; }
+        public string Status { get; set; }
     }
 }

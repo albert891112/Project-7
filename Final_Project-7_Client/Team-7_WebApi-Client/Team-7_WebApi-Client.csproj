@@ -246,12 +246,13 @@
     <Compile Include="Models\Views\Members\EditProfileVm.cs" />
     <Compile Include="Models\Views\Members\LoginVm.cs" />
     <Compile Include="Models\Views\Members\MemberExts.cs" />
-    <Compile Include="Models\Views\Members\MemberOrderVm.cs" />
     <Compile Include="Models\Views\Members\RegisterExts.cs" />
     <Compile Include="Models\Views\Members\RegisterVm.cs" />
     <Compile Include="Models\Views\MemberVM.cs" />
     <Compile Include="Models\Views\OrderItemVM.cs" />
     <Compile Include="Models\Views\OrderStatusVM.cs" />
+    <Compile Include="Models\Views\Orders\MemberOrderItemVm.cs" />
+    <Compile Include="Models\Views\Orders\MemberOrderVm.cs" />
     <Compile Include="Models\Views\OrderVM.cs" />
     <Compile Include="Models\Views\PaymentVM.cs" />
     <Compile Include="Models\Views\ProductVM.cs" />
