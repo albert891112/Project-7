@@ -1,5 +1,6 @@
 namespace _7_Team_WebApi.Models.EFModels
 {
+    using _7_Team_WebApi.Models.Entities;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -27,5 +28,18 @@ namespace _7_Team_WebApi.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Roles_Permissions> Roles_Permissions { get; set; }
+    }
+
+    public static class PermissionExtension
+    {
+        public static Premission ToModel (this PermissionEntity permission)
+        {
+            return new Premission()
+            {
+                Id = permission.Id,
+                PermissionName = permission.Name,
+                PermissionDescription = permission.Description
+            };
+        }
     }
 }

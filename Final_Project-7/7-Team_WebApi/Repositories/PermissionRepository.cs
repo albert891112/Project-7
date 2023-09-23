@@ -8,24 +8,21 @@ using System.Web;
 
 namespace _7_Team_WebApi.Repositories
 {
-    public class RoleRepsitory
+    public class PermissionRepository
     {
         SqlDb connection = new SqlDb();
 
         AppDbContext db = new AppDbContext();
 
-
         /// <summary>
-        /// Create a new role
+        /// Create a new permission
         /// </summary>
-        /// <param name="role"></param>
-        public void Create(RoleEntity role)
+        /// <param name="permission"></param>
+        public void Create(PermissionEntity permission)
         {
-            Role newRole = role.ToModel();
-
-            db.Roles.Add(newRole);
-
-            db.SaveChanges();
+            Premission newPermission = permission.ToModel();
+            
+            db.Premissions.Add(newPermission);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using _7_Team_WebApi.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,16 @@ namespace _7_Team_WebApi.Models.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+    }
+
+    public static class RoleEntityExtension
+    {
+        public static RoleEntity ToEntity(this RoleDTO dto)
+        {
+            return new RoleEntity()
+            {
+                Name = dto.Name
+            };
+        }
     }
 }
