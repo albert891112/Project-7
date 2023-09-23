@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
 using Team_7_WebApi_Client.Models.DTOS;
 
@@ -9,15 +11,25 @@ namespace Team_7_WebApi_Client.Models.Entities
 	public class CartItemEntity
 	{
 		public int Id { get; set; }
-		public OrderEntity Order { get; set; }
+		public int ProductId { get; set; }
+
+        public CartEntity Cart{ get; set; }
 		public ProductEntity Product { get; set; }
-		public string ProductName { get; set; }
-		public int Qty { get; set; }
-		public int Price { get; set; }
+        public int Qty { get; set; }
 		public string Size { get; set; }
-		public int SubTotal { get; set; }
 	}
 
+
+
+	public class CartItemCreateEntity
+	{
+        public int Id { get; set; }
+        public int ProductId { get; set; }
+        public int Qty { get; set; }
+        public string Size { get; set; }
+        public int CartId { get; set; }
+
+    }
 	public static class CartItemEntityExtenssion
 	{
 		public static CartItemEntity ToEntity(this CartItemDTO dto)
@@ -25,14 +37,22 @@ namespace Team_7_WebApi_Client.Models.Entities
 			return new CartItemEntity
 			{
 				Id = dto.Id,
-				Order = dto.Order.ToEntity(),
-				Product = dto.Product.ToEntity(),
-				ProductName = dto.ProductName,
 				Qty = dto.Qty,
-				Price = dto.Price,
 				Size = dto.Size,
-				SubTotal = dto.SubTotal,
+
 			};
 		}
+
+		public static CartItemCreateEntity ToEntity(this CartItemCreateDTO dto)
+		{
+            return new CartItemCreateEntity
+			{
+                Id = dto.Id,
+                ProductId = dto.ProductId,
+                Qty = dto.Qty,
+                Size = dto.Size,
+                CartId = dto.CartId,
+            };
+        }
 	}
 }

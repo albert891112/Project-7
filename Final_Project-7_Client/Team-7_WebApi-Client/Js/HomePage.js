@@ -13,11 +13,14 @@
         "Gender" : 1,
         "Name" : null
       }
-      
-      //搜尋商品
-      SearchProduct(Criteria);
+        
   
-      showMen();
+        showMen();11
+
+        //搜尋商品
+        SetTimeout(function () {
+            SearchProduct(Criteria);
+        }, 300)
   
       //等0.5秒後，執行categoryLoad(1)
       setTimeout(function(){
@@ -37,10 +40,13 @@
         "Name" : null
       }
       
-      //搜尋商品
-      SearchProduct(Criteria);
   
-      showWomen();
+        showWomen();
+
+        //搜尋商品
+        SetTimeout(function () {
+            SearchProduct(Criteria);
+        }, 500)
   
       //等0.3秒後，執行categoryLoad(0)
       setTimeout(function(){

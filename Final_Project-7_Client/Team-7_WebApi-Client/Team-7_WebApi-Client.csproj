@@ -173,10 +173,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\Cart\CartController.cs" />
+    <Compile Include="Controllers\Cart\CartApiController.cs" />
     <Compile Include="Controllers\Category\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\Members\MembersController.cs" />
     <Compile Include="Controllers\Orders\OrdersController.cs" />
     <Compile Include="Controllers\Products\ProductApiController.cs" />
     <Compile Include="Controllers\Products\ShowProductController.cs" />
@@ -246,6 +246,7 @@
     <Compile Include="Models\Views\Members\EditProfileVm.cs" />
     <Compile Include="Models\Views\Members\LoginVm.cs" />
     <Compile Include="Models\Views\Members\MemberExts.cs" />
+    <Compile Include="Models\Views\Members\MemberOrderVm.cs" />
     <Compile Include="Models\Views\Members\RegisterExts.cs" />
     <Compile Include="Models\Views\Members\RegisterVm.cs" />
     <Compile Include="Models\Views\MemberVM.cs" />
@@ -260,9 +261,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CartRespository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\MemberRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -462,6 +466,7 @@
     <Content Include="Views\Members\EditPassword.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Cart\Cart.cshtml" />
+    <Content Include="Views\Orders\GetOrdersForCurrentUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

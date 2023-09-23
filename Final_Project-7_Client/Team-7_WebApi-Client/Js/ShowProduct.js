@@ -8,6 +8,49 @@
 
     var stock = null;
 
+    //加入購物車
+    $(document).on("click", ".addtocart", function () {
+
+        console.log("addtocart called")
+
+        var url = "/api/CartApi/AddCartItem" 
+
+         //取得商品Id
+        const urlParams = new URLSearchParams(window.location.search);
+        const Id = urlParams.get('Id');
+        
+        //取得商品數量
+        var Qty = $(".numOfProduct").val()
+
+        //取得商品尺寸
+        var Size = $(".currentbtn").text()
+
+        //建立商品資料
+        var data = {
+            "ProductId": Id,
+            "Qty": Qty,
+            "Size": Size
+        }
+
+        //加入購物車
+        fetch(url, {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(data)
+        }).then (function (response) {
+            if(response.ok){
+                alert("加入購物車成功")
+            }
+            else{
+                alert("請先登入會員")
+                window.location.href = "../Members/Login"
+            }                                                  
+        })
+       
+
+    })
   
    
     //尺寸選擇

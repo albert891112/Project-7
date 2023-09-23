@@ -11,50 +11,47 @@ namespace Team_7_WebApi_Client.Models.DTOS
 	public class CartDTO
 	{
 		public int Id { get; set; }
-	    public MemberDTO Member { get; set; }
+	    public int MemberId{ get; set; }
 
 		public List<CartItemDTO> CartItems { get; set; }
 	}
-	
+
+	public class CartCreateDTO
+	{
+        public int Id { get; set; }
+        public int MemberId { get; set; }
+        public CartItemCreateDTO CartItem { get; set; }
+
+    }
+
 	public static class CartDTOExtenssion
 	{
-		public static CartDTO ToDTO(this CartEntity entity)
+		public static CartCreateDTO ToDTO(this CartCreateVM vm)
 		{
-			return new CartDTO
+			
+
+			return new CartCreateDTO
 			{
-				Id = entity.Id,
-				Member = entity.Member.ToDTO(),
-				CartItems = entity.CartItems.Select(x => new CartItemDTO
-				{
-					Id = x.Id,					
-					ProductName = x.ProductName,
-					Qty = x.Qty,
-					Price = x.Price,
-					Size = x.Size,
-					SubTotal = x.SubTotal,
-				}).ToList()
+				Id = vm.Id,
+				MemberId = vm.MemberId,
+				CartItem = vm.CartItem.ToDTO(),
+
 			};
+
+			
 		}
 
-
-		//public static CartDTO ToDTO(this CartVM vm)
-		//{
-		//	return new CartDTO
-		//	{
-		//		Id = vm.Id,
-		//		Member = vm.Member.ToDTO(),
-		//		CartItems = vm.CartItems.Select(x => new CartItemDTO
-		//		{
-		//			Id = x.Id,
-		//			ProductName = x.ProductName,
-		//			Qty = x.Qty,
-		//			Price = x.Price,
-		//			Size = x.Size,
-		//			SubTotal = x.SubTotal,
-		//		}).ToList()
-		//	};
-		//}
+		public static CartDTO ToDTO(this CartEntity entity)
+		{
+            return new CartDTO
+			{
+                Id = entity.Id,
+                MemberId = entity.MemberId,
+                CartItems = entity.CartItems.Select(x => x.ToDTO()).ToList(),
+            };
+        }
 	}
+
 
 
 	

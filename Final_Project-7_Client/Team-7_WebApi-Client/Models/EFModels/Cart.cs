@@ -5,6 +5,7 @@ namespace Team_7_WebApi_Client.Models.EFModels
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Team_7_WebApi_Client.Models.Entities;
 
     public partial class Cart
     {
@@ -22,5 +23,18 @@ namespace Team_7_WebApi_Client.Models.EFModels
         public virtual ICollection<CartItem> CartItems { get; set; }
 
         public virtual Member Member { get; set; }
+    }
+
+
+    public static class CartExtenssion
+    {
+        public static Cart ToModel(this CartCreateEntity entity)
+        {
+            return new Cart
+            {
+                Id = entity.Id,
+                MemberId = entity.MemberId
+            };
+        }
     }
 }
