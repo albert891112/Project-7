@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <input type="text" id="inputPhone" value="">
+  <br>
+  <input type="button" name="" id="btnNextCheckout">  
+<script>
+
+document.getElementById("btnNextCheckout").addEventListener("click", function() { 
+
+if (!(/^\d+$/).test(inputPhone.value)) {
+        
+        alert("手機號碼只能是數字");
+
+        
+        
+      
+    }else{
+        alert("手機號碼正確");
+    }
+
+});
+</script>
+
+</body>
+</html>

@@ -1,5 +1,20 @@
 document.addEventListener("DOMContentLoaded", function(){
 
+    //設定初始payHtml
+var initLoadPay = function(){
+
+    showpay();
+   
+} 
+
+//顯示初始payHtml
+var showpay = function(){
+
+    $(".payHtml").show();
+    $(".orderDataHtml").hide()
+    $(".checkoutHtml").hide()
+ }
+
     //畫面初始化，取得所有商品
     initLoadPay();
    
@@ -8,15 +23,10 @@ document.addEventListener("DOMContentLoaded", function(){
 var paymentMethodSelect = document.getElementById("paymentMethodSelect");    
 var shippingMethodSelect = document.getElementById("shippingMethodSelect");   
 
-document.getElementById("carddesc").style.display = "none";
-document.getElementById("shippinghomedesc").style.display = "none";
-document.getElementById("shippingsuperstoredesc").style.display = "none";
-document.getElementById("coupondesc").style.display = "none";
-
 //付款方式顯示注意事項
 paymentMethodSelect.addEventListener("change", function () 
 {                     
-   if(paymentMethodSelect.value == "信用卡"){        
+   if(paymentMethodSelect.value == "信用卡"){      
     document.getElementById("carddesc").style.display = "block";        
    }else{
     document.getElementById("carddesc").style.display = "none";
@@ -25,26 +35,42 @@ paymentMethodSelect.addEventListener("change", function ()
 
 //運送方式顯示注意事項
 shippingMethodSelect.addEventListener("change", function () 
-{            
-   if(shippingMethodSelect.value == "送到府"){
+{                
+   if(shippingMethodSelect.value == "送到府"){   
+    
     document.getElementById("shippinghomedesc").style.display = "block";  
-    document.getElementById("shippingsuperstoredesc").style.display = "none";      
-   }
-   if(shippingMethodSelect.value == "超商取貨"){
+    document.getElementById("pillAddressTable").style.display = "block";     
+    document.getElementById("shippingsuperstoredesc").style.display = "none";
+        
+   }else if(shippingMethodSelect.value == "超商取貨"){
     document.getElementById("shippingsuperstoredesc").style.display = "block";
     document.getElementById("shippinghomedesc").style.display = "none";
-   }
+
+   }else{
+    document.getElementById("shippingsuperstoredesc").style.display = "none";
+    document.getElementById("shippinghomedesc").style.display = "none";
+    document.getElementById("pillAddressTable").style.display = "none";
+
+   }   
+
 });
 
-// payment end====================================================
 
-//orderData  begin======================================================
-document.getElementById("btnNextOrderData").addEventListener("click", function() {    
-       
+
+document.getElementById("btnNextOrderData").addEventListener("click", function() {
+
+  //將付款方式選擇的值存入label
     var paymentMethodselectedOption = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].value;   
     var paymentMethodSelectresultLabel = document.getElementById("paymentMethodValue");
    
     paymentMethodSelectresultLabel.textContent =  paymentMethodselectedOption;
+
+    //將運送方式選擇的值存入label
+    var shippingMethodselectedOption = shippingMethodSelect.options[shippingMethodSelect.selectedIndex].value;
+    var shippingMethodSelectresultLabel = document.getElementById("shippingMethodValue");
+
+    shippingMethodSelectresultLabel.textContent =  shippingMethodselectedOption;
+    
 
     //如選選擇信用卡 顯示填寫信用卡資料
     if(paymentMethodSelect.value == "信用卡"){        
@@ -53,35 +79,47 @@ document.getElementById("btnNextOrderData").addEventListener("click", function()
        }else{
         document.getElementById("creditCardFieldsPill").style.display = "none";
         document.getElementById("cvvFieldPill").style.display = "none";
-       }
+       }    
 
+   
+
+    
+//驗證付款方式、運送方式是否沒選擇
+     if(paymentMethodSelect.value === "請選擇" || shippingMethodSelect.value === "請選擇"){  
+        
+        alert("請選擇付款方式及運送方式");
+        return;
+    }        
+       showOrderData();
+       
 });
 
 
-$("#btnNextOrderData").on("click", function() {    
+$("#btnLastCart").click(function(){
+  
+    LastpageCart();
+   
+    initLoad();
 
-    // 獲取選取的選項值
-    var shippingMethodselectedOption = $("#shippingMethodSelect option:selected").val();
-
-    // 獲取顯示結果的標籤元素
-    var ShippingMethodValue = $("#ShippingMethodValue");
-
-    // 更新標籤的內容以顯示選擇的選項
-    ShippingMethodValue.text(shippingMethodselectedOption);
-});
+    });
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+          document.getElementById("btnNextOrderData").click();
+        }
+      });
 
 
+// payment end====================================================
 
-//orderData  end======================================================
-
-//checkout  begin======================================================
+//orderData  begin======================================================
 document.getElementById("btnNextCheckout").addEventListener("click", function() {    
        
+    
     var paymentMethodselectedOption = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].value;   
     var paymentMethodSelectresultLabel = document.getElementById("paymentMethodValue1");
    
     paymentMethodSelectresultLabel.textContent =  paymentMethodselectedOption;
-
+//如選選擇信用卡 顯示填寫信用卡資料
     if(paymentMethodSelect.value == "信用卡"){        
         document.getElementById("creditCardFields").style.display = "block";
         document.getElementById("cvvField").style.display = "block";
@@ -90,57 +128,169 @@ document.getElementById("btnNextCheckout").addEventListener("click", function() 
         document.getElementById("cvvField").style.display = "none";
        }
 
+      //將姓名input的值存入label
+    var  inputName = document.getElementById("inputName").value;
+    var  myselfLabelNameValue = document.getElementById("myselfLabelNameValue");
+       myselfLabelNameValue.textContent = inputName;
+
+         //將信箱input的值存入label
+    var  inputEmail = document.getElementById("inputEmail").value;
+    var  myselfLabelEmailValue = document.getElementById("myselfLabelEmailValue");
+         myselfLabelEmailValue.textContent = inputEmail;
+
+         //將地址textarea的值存入label
+   var  inputAddress = document.getElementById("inputAddress").value;
+    var  myselfLabelAddressValue = document.getElementById("myselfLabelAddressValue");
+            myselfLabelAddressValue.textContent = inputAddress;
+
+            //將電話input的值存入label
+    var  inputPhone = document.getElementById("inputPhone").value;
+    var  myselfLabelPhoneValue = document.getElementById("myselfLabelPhoneValue");
+            myselfLabelPhoneValue.textContent = inputPhone;
+
+//驗證姓名、信箱、地址、電話是否為空值    
+    var nameError = document.getElementById("nameError");
+    var emailError = document.getElementById("emailError");
+    var addressError = document.getElementById("addressError");
+    var phoneError = document.getElementById("phoneError");
+    var parts = expiryDate.value.split('/');
+    var month = parseInt(parts[0], 10);
+        
+   
+     if(expiryDate.value === "" && paymentMethodSelect.value === "信用卡"){
+
+        //如果信用卡日期為空值,顯示錯誤訊息
+
+        showExpiryDateError();
+
+        expiryDateError.textContent = "請輸入有效期限";
+
+        return; }
+        //如果信用卡日期不是MM/YY格式,顯示錯誤訊息
+      else if(!/^\d{2}\/\d{2}$/.test(expiryDate.value) && paymentMethodSelect.value === "信用卡"){
+        
+         showExpiryDateError();
+
+            expiryDateError.textContent = "請輸入格式為MM/YY";
+            return;
+            
+        }else if(month < 1 || month > 12 && paymentMethodSelect.value === "信用卡") {
+            //如果信用卡日期不是1~12月,顯示錯誤訊息
+
+           showExpiryDateError();
+
+            expiryDateError.textContent = "月份必須在1到12之間";
+            return;
+        }else if (cvv.value === "" && paymentMethodSelect.value === "信用卡") {
+        //如果安全碼為空值,顯示錯誤訊息
+        
+        showCvvError();
+
+        cvvError.textContent = "請輸入安全碼";
+        return;
+    }
+    else if (cvv.value.length !== 3  && paymentMethodSelect.value === "信用卡") {
+        //如果安全碼不是3碼,顯示錯誤訊息
+       
+        showCvvError();
+        
+        cvvError.textContent = "安全碼必須為3碼";
+        return;
+    }
+    else if (inputName === "") {
+        //如果姓名為空值,顯示錯誤訊息
+       
+        showNameError();
+
+        nameError.textContent = "請輸入姓名";
+           return; 
+    }else if (inputEmail === "") {
+        //如果信箱為空值,顯示錯誤訊息
+     
+        showEmailError();
+
+        emailError.textContent = "請輸入信箱";
+        return;
+    }else if (inputAddress === "" && shippingMethodSelect.value === "送到府") {
+        //如果地址為空值,顯示錯誤訊息
+     
+        showAddressError();
+
+        addressError.textContent = "請輸入地址";
+        return;
+    }else if (inputPhone === "") {
+        //如果電話為空值,顯示錯誤訊息
+ 
+        showPhoneError();
+
+        phoneError.textContent = "請輸入手機號碼";
+        return;
+    } else if (!/^\d+$/.test(inputPhone)) {
+        
+        showPhoneError();
+        
+        phoneError.textContent = "手機號碼只能是數字";
+        return;
+    }
+
+    initErrortext();
+
+    showcheckout();    
+
+     //將運送方式選擇的值存入label
+     var shippingMethodselectedOption = shippingMethodSelect.options[shippingMethodSelect.selectedIndex].value;
+     var shippingMethodSelectresultLabel = document.getElementById("shippingMethodValue1");
+ 
+     shippingMethodSelectresultLabel.textContent =  shippingMethodselectedOption;
+
 });
+
+
+    //顯示上一頁payHtml
+    $("#btnLastPay").click(function(){
+            
+        showpay();         
+
+    }); 
+
+  
+
+
+
+//orderData  end======================================================
+
+
+//checkout  begin======================================================
+
+
+
+$("#btnNextOrderFinish").click(function(){
+
+    OrderFinish();    
+        
+}); 
+
+
+
+$("#btnLastOrderData").click(function(){
+
+    showOrderData();    
+        
+}); 
 
 
 
 
 //coupon begin======================================================
 
-//btn上下頁 begin===========================================
-//回到購物車
-const btnLastCart = document.getElementById("btnLastCart");
+//coupon end======================================================   
+ 
 
-btnLastCart.addEventListener("click", function () {
-  
-    LastpageCart();
-    // window.location.href = "Cart.html"; 
-     //todo getcaritems();
-    initLoad();
-
-    });
-
-    //顯示下一頁orderDataHtml
-    $("#btnNextOrderData").click(function(){
-        showOrderData();            
-    });      
-
-    //顯示上一頁payHtml
-        $("#btnLastPay").click(function(){
-            
-            showpay();         
-
-        }); 
-    //顯示下一頁checkoutHtml
-        $("#btnNextCheckout").click(function(){
-
-            showcheckout();    
-                
-        }); 
-
-        $("#btnLastOrderData").click(function(){
-
-            showOrderData();    
-                
-        }); 
-
-        $("#btnNextOrderFinish").click(function(){
-
-            OrderFinish();    
-                
-        }); 
+     
     
 });
+
+//設定函數庫=============================================================================================
 //設定顯示checkoutHtml
 var showcheckout = function(){
   
@@ -150,12 +300,7 @@ var showcheckout = function(){
   
   }
   
-//設定初始payHtml
-var initLoadPay = function(){
-
-        showpay();
-       
-    }         
+        
 
 //設定顯示orderDataHtml
 var showOrderData = function(){
@@ -165,13 +310,7 @@ var showOrderData = function(){
     $(".checkoutHtml").hide("slow" , "swing")   
   
   }
-//顯示初始payHtml
- var showpay = function(){
 
-    $(".payHtml").show();
-    $(".orderDataHtml").hide()
-    $(".checkoutHtml").hide()
- }
 //設定顯示checkoutHtml
  var showcheckout = function(){
   
@@ -194,11 +333,88 @@ var showOrderData = function(){
   
   }
 
-//btn上下頁 end===========================================
+var initErrortext = function(){
+
+    document.getElementById("expiryDateError").style.display = "none";
+    document.getElementById("cvvError").style.display = "none";
+    document.getElementById("nameError").style.display = "none";
+    document.getElementById("emailError").style.display = "none";
+    document.getElementById("addressError").style.display = "none";
+    document.getElementById("phoneError").style.display = "none";
+}
+
+  //設定信用卡日期顯示錯誤訊息
+  var showExpiryDateError = function(){
+      
+     document.getElementById("expiryDateError").style.display = "block";
+     document.getElementById("cvvError").style.display = "none";
+     document.getElementById("nameError").style.display = "none";
+     document.getElementById("emailError").style.display = "none";
+     document.getElementById("addressError").style.display = "none";
+     document.getElementById("phoneError").style.display = "none";
+      
+      }
+
+   //設定信用卡安全碼顯示錯誤訊息
+   var showCvvError = function(){
+        
+     document.getElementById("expiryDateError").style.display = "none";
+     document.getElementById("cvvError").style.display = "block";
+     document.getElementById("nameError").style.display = "none";
+     document.getElementById("emailError").style.display = "none";
+     document.getElementById("addressError").style.display = "none";
+     document.getElementById("phoneError").style.display = "none";
+      
+      }
+      
+   //設定姓名顯示錯誤訊息
+   var showNameError = function(){
+            
+         document.getElementById("expiryDateError").style.display = "none";
+         document.getElementById("cvvError").style.display = "none";
+         document.getElementById("nameError").style.display = "block";
+         document.getElementById("emailError").style.display = "none";
+         document.getElementById("addressError").style.display = "none";
+         document.getElementById("phoneError").style.display = "none";
+        
+        }
+       
+    //設定信箱顯示錯誤訊息
+var showEmailError = function(){
+                    
+        document.getElementById("expiryDateError").style.display = "none";
+        document.getElementById("cvvError").style.display = "none";
+        document.getElementById("nameError").style.display = "none";
+        document.getElementById("emailError").style.display = "block";
+        document.getElementById("addressError").style.display = "none";
+        document.getElementById("phoneError").style.display = "none";
+            
+            }
+
+//設定地址顯示錯誤訊息
+var showAddressError = function(){
+                            
+            document.getElementById("expiryDateError").style.display = "none";
+            document.getElementById("cvvError").style.display = "none";
+            document.getElementById("nameError").style.display = "none";
+            document.getElementById("emailError").style.display = "none";
+            document.getElementById("addressError").style.display = "block";
+            document.getElementById("phoneError").style.display = "none";
+                    
+                    }   
+
+//設定電話顯示錯誤訊息
+var showPhoneError = function(){
+                                    
+                    document.getElementById("expiryDateError").style.display = "none";
+                    document.getElementById("cvvError").style.display = "none";
+                    document.getElementById("nameError").style.display = "none";
+                    document.getElementById("emailError").style.display = "none";
+                    document.getElementById("addressError").style.display = "none";
+                    document.getElementById("phoneError").style.display = "block";
+                            
+                            }
 
 
 
-
-
-
-
+    

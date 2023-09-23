@@ -60,3 +60,8 @@ div.amount-wrapper {
     font-size: 20px;
     color: red;
 }
+.error{
+    color: red;
+    font-size: 18px;
+ 
+}
