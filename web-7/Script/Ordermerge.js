@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     //畫面初始化，取得所有商品
     initLoadPay();
-
+   
 //paymentmethod======================================================
 // 做出選擇後，顯示注意事項
 var paymentMethodSelect = document.getElementById("paymentMethodSelect");    
@@ -45,16 +45,28 @@ document.getElementById("btnNextOrderData").addEventListener("click", function()
     var paymentMethodSelectresultLabel = document.getElementById("paymentMethodValue");
    
     paymentMethodSelectresultLabel.textContent =  paymentMethodselectedOption;
+
+    //如選選擇信用卡 顯示填寫信用卡資料
+    if(paymentMethodSelect.value == "信用卡"){        
+        document.getElementById("creditCardFieldsPill").style.display = "block";
+        document.getElementById("cvvFieldPill").style.display = "block";
+       }else{
+        document.getElementById("creditCardFieldsPill").style.display = "none";
+        document.getElementById("cvvFieldPill").style.display = "none";
+       }
+
 });
 
-$("#btnNextOrderData").on("click", function() {
-    // 获取选择的选项的值
+
+$("#btnNextOrderData").on("click", function() {    
+
+    // 獲取選取的選項值
     var shippingMethodselectedOption = $("#shippingMethodSelect option:selected").val();
 
-    // 获取显示结果的标签元素
+    // 獲取顯示結果的標籤元素
     var ShippingMethodValue = $("#ShippingMethodValue");
 
-    // 更新标签的内容以显示选择的选项
+    // 更新標籤的內容以顯示選擇的選項
     ShippingMethodValue.text(shippingMethodselectedOption);
 });
 
@@ -69,6 +81,15 @@ document.getElementById("btnNextCheckout").addEventListener("click", function() 
     var paymentMethodSelectresultLabel = document.getElementById("paymentMethodValue1");
    
     paymentMethodSelectresultLabel.textContent =  paymentMethodselectedOption;
+
+    if(paymentMethodSelect.value == "信用卡"){        
+        document.getElementById("creditCardFields").style.display = "block";
+        document.getElementById("cvvField").style.display = "block";
+       }else{
+        document.getElementById("creditCardFields").style.display = "none";
+        document.getElementById("cvvField").style.display = "none";
+       }
+
 });
 
 
@@ -133,6 +154,7 @@ var showcheckout = function(){
 var initLoadPay = function(){
 
         showpay();
+       
     }         
 
 //設定顯示orderDataHtml
