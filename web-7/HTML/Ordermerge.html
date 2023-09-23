@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/Ordermerge.css">
+    <script src="../Script/Ordermerge.js"></script>
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.css">
+    <script src="../Bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../Jquery/jQuery.js"></script>
+    <title>訂單填寫</title>
+</head>
+<body>
+    <!-- pathtml begin -->
+    <div class="payHtml">
+         <!--狀態確認 begin-->
+        <div class="container">
+            <div class="row">              
+                <div class="col-md-4 col-sm-12 ">
+                    <div class="blue-box text-center">
+                        付款方式
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 d-none d-md-block">
+                    <div class="gray-box text-center">
+                        填寫資料
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 d-none d-md-block">
+                    <div class="gray-box text-center">
+                        核對資料
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 狀態確認 end -->
+        
+        <div>
+            <div class="m-5">
+                <div class="container">
+                    <div class="row">
+                        <h3 class="fw-bolder">購物車清單</h3>                    
+                        <!-- 表格START -->
+                        <table id="cartTable" class="table table-striped table-bordered align-middle products">
+                            <thead class="table-light fw-bolder">
+                                <tr>
+                                    <td>照片</td>
+                                    <td>品名</td>
+                                    <td class="text-end ps-4 pe-4">單價</td>
+                                    <td class="text-end ps-4 pe-4">數量</td>
+                                    <td class="text-end ps-4 pe-4">小計</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td >
+                                        <img src="../image/純棉蝴蝶結短褲.jpeg" alt="" width="100px">
+                                    </td>
+                                    <td>品名</td>
+                                    <td class="text-end ps-4 pe-4">1000</td>
+                                    <td class="text-end ps-4 pe-4">1</td>
+                                    <td class="text-end ps-4 pe-4">1000</td>
+                                </tr>
+                                <tr>
+                                    <td >
+                                        <img src="../image/寬短版水洗連帽外套.jpeg" alt="" width="100px">
+                                    </td>
+                                    <td>品名</td>
+                                    <td class="text-end ps-4 pe-4">2000</td>
+                                    <td class="text-end ps-4 pe-4">1</td>
+                                    <td class="text-end ps-4 pe-4">2000</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+        
+                        <!-- LABEL START -->
+                        <div class="row ">
+                            <!-- 小計 -->
+                            <div class="col-3 labelLef">
+                                <label for="subtotal">小計</label>
+                            </div>
+                            <!-- 運送方式 -->
+                            <div class="col-3 labelLef">
+                                <label for="shippingMethod">運送方式</label>
+                            </div>
+                            <!-- 優惠券 -->
+                            <div class="col-3 labelLef">
+                                <label for="coupon">優惠券</label>
+                            </div>
+                            <!-- 總金額 -->
+                            <div class="col-3 labelLef">
+                                <label for="totalAmount">總金額</label>
+                            </div>
+                        </div>
+                        <!-- LABEL END --> 
+        
+                        <!-- METHOD START -->
+                        <div class="row">                      
+                            <div class="col-3 col-md-3 mt-3">
+                                <select name="paymentMethodSelect" id="paymentMethodSelect" class="form-select c">
+                                    <option value="未選擇">請選擇</option>
+                                    <option value="現金付款">現金付款</option>
+                                    <option value="信用卡">信用卡</option>                                    
+                                    <div id="paydesc" class="amount-wrapper" style="display: none;"></div>                               
+                                </select>
+                            </div>
+                            <div class="col-3 col-md-3 mt-3">
+                                <select name="shippingMethodSelect" id="shippingMethodSelect" class="form-select c">
+                                    <option value="未選擇">請選擇</option>
+                                    <option value="送到府">送到府</option>
+                                    <option value="超商取貨">超商取貨</option>
+                                </select>
+                            </div>
+                            <div class="col-3 col-md-3 mt-3">
+                                <select name="coupon" id="coupon" class="form-select">
+                                    <option value="未選擇">請選擇</option>
+                                    <option value="nonecoupon">無優惠券</option>
+                                    <option value="coupon1">優惠券1</option>
+                                    <option value="coupon2">優惠券2</option>
+                                </select>
+                            </div>
+                            <!-- 總金額 -->
+                            <div class="col-3 labelcentLef">
+                                <label for="totalAmount"></label>
+                            </div>
+                        </div>
+                        <!-- METHOD END -->
+                        <div class="row">
+                            <div class="col-2 ">
+                                <div class="amount-wrapper">
+                                    <label  for="subtotal">0</label>
+                                </div>
+                            </div>
+                            <div class="col-1 ">
+                                <div class="amount-wrapper"></div>
+                                <label for="plus">+</label>
+                            </div>
+                            <div class="col-2 ">
+                                <div class="amount-wrapper">
+                                    <label for="shippingcost">0</label>
+                                </div>
+                            </div>
+                            <div class="col-1 ">
+                                <div class="amount-wrapper"></div>
+                                <label for="sub">-</label>
+                            </div>
+                            <div class="col-2 ">
+                                <div class="amount-wrapper">
+                                    <label for="couponcost">0</label>
+                                </div>
+                            </div>
+                            <div class="col-1 ">
+                                <div class="amount-wrapper"></div>
+                                <label for="equals">=</label>
+                            </div>
+                            <div class="col-3 text-end">
+                                <div class="amount-wrapper"></div>
+                                <label for="totalAmount">0</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 ">
+                                <div class="amount-wrapper">
+                                    <label  for="paydesc"></label>                                
+                                </div>
+                            </div>                      
+                            <div class="col-3 ">
+                                <div class="amount-wrapper">
+                                    <label for="shippingdesc"></label>
+                                </div>
+                            </div>                     
+                            <div class="col-3 ">
+                                <div class="amount-wrapper">
+                                    <label for="coupondesc"></label>
+                                </div>
+                            </div>                       
+                        </div>
+                        <div class="row">
+                            <div class="col-3">              
+                                <span  id="cashdesc" class="downdesc"></span>                                      
+                                <span  id="carddesc" class="downdesc" >還不能使用</span>                                            
+                             </div>
+                             <div class="col-3">                                                
+                                <span id="shippinghomedesc" class="downdesc">只提供台灣本島</span>
+                                <span id="shippingsuperstoredesc" class="downdesc">還不能使用</span>
+                              </div>                           
+                             <div class="col-3">                                                   
+                                <span  id="coupondesc" class="downdesc"></span>
+                              </div>    
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-5">                
+                            <div class="col-12 text-center">
+                                <input type="button" class="btn btn-secondary" value="上一步" id="btnLastCart" style="margin-right: 50px;">
+                                <input type="button" class="btn btn-secondary" value="下一步" id="btnNextOrderData" style="margin-left: 50px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>     
+     
+
+<!-- payHtml end -->
+
+<!-- OrderData begin -->
+
+<div class="orderDataHtml">
+           <!--狀態確認 begin-->
+<div class="container">
+    <div class="row">       
+        <div class="col-md-4 col-sm-12 d-none d-md-block">
+            <div class="gray-box text-center">
+                付款方式
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 ">
+            <div class="blue-box text-center">
+                填寫資料
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 d-none d-md-block">
+            <div class="gray-box text-center">
+                核對資料
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 填寫表格START -->
+<div class="m-5">
+    <table id="cartTable" class="table table-striped table-bordered align-middle products">
+        <thead class="table-light fw-bolder">
+            <tr>
+                <td>照片</td>
+                <td>品名</td>
+                <td class="text-end ps-4 pe-4">單價</td>
+                <td class="text-end ps-4 pe-4">數量</td>
+                <td class="text-end ps-4 pe-4">小計</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td >
+                    <img src="../image/純棉蝴蝶結短褲.jpeg" alt="" >
+                </td>
+                <td>品名</td>
+                <td class="text-end ps-4 pe-4">1000</td>
+                <td class="text-end ps-4 pe-4">1</td>
+                <td class="text-end ps-4 pe-4">1000</td>
+            </tr>
+            <tr>
+                <td >
+                    <img src="../image/寬短版水洗連帽外套.jpeg" alt="" >
+                </td>
+                <td>品名</td>
+                <td class="text-end ps-4 pe-4">2000</td>
+                <td class="text-end ps-4 pe-4">1</td>
+                <td class="text-end ps-4 pe-4">2000</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class=" col-3 mt-3 ">
+        <label  for="shipping">運費:</label>
+        <label  for="ShippingValue" value="ShippingValue"></label>
+        <label  for="Unit">元</label>
+    </div>
+    <div class=" col-3 mt-3">
+        <label  for="coupon">折扣:</label>
+        <label  for="couponValue" value="couponValue"></label>
+        <label  for="Unit">元</label>
+    </div>
+    <div class=" col-3 mt-3">
+        <label  for="TotalPrice">應付金額:</label>
+        <label  for="TotalPriceValue" value="TotalPriceValue"></label>
+        <label  for="Unit">元</label>
+    </div>
+
+</div>
+
+    
+
+    <table id="cartTable" class="table table-striped table-bordered align-middle products mt-5">
+        <thead class="table-light fw-bolder">
+            <tr>                            
+                <td class="text-start ps-4 pe-4" >付款資料</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="container">
+                        <form>                            
+                            <div class="form-group mt-3">
+                                <label for="paymentMethod">付款方式:</label>
+                                <label class="paymentMethodValue" for="paymentMethodValue" id="paymentMethodValue"></label>                                  
+                              </div>
+                              <div>
+                                <label for="Shipping">運送方式:</label>
+                                <label for="ShippingValue" id="ShippingMethodValue">運送方式</label>
+                              </div>                                     
+                              <div>
+                                <label for="TotalPrice">應付金額:</label>
+                                <label for="TotalPriceValue">應付金額</label>
+                              </div>                      
+                            <div class="form-group mt-3 cradTable" id="creditCardFieldsPill" >
+                                <label for="expiryDate">信用卡到期日 (MM/YY)</label>
+                                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group mt-3 cradTable" id="cvvFieldPill" >
+                                <label for="cvv">CVV</label>
+                                <input type="text" class="form-control" id="cvv" placeholder="請輸入CVV">
+                            </div>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<!-- 填寫表格END -->
+
+<table id="cartTable" class="table table-striped table-bordered align-middle products mt-5">
+    <thead class="table-light fw-bolder">
+        <tr>                            
+            <td class="text-start ps-4 pe-4" >收件資料</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <div class="container">
+                    <form>                        
+                        <div class="form-group mt-3">
+                            <label for="name">姓名</label>
+                            <input type="text" class="form-control" id="name" placeholder="請輸入姓名" >
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="email">電子郵件</label>
+                            <input type="email" class="form-control" id="email" placeholder="請輸入電子郵件" >
+                        </div>
+                        <div class="form-group mt-3" >
+                            <label for="address">地址</label>
+                            <textarea class="form-control" id="address" rows="3" placeholder="請輸入地址" ></textarea>
+                        </div>                                             
+                        <div class="form-group mt-3">
+                            <label for="phone">手機號碼</label>
+                            <input type="phone" class="form-control" id="phone" placeholder="請輸入手機號碼" >
+                        </div>                       
+                        
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+    <div class="row">                
+        <div class="col-12 text-center">
+            <input type="button" class="btn btn-secondary" value="上一步" id="btnLastPay" style="margin-right: 50px;">
+            <input type="button" class="btn btn-secondary" value="下一步" id="btnNextCheckout" style="margin-left: 50px;">
+        </div>
+    </div> 
+
+</div> 
+
+<!-- OrderData end -->
+
+<!-- Checkout begin -->
+    <div class="checkoutHtml">
+          <!--狀態確認 begin-->
+    <div class="container">
+        <div class="row">        
+            <div class="col-md-4 col-sm-12 d-none d-md-block">
+                <div class="gray-box text-center">
+                    付款方式
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 d-none d-md-block">
+                <div class="gray-box text-center">
+                    填寫資料
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="blue-box text-center">
+                    核對資料
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <!--狀態確認 end-->
+    <!-- 付款表格START -->
+    <table id="CheckoutPillData" class="table table-striped table-bordered align-middle products mt-5">
+        <thead class="table-light fw-bolder">
+            <tr>                            
+                <td class="text-start ps-4 pe-4" >個人資料</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="container">
+                        <form>
+                            <div class="form-group mt-3">
+                                <label for="name">姓名:</label>
+                                <label for="nameValue">姓名</label>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="email">電子郵件:</label>
+                                <label for="emailValue">電子郵件</label>
+                            </div>                            
+                            <div class="form-group mt-3" style="display: none;">
+                                <label for="address">地址:</label>
+                                <label for="addressValue">地址</label>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="phone">手機號碼:</label>
+                                <label for="phoneValue">手機號碼</label>
+                            </div>                           
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+      <!-- 付款表格START -->
+
+    <table id="CheckoutProductItem" class="table table-striped table-bordered align-middle products">
+        <thead class="table-light fw-bolder">
+            <tr>                            
+                <td class="text-start ps-4 pe-4" >購物明細</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="container">
+                        <form>                          
+                            <div class="form-group mt-3">
+                                <label for="paymentMethod">付款方式:</label>
+                                <label class="paymentMethodValue" for="paymentMethodValue" id="paymentMethodValue1"></label>
+                            </div>
+                            <div class="form-group mt-3" id="creditCardFields" >
+                                <label for="expiryDate">信用卡到期日 (MM/YY)</label>
+                                <label for="expiryDateValue">信用卡到期日 (MM/YY)</label>
+                            </div>
+                            <div class="form-group mt-3" id="cvvField" >
+                                <label for="cvv">CVV:</label>
+                                <label for="cvvValue">CVV</label>
+                            </div>
+                            <div class=" form-group mt-3">
+                                <label for="shipping">運送方式:</label>
+                                <label for="shippingValue">運送方式</label>                                   
+                            </div>
+                            <div class=" form-group mt-3">
+                                <label for="shipping">運送金額:</label>
+                                <label for="shippingValue">運送金額</label>                                   
+                            </div>
+                            <div class=" form-group mt-3">
+                                <label for="couponName">優惠券名稱:</label>
+                                <label for="couponNameValue">優惠券名稱</label>                                   
+                            </div>
+                            <div class=" form-group mt-3">
+                                <label for="couponDiscount">優惠券金額:</label>
+                                <label for="couponDiscountValue">優惠券金額</label>                                   
+                            </div>
+                            <div class=" form-group mt-3">
+                                <label for="Total">應付金額:</label>
+                                <label for="TotalValue">應付金額</label>                                   
+                            </div>                            
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<!-- 填寫表格END -->
+
+    <div class="row">                
+        <div class="col-12 text-center mt-5">
+            <input type="button" class="btn btn-secondary" value="上一步" id="btnLastOrderData" style="margin-right: 50px;">
+            <input type="button" class="btn btn-primary" value="完成" id="btnNextOrderFinish" style="margin-left: 50px;">
+        </div>  
+      </div>    
+  
+    </body>
+    </html>

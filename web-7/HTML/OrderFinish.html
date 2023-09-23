@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>結帳資料</title>
-    <!-- 引入 Bootstrap CSS -->   
+    <link rel="stylesheet" href="../css/Ordermerge.css">
+    <script src="../Script/Ordermerge.js"></script>
     <link rel="stylesheet" href="../Bootstrap/css/bootstrap.css">
     <script src="../Bootstrap/js/bootstrap.bundle.js"></script>
-    <!-- <script src="../Script/Cart.js"></script> -->
-    <!-- 自定義 CSS -->
+    <title>感謝訂購</title>
+
     <style>
         .startcontainer {
             margin-top: 80px;
@@ -55,7 +55,7 @@
     </style>
 </head>
 <body>
-
+<!-- 感謝框 begin -->
 <div class="container mt-5">
     <div class="row">
         <div class="col-12 d-flex justify-content-center align-items-center">
@@ -65,12 +65,26 @@
         </div>
     </div>
 </div>
-
+<!-- 感謝框 end -->
     <div class="row">                
         <div class="col-12 text-center mt-5">
-            <input type="button" class="btn btn-secondary" value="回到首頁" id="btnCheckoutLast" style="margin-right: 50px;">            
+            <input type="button" class="btn btn-secondary" value="回到首頁" id="btnCheckoutHome" style="margin-right: 50px;">            
         </div>  
       </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    
+    const btnCheckoutHome = document.getElementById("btnCheckoutHome");
+
+
+    btnCheckoutHome.addEventListener("click", function () {
+      
+        window.location.href = "Homephage.html"; // 将 "index.html" 替换为您的首页的 URL
+    });
+});
+
+
+</script>
 
 </body>
 </html>

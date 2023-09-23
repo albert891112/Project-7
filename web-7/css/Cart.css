@@ -1,0 +1,53 @@
+.startcontainer {
+    margin-top: 80px;
+}
+.blue-box,
+.gray-box {
+       
+        height: 150px;       
+        border-radius: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0 10px; 
+        
+}
+
+
+.blue-box {
+    background-color: rgb(119, 119, 189);
+}
+
+.gray-box {
+    background-color: rgb(179, 179, 189);
+}
+
+.text-center {
+    font-size: 30px;
+    color: aliceblue;
+}
+.labelLef{
+margin-top: 30px;
+padding-left: 65px;
+font-size: 20px;
+}
+.methodLef{
+margin-top: 30px;
+padding-left: 90px;
+font-size: 30px;
+}
+.labelcentLef{
+margin-top: 30px;
+padding-left: 120px;
+font-size: 20px;
+}
+.symbol{
+margin-top: 15px;
+font-size: 30px;
+}
+div.amount-wrapper {    
+    margin-top: 30px;        
+    display: flex;
+    align-items: center;
+}
