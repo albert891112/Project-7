@@ -10,6 +10,7 @@ using Team_7_WebApi_Client.Models.EFModels;
 using Team_7_WebApi_Client.Models.Entities;
 using Team_7_WebApi_Client.Models.Views;
 using Team_7_WebApi_Client.Models.Views.Members;
+using Team_7_WebApi_Client.Models.Views.Orders;
 using Team_7_WebApi_Client.Repositories;
 
 namespace Team_7_WebApi_Client.Controllers.Orders
@@ -30,9 +31,9 @@ namespace Team_7_WebApi_Client.Controllers.Orders
 
             int memberId = GetMemberIdByAccount(buyer);
 
-            List<OrderEntity> orderItems = _orderRepository.GetOrderItemsbyMember(memberId);
+            List<OrderEntity> orders = _orderRepository.GetOrdersbyMember(memberId);
 
-            List<MemberOrderVm> vmList = orderItems.Select(order =>
+            List<MemberOrderVm> vmList = orders.Select(order =>
                 new MemberOrderVm
                 {
                     memberId = order.Member, 
@@ -46,17 +47,30 @@ namespace Team_7_WebApi_Client.Controllers.Orders
             return View(vmList);
         }
 
-        public ActionResult GetOrderItems()
+        public ActionResult GetOrderItems(int orderId)
         {
-            //todo
-            var buyer = User.Identity.Name;
 
-            int memberId = GetMemberIdByAccount(buyer);
+            OrderEntity order = _orderRepository.GetOrderById(orderId);
 
-            //List<OrderItemEntity> orderItems = _orderRepository.GetOrderItemsbyMember(memberId);
+			List<MemberOrderItemVm> vmList = new List<MemberOrderItemVm>();
 
-            return View();
-        }
+			foreach (var orderItem in order.OrderItemList)
+			{
+				MemberOrderItemVm vm = new MemberOrderItemVm
+				{
+					Id = orderItem.Id,
+					ProductName = orderItem.Product.Name,
+					ProductPrice = orderItem.Product.Price,
+					Size = orderItem.Size,
+					ProductQuantity = orderItem.Qty,
+					Total = orderItem.Product.Price * orderItem.Qty
+				};
+
+				vmList.Add(vm);
+			}
+
+			return View(vmList);
+		}
 
         private int GetMemberIdByAccount(string buyer)
         {
