@@ -14,6 +14,14 @@ namespace Team_7_WebApi_Client.Services
 		CartRepository repo = new CartRepository();
 		MemberRepository memberRepo = new MemberRepository();
 
+
+		public CartDTO ShowCart(string Account)
+		{
+			CartEntity cart = this.repo.GetCartByMember(Account);	
+
+			return cart.ToDTO();
+		}
+
 		/// <summary>
 		/// If Cart is exist, update cartItem or Create new cart
 		/// </summary>

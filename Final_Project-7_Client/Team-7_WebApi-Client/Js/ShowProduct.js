@@ -48,9 +48,7 @@
                 window.location.href = "../Members/Login"
             }                                                  
         })
-        .catch (function (err) {
-               alert("加入購物車失敗")
-        })
+       
 
     })
   

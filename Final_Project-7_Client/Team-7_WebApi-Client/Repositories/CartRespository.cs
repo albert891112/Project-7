@@ -1,10 +1,11 @@
 ﻿using Albert.Lib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Team_7_WebApi_Client.Models.EFModels;
 using Team_7_WebApi_Client.Models.Entities;
-
-
+using System.Data.SqlClient;
+using Dapper;
 
 namespace Team_7_WebApi_Client.Repositories
 {
@@ -79,6 +80,55 @@ namespace Team_7_WebApi_Client.Repositories
             
         }	
 
+
+
+		/// <summary>
+		/// Get cart by member account
+		/// </summary>
+		/// <param name="Account"></param>
+		/// <returns></returns>
+		public CartEntity GetCartByMember(string Account)
+		{
+			string sql = @"SELECT C.* , M.Id , Ci.* , P.* FROM Carts as C 
+						INNER JOIN Members as M ON C.MemberId = M.Id 
+						INNER JOIN CartItems as CI ON Ci.CartId = c.Id 
+						INNER JOIN Products as P ON CI.ProductId = P.Id 
+						WHERE M.Account = @Account";
+
+			object obj = new { Account = Account };
+
+			Func<SqlConnection, string, object, CartEntity> func = (conn, s, o) =>
+			{
+				CartEntity cart = null;
+
+				return conn.Query<CartEntity, MemberEntity, CartItemEntity, ProductEntity, CartEntity>(s, (c, m, ci, p) =>
+				{
+                    if (cart != null)
+					{
+						ci.Product = p;
+						cart.CartItems.Add(ci);
+                    }
+					else
+					{
+						c.MemberId = m.Id;
+						ci.Product = p;
+						c.CartItems = new List<CartItemEntity> ();
+						c.CartItems.Add(ci);
+						cart = c;
+                        
+					}
+                    return cart;
+
+                }, o).FirstOrDefault();
+
+			};
+			
+
+			CartEntity entity = this.connection.Get(sql, "default" , obj , func );
+
+			return entity;
+		
+		}
 	}
 		    
 		

@@ -8,6 +8,7 @@ using Team_7_WebApi_Client.Models.DTOS;
 using Team_7_WebApi_Client.Models.Views;
 using System.Web.Security;
 using Team_7_WebApi_Client.Services;
+using System.Web;
 
 namespace Team_7_WebApi_Client.Controllers.Cart
 {
@@ -15,7 +16,7 @@ namespace Team_7_WebApi_Client.Controllers.Cart
     {
 
         /// <summary>
-        /// 
+        /// Add CartItem to Cart
         /// </summary>
         /// <param name="vm"></param>
         /// <returns></returns>
@@ -32,5 +33,24 @@ namespace Team_7_WebApi_Client.Controllers.Cart
             return Ok();
         }
 
+
+        /// <summary>
+        /// Show Cart
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public IHttpActionResult ShowCart()
+        {
+            var service = new CartService();
+
+            string account = HttpContext.Current.User.Identity.Name;
+
+            var cart = service.ShowCart(account);
+
+            var cartVM = cart.ToVM();   
+
+            return Ok(cartVM);
+        }
     }
 }
