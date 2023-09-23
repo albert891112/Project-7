@@ -1,5 +1,6 @@
 namespace _7_Team_WebApi.Models.EFModels
 {
+    using _7_Team_WebApi.Models.Entities;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -25,10 +26,23 @@ namespace _7_Team_WebApi.Models.EFModels
         public string Account { get; set; }
 
         [Required]
-        [StringLength(15)]
+        [StringLength(70)]
         public string Password { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Users_Roles> Users_Roles { get; set; }
+    }
+
+    public static class UserExtension
+    {
+        public static User ToModel(this UserEntity dto)
+        {
+            return new User()
+            {
+                Account = dto.Account,
+                Password = dto.Password,
+                Name = dto.Name
+            };
+        }
     }
 }

@@ -15,10 +15,10 @@
       }
         
   
-        showMen();11
+        showMen();
 
         //搜尋商品
-        SetTimeout(function () {
+        setTimeout(function () {
             SearchProduct(Criteria);
         }, 300)
   
@@ -44,7 +44,7 @@
         showWomen();
 
         //搜尋商品
-        SetTimeout(function () {
+        setTimeout(function () {
             SearchProduct(Criteria);
         }, 500)
   

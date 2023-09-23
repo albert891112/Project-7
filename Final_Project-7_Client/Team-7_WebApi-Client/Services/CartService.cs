@@ -68,7 +68,6 @@ namespace Team_7_WebApi_Client.Services
 
             return  repo.Search(MemberId);
 
-			
         }
 
 
