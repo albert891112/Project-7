@@ -14,6 +14,15 @@ namespace Team_7_WebApi_Client.Models.Entities
         public List<CartItemEntity> CartItems { get; set; }
     }
 
+
+	public class CartCreateEntity
+	{
+        public int Id { get; set; }
+        public int MemberId { get; set; }
+        public CartItemCreateEntity CartItem { get; set; }
+
+    }
+
 	public static class CartEntityExtenssion
 	{
 		public static CartEntity ToEntity(this CartDTO dto)
@@ -31,6 +40,16 @@ namespace Team_7_WebApi_Client.Models.Entities
 
 				}).ToList()
 			};
+		}
+
+		public static CartCreateEntity ToEntity(this CartCreateDTO dto)
+		{
+			return new CartCreateEntity
+			{
+				Id = dto.Id,
+				MemberId = dto.MemberId,
+				CartItem = dto.CartItem.ToEntity(),
+            };
 		}
 
 

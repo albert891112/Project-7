@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Results;
+using System.Web.UI;
 using Team_7_WebApi_Client.Models.Entities;
 using Team_7_WebApi_Client.Models.Views;
 
@@ -13,42 +15,47 @@ namespace Team_7_WebApi_Client.Models.DTOS
 		public OrderDTO Order { get; set; }
 		public ProductDTO Product { get; set; }
 		public string ProductName { get; set; }
+		public int ProductId { get; set; }	
 		public int Qty { get; set; }
 		public int Price { get; set; }
 		public string Size { get; set; }
 		public int SubTotal { get; set; }
 	}
 
+	public class CartItemCreateDTO
+	{
+        public int Id { get; set; }
+        public int ProductId { get; set; }
+        public int Qty { get; set; }
+        public string Size { get; set; }
+        public int CartId { get; set; }
+    }
+
 	public static class CartItemDTOExtenssion
 	{
-		public static CartItemDTO ToEntity(this CartItemEntity entity)
+		public static CartItemCreateDTO ToDTO(this CartItemCreateVM vm)
 		{
-			return new CartItemDTO
+            return new CartItemCreateDTO
 			{
-				Id = entity.Id,
-				Order = entity.Order.ToDTO(),
-				Product = entity.Product.ToDTO(),
-				ProductName = entity.ProductName,
-				Qty = entity.Qty,
-				Price = entity.Price,
-				Size = entity.Size,
-				SubTotal = entity.SubTotal,
-			};
-		}
+                Id = vm.Id,
+                ProductId = vm.ProductId, 
+				CartId = vm.CartId,
+                Qty = vm.Qty,
+                Size = vm.Size,
+            };
+        }
 
-		//public static CartItemDTO ToDTO(this CartItemVM vm)
-		//{
-		//	return new CartItemDTO
-		//	{
-		//		Id = vm.Id,
-		//		Order = vm.Order.ToDTO(),
-		//		Product = vm.Product.ToDTO(),
-		//		ProductName = vm.ProductName,
-		//		Qty = vm.Qty,
-		//		Price = vm.Price,
-		//		Size = vm.Size,
-		//		SubTotal = vm.SubTotal,
-		//	};
-		//}
+
+		public static CartItemDTO ToDTO(this CartItemEntity entity)
+		{
+            return new CartItemDTO
+			{
+                Id = entity.Id,
+                ProductId = entity.ProductId,
+                Qty = entity.Qty,
+                Size = entity.Size,
+                Product = entity.Product.ToDTO(),
+            };
+        }
 	}
 }

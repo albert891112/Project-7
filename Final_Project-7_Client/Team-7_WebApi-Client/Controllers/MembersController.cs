@@ -30,6 +30,7 @@ namespace Team_7_WebApi_Client.Controllers
         public ActionResult Register()
 		{
 			return View();
+            
 		}
 
 		[HttpPost]
