@@ -1,5 +1,6 @@
 namespace _7_Team_WebApi.Models.EFModels
 {
+    using _7_Team_WebApi.Models.Entities;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -26,5 +27,18 @@ namespace _7_Team_WebApi.Models.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Users_Roles> Users_Roles { get; set; }
+    }
+
+
+    public static class RoleExtension
+    {
+        public static Role ToModel(this RoleEntity role)
+        {
+            return new Role()
+            {
+                Id = role.Id,
+                RoleName = role.Name
+            };
+        }
     }
 }
