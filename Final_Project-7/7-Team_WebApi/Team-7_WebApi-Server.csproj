@@ -200,6 +200,7 @@
     <Compile Include="Controllers\Categories\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Members\MemberController.cs" />
+    <Compile Include="Controllers\PermissionControll\PermissionApiController.cs" />
     <Compile Include="Controllers\PermissionControll\RoleApiController.cs" />
     <Compile Include="Controllers\Products\ProductApiController.cs" />
     <Compile Include="Controllers\PermissionControll\UserApiController.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Models\DTOs\MemberDTO.cs" />
     <Compile Include="Models\DTOs\OrderDTO.cs" />
     <Compile Include="Models\DTOs\OrderItemDTO.cs" />
+    <Compile Include="Models\DTOs\PermissionDTO.cs" />
     <Compile Include="Models\DTOs\ProductDTO.cs" />
     <Compile Include="Models\DTOs\RoleDTO.cs" />
     <Compile Include="Models\DTOs\StatusDTO.cs" />
@@ -255,6 +257,7 @@
     <Compile Include="Models\ViewModels\GenderCategoryVM.cs" />
     <Compile Include="Models\ViewModels\MemberVM.cs" />
     <Compile Include="Models\ViewModels\OrderVM.cs" />
+    <Compile Include="Models\ViewModels\PermissionVM.cs" />
     <Compile Include="Models\ViewModels\ProductVM.cs" />
     <Compile Include="Models\ViewModels\RoleVM.cs" />
     <Compile Include="Models\ViewModels\StockVM.cs" />
@@ -272,6 +275,7 @@
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserServie.cs" />
