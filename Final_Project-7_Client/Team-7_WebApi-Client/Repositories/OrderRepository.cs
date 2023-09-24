@@ -58,36 +58,38 @@ namespace Team_7_WebApi_Client.Repositories
             return result;
         }
 
-		public OrderEntity GetOrderById(int orderId)
+		public List<OrderItemEntity> GetOrderById(int orderId)
 		{
-			using (var connection = new SqlConnection("default")) 
+			SqlDb connection = new SqlDb();
+
+			string sql = @"SELECT O.*, OI.*, M.*, P.*, OS.*
+                   FROM OrderItems as OI
+                   INNER JOIN Orders as O ON O.Id = OI.OrderId
+                   INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId
+                   INNER JOIN Members as M ON M.Id = O.MemberId
+                   INNER JOIN Products as P ON P.Id = OI.ProductId
+                   WHERE OI.OrderId = @OrderId
+                   ORDER BY O.ID";
+
+			object obj = new { OrderId = orderId };
+
+			Func<SqlConnection, string, object, List<OrderItemEntity>> func = (conn, s, parameter) =>
 			{
-				connection.Open();
+				return conn.Query<OrderEntity, OrderItemEntity, MemberEntity, ProductEntity, OrderStatusEntity, OrderItemEntity>(s, (O, OI, M, P, OS) =>
+				{
+					OI.Product = P;
+					O.OrderItemList = new List<OrderItemEntity>();
+					
 
-				string sql = @"SELECT O.*, OI.*, M.*, P.*, OS.*
-                           FROM Orders AS O
-                           INNER JOIN OrderItems AS OI ON O.Id = OI.OrderId
-                           INNER JOIN Members AS M ON M.Id = O.MemberId
-                           INNER JOIN Products AS P ON P.Id = OI.ProductId
-                           INNER JOIN OrderStatus AS OS ON OS.Id = O.OrderStatusId
-                           WHERE O.Id = @OrderId";
+					return OI;
 
-				var result = connection.Query<OrderEntity, OrderItemEntity, MemberEntity, ProductEntity, OrderStatusEntity, OrderEntity>(
-					sql,
-					(order, orderItem, member, product, orderStatus) =>
-					{
-						order.OrderItemList = new List<OrderItemEntity> { orderItem };
-						order.Member = member;
-						orderItem.Product = product;
-						order.OrderStatus = orderStatus;
-						return order;
-					},
-					new { OrderId = orderId },
-					splitOn: "Id,OrderId,Id,Id,Id"
-				).FirstOrDefault();
+				}, parameter).ToList();
 
-				return result;
-			}
+			};
+
+			List<OrderItemEntity> result = connection.Search<List<OrderItemEntity>>(sql, "default", obj, func);
+
+			return result;
 		}
 
 	}

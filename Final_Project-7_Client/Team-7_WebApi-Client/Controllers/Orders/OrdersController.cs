@@ -50,11 +50,11 @@ namespace Team_7_WebApi_Client.Controllers.Orders
         public ActionResult GetOrderItems(int orderId)
         {
 
-            OrderEntity order = _orderRepository.GetOrderById(orderId);
+            List<OrderItemEntity> orderItems = _orderRepository.GetOrderById(orderId);
 
 			List<MemberOrderItemVm> vmList = new List<MemberOrderItemVm>();
 
-			foreach (var orderItem in order.OrderItemList)
+			foreach (var orderItem in orderItems)
 			{
 				MemberOrderItemVm vm = new MemberOrderItemVm
 				{
