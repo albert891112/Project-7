@@ -24,7 +24,7 @@ namespace Team_7_WebApi_Client.Models.Views.Orders
         [Display(Name = "商品尺寸")]
         public string Size { get; set; }
 
-        [Display(Name ="總價")]
+        [Display(Name ="小計")]
         public int Total { get; set; }
     }
 }
