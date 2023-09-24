@@ -4,11 +4,9 @@
     ViewBag.Title = "GetOrderItems";
 }
 
-<h2>GetOrderItems</h2>
+<h3 class="search">訂單明細</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -30,32 +28,56 @@
         <th>
             @Html.DisplayNameFor(model => model.Total)
         </th>
-        <th></th>
+        
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Size)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductPrice)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductQuantity)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductQuantity)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Total)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
 
-    </tr>
-}
+        </tr>
+    }
 
 </table>
+
+<div class="back">
+    <p><a href="/Orders/GetOrdersForCurrentUser/" >返回訂單總覽</a></p>
+</div>
+
+@section css{
+    <style>
+        .search {
+            margin-top: 100px;
+            margin-bottom: 1.5em;
+            text-align: center;
+        }
+
+        .table {
+            padding-bottom: 100px;
+        }
+        .back{
+            text-align:end;
+        }
+
+    </style>
+}
+
