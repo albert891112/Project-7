@@ -14,20 +14,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }).then(function (response) {
           return response.json();
         }).then(function (result) {
-           Cart(result);
+           setCart(result);
         }).catch(function (err) {
             console.log(err);
         });     
         
-      }
+      };
 
-      var Cart = function(data){
+      var setCart = function(data){
         var cartTemplate = getCartTemplate("cartTemplate");
 
         $each(data, function (index, ele) {
 
            var cartItems = cartTemplate.clone();
-           cartItems.find(".cart").attr("href","./Cart/ToCart?Account=" + ele.Account);
+           cartItems.find(".cart").attr("href","./Cart/ToCart?account=" + ele.Account);
            cartItems.find(".cart_img").attr("src", ele.Image);
            cartItems.find(".cart_productName").text(ele.Name);
            cartItems.find(".cart_size").text(ele.Size);
@@ -37,7 +37,17 @@ document.addEventListener("DOMContentLoaded", function () {
             cartItems.find(".cart_total").text(ele.Total);
             $("#cartTable").append(cartItems);
         });
-      }
+      };
+
+
+
+      var getCartTemplate = function(name){
+  
+        var templateName = "template." +  name ;
+        var template = $(templateName).html();
+    
+        return $(template).clone();
+    }
 
    //使用 JSON 字串模擬購物車數據
    var cartDataJSON = `

@@ -1,11 +1,54 @@
 document.addEventListener("DOMContentLoaded", function(){
 
+
+
     //設定初始payHtml
 var initLoadPay = function(){
 
-    showPay();
+    showPay();   
+
+    
+
+    var getToCartItem = function(){
+    
+        let url = '/api/CartApi/ShowCart';        
+    
+        fetch(url, {
+            method: 'GET',            
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then(function (response) {
+          return response.json();
+        }).then(function (result) {
+            cartItems(result);
+        }).catch(function (err) {
+            console.log(err);
+        });     
+        
+      };
    
-} 
+      var cartItems = function(data){
+        var cartTemplate = getCartTemplate("cartItem_list");
+   
+        $.each(data, function (index, ele) {
+   
+           var cartItems = cartTemplate.clone();           
+           cartItems.find(".cart_img").attr("src", ele.Image);
+           cartItems.find(".cart_productName").text(ele.Name);
+           cartItems.find(".cart_size").text(ele.Size);
+            cartItems.find(".cart_unitPrice").text(ele.UnitPrice);
+            cartItems.find(".cart_qty").text(ele.Qty);
+            cartItems.find(".cart_subtotal").text(ele.Subtotal);
+            cartItems.find(".cart_total").text(ele.Total);
+            $("#cartTable").append(cartItems);
+        });
+      };
+
+    }
+
+    // getToCartItem();
+
 
 //顯示初始payHtml
 var showPay = function(){
@@ -255,7 +298,7 @@ document.getElementById("btnNextCheckout").addEventListener("click", function() 
     //顯示上一頁payHtml
     $("#btnLastPay").click(function(){
             
-        showpay();         
+        showPay();         
 
     });  
 
@@ -287,6 +330,24 @@ $("#btnNextOrderFinish").click(function(){
         });
    
     }
+
+    var setPostOrderData = function(data){
+
+        var orderDataTemplate = getOrderDataTemplate("orderData_list");
+   
+        $.each(data, function (index, ele) {
+   
+           var orderData = orderDataTemplate.clone();           
+           orderData.find(".inputName").text(ele.Name);
+            orderData.find(".inputEmail").text(ele.Email);
+            orderData.find(".inputAddress").text(ele.Address);
+            orderData.find(".inputPhone").text(ele.Phone);
+        //    orderData.find(".expiryDate").text(ele.Size);
+        //     orderData.find(".cvv").text(ele.UnitPrice);
+         
+            // $("#orderDataTable").append(orderData);
+        });
+      }
         
 }); 
 
