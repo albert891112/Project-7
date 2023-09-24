@@ -12,6 +12,22 @@ namespace _7_Team_WebApi.Models.DTOs
         public string  Name { get; set; }
     }
 
+    public class RoleUserDTO
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<UserDTO> InGroup { get; set; }
+        public List<UserDTO> OutOfGroup { get; set; }
+
+    }
+
+    public class RolePermissionDTO
+    {
+        public int Id { get; set; }
+        public List<PermissionDTO> InGroup { get; set; }
+        public List<PermissionDTO> OutOfGroup { get; set; }
+
+    }
 
     public static class RoleRegisterDTOExtension
     {

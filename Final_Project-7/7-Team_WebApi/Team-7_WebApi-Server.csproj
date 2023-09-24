@@ -250,6 +250,7 @@
     <Compile Include="Models\Entities\PermissionEntity.cs" />
     <Compile Include="Models\Entities\ProductEntity.cs" />
     <Compile Include="Models\Entities\RoleEntity.cs" />
+    <Compile Include="Models\Entities\Roles_PermissionsEntity.cs" />
     <Compile Include="Models\Entities\StatusEntity.cs" />
     <Compile Include="Models\Entities\StockEntity.cs" />
     <Compile Include="Models\Entities\UserEntity.cs" />
@@ -269,7 +270,7 @@
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\PermissionRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
-    <Compile Include="Repositories\RoleRepsitory.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\StockRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\CategoryService.cs" />

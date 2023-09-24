@@ -37,8 +37,8 @@ namespace _7_Team_WebApi.Models.EFModels
             return new Premission()
             {
                 Id = permission.Id,
-                PermissionName = permission.Name,
-                PermissionDescription = permission.Description
+                PermissionName = permission.PermissionName,
+                PermissionDescription = permission.PermissionDescription
             };
         }
     }

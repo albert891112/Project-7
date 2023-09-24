@@ -1,18 +1,54 @@
-﻿using _7_Team_WebApi.Models.EFModels;
+﻿using _7_Team_WebApi.Models.DTOs;
+using _7_Team_WebApi.Models.EFModels;
 using _7_Team_WebApi.Models.Entities;
 using Albert.Lib;
+using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
 namespace _7_Team_WebApi.Repositories
 {
-    public class RoleRepsitory
+    public class RoleRepository
     {
         SqlDb connection = new SqlDb();
 
         AppDbContext db = new AppDbContext();
+
+        /// <summary>
+        /// Get all users by role id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<Roles_PermissionsEntity> GetPermissionByRoleId(int id)
+        {
+            string sql = @"SELECT R.* , P.* FROM  Premission as p 
+                        LEFT OUTER JOIN 
+                        (SELECT * FROM Roles_Permissions  where Roles_Permissions.RoleId = @RoleId) as RP 
+                        on RP.PermissionId = P.Id
+                        LEFT OUTER JOIN Roles as R ON RP.RoleId = R.Id";
+
+            object obj = new { RoleId = id };
+
+
+            Func<SqlConnection, string, object, List<Roles_PermissionsEntity>> func = (conn, s, o) =>
+            {
+                return conn.Query<Roles_PermissionsEntity, PermissionEntity, Roles_PermissionsEntity>(s, (rp, p) =>
+                {
+                    rp.Permissions = p;
+                   return rp;
+
+                }, o).ToList();
+            };
+
+
+            List<Roles_PermissionsEntity> roles_Permissions = this.connection.Get<List<Roles_PermissionsEntity>>(sql, "default" , obj, func);
+
+
+            return roles_Permissions;
+        }
 
 
         /// <summary>

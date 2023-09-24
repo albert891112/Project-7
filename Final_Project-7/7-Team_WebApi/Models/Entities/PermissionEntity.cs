@@ -10,9 +10,9 @@ namespace _7_Team_WebApi.Models.Entities
     public class PermissionEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string PermissionName { get; set; }
 
-        public string Description { get; set; }
+        public string PermissionDescription { get; set; }
     }
 
     public static class PermissionExtension
@@ -22,8 +22,8 @@ namespace _7_Team_WebApi.Models.Entities
             return new PermissionEntity()
             {
                 Id = dto.Id,
-                Name = dto.Name,
-                Description = dto.Description
+                PermissionName = dto.Name,
+                PermissionDescription = dto.Description
             };
         }
 
@@ -33,8 +33,8 @@ namespace _7_Team_WebApi.Models.Entities
             return new PermissionEntity()
             {
                 Id = model.Id,
-                Name = model.PermissionName,
-                Description = model.PermissionDescription
+                PermissionName = model.PermissionName,
+                PermissionDescription = model.PermissionDescription
             };
         }
     }
