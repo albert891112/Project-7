@@ -474,6 +474,7 @@
     <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Orders\GetOrdersForCurrentUser.cshtml" />
     <Content Include="Views\Cart\ToCart.cshtml" />
+    <Content Include="Views\Orders\GetOrderItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
