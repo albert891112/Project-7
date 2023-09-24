@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.css">
+    <script src="../Bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../Jquery/jquery.js"></script>
+</head>
+<style>
+    .bordercolor{
+    border: 2px solid rgb(210, 201, 201);
+    border-radius: 5px;
+    
+  }
+  .scroll{
+    overflow-y: scroll;
+    height: 500px;
+  }
+</style>
+<body>
+
+    <!--選項模板-->
+    <template class="userCheckboxTemplate">
+        <li class="list-group-item ">
+            <div class="form-check form-switch ">
+                <input class="form-check-input user" type="checkbox" role="switch" id="1" UserId="" checked>
+                <label class="form-check-label" for="1">Checked switch checkbox input</label>
+            </div>
+        </li>
+    </template>
+    <!--選項模板-->
+
+    <!--選項模板-->
+    <template class="permissionCheckboxTemplate">
+        <li class="list-group-item ">
+            <div class="form-check form-switch ">
+                <input class="form-check-input permission" type="checkbox" role="switch" id="1" PermissionId="" checked>
+                <label class="form-check-label" for="1">Checked switch checkbox input</label>
+            </div>
+        </li>
+    </template>
+    <!--選項模板-->
+
+
+    <!--選擇職位-->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="text-center my-4">權限控管</h3>
+            </div>
+            <div class="col-12 w-50 mx-auto">
+                <select class="form-select" id="rolesSelect" aria-label="Default select example">
+                    <option value="" selected>請選擇要編輯的職位</option>
+                   
+                  </select>
+            </div>
+        </div>
+    </div>
+    <!--選擇職位-->
+    
+    <!--編輯區塊-->
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <!--使用者編輯-->
+                <div class="User">
+                    <div class="title">
+                        <h4 class="text-center">使用者</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll"  tabindex="0">
+                        <!--使用者按鈕放置-->
+                        <ul class="list-group list-group-flush UserChoose">
+                            
+
+                          </ul>
+                          <!--使用者按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--使用者編輯-->
+            </div>
+            <div class="col-12 col-md-6">
+                <!--權限編輯-->
+                <div class="Permission">
+                    <div class="title">
+                        <h4 class="text-center">權限</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll"  tabindex="0">
+                        <!--權限按鈕放置-->
+                        <ul class="list-group list-group-flush PermissionChoose">
+                            
+                            
+
+                        </ul>
+                        <!--權限按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--權限編輯-->
+            </div>
+        </div>
+    </div>
+    <!--編輯區塊-->
+    
+    <script>
+        //DOM載入區
+        //====================================================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            //設置職位下拉清單
+            setRolesData();
+
+            //選擇職位,取得該職位的使用者和權限
+            $(document).on("change","#rolesSelect",function(){
+                
+                var id = $(this).val();
+
+                //如果沒有選擇職位，清空選項
+                if(id == ""){
+
+                    clearChoose();
+                    return;
+                }
+
+                chooseLoad(id);
+            })
+         
+            //使用者變更
+            $(document).on("change",".user",function(){
+                
+                var User = $(this);
+
+                changeUser(User);
+            })
+
+            //權限變更
+            $(document).on("change",".permission",function(){
+                
+                var Permission = $(this);
+
+                changePermission(Permission);
+            })
+
+        });
+        //====================================================================================================
+        //DOM載入區
+        
+
+        //資料載入區
+        //====================================================================================================
+      
+
+        //取得職位 =================> 串接api取得資料
+        var setRolesData = function(){
+
+            //使用fetch串接api取得資料
+            var data =[
+                {"id":"1","name":"管理員"},
+                {"id":"2","name":"編輯員"},
+                {"id":"3","name":"一般員工"},
+            ]
+
+            setRolesSelect(data);
+        }
+
+        //取得使用者 =================> 串接api取得資料
+        var setUserData = function(id){
+
+            var data =[
+                {"id":"1","name":"albert"},
+                {"id":"2","name":"yoyo"},
+                {"id":"3","name":"young"},
+            ] 
+
+            setUserChoose(data);
+        }
+
+        //取得權限 =================> 串接api取得資料
+        var setPermissionData = function(id){
+
+            var data =[
+                {"id":"1","name":"新增"},
+                {"id":"2","name":"修改"},
+                {"id":"3","name":"刪除"},
+                {"id":"4","name":"查詢"},
+                {"id":"5","name":"匯出"},
+            ] 
+
+            setPermissionChoose(data);
+        }
+
+        //跟據職位取得使用者和權限
+        var chooseLoad = function(id){
+
+            setUserData(id);
+
+            setPermissionData(id);
+        }
+
+        //設定職位下拉清單
+        var setRolesSelect = function(data){
+
+            //新增下拉清單選項
+            var select = document.querySelector("#rolesSelect");
+ 
+            $.each(data,function(i,item){
+                //建立option
+                var option = document.createElement("option");
+
+                option.value = item.id;
+                option.text = item.name;
+
+                select.appendChild(option);
+            })
+        }
+
+
+        //設定使用者按鈕 ===========>設定際有和不既有
+        var setUserChoose = function(data){
+
+            //取得模板
+            var template = getTemplate("userCheckboxTemplate");
+
+            //取得放置按鈕的ul
+            var ul = $(".UserChoose");
+
+            //清空ul
+            ul.empty();
+
+            //設定既有選項
+            $.each(data,function(i,item){
+                //複製模板
+                var clone = $(template).clone();
+
+                //設定id
+                clone.find(".form-check-input").attr("id" , item.name);
+                clone.find(".form-check-input").attr("UserId" , item.id);
+
+                //設定文字
+                clone.find(".form-check-label").attr("for" , item.name);
+                clone.find(".form-check-label").text(item.name);
+               
+                //放置按鈕
+                ul.append(clone);
+            })
+        
+            //設定不既有選項
+            //to do
+        }
+
+        //設定權限按鈕 ===========>設定際有和不既有
+        var setPermissionChoose = function(data){
+
+            //取得模板
+            var template = getTemplate("permissionCheckboxTemplate");
+
+            //取得放置按鈕的ul
+            var ul = $(".PermissionChoose");
+
+            //清空ul
+            ul.empty();
+
+            //設定既有選項
+            $.each(data,function(i,item){
+                //複製模板
+                var clone = $(template).clone();
+
+                //設定id
+                clone.find(".form-check-input").attr("id" , item.name);
+                clone.find(".form-check-input").attr("PermissionId" , item.id);
+
+                //設定文字
+                clone.find(".form-check-label").attr("for" , item.name);
+                clone.find(".form-check-label").text(item.name);
+               
+                //放置按鈕
+                ul.append(clone);
+            })
+
+            //設定不既有選項
+            //to do 
+        }
+
+
+        //取得模板
+        var getTemplate = function(name){
+
+            var templateName = "template." +  name ;
+
+            var template = $(templateName).html();
+
+            return template;
+        }
+        
+
+        //清空選項
+        var clearChoose = function(){
+
+            //清空使用者選項
+            $(".UserChoose").empty();
+
+            //清空權限選項
+            $(".PermissionChoose").empty();
+        }
+        
+        
+        //====================================================================================================
+        //資料載入區
+
+
+        //取得變更資料區
+        //====================================================================================================
+       
+        //使用者變更
+        var changeUser = function(User){
+
+            //取得當前職位Id
+            var RoleId = $("#rolesSelect").val();
+
+            //取得使用者Id
+            var UserId = User.attr("UserId");
+
+            //判斷是否勾選
+            if(User.prop("checked")){
+                
+                //若是勾選，將使用者加入職位
+                AddUserInRole(RoleId,UserId);
+            }
+            else{
+
+                //若是取消勾選，將使用者從職位中移除
+                DeleteUserInRole(RoleId,UserId);
+            }
+            
+        }
+
+        //權限變更
+        var changePermission = function(Permission){
+
+            //取得當前職位Id
+            var RoleId = $("#rolesSelect").val();
+
+            //取得權限Id
+            var PermissionId = Permission.attr("PermissionId");
+
+            //判斷是否勾選
+            if(Permission.prop("checked")){
+                
+                //若是勾選，將權限加入職位
+                AddPermissionInRole(RoleId,PermissionId);
+            }
+            else{
+               //若是取消勾選，將權限從職位中移除
+                DeletePermissionInRole(RoleId,PermissionId);
+            }
+        }
+
+        //====================================================================================================
+        //取得變更資料區
+
+        //回傳資料區
+        //====================================================================================================
+
+        //將使用者從職位中移除
+        var DeleteUserInRole = function(RoleId,UserId){
+
+        }
+
+        //將使用者加入職位
+        var AddUserInRole = function(RoleId,UserId){
+
+        }
+
+        //將權限從職位中移除
+        var DeletePermissionInRole = function(RoleId,PermissionId){
+
+        }
+
+        //將權限加入職位
+        var AddPermissionInRole = function(RoleId,PermissionId){
+
+        }
+        
+
+        
+    </script>
+
+      
+
+</body>
+</html>

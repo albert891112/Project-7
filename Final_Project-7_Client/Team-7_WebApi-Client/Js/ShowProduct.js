@@ -25,6 +25,13 @@
         //取得商品尺寸
         var Size = $(".currentbtn").text()
 
+       //若是沒有選擇尺寸或數量則不加入購物車
+        if(Size == null || Qty == 0){
+            $(".alert").text("請選擇尺寸或數量")
+            $(".alert").show("fast")
+            return;
+        }
+
         //建立商品資料
         var data = {
             "ProductId": Id,
