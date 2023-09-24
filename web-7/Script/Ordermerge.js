@@ -3,12 +3,12 @@ document.addEventListener("DOMContentLoaded", function(){
     //設定初始payHtml
 var initLoadPay = function(){
 
-    showpay();
+    showPay();
    
 } 
 
 //顯示初始payHtml
-var showpay = function(){
+var showPay = function(){
 
     $(".payHtml").show();
     $(".orderDataHtml").hide()
@@ -242,7 +242,7 @@ document.getElementById("btnNextCheckout").addEventListener("click", function() 
 
     initErrortext();
 
-    showcheckout();    
+    showCheckout();    
 
      //將運送方式選擇的值存入label
      var shippingMethodselectedOption = shippingMethodSelect.options[shippingMethodSelect.selectedIndex].value;
@@ -308,7 +308,7 @@ $("#btnLastOrderData").click(function(){
 
 //設定函數庫=============================================================================================
 //設定顯示checkoutHtml
-var showcheckout = function(){
+var showCheckout = function(){
   
     $(".payHtml").hide("slow" , "swing");
     $(".orderDataHtml").hide("slow" , "swing")
@@ -323,17 +323,10 @@ var showOrderData = function(){
     $(".payHtml").hide("slow" , "swing");
     $(".orderDataHtml").show("slow" , "swing")
     $(".checkoutHtml").hide("slow" , "swing")   
-  
+
   }
 
-//設定顯示checkoutHtml
- var showcheckout = function(){
-  
-    $(".payHtml").hide("slow" , "swing");
-    $(".orderDataHtml").hide("slow" , "swing")
-    $(".checkoutHtml").show("slow" , "swing")   
-  
-  }
+
 
   //設定感謝訂購
  var OrderFinish = function(){
