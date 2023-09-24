@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _7_Team_WebApi.Models.DTOs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -33,4 +34,20 @@ namespace _7_Team_WebApi.Models.ViewModels
         [StringLength(50)]
         public string Name { get; set; }
     }
+    
+
+
+    public static class UserVMExtenssion
+    {
+        public static UserVM ToVM(this UserDTO dto)
+        {
+            return new UserVM()
+            {
+                Id = dto.Id,
+                Account = dto.Account,
+                Password = dto.Password,
+                Name = dto.Name
+            };
+        }
+    }   
 }

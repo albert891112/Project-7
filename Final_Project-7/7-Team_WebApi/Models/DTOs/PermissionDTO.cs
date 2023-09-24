@@ -1,4 +1,5 @@
-﻿using _7_Team_WebApi.Models.ViewModels;
+﻿using _7_Team_WebApi.Models.Entities;
+using _7_Team_WebApi.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,17 @@ namespace _7_Team_WebApi.Models.DTOs
                 Id = vm.Id,
                 Name = vm.Name,
                 Description = vm.Description
+            };
+        }
+
+
+        public static PermissionDTO ToDTO(this PermissionEntity entity)
+        {
+            return new PermissionDTO()
+            {
+                Id = entity.Id,
+                Name = entity.PermissionName,
+                Description = entity.PermissionDescription
             };
         }
     }
