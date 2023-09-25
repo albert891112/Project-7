@@ -98,7 +98,7 @@
                         <div class="row">                      
                             <div class="col-3 col-md-3 mt-3">
                                 <select name="paymentMethodSelect" id="paymentMethodSelect" class="form-select c">
-                                    <option value="請選擇">請選擇</option>
+                                    <option value="請選擇" class="noSelect" >請選擇</option>
                                     <option value="現金付款">現金付款</option>
                                     <option value="信用卡">信用卡</option>                                    
                                     <div id="paydesc" class="amount-wrapper" style="display: none;"></div>                               
@@ -106,17 +106,16 @@
                             </div>
                             <div class="col-3 col-md-3 mt-3">
                                 <select name="shippingMethodSelect" id="shippingMethodSelect" class="form-select c">
-                                    <option value="請選擇">請選擇</option>
-                                    <option value="送到府">送到府</option>
-                                    <option value="超商取貨">超商取貨</option>
+                                    <option value="請選擇" class="noSelect">請選擇</option>
+                                    <option value="送到府" class="shippingHome">送到府</option>
+                                    <option value="超商取貨"  class="shippingstore">超商取貨</option>
                                 </select>
                             </div>
                             <div class="col-3 col-md-3 mt-3">
                                 <select name="coupon" id="coupon" class="form-select">
-                                    <option value="未選擇">請選擇</option>
-                                    <option value="nonecoupon">無優惠券</option>
-                                    <option value="coupon1">優惠券1</option>
-                                    <option value="coupon2">優惠券2</option>
+                                    <option value="請選擇" class="noSelect">請選擇</option>                                    
+                                    <option value="100" class="coupon_discount">優惠券1</option>
+                                    <option value="0.75" class="coupon_persent">優惠券2</option>
                                 </select>
                             </div>
                         <!-- </template> -->
@@ -129,7 +128,7 @@
                         <div class="row">
                             <div class="col-2 ">
                                 <div class="amount-wrapper">
-                                    <label  for="subtotal">0</label>
+                                    <label  for="subtotal" value="" class="subtotal">0</label>
                                 </div>
                             </div>
                             <div class="col-1 ">
@@ -138,7 +137,7 @@
                             </div>
                             <div class="col-2 ">
                                 <div class="amount-wrapper">
-                                    <label for="shippingcost">0</label>
+                                    <label for="shippingcost" value="" class="shippingcost">0</label>
                                 </div>
                             </div>
                             <div class="col-1 ">
@@ -147,7 +146,7 @@
                             </div>
                             <div class="col-2 ">
                                 <div class="amount-wrapper">
-                                    <label for="couponcost">0</label>
+                                    <label for="couponcost" value="" class="couponcost">0</label>
                                 </div>
                             </div>
                             <div class="col-1 ">
@@ -156,7 +155,7 @@
                             </div>
                             <div class="col-3 text-end">
                                 <div class="amount-wrapper"></div>
-                                <label for="totalAmount">0</label>
+                                <label for="totalAmount" value="" class="totalAmount">0</label>
                             </div>
                         </div>
                         <div class="row">
@@ -310,12 +309,12 @@
                               <!-- <template class="orderData_list"> -->
                                  <div class="form-group mt-3 cradTable" id="creditCardFieldsPill" >
                                 <label for="expiryDate">信用卡到期日 (MM/YY)</label>
-                                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
+                                <input type="text" class="form-control expiryDate" id="expiryDate" placeholder="MM/YY">
                                 <label id="expiryDateError" class="error"  style="display: none;"></label>
                             </div>
                             <div class="form-group mt-3 cradTable" id="cvvFieldPill" >
                                 <label for="cvv">CVV</label>
-                                <input type="text" class="form-control" id="cvv" placeholder="請輸入CVV">
+                                <input type="text" class="form-control cvv" id="cvv" placeholder="請輸入CVV">
                                 <label id="cvvError" class="error"  style="display: none;"></label>
                             </div>
                               <!-- </template>                -->

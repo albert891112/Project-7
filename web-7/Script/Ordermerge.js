@@ -49,6 +49,69 @@ var initLoadPay = function(){
 
     // getToCartItem();
 
+    //計算總金額
+    var subtotalLabel = $(".subtotal");
+    var shippingcostLabel = $(".shippingcost");
+    var couponcostLabel = $(".couponcost");
+    var totalAmountLabel = $(".totalAmount");
+
+    // 下拉列表的更改事件
+    $("#paymentMethodSelect, #shippingMethodSelect, #coupon").change(function() {
+        // 獲取所選選項的值
+        var subtotal = $("#paymentMethodSelect").val();
+        var shippingMethodValue = $("#shippingMethodSelect").val();
+        var couponValue = $("#coupon").val();
+
+        if(shippingMethodValue === "送到府"){
+            shippingMethodValue = 150;
+        }
+        if(shippingMethodValue === "超商取貨"){
+            shippingMethodValue = 60;
+        }
+        //如果couponcostValue為空值，則設為0
+        if(isNaN(couponValue)){
+            couponValue = 0;
+        }
+        if(isNaN(subtotal)){
+            subtotal = 0;
+        }
+        if(isNaN(shippingMethodValue)){
+            shippingMethodValue = 0;
+        }
+        //如果總金額為NAN，則設為0
+        if(isNaN(totalAmountLabel.text())){
+            totalAmountLabel.text(0);
+        }
+       
+        // 進行相應的加法操作
+        var subtotalValue = parseFloat(subtotal);
+        var shippingcostValue = parseFloat(shippingMethodValue);
+        var couponcostValue = parseFloat(couponValue);
+
+    //在優惠券事件中,判斷優惠券的類型
+
+    $(".couponSelect").change(function() {
+
+        if($(".coupon_discount")){
+        var totalAmount = subtotalValue + shippingcostValue - couponcostValue;
+        }
+        else if($(".coupon_persent")){
+            var totalAmount = (subtotalValue + shippingcostValue)*(couponcostValue);
+            totalAmount = Math.floor(totalAmount);
+        }             
+
+    });
+
+       
+        // 更新標籤的文本
+        subtotalLabel.text(subtotalValue);
+        shippingcostLabel.text(shippingcostValue);
+        couponcostLabel.text(couponcostValue);
+        totalAmountLabel.text(totalAmount);
+       
+
+    });
+
 
 //顯示初始payHtml
 var showPay = function(){
@@ -77,8 +140,8 @@ paymentMethodSelect.addEventListener("change", function ()
 });
 
 //運送方式顯示注意事項
-shippingMethodSelect.addEventListener("change", function () 
-{                
+$("#shippingMethodSelect").change(function() {
+               
    if(shippingMethodSelect.value == "送到府"){   
     
     document.getElementById("shippinghomedesc").style.display = "block";  
@@ -96,6 +159,7 @@ shippingMethodSelect.addEventListener("change", function ()
 
    }   
 
+   
 });
 
 
