@@ -210,14 +210,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\CategoryDTO.cs" />
+    <Compile Include="Models\DTOs\CouponDTO.cs" />
     <Compile Include="Models\DTOs\GenderCategoryDTO.cs" />
     <Compile Include="Models\DTOs\MemberDTO.cs" />
     <Compile Include="Models\DTOs\OrderDTO.cs" />
     <Compile Include="Models\DTOs\OrderItemDTO.cs" />
+    <Compile Include="Models\DTOs\OrderStatusDTO.cs" />
+    <Compile Include="Models\DTOs\PaymentDTO.cs" />
     <Compile Include="Models\DTOs\PermissionDTO.cs" />
     <Compile Include="Models\DTOs\ProductDTO.cs" />
     <Compile Include="Models\DTOs\RoleDTO.cs" />
     <Compile Include="Models\DTOs\PermissionControll\RoleUpdateDTO.cs" />
+    <Compile Include="Models\DTOs\ShippingDTO.cs" />
     <Compile Include="Models\DTOs\StatusDTO.cs" />
     <Compile Include="Models\DTOs\StockDTO.cs" />
     <Compile Include="Models\DTOs\UserDTO.cs" />
