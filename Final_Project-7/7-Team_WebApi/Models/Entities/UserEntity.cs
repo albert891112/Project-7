@@ -1,4 +1,5 @@
 ﻿using _7_Team_WebApi.Models.DTOs;
+using _7_Team_WebApi.Models.EFModels;
 using _7_Team_WebApi.Models.ViewModels;
 using _7_Team_WebApi.Services;
 using System;
@@ -31,6 +32,20 @@ namespace _7_Team_WebApi.Models.Entities
                 Account = dto.Account,
                 Password = HashedPassword,
                 Name = dto.Name
+            };
+        }
+
+        public static UserEntity ToEntity(this User model)
+        {
+            string salt = Hashing.GetSalt();
+
+            string HashedPassword = Hashing.ToSHA256(model.Password, salt);
+
+            return new UserEntity()
+            {
+                Account = model.Account,
+                Password = HashedPassword,
+                Name = model.Name
             };
         }
     }

@@ -1,0 +1,93 @@
+﻿<style>
+    .bordercolor {
+        border: 2px solid rgb(210, 201, 201);
+        border-radius: 5px;
+    }
+
+    .scroll {
+        overflow-y: scroll;
+        height: 500px;
+    }
+</style>
+<body>
+
+    <!--選項模板-->
+    <template class="userCheckboxTemplate">
+        <li class="list-group-item ">
+            <div class="form-check form-switch ">
+                <input class="form-check-input user" type="checkbox" role="switch" id="1" UserId="">
+                <label class="form-check-label" for="1">Checked switch checkbox input</label>
+            </div>
+        </li>
+    </template>
+    <!--選項模板-->
+    <!--選項模板-->
+    <template class="permissionCheckboxTemplate">
+        <li class="list-group-item ">
+            <div class="form-check form-switch ">
+                <input class="form-check-input permission" type="checkbox" role="switch" id="1" PermissionId="">
+                <label class="form-check-label" for="1">Checked switch checkbox input</label>
+            </div>
+        </li>
+    </template>
+    <!--選項模板-->
+    <!--選擇職位-->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="text-center my-4">權限控管</h3>
+            </div>
+            <div class="col-12 w-50 mx-auto">
+                <select class="form-select w-auto mx-auto"  id="rolesSelect" aria-label="Default select example">
+                    <option value="" selected>請選擇要編輯的職位</option>
+
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--選擇職位-->
+    <!--編輯區塊-->
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <!--使用者編輯-->
+                <div class="User">
+                    <div class="title">
+                        <h4 class="text-center">使用者</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll" tabindex="0">
+                        <!--使用者按鈕放置-->
+                        <ul class="list-group list-group-flush UserChoose">
+                        </ul>
+                        <!--使用者按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--使用者編輯-->
+            </div>
+            <div class="col-12 col-md-6">
+                <!--權限編輯-->
+                <div class="Permission">
+                    <div class="title">
+                        <h4 class="text-center">權限</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll" tabindex="0">
+                        <!--權限按鈕放置-->
+                        <ul class="list-group list-group-flush PermissionChoose">
+                        </ul>
+                        <!--權限按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--權限編輯-->
+            </div>
+        </div>
+    </div>
+    <!--編輯區塊-->
+</body>
+
+@section scripts{
+    <script src="~/Js/PermissionControll.js"></script>
+}

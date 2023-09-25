@@ -15,6 +15,18 @@ namespace _7_Team_WebApi.Services
     {
         UserRepository repo = new UserRepository();
 
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        /// <returns></returns>
+        public List<UserDTO> GetAll()
+        {
+            List<UserEntity> entities = this.repo.GetAll();
+
+            List<UserDTO> dtos = entities.Select(x => x.ToDTO()).ToList();
+
+            return dtos;
+        }
 
         /// <summary>
         /// Create a new user

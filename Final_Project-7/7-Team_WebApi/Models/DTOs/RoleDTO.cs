@@ -1,8 +1,10 @@
-﻿using _7_Team_WebApi.Models.ViewModels;
+﻿using _7_Team_WebApi.Models.Entities;
+using _7_Team_WebApi.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Results;
 
 namespace _7_Team_WebApi.Models.DTOs
 {
@@ -35,7 +37,17 @@ namespace _7_Team_WebApi.Models.DTOs
         {
             return new RoleDTO()
             {
+                Id = vm.Id,
                 Name = vm.Name
+            };
+        }
+
+        public static RoleDTO ToDTO(this RoleEntity entity)
+        {
+            return new RoleDTO()
+            {
+                Id = entity.Id,
+                Name = entity.Name
             };
         }
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using _7_Team_WebApi.Services;
+using _7_Team_WebApi.Models.Entities;
 
 namespace _7_Team_WebApi.Models.DTOs
 {
@@ -26,6 +27,18 @@ namespace _7_Team_WebApi.Models.DTOs
                 Account = vm.Account,
                 Password = vm.Password,
                 Name = vm.Name
+            };
+        }
+
+
+        public static UserDTO ToDTO(this UserEntity entity)
+        {
+            return new UserDTO()
+            {
+                Id = entity.Id,
+                Account = entity.Account,
+                Password = entity.Password,
+                Name = entity.Name
             };
         }
     }

@@ -14,7 +14,10 @@ namespace _7_Team_WebApi.Repositories
 
         AppDbContext db = new AppDbContext();
 
-
+        /// <summary>
+        /// Create a new user
+        /// </summary>
+        /// <param name="user"></param>
         public void Create(UserEntity user)
         {
             User newUser = user.ToModel();
@@ -23,6 +26,20 @@ namespace _7_Team_WebApi.Repositories
 
             db.SaveChanges();
         }
+
+
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        /// <returns></returns>
+        public List<UserEntity> GetAll()
+        {
+            List<User> users = db.Users.ToList();
+
+            List<UserEntity> userEntities = users.Select(x => x.ToEntity()).ToList();
+
+            return userEntities;
+        }   
     
     }
 }

@@ -15,6 +15,27 @@ namespace _7_Team_WebApi.Controllers
 
         UserServie serv = new UserServie();
 
+
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetAll()
+        {
+            List<UserDTO> dtos = this.serv.GetAll();
+
+            List<UserVM> vms = dtos.Select(x => x.ToVM()).ToList();
+
+            return Ok(vms);
+        }
+
+        /// <summary>
+        /// Create a new user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPost]
         public IHttpActionResult Create(UserVM user)
         {
 
