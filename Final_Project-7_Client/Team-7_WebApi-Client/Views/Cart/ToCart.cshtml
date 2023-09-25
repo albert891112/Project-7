@@ -92,41 +92,45 @@
                             <tr>
                                 <td>照片</td>
                                 <td>品名</td>
+                                <td class="text-end ps-4 pe-4">尺寸</td>
                                 <td class="text-end ps-4 pe-4">單價</td>
                                 <td class="text-end ps-4 pe-4">數量</td>
                                 <td class="text-end ps-4 pe-4">小計</td>
-                                <td class="text-end ps-4 pe-4">總金額</td>
+                                <td class="text-end ps-4 pe-4"></td>
                             </tr>
                         </thead>
+                        <tbody class="cartData">
+                            @*CART 模塊*@
+                            <template class="show_cart">
+                                <tr>
+                                    <td class="col-md-3 cart_img ">
+                                        <img src="" alt="" width="200">
+                                    </td>
+                                    <td class="col-md-3 cart_productName"></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_size" size="" product=""></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_unitPrice"></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_qty"></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_subtotal"></td>
+                                    <td class="text-end col-md-3">
+                                        <input type="button" class ="btn btn-success btnAdd" value="+1" id="btnAdd" >
+                                        <input type="button" class="btn btn-danger btnSub" value="-1" id="btnSub">
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
                         @*CART 模塊*@
-                        <template class="show_cart">
-                            <tbody>
-                            <td class="col-md-3 cart_img ">
-                                <img src="" alt="" width="200">
-                            </td>
-                            <td class="col-md-3 cart_productName"></td>
-                            <td class="text-end ps-4 pe-4 col-md-1 cart_unitPrice"></td>
-                            <td class="text-end ps-4 pe-4 col-md-1 cart_qty"></td>
-                            <td class="text-end ps-4 pe-4 col-md-1 cart_subtotal"></td>
-                            <td class="text-end col-md-3">
-                                <button class="btn btn-success " value="+1">+1</button>
-                                <button class="btn btn-danger " value="- 1">- 1</button>
-                            </td>
-                            </tbody>
-                        </template>
-                        @*CART 模塊*@
-                        <tfoot>
+                    <tfoot>                     
                             <tr>
                                 <td colspan="6" class="text-end ps-4 pe-4 cart_total" id="totalAmount">總金額：</td>
-                            </tr>
-                        </tfoot>
+                            </tr>                         
+                    </tfoot>
 
                     </table>
 
                     <div class="row">
                         <div class="col-12 text-center">
                             <input type="button" class="btn btn-secondary" value="回首頁" id="btnCheckoutHome" style="margin-right: 50px;">
-                            <input type="button" class="btn btn-primary" value="去結帳" id="btnpay" style="margin-left: 50px;">
+                            <input type="button" class="btn btn-primary" value="去結帳" id="btnPay" style="margin-left: 50px;">
                         </div>
                     </div>
                 </div>

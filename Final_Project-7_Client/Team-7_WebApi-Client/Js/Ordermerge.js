@@ -86,20 +86,13 @@
         var subtotalValue = parseFloat(subtotal);
         var shippingcostValue = parseFloat(shippingMethodValue);
         var couponcostValue = parseFloat(couponValue);
+        var totalAmount = subtotalValue + shippingcostValue - couponcostValue;
 
-        //在優惠券事件中,判斷優惠券的類型
-
-        $(".couponSelect").change(function () {
-
-            if ($(".coupon_discount")) {
-                var totalAmount = subtotalValue + shippingcostValue - couponcostValue;
-            }
-            else if ($(".coupon_persent")) {
-                var totalAmount = (subtotalValue + shippingcostValue) * (couponcostValue);
-                totalAmount = Math.floor(totalAmount);
-            }
-
-        });
+        //如果totalAmount為小於0，則設為0
+        if (totalAmount < 0) {
+            totalAmount = 0;
+            alert("總金額小於0");
+        }
 
 
         // 更新標籤的文本
@@ -207,11 +200,7 @@
         initLoad();
 
     });
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            document.getElementById("btnNextOrderData").click();
-        }
-    });
+
 
 
     // payment end====================================================
