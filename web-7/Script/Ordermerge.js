@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-
-
     //設定初始payHtml
 var initLoadPay = function(){
 
@@ -21,7 +19,8 @@ var initLoadPay = function(){
         }).then(function (response) {
           return response.json();
         }).then(function (result) {
-            cartItems(result);
+            // cartItems(result);
+            console.log(result);
         }).catch(function (err) {
             console.log(err);
         });     
@@ -86,21 +85,14 @@ var initLoadPay = function(){
         // 進行相應的加法操作
         var subtotalValue = parseFloat(subtotal);
         var shippingcostValue = parseFloat(shippingMethodValue);
-        var couponcostValue = parseFloat(couponValue);
+        var couponcostValue = parseFloat(couponValue);    
+        var totalAmount = subtotalValue + shippingcostValue - couponcostValue; 
 
-    //在優惠券事件中,判斷優惠券的類型
-
-    $(".couponSelect").change(function() {
-
-        if($(".coupon_discount")){
-        var totalAmount = subtotalValue + shippingcostValue - couponcostValue;
+        //如果totalAmount為小於0，則設為0
+        if(totalAmount < 0){
+            totalAmount = 0;
+            alert("總金額小於0");
         }
-        else if($(".coupon_persent")){
-            var totalAmount = (subtotalValue + shippingcostValue)*(couponcostValue);
-            totalAmount = Math.floor(totalAmount);
-        }             
-
-    });
 
        
         // 更新標籤的文本
@@ -209,11 +201,7 @@ $("#btnLastCart").click(function(){
     initLoad();
 
     });
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-          document.getElementById("btnNextOrderData").click();
-        }
-      });
+
 
 
 // payment end====================================================
@@ -491,60 +479,60 @@ var initErrortext = function(){
    //設定信用卡安全碼顯示錯誤訊息
    var showCvvError = function(){
         
-     document.getElementById("expiryDateError").style.display = "none";
-     document.getElementById("cvvError").style.display = "block";
-     document.getElementById("nameError").style.display = "none";
-     document.getElementById("emailError").style.display = "none";
-     document.getElementById("addressError").style.display = "none";
-     document.getElementById("phoneError").style.display = "none";
+document.getElementById("expiryDateError").style.display = "none";
+document.getElementById("cvvError").style.display = "block";
+document.getElementById("nameError").style.display = "none";
+document.getElementById("emailError").style.display = "none";
+document.getElementById("addressError").style.display = "none";
+document.getElementById("phoneError").style.display = "none";
       
       }
       
    //設定姓名顯示錯誤訊息
    var showNameError = function(){
             
-         document.getElementById("expiryDateError").style.display = "none";
-         document.getElementById("cvvError").style.display = "none";
-         document.getElementById("nameError").style.display = "block";
-         document.getElementById("emailError").style.display = "none";
-         document.getElementById("addressError").style.display = "none";
-         document.getElementById("phoneError").style.display = "none";
+document.getElementById("expiryDateError").style.display = "none";
+document.getElementById("cvvError").style.display = "none";
+document.getElementById("nameError").style.display = "block";
+document.getElementById("emailError").style.display = "none";
+document.getElementById("addressError").style.display = "none";
+document.getElementById("phoneError").style.display = "none";
         
         }
        
     //設定信箱顯示錯誤訊息
 var showEmailError = function(){
                     
-        document.getElementById("expiryDateError").style.display = "none";
-        document.getElementById("cvvError").style.display = "none";
-        document.getElementById("nameError").style.display = "none";
-        document.getElementById("emailError").style.display = "block";
-        document.getElementById("addressError").style.display = "none";
-        document.getElementById("phoneError").style.display = "none";
+document.getElementById("expiryDateError").style.display = "none";
+document.getElementById("cvvError").style.display = "none";
+document.getElementById("nameError").style.display = "none";
+document.getElementById("emailError").style.display = "block";
+document.getElementById("addressError").style.display = "none";
+document.getElementById("phoneError").style.display = "none";
             
             }
 
 //設定地址顯示錯誤訊息
 var showAddressError = function(){
                             
-            document.getElementById("expiryDateError").style.display = "none";
-            document.getElementById("cvvError").style.display = "none";
-            document.getElementById("nameError").style.display = "none";
-            document.getElementById("emailError").style.display = "none";
-            document.getElementById("addressError").style.display = "block";
-            document.getElementById("phoneError").style.display = "none";
+document.getElementById("expiryDateError").style.display = "none";
+document.getElementById("cvvError").style.display = "none";
+document.getElementById("nameError").style.display = "none";
+document.getElementById("emailError").style.display = "none";
+document.getElementById("addressError").style.display = "block";
+document.getElementById("phoneError").style.display = "none";
                     
                     }   
 
 //設定電話顯示錯誤訊息
 var showPhoneError = function(){
                                     
-                    document.getElementById("expiryDateError").style.display = "none";
-                    document.getElementById("cvvError").style.display = "none";
-                    document.getElementById("nameError").style.display = "none";
-                    document.getElementById("emailError").style.display = "none";
-                    document.getElementById("addressError").style.display = "none";
-                    document.getElementById("phoneError").style.display = "block";
+document.getElementById("expiryDateError").style.display = "none";
+document.getElementById("cvvError").style.display = "none";
+ document.getElementById("nameError").style.display = "none";
+document.getElementById("emailError").style.display = "none";
+ document.getElementById("addressError").style.display = "none";
+document.getElementById("phoneError").style.display = "block";
                             
                             }
 
