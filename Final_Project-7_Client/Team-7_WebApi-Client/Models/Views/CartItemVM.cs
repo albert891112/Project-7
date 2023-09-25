@@ -35,6 +35,8 @@ namespace Team_7_WebApi_Client.Models.Views
 				Id = dto.Id,
 				Product = dto.Product.ToVM(),
 				Qty = dto.Qty,
+				Size = dto.Size
+
 			};
 		}
 	}

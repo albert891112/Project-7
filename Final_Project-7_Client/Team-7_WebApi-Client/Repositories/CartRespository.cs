@@ -89,10 +89,13 @@ namespace Team_7_WebApi_Client.Repositories
 		/// <returns></returns>
 		public CartEntity GetCartByMember(string Account)
 		{
-			string sql = @"SELECT C.* , M.Id , Ci.* , P.* FROM Carts as C 
+			string sql = @"SELECT C.* , M.Id , Ci.* , P.* , Ca.* , G.* , S.* FROM Carts as C 
 						INNER JOIN Members as M ON C.MemberId = M.Id 
 						INNER JOIN CartItems as CI ON Ci.CartId = c.Id 
 						INNER JOIN Products as P ON CI.ProductId = P.Id 
+						INNER JOIN Categories as Ca ON P.CategoryId = Ca.Id
+						INNER JOIN GenderCategories as G ON P.GenderId = G.Id
+						INNER JOIN Stocks as S ON P.Id = S.ProductId
 						WHERE M.Account = @Account";
 
 			object obj = new { Account = Account };
@@ -101,16 +104,22 @@ namespace Team_7_WebApi_Client.Repositories
 			{
 				CartEntity cart = null;
 
-				return conn.Query<CartEntity, MemberEntity, CartItemEntity, ProductEntity, CartEntity>(s, (c, m, ci, p) =>
+				return conn.Query<CartEntity, MemberEntity, CartItemEntity, ProductEntity, CategoryEntity , GenderCategoryEntity ,StockEntity, CartEntity>(s, (c, m, ci, p , ca , g , st) =>
 				{
                     if (cart != null)
 					{
+						p.Stock = st;
+						p.Gender = g;
+						p.Category = ca;
 						ci.Product = p;
 						cart.CartItems.Add(ci);
                     }
 					else
 					{
 						c.MemberId = m.Id;
+						p.Stock = st;
+						p.Category = ca;
+						p.Gender = g;
 						ci.Product = p;
 						c.CartItems = new List<CartItemEntity> ();
 						c.CartItems.Add(ci);
