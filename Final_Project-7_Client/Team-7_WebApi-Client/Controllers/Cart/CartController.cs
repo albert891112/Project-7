@@ -13,5 +13,10 @@ namespace Team_7_WebApi_Client.Controllers.Cart
         {
             return View();
         }
+
+        public ActionResult Checkout()
+        {
+			return View();
+		}
     }
 }

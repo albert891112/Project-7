@@ -1,63 +1,17 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    //設定初始payHtml
-    var initLoadPay = function () {
+    initLoadPay();    
 
-        showPay();
-
-
-
-        var getToCartItem = function () {
-
-            let url = '/api/CartApi/ShowCart';
-
-            fetch(url, {
-                method: 'GET',
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            }).then(function (response) {
-                return response.json();
-            }).then(function (result) {
-                // cartItems(result);
-                console.log(result);
-            }).catch(function (err) {
-                console.log(err);
-            });
-
-        };
-
-        var cartItems = function (data) {
-            var cartTemplate = getCartTemplate("cartItem_list");
-
-            $.each(data, function (index, ele) {
-
-                var cartItems = cartTemplate.clone();
-                cartItems.find(".cart_img").attr("src", ele.Image);
-                cartItems.find(".cart_productName").text(ele.Name);
-                cartItems.find(".cart_size").text(ele.Size);
-                cartItems.find(".cart_unitPrice").text(ele.UnitPrice);
-                cartItems.find(".cart_qty").text(ele.Qty);
-                cartItems.find(".cart_subtotal").text(ele.Subtotal);
-                cartItems.find(".cart_total").text(ele.Total);
-                $("#cartTable").append(cartItems);
-            });
-        };
-
-    }
-
-    // getToCartItem();
-
-    //計算總金額
-    var subtotalLabel = $(".subtotal");
+    //計算總金額  
+    var productTotalPrice = $(".productTotalPrice")
     var shippingcostLabel = $(".shippingcost");
     var couponcostLabel = $(".couponcost");
     var totalAmountLabel = $(".totalAmount");
 
     // 下拉列表的更改事件
-    $("#paymentMethodSelect, #shippingMethodSelect, #coupon").change(function () {
+    $("#shippingMethodSelect, #coupon").change(function () {
         // 獲取所選選項的值
-        var subtotal = $("#paymentMethodSelect").val();
+    
         var shippingMethodValue = $("#shippingMethodSelect").val();
         var couponValue = $("#coupon").val();
 
@@ -71,8 +25,8 @@
         if (isNaN(couponValue)) {
             couponValue = 0;
         }
-        if (isNaN(subtotal)) {
-            subtotal = 0;
+        if (isNaN(productTotalPrice)) {
+            productTotalPrice = 0;
         }
         if (isNaN(shippingMethodValue)) {
             shippingMethodValue = 0;
@@ -83,45 +37,25 @@
         }
 
         // 進行相應的加法操作
-        var subtotalValue = parseFloat(subtotal);
+        var productTotalPriceValue = parseFloat(productTotalPrice);
         var shippingcostValue = parseFloat(shippingMethodValue);
         var couponcostValue = parseFloat(couponValue);
+        var totalAmount = productTotalPriceValue + shippingcostValue - couponcostValue;
 
-        //在優惠券事件中,判斷優惠券的類型
+        //如果totalAmount為小於0，則設為0
+        if (totalAmount < 0) {
+            totalAmount = 0;
+            alert("總金額小於0");
+        }
 
-        $(".couponSelect").change(function () {
-
-            if ($(".coupon_discount")) {
-                var totalAmount = subtotalValue + shippingcostValue - couponcostValue;
-            }
-            else if ($(".coupon_persent")) {
-                var totalAmount = (subtotalValue + shippingcostValue) * (couponcostValue);
-                totalAmount = Math.floor(totalAmount);
-            }
-
-        });
-
-
-        // 更新標籤的文本
-        subtotalLabel.text(subtotalValue);
+        // 更新標籤的文本        
         shippingcostLabel.text(shippingcostValue);
         couponcostLabel.text(couponcostValue);
         totalAmountLabel.text(totalAmount);
 
-
     });
 
-
-    //顯示初始payHtml
-    var showPay = function () {
-
-        $(".payHtml").show();
-        $(".orderDataHtml").hide()
-        $(".checkoutHtml").hide()
-    }
-
-    //畫面初始化，取得所有商品
-    initLoadPay();
+  
 
     //paymentmethod======================================================
     // 做出選擇後，顯示注意事項
@@ -207,11 +141,7 @@
         initLoad();
 
     });
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            document.getElementById("btnNextOrderData").click();
-        }
-    });
+
 
 
     // payment end====================================================
@@ -431,6 +361,91 @@
 });
 
 //設定函數庫=============================================================================================
+//設定初始payHtml
+
+
+
+
+//設定getCartTemplate
+var getCartTemplate = function (name) {
+
+    var templateName = "template." + name;
+    var template = $(templateName).html();
+
+    return $(template).clone();
+}
+
+
+//設置cartItems
+var cartItems = function (data) {    
+    var cartTemplate = getCartTemplate("cartItem_list");
+    var total = 0;
+    console.log(data);
+
+   // $(".cartItemData").empty();
+
+    $.each(data.CartItems, function (index, ele) {
+
+        var cartItems = cartTemplate.clone();
+
+        cartItems.find(".cart_img").attr("src", "../../Files/" + ele.Product.Image);
+        cartItems.find(".cart_productName").text(ele.Product.Name);
+        cartItems.find(".cart_size").text(ele.Size);
+        cartItems.find(".cart_size").attr("size", ele.Size);
+        cartItems.find(".cart_size").attr("product", ele.Product.Id);
+        cartItems.find(".cart_unitPrice").text("$" + ele.Product.Price);
+        cartItems.find(".cart_qty").text(ele.Qty);
+        cartItems.find(".cart_subtotal").text("$" + ele.SubTotal);
+        $(".cartTable").append(cartItems);
+
+        total += ele.SubTotal;                   
+    });
+
+    $(".cart_total").text(" 商品總額 : " + total);
+    $(".productTotalPrice").text(total);
+    
+};
+
+
+//設定getToCartItem
+var getToCartItem = function () {
+
+    let url = '/api/CartApi/ShowCart';
+
+    fetch(url, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(function (response) {
+        return response.json();
+    }).then(function (result) {
+        
+         cartItems(result);       
+    }).catch(function (err) {
+        console.log(err);
+    });
+
+};
+
+var showPay = function () {
+
+    $(".payHtml").show("slow", "swing");
+    $(".orderDataHtml").hide()
+    $(".checkoutHtml").hide()
+
+}
+
+var initLoadPay = function () {
+
+    showPay();
+
+    getToCartItem();   
+
+    
+
+}
+
 //設定顯示checkoutHtml
 var showCheckout = function () {
 
@@ -439,7 +454,6 @@ var showCheckout = function () {
     $(".checkoutHtml").show("slow", "swing")
 
 }
-
 
 //設定顯示orderDataHtml
 var showOrderData = function () {
@@ -450,7 +464,13 @@ var showOrderData = function () {
 
 }
 
+//顯示初始payHtml
+var showPay = function () {
 
+    $(".payHtml").show();
+    $(".orderDataHtml").hide()
+    $(".checkoutHtml").hide()
+}
 
 //設定感謝訂購
 var OrderFinish = function () {

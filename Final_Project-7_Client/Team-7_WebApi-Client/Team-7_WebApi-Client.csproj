@@ -178,6 +178,7 @@
     <Compile Include="Controllers\Category\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Members\MembersController.cs" />
+    <Compile Include="Controllers\Orders\OrderApiController.cs" />
     <Compile Include="Controllers\Orders\OrdersController.cs" />
     <Compile Include="Controllers\Products\ProductApiController.cs" />
     <Compile Include="Controllers\Products\ShowProductController.cs" />
@@ -472,10 +473,10 @@
     <Content Include="Views\Members\EditProfile.cshtml" />
     <Content Include="Views\Members\EditPassword.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Orders\GetOrdersForCurrentUser.cshtml" />
     <Content Include="Views\Cart\ToCart.cshtml" />
     <Content Include="Views\Orders\GetOrderItems.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

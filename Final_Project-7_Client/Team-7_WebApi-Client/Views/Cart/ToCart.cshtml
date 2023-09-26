@@ -14,7 +14,6 @@
         margin-top:100px;
     }
 
-
     .blue-box {
         background-color: rgb(119, 119, 189);
     }
@@ -56,8 +55,26 @@
         display: flex;
         align-items: center;
     }
+
+    .bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: -999;
+    }
+
+        .bg img {
+            min-height: 100%;
+            width: 100%;
+            opacity: 30%;
+        }
 </style>
 <body>
+    <div class="bg">
+        <img src="/Files/pic-login.jpg">
+    </div>
     <!--狀態確認 begin-->
     <div class="container-fluid">
         <div class="row">
@@ -92,29 +109,33 @@
                             <tr>
                                 <td>照片</td>
                                 <td>品名</td>
+                                <td class="text-end ps-4 pe-4">尺寸</td>
                                 <td class="text-end ps-4 pe-4">單價</td>
                                 <td class="text-end ps-4 pe-4">數量</td>
                                 <td class="text-end ps-4 pe-4">小計</td>
-                                <td class="text-end ps-4 pe-4">總金額</td>
+                                <td class="text-end ps-4 pe-4"></td>
                             </tr>
                         </thead>
-                        @*CART 模塊*@
-                        <template class="show_cart">
-                            <tbody>
-                            <td class="col-md-3 cart_img ">
-                                <img src="" alt="" width="200">
-                            </td>
-                            <td class="col-md-3 cart_productName"></td>
-                            <td class="text-end ps-4 pe-4 col-md-1 cart_unitPrice"></td>
-                            <td class="text-end ps-4 pe-4 col-md-1 cart_qty"></td>
-                            <td class="text-end ps-4 pe-4 col-md-1 cart_subtotal"></td>
-                            <td class="text-end col-md-3">
-                                <button class="btn btn-success " value="+1">+1</button>
-                                <button class="btn btn-danger " value="- 1">- 1</button>
-                            </td>
-                            </tbody>
-                        </template>
-                        @*CART 模塊*@
+                        <tbody class="cartData">
+                            <!--Crat模塊 Start-->
+                            <template class="show_cart">
+                                <tr>
+                                    <td class="col-md-3 cart_img ">
+                                        <img src="" alt="" style="width:200px">
+                                    </td>
+                                    <td class="col-md-3 cart_productName"></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_size" size="" product=""></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_unitPrice"></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_qty"></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_subtotal"></td>
+                                    <td class="text-end col-md-3">
+                                        <input type="button" class="btn btn-success btnAdd" value="+1" id="btnAdd">
+                                        <input type="button" class="btn btn-danger btnSub" value="- 1" id="btnSub">
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                        <!--Crat模塊 end-->
                         <tfoot>
                             <tr>
                                 <td colspan="6" class="text-end ps-4 pe-4 cart_total" id="totalAmount">總金額：</td>
@@ -126,7 +147,7 @@
                     <div class="row">
                         <div class="col-12 text-center">
                             <input type="button" class="btn btn-secondary" value="回首頁" id="btnCheckoutHome" style="margin-right: 50px;">
-                            <input type="button" class="btn btn-primary" value="去結帳" id="btnpay" style="margin-left: 50px;">
+                            <input type="button" class="btn btn-primary" value="去結帳" id="btnPay" style="margin-left: 50px;">
                         </div>
                     </div>
                 </div>

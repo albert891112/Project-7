@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.css">
+    <script src="../Bootstrap/js/bootstrap.bundle.js"></script>
+    <title>Document</title>
+    <style>
+        #accordionPanelsStayOpenExample {
+            width: 60%;
+        }
+
+        .row {
+            margin: 1em;
+        }
+
+        .category-item {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .category-item.selected {
+            background-color: #f0f0f0;
+        }
+
+        .checkbox-group {
+            margin-left: auto;
+        }
+
+        .male-checkbox,
+        .female-checkbox {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="card col-3" style="margin-right: 10em;">
+            <div class="card-header">
+                男裝
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <div id="">
+                        <ul id="jsonContainerMale"></ul>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="card col-3">
+            <div class="card-header">
+                女裝
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <div id="">
+                        <ul id="jsonContainerFemale"></ul>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="container" style="text-align: center;" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
+                    種類總覽
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                    <div id="">
+                        <ul id="jsonContainerAll"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const jsonContainerMale = document.getElementById('jsonContainerMale');
+            const jsonContainerFemale = document.getElementById('jsonContainerFemale');
+            const jsonContainerAll = document.getElementById('jsonContainerAll');
+
+            const datasourceStr = `[{"categoryId":1,"categoryName":"上衣","gender":1},{"categoryId":2,"categoryName":"長褲","gender":1},{"categoryId":3,"categoryName":"外套","gender":0},{"categoryId":4,"categoryName":"裙子","gender":0},{"categoryId":5,"categoryName":"洋裝","gender":0}]`;
+
+            const datasource = JSON.parse(datasourceStr);
+
+            //一開始已有值的顯示在對應的container中
+            const renderCategory = (datasource) => {
+                datasource.forEach(item => {
+                    const text = `${item.categoryId}. ${item.categoryName}`;
+                    const categoryItem = document.createElement('li');
+                    categoryItem.classList.add('category-item');
+                    categoryItem.dataset.categoryId = item.categoryId;
+                    categoryItem.dataset.categoryName = item.categoryName;
+                    categoryItem.innerHTML = `
+                <span>${text}</span>
+                <div class="checkbox-group">
+                    <input type="checkbox" class="male-checkbox" data-categoryId="${item.categoryId}" data-categoryName="${item.categoryName}" ${item.gender === 1 ? 'checked' : ''}>
+                    <label>男裝</label>
+                    <input type="checkbox" class="female-checkbox" data-categoryId="${item.categoryId}" data-categoryName="${item.categoryName}" ${item.gender === 0 ? 'checked' : ''}>
+                    <label>女裝</label>
+                </div>
+                <br>
+            `;
+
+                    const checkboxMale = categoryItem.querySelector('.male-checkbox');
+                    const checkboxFemale = categoryItem.querySelector('.female-checkbox');
+
+
+                    //勾選時呼叫的函數
+                    const addToContainer = (container, text) => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = text;
+                        container.appendChild(listItem);
+                    };
+
+                    //移除時呼叫的函數（RemoveItem目前為null值）
+                    const removeFromContainer = (container, categoryId) => {
+
+                        console.log("Hello")
+
+                        const listItemToRemove = container.querySelector(`li[data-categoryId="${categoryId}"]`);
+                        console.log("Remove",listItemToRemove)
+                        
+                        if (listItemToRemove) {
+                            listItemToRemove.remove();
+                        }
+                    };
+
+                    //男裝checkbox勾選
+                    checkboxMale.addEventListener('change', () => {
+                        const categoryId = item.categoryId;
+                        const textMale = `${categoryId}. ${item.categoryName}`;
+
+                        if (checkboxMale.checked) {
+                            addToContainer(jsonContainerMale, textMale);
+                        } else {
+                            removeFromContainer(jsonContainerMale, categoryId);
+                        }
+                    });
+
+                    //女裝checkbox勾選
+                    checkboxFemale.addEventListener('change', () => {
+                        const categoryId = item.categoryId;
+                        const textFemale = `${categoryId}. ${item.categoryName}`;
+
+                        if (checkboxFemale.checked) {
+                            addToContainer(jsonContainerFemale, textFemale);
+                        } else {
+                            removeFromContainer(jsonContainerFemale, categoryId);
+                        }
+                    });
+
+
+                    //塞值
+                    jsonContainerAll.appendChild(categoryItem);
+
+                    if (item.gender === 1) {
+                        addToContainer(jsonContainerMale, `${text}`);
+                    } else if (item.gender === 0) {
+                        addToContainer(jsonContainerFemale, `${text}`);
+                    }
+                });
+            };
+
+            renderCategory(datasource);
+        });
+
+
+
+    </script>
+</body>
+
+</html>

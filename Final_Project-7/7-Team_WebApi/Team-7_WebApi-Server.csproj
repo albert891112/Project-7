@@ -200,6 +200,7 @@
     <Compile Include="Controllers\Categories\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Members\MemberController.cs" />
+    <Compile Include="Controllers\Orders\OrderController.cs" />
     <Compile Include="Controllers\PermissionControll\PermissionApiController.cs" />
     <Compile Include="Controllers\PermissionControll\PermissionControllController.cs" />
     <Compile Include="Controllers\PermissionControll\RoleApiController.cs" />
@@ -210,14 +211,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\CategoryDTO.cs" />
+    <Compile Include="Models\DTOs\CouponDTO.cs" />
     <Compile Include="Models\DTOs\GenderCategoryDTO.cs" />
     <Compile Include="Models\DTOs\MemberDTO.cs" />
     <Compile Include="Models\DTOs\OrderDTO.cs" />
     <Compile Include="Models\DTOs\OrderItemDTO.cs" />
+    <Compile Include="Models\DTOs\OrderStatusDTO.cs" />
+    <Compile Include="Models\DTOs\PaymentDTO.cs" />
     <Compile Include="Models\DTOs\PermissionDTO.cs" />
     <Compile Include="Models\DTOs\ProductDTO.cs" />
     <Compile Include="Models\DTOs\RoleDTO.cs" />
     <Compile Include="Models\DTOs\PermissionControll\RoleUpdateDTO.cs" />
+    <Compile Include="Models\DTOs\ShippingDTO.cs" />
     <Compile Include="Models\DTOs\StatusDTO.cs" />
     <Compile Include="Models\DTOs\StockDTO.cs" />
     <Compile Include="Models\DTOs\UserDTO.cs" />
@@ -245,16 +250,20 @@
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\Users_Roles.cs" />
     <Compile Include="Models\Entities\CategoryEntity.cs" />
+    <Compile Include="Models\Entities\CouponEntity.cs" />
     <Compile Include="Models\Entities\GenderCategoryEntity.cs" />
     <Compile Include="Models\Entities\MemberEntity.cs" />
     <Compile Include="Models\Entities\OrderEntity.cs" />
     <Compile Include="Models\Entities\OrderItemEntity.cs" />
+    <Compile Include="Models\Entities\OrderStatusEntity.cs" />
+    <Compile Include="Models\Entities\PaymentEntity.cs" />
     <Compile Include="Models\Entities\PermissionControll\RoleUpdateEntity.cs" />
     <Compile Include="Models\Entities\PermissionEntity.cs" />
     <Compile Include="Models\Entities\ProductEntity.cs" />
     <Compile Include="Models\Entities\RoleEntity.cs" />
     <Compile Include="Models\Entities\Roles_PermissionsEntity.cs" />
     <Compile Include="Models\Entities\Roles_UsersEntity.cs" />
+    <Compile Include="Models\Entities\ShippingEntity.cs" />
     <Compile Include="Models\Entities\StatusEntity.cs" />
     <Compile Include="Models\Entities\StockEntity.cs" />
     <Compile Include="Models\Entities\UserEntity.cs" />
@@ -475,6 +484,7 @@
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Member\Edit.cshtml" />
     <Content Include="Views\PermissionControll\ToPermissionControll.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\PermissionControll\ToEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
