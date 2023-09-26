@@ -11,12 +11,14 @@ namespace _7_Team_WebApi.Controllers.Orders
 {
     public class OrderController : Controller
     {
-        OrderService order = new OrderService();
         // GET: Order
+        private OrderService serv = new OrderService();
         public ActionResult Index()
         {
-            var orderVM = order.GetAll().Select(x => x.ToVM());
-            return View(orderVM);
+            List<OrderVM> vms = serv.GetAll().Select(x => x.ToVM()).ToList();
+
+            return View(vms);
         }
+
     }
 }

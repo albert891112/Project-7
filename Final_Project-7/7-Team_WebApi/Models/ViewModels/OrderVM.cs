@@ -14,7 +14,7 @@ namespace _7_Team_WebApi.Models.ViewModels
     {
         public int Id { get; set; }
 
-        [Display(Name = "帳號")]
+        [Display(Name = "會員")]
         public string Member { get; set; }
 
         [Display(Name = "手機")]
