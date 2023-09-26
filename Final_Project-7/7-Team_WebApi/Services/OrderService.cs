@@ -29,9 +29,9 @@ namespace _7_Team_WebApi.Services
             return entities;
         }
 
-        public List<OrderItemEntity> Get(int id)
+        public List<OrderItemEntity> Get(int orderid)
         {
-            List<OrderItemEntity> entity = this.repo.GetOrderById(id);
+            List<OrderItemEntity> entity = this.repo.GetOrderById(orderid);
 
             return entity;
         }

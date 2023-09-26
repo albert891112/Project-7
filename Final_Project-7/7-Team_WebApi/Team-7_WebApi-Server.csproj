@@ -270,11 +270,15 @@
     <Compile Include="Models\ViewModels\CategoryVM.cs" />
     <Compile Include="Models\ViewModels\GenderCategoryVM.cs" />
     <Compile Include="Models\ViewModels\MemberVM.cs" />
+    <Compile Include="Models\ViewModels\OrderItemVM.cs" />
+    <Compile Include="Models\ViewModels\OrderStatusVM.cs" />
     <Compile Include="Models\ViewModels\OrderVM.cs" />
+    <Compile Include="Models\ViewModels\PaymentVM.cs" />
     <Compile Include="Models\ViewModels\PermissionControll\RoleUpdateVM.cs" />
     <Compile Include="Models\ViewModels\PermissionVM.cs" />
     <Compile Include="Models\ViewModels\ProductVM.cs" />
     <Compile Include="Models\ViewModels\RoleVM.cs" />
+    <Compile Include="Models\ViewModels\ShippingVM.cs" />
     <Compile Include="Models\ViewModels\StockVM.cs" />
     <Compile Include="Models\ViewModels\UserVM.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.1.AssemblyAttributes.cs" />
@@ -486,6 +490,7 @@
     <Content Include="Views\PermissionControll\ToPermissionControll.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\PermissionControll\ToEdit.cshtml" />
+    <Content Include="Views\Order\GetOrderItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
