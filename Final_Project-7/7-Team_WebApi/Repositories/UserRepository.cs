@@ -1,8 +1,10 @@
 ﻿using _7_Team_WebApi.Models.EFModels;
 using _7_Team_WebApi.Models.Entities;
 using Albert.Lib;
+using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -13,6 +15,53 @@ namespace _7_Team_WebApi.Repositories
         SqlDb connection = new SqlDb();
 
         AppDbContext db = new AppDbContext();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public UserPermissionsEntity GetByAccount(string account)
+        {
+            string sql = @"SELECT U.* , P.* FROM Users as U
+                        INNER JOIN Users_Roles as UR ON U.Id = UR.UserId
+                        INNER JOIN Roles as R ON UR.RoleId = R.Id
+                        INNER JOIN Roles_Permissions as RP ON R.Id = RP.RoleId
+                        INNER JOIN Premission as P ON RP.PermissionId = P.Id
+                        Where U.Account = @Account";
+
+            object obj = new { Account = account };
+
+
+            Func<SqlConnection, string, object, UserPermissionsEntity> func = (conn, s, o) =>
+            {
+                UserPermissionsEntity entity = null;
+
+                conn.Query<UserPermissionsEntity , PermissionEntity , UserPermissionsEntity>(s , (u , p) =>
+                {
+                    if(entity == null)
+                    {
+                        u.Permission = new List<PermissionEntity>();
+                        u.Permission.Add(p);
+                        entity = u;
+                    }
+                    else
+                    {
+                        entity.Permission.Add(p);
+                    }
+                    return u;
+
+                }, o);
+
+                return entity;
+            }; 
+
+
+            UserPermissionsEntity userPermissionsEntity = this.connection.Get<UserPermissionsEntity>(sql, "default", obj, func);
+
+            return userPermissionsEntity;
+        }
+
 
         /// <summary>
         /// Create a new user

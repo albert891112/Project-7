@@ -16,7 +16,7 @@ namespace _7_Team_WebApi
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "PermissionControll", action = "Login", id = UrlParameter.Optional }
             );
         }
     }

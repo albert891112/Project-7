@@ -293,6 +293,8 @@
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\UserAuthorizeAttribute.cs" />
+    <Compile Include="Services\UserPrincipal.cs" />
     <Compile Include="Services\UserServie.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -486,6 +488,8 @@
     <Content Include="Views\PermissionControll\ToPermissionControll.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\PermissionControll\ToEdit.cshtml" />
+    <Content Include="Views\PermissionControll\Login.cshtml" />
+    <Content Include="Views\PermissionControll\InsufficientPermissions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

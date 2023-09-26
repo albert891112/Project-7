@@ -17,6 +17,17 @@ namespace _7_Team_WebApi.Models.Entities
         public string Name { get; set; }
     }
 
+    public class UserPermissionsEntity
+    {
+        public int Id { get; set; }
+        public string Account { get; set; }
+        public string Password { get; set; }
+
+        public List<PermissionEntity> Permission { get; set; }
+    }
+
+
+
 
     public static class UserRegisterEntityExtension
     {

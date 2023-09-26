@@ -16,6 +16,15 @@ namespace _7_Team_WebApi.Models.DTOs
         public string Name { get; set; }
     }
 
+    public class UserPermissionDTO
+    {
+        public int Id { get; set; }
+        public string Account { get; set; }
+        public string Password { get; set; }
+
+        public string Permissions { get; set; }
+    }   
+
     public static class UserRegisterDTOExtension
     {
         public static UserDTO ToDTO(this UserVM vm)
@@ -39,6 +48,21 @@ namespace _7_Team_WebApi.Models.DTOs
                 Id = entity.Id,
                 Account = entity.Account,
                 Name = entity.Name
+            };
+        }
+
+
+
+        public static UserPermissionDTO ToDTO(this UserPermissionsEntity entity)
+        {
+            string permissions = entity.Permission.Select(x => x.Id.ToString()).Aggregate(string.Empty, (current, next) => current + "," + next);
+
+            return new UserPermissionDTO
+            {
+                Id = entity.Id,
+                Account = entity.Account,
+                Password = entity.Password,
+                Permissions = permissions
             };
         }
     }

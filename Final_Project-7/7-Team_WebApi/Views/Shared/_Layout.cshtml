@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/bootstrap")
+
     <style>
         #footer {
             margin-top: 10px;
@@ -26,15 +26,33 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Category", "Index", "Category", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Order", "Index", "Order", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Member", "Index", "Member", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("權限控管", "ToPermissionControll", "PermissionControll", new { area = "" }, new { @class = "nav-link" })</li>
-                    
-                </ul>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Category", "Index", "Category", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Order", "Index", "Order", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Member", "Index", "Member", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>
+                            <div class="dropdown">
+                                <button class="btn btn-dark dropdown-toggle nav-link" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    權限管理
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="~/PermissionControll/ToEdit">權限維護</a></li>
+                                    <li><a class="dropdown-item" href="~/PermissionControll/ToPermissionControll">權限控管</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="nav navbar-nav navbar-right">
+                        <li class="ml-5"><a href="#" class="text-white text-decoration-none nav-link ">你好： @(User.Identity.Name)</a></li>
+                        <li class="ml-5"><a href="/PermissionControll/Logout/" class="text-white text-decoration-none nav-link">登出</a></li>
+                    </div>
+                        
+                }
             </div>
         </div>
     </nav>
@@ -47,6 +65,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

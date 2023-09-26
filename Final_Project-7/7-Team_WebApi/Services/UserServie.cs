@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Security;
 
 namespace _7_Team_WebApi.Services
 {
@@ -100,7 +101,66 @@ namespace _7_Team_WebApi.Services
             }
 
             this.repo.Update(entity);
-        }   
+        }
+
+
+
+
+        /// <summary>
+        /// 找出使用者是否存在。若是沒有會回傳false，有的話會比對密碼是否正確? 回傳true : 回傳false
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool IsValid(string account, string password)
+        {
+            var user = this.repo.GetByAccount(account);
+
+            var salt = Hashing.GetSalt();
+            var HashedPassword = Hashing.ToSHA256(password, salt);
+
+            if (user == null) return false;
+            else
+                return String.Compare(user.Password, HashedPassword, StringComparison.OrdinalIgnoreCase) == 0;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="rememberMe"></param>
+        /// <param name="cookie"></param>
+        /// <returns></returns>
+        public string ProcessLogin(string account, bool rememberMe, out HttpCookie cookie)
+        {
+
+            UserPermissionDTO dto = this.repo.GetByAccount(account).ToDTO();
+
+            string functions = dto.Permissions;
+
+            //建立一張認證票
+            FormsAuthenticationTicket ticket =
+                new FormsAuthenticationTicket(
+                    1,          //版本別, 沒特別用處
+                    account,
+                    DateTime.Now,   //發行日
+                    DateTime.Now.AddDays(2), //到期日
+                    rememberMe,     //是否續存
+                    functions,          //userdata
+                    "/"             //cookie位置
+                );
+            //將它加密
+            string value = FormsAuthentication.Encrypt(ticket);
+            //存入cookie
+            cookie = new HttpCookie(FormsAuthentication.FormsCookieName, value);
+
+            //取得return url
+            string url = FormsAuthentication.GetRedirectUrl(account, true); //第二個引數沒有用處
+
+            return url;
+
+        }
 
     }
 
