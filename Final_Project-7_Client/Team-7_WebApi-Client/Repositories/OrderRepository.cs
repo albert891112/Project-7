@@ -93,5 +93,32 @@ ORDER BY O.ID DESC";
 			return result;
 		}
 
+		public List<ShippingEntity> Get(int Id)
+		{
+			SqlDb connection = new SqlDb();
+
+			string sql = @"SELECT S.* FROM Shippings 
+WHERE Id = @Id";
+
+			object obj = new
+			{
+				Id = Id,
+			};
+
+
+			Func<SqlConnection, string, object, List<ShippingEntity>> func = (conn, s, o) =>
+			{
+				return conn.Query<ShippingEntity>(s, o).ToList();
+			};
+
+
+			List<ShippingEntity> entity = connection.Get<List<ShippingEntity>>(sql, "default", obj, func);
+
+			return entity;
+		}
+
 	}
+
+
+
 }

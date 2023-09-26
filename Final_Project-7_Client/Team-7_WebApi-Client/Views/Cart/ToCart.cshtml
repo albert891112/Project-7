@@ -65,11 +65,17 @@
         z-index: -999;
     }
 
-        .bg img {
-            min-height: 100%;
-            width: 100%;
-            opacity: 30%;
-        }
+ .bg img {
+          min-height: 100%;
+          width: 100%;
+          opacity: 30%;
+ }
+
+    .wordtype {
+        font:bold;
+    }
+ 
+
 </style>
 <body>
     <div class="bg">
@@ -97,8 +103,8 @@
                         <div class="row">
                             <div class="col-12">
                                 <select name="" id="sort" class="form-select-sm mb-3" style="width:200px;">
-                                    <option value="unitprice">按單價排序</option>
-                                    <option value="subtotal">按小計遞減排序</option>
+                                    <option value="unitprice" class="wordtype">按單價排序</option>
+                                    <option value="subtotal" class="wordtype">按小計遞減排序</option>
                                 </select>
                             </div>
                         </div>
@@ -123,14 +129,14 @@
                                     <td class="col-md-3 cart_img ">
                                         <img src="" alt="" style="width:200px">
                                     </td>
-                                    <td class="col-md-3 cart_productName"></td>
-                                    <td class="text-end ps-4 pe-4 col-md-1 cart_size" size="" product=""></td>
-                                    <td class="text-end ps-4 pe-4 col-md-1 cart_unitPrice"></td>
-                                    <td class="text-end ps-4 pe-4 col-md-1 cart_qty"></td>
-                                    <td class="text-end ps-4 pe-4 col-md-1 cart_subtotal"></td>
+                                    <td class="col-md-3 cart_productName" num=""></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_size " size="" product="" num=""></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_unitPrice wordtype" num=""></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_qty wordtype" num="" value=""></td>
+                                    <td class="text-end ps-4 pe-4 col-md-1 cart_subtotal wordtype"></td>
                                     <td class="text-end col-md-3">
-                                        <input type="button" class="btn btn-success btnAdd" value="+1" id="btnAdd">
-                                        <input type="button" class="btn btn-danger btnSub" value="- 1" id="btnSub">
+                                        <input type="button" class="btn btn-success btnAdd" value="+1" >
+                                        <input type="button" class="btn btn-danger btnSub" value="- 1">
                                     </td>
                                 </tr>
                             </template>

@@ -270,6 +270,7 @@
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\MemberService.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
