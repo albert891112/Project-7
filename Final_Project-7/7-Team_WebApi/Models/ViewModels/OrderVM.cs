@@ -1,5 +1,6 @@
 ﻿using _7_Team_WebApi.Models.DTOs;
 using _7_Team_WebApi.Models.EFModels;
+using _7_Team_WebApi.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -50,6 +51,20 @@ namespace _7_Team_WebApi.Models.ViewModels
                 Payment = dto.Payment.PaymentMethod,
                 Shipping = dto.Shipping.ShippingMethod,
                 Total = dto.Total,
+            };
+        }
+        public static OrderVM ToVM(this OrderEntity entity)
+        {
+            return new OrderVM()
+            {
+                Id = entity.Id,
+                Member = entity.Member.Account,
+                PhoneNumber = entity.PhoneNumber,
+                Address = entity.Address,
+                OrderStatus = entity.OrderStatus.Status,
+                Payment = entity.Payment.PaymentMethod,
+                Shipping = entity.Shipping.ShippingMethod,
+                Total = entity.Total,
             };
         }
     }

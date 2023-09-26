@@ -40,32 +40,44 @@ namespace _7_Team_WebApi.Repositories
         public List<OrderEntity> GetAll()
         {
             //string sql = $"SELECT * FROM Orders";
-            string sql = $"SELECT O.*, OS.*, M.*, C.*, P.*, S.*, OI.* FROM Orders as O " +
-                "INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId " +
-                "INNER JOIN Members as M ON M.Id = O.MemberId " +
-                "INNER JOIN Coupons as C ON C.Id = O.CouponId " +
-                "INNER JOIN Payments as P ON P.Id = O.PaymentId " +
-                "INNER JOIN Shippings as S ON S.Id = O.ShippingId " +
-                "INNER JOIN OrderItems as OI ON OI.OrderId = O.Id ";
+            string sql = $"SELECT O.*, OS.*, M.*, C.*, DT.*, P.*, S.*, OI.* FROM Orders as O " +
+                 "INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId " +
+                 "INNER JOIN Members as M ON M.Id = O.MemberId " +
+                 "INNER JOIN Coupons as C ON C.Id = O.CouponId " +
+                 "INNER JOIN DiscountType as DT ON DT.Id = C.DiscountTypeId " +
+                 "INNER JOIN Payments as P ON P.Id = O.PaymentId " +
+                 "INNER JOIN Shippings as S ON S.Id = O.ShippingId " +
+                 "INNER JOIN OrderItems as OI ON OI.OrderId = O.Id " +
+                 "ORDER BY O.ID";
 
             Func<SqlConnection, string, List<OrderEntity>> func = (conn, s) =>
             {
-                Dictionary<int, OrderItemEntity> OrderItemList = new Dictionary<int, OrderItemEntity>();
+                //Dictionary<int, OrderItemEntity> OrderItemList = new Dictionary<int, OrderItemEntity>();
+                Dictionary<int, OrderEntity> OrderList = new Dictionary<int, OrderEntity>();
 
-                return conn.Query<OrderEntity, OrderStatusEntity, MemberEntity, CouponEntity, PaymentEntity, ShippingEntity, OrderItemEntity, OrderEntity>(sql, (o, os, m, c, p, sh, oi) =>
-                {   o.OrderStatus = os;
-                    o.Member = m;
-                    o.Coupon=c;
-                    o.Payment = p;
-                    o.Shipping = sh;
-                    OrderItemList.Add(oi.Id, oi);
+                conn.Query<OrderEntity, MemberEntity, PaymentEntity, ShippingEntity, OrderItemEntity, OrderStatusEntity, OrderEntity>(sql, (o, m, p, sh, oi, os) =>
+                {
+                    if (OrderList.TryGetValue(o.Id, out OrderEntity Order) == false)
+                    {
+                        o.OrderStatus = os;
+                        o.Member = m;
+                        o.Payment = p;
+                        o.Shipping = sh;
+                        o.OrderItemList = new List<OrderItemEntity>();
+                        o.OrderItemList.Add(oi);
+                        OrderList.Add(o.Id, o);
+                        //OrderItemList.Add(oi.Id, oi);
+                    }
+                    else
+                    {
+                        Order.OrderItemList.Add(oi);
+                    }
                     return o;
-                
-                }).ToList();
-                    
+                });
+                return OrderList.Values.ToList();
 
             };
-            List< OrderEntity > orders = this.connection.GetAll<OrderEntity>(sql, "default", func);
+            List<OrderEntity> orders = this.connection.GetAll<OrderEntity>(sql, "default", func);
             return orders;
             //List<OrderEntity> entity = this.connection.GetAll<OrderEntity>(sql, "default");
             //return entity;

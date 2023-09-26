@@ -11,13 +11,13 @@ namespace _7_Team_WebApi.Services
     public class OrderService
     {
         OrderRepository repo = new OrderRepository();
-        public List<OrderDTO> GetAll()
+        public List<OrderEntity> GetAll()
         {
             List<OrderEntity> entities = this.repo.GetAll();
 
-            List<OrderDTO> dtos = entities.Select(x => x.ToDTO()).ToList();
+            //List<OrderDTO> dtos = entities.Select(x => x.ToDTO()).ToList();
 
-            return dtos;
+            return entities;
         }
 
     }
