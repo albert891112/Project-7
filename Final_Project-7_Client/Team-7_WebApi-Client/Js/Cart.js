@@ -52,11 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //加一
-var addOne = function () {
-
-    //取得商品Id
-    const urlParams = new URLSearchParams(window.location.search);
-   // const Id = urlParams.get('Id');
+var addOne = function () {    
 
     //商品數量+1
     var Qty = 1;   
@@ -70,8 +66,48 @@ var addOne = function () {
         "ProductId": Id,        
         "Qty": Qty,
         "Size": Size
-    }
+    }   
+
+    //加入購物車
+    let url = '/api/CartApi/AddCartItem';
+
+    fetch(url, {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        console.log("response=", response);
+        if (response.ok) {
+            //alert("加入購物車成功")
+           
+            getToCart();
+            location.reload();      
+          
+        }
+    })
     
+
+}
+
+//減一
+var subOne = function () {
+
+    //商品數量-1
+    var Qty = -1;
+
+    var Size = $(".cart_size").attr("size");
+
+    var Id = $(".cart_size").attr("product");
+
+    //建立商品資料取得商品ID,購物車數量,購物車尺寸
+    var data = {
+        "ProductId": Id,
+        "Qty": Qty,
+        "Size": Size
+    }
+
 
     console.log("data=", data);
 
@@ -87,51 +123,12 @@ var addOne = function () {
     }).then(function (response) {
         console.log("response=", response);
         if (response.ok) {
-            //alert("加入購物車成功")
-          
-        }
-    })
-    
-
-}
-
-//減一
-var subOne = function () {
-
-    //取得商品Id
-    const urlParams = new URLSearchParams(window.location.search);
-    const Id = urlParams.get('Id');
-
-    //商品數量-1
-    var Qty = -1;    
-
-    var Size = Size;
-
-
-
-    //建立商品資料取得商品ID,購物車數量,購物車尺寸
-    var data = {
-        "ProductId": Id,
-        "Qty": Qty,
-        "Size": Size
-    }
-
-    //加入購物車
-    let url = '/api/CartApi/AddCartItem';
-
-    fetch(url, {
-        method: 'POST',
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(data)
-    }).then(function (response) {
-        console.log("data=", data);
-        if (response.ok) {
-            //alert("加入購物車成功")
+            
             getToCart();
+            location.reload();
         }
     })
+
 }
 
 
@@ -157,16 +154,15 @@ var getToCart = function () {
 
 
 
-var setCart = function (data) {
+var setCart = function (data) {    
+
     var cartTemplate = getCartTemplate("show_cart");
-
-
-    var total = 0;
-
-    $("#cartData").empty();
+    var total = 0;    
+    $(".cartData").empty();
     $.each(data.CartItems, function (index, ele) {         
 
         var cartItems = cartTemplate.clone();
+        
         cartItems.find(".cart_img").attr("src", "../../Files/" + ele.Product.Image);
         cartItems.find(".cart_productName").text(ele.Product.Name);
         cartItems.find(".cart_size").text(ele.Size);

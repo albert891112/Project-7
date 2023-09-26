@@ -1,52 +1,6 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    //設定初始payHtml
-    var initLoadPay = function () {
-
-        showPay();
-
-
-
-        var getToCartItem = function () {
-
-            let url = '/api/CartApi/ShowCart';
-
-            fetch(url, {
-                method: 'GET',
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            }).then(function (response) {
-                return response.json();
-            }).then(function (result) {
-                // cartItems(result);
-                console.log(result);
-            }).catch(function (err) {
-                console.log(err);
-            });
-
-        };
-
-        var cartItems = function (data) {
-            var cartTemplate = getCartTemplate("cartItem_list");
-
-            $.each(data, function (index, ele) {
-
-                var cartItems = cartTemplate.clone();
-                cartItems.find(".cart_img").attr("src", ele.Image);
-                cartItems.find(".cart_productName").text(ele.Name);
-                cartItems.find(".cart_size").text(ele.Size);
-                cartItems.find(".cart_unitPrice").text(ele.UnitPrice);
-                cartItems.find(".cart_qty").text(ele.Qty);
-                cartItems.find(".cart_subtotal").text(ele.Subtotal);
-                cartItems.find(".cart_total").text(ele.Total);
-                $("#cartTable").append(cartItems);
-            });
-        };
-
-    }
-
-    // getToCartItem();
+    initLoadPay();    
 
     //計算總金額
     var subtotalLabel = $(".subtotal");
@@ -113,8 +67,7 @@
         $(".checkoutHtml").hide()
     }
 
-    //畫面初始化，取得所有商品
-    initLoadPay();
+  
 
     //paymentmethod======================================================
     // 做出選擇後，顯示注意事項
@@ -420,6 +373,89 @@
 });
 
 //設定函數庫=============================================================================================
+//設定初始payHtml
+
+
+
+
+//設定getCartTemplate
+var getCartTemplate = function (name) {
+
+    var templateName = "template." + name;
+    var template = $(templateName).html();
+
+    return $(template).clone();
+}
+
+
+//設置cartItems
+var cartItems = function (data) {    
+    var cartTemplate = getCartTemplate("cartItem_list");
+    var total = 0;
+    console.log(data);
+
+    $(".cartItemData").empty();
+
+    $.each(data.CartItems, function (index, ele) {
+
+        var cartItems = cartTemplate.clone();
+
+        cartItems.find(".cart_img").attr("src", "../../Files/" + ele.Product.Image);
+        cartItems.find(".cart_productName").text(ele.Product.Name);
+        cartItems.find(".cart_size").text(ele.Size);
+        cartItems.find(".cart_size").attr("size", ele.Size);
+        cartItems.find(".cart_size").attr("product", ele.Product.Id);
+        cartItems.find(".cart_unitPrice").text("$" + ele.Product.Price);
+        cartItems.find(".cart_qty").text(ele.Qty);
+        cartItems.find(".cart_subtotal").text("$" + ele.SubTotal);
+        $("#cartTable").append(cartItems);
+
+        total += ele.SubTotal;                   
+    });
+    
+
+    $(".cart_total").text(" Total : " + total);
+};
+
+
+//設定getToCartItem
+var getToCartItem = function () {
+
+    let url = '/api/CartApi/ShowCart';
+
+    fetch(url, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(function (response) {
+        return response.json();
+    }).then(function (result) {
+        
+         cartItems(result);       
+    }).catch(function (err) {
+        console.log(err);
+    });
+
+};
+
+var showPay = function () {
+
+    $(".payHtml").show("slow", "swing");
+    $(".orderDataHtml").hide()
+    $(".checkoutHtml").hide()
+
+}
+
+var initLoadPay = function () {
+
+    showPay();
+
+    getToCartItem();
+
+}
+
+
 //設定顯示checkoutHtml
 var showCheckout = function () {
 
