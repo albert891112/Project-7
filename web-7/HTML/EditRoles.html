@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+    .valid {
+        border: 2px solid green;
+     
+        border-radius: 5px;
+    }
+
+    .invalid {
+        border: 2px solid red;
+        border-radius: 5px;
+    }
+
+    .bordercolor {
+        border: 2px solid rgb(210, 201, 201);
+        border-radius: 5px;
+    }
+
+    .scroll {
+        overflow-y: scroll;
+        height: 500px;
+    }
+</style>
+</head>
+
+<body>
+    <!--職位模板-->
+    <template class="RoleBotton">
+        <button type="button" class="list-group-item list-group-item-action Rolebtn" data-bs-toggle="modal" data-bs-target="#RoleModel" model="RoleModel" RoleId="">
+            The current button
+        </button>
+    </template>
+    <!--職位模板-->
+    <!--使用者模板-->
+    <template class="UserBotton">
+        <button type="button" class="list-group-item list-group-item-action Userbtn" data-bs-toggle="modal" data-bs-target="#UserModel" model="UserModel" UserId="">
+            The current button
+        </button>
+    </template>
+    <!--使用者模板-->
+    <!--權限模板-->
+    <template class="PermissionBotton">
+        <button type="button" class="list-group-item list-group-item-action Permissionbtn" data-bs-toggle="modal" data-bs-target="#PermissionModel" model="PermissionModel" PermissionId="">
+            The current button
+        </button>
+    </template>
+    <!--權限模板-->
+    <!--標題-->
+    <div class="title my-5 text-center">
+        <h3>權限控管</h3>
+    </div>
+    <!--標題-->
+    <!--編輯區塊-->
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <!--職位編輯-->
+                <div class="Role">
+                    <div class="title">
+                        <h4 class="text-center">職位</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll" tabindex="0">
+                        <!--職位按鈕放置-->
+                        <ul class="list-group list-group-flush RoleChoose">
+                            <button type="button" class="list-group-item list-group-item-action Rolebtn" data-bs-toggle="modal" data-bs-target="#RoleModel" RoleId="">
+                                 載入中............
+                            </button>
+
+
+                        </ul>
+                        <!--職位按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--職位編輯-->
+            </div>
+            <div class="col-12 col-md-4">
+                <!--使用者編輯-->
+                <div class="User">
+                    <div class="title">
+                        <h4 class="text-center">使用者</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll" tabindex="0">
+                        <!--使用者按鈕放置-->
+                        <ul class="list-group list-group-flush UserChoose">
+                            <button type="button" class="list-group-item list-group-item-action Userbtn" data-bs-toggle="modal" data-bs-target="#UserModel" UserId="">
+                                載入中............
+                            </button>
+
+                        </ul>
+                        <!--使用者按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--使用者編輯-->
+            </div>
+            <div class="col-12 col-md-4">
+                <!--權限編輯-->
+                <div class="Permission">
+                    <div class="title">
+                        <h4 class="text-center">權限</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll" tabindex="0">
+                        <!--權限按鈕放置-->
+                        <ul class="list-group list-group-flush PermissionChoose">
+                            <button type="button" class="list-group-item list-group-item-action Permission" data-bs-toggle="modal" data-bs-target="#PermissionModel" PermissionId="">
+                                載入中............
+                            </button>
+                        </ul>
+                        <!--權限按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--權限編輯-->
+            </div>
+        </div>
+
+    </div>
+    <!--編輯區塊-->
+    <!-- RoleModal -->
+    <div class="modal fade" id="RoleModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯職位</h5>
+                    <button type="button" class="btn-close EditRoleClose" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <label for="EditRoleName">權限名稱 ： </label>
+                    <input type="text" class="EditRoleName" id="EditRoleName" value="" belong="EditRole" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary EditRoleClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit EditRole" data-bs-dismiss="modal" RoleId="">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- RoleModal -->
+    <!-- UserModal -->
+    <div class="modal fade" id="UserModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯使用者</h5>
+                    <button type="button" class="btn-close EditUserClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <label for="EditRoleName">使用者名稱 ： </label>
+                    <input type="text" class="EditUserName my-1" id="EditUserName" value="" belong="EditUser" required> <br>
+                    <label for="EditRoleName">使用者帳號 ： </label>
+                    <input type="text" class="EditUserAccount my-1" id="EditUserAccount" value="" belong="EditUser" required> <br>
+                    <label for="EditRoleName">使用者密碼 ： </label>
+                    <input type="password" class="EditUserPassword my-1" id="EditUserPassword" value="" belong="EditUser">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary EditUserClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit EditUser" data-bs-dismiss="modal" UserId="">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- UserModal -->
+    <!-- PermissionModal -->
+    <div class="modal fade" id="PermissionModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯權限</h5>
+                    <button type="button" class="btn-close EditPermissionClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <label for="EditPermissionName">權限名稱 ： </label>
+                    <input type="text" class="EditPermissionName my-1" id="EditPermissionName" value="" belong="EditPermission" required> <br>
+                    <p class="text-center my-1">權限描述 </p>
+                    <textarea class="EditPermissionDescription" id="EditPermissionDescription" cols="30" rows="10" belong="EditPermission" required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary EditPermissionClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit EditPermission " data-bs-dismiss="modal" PermissionId="">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PermissionModal -->
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+//建立欄位驗證
+setRoleInputValidation();
+setUserInputValidation();
+setPermissionValidation();
+
+//設置職位資料
+setRoleData();
+
+//設置使用者資料
+setUserDate();
+
+//設置權限資料
+setPermissionData();
+
+//設置職位編輯資料
+$(document).on("click", ".Rolebtn", function () {
+
+    var RoleId = $(this).attr("RoleId")
+
+
+    SearchRoleData(RoleId);
+
+
+})
+
+//設置使用者編輯資料
+$(document).on("click", ".Userbtn", function () {
+
+    var UserId = $(this).attr("UserId");
+
+    SearchUserData(UserId);
+
+
+})
+
+//設置權限編輯資料
+$(document).on("click", ".Permissionbtn", function () {
+
+    var PermissionId = $(this).attr("PermissionId");
+
+    SearchPermissionData(PermissionId);
+
+
+})
+
+//提交職位變更
+roleSummit();
+
+//提交使用者變更
+userSummit();
+
+//提交權限變更
+permissionSummit();
+
+//初始化編輯視窗
+initEditRoles();
+initEditUsers();
+initEditPermissions();
+
+
+
+
+
+
+
+})
+
+var initEditRoles = function () {
+$(document).on("click", ".EditRoleClose", function () {
+    $(".EditRole").attr("disabled", false);
+    $(".EditRoleName").removeClass("valid");
+    $(".EditRoleName").removeClass("invalid");
+})
+}
+
+var initEditUsers = function () {
+
+$(document).on("click", ".EditUserClose", function () {
+    $(".EditUser").attr("disabled", false);
+    $(".EditUserName").removeClass("valid");
+    $(".EditUserAccount").removeClass("valid");
+    $(".EditUserName").removeClass("invalid");
+    $(".EditUserAccount").removeClass("invalid");
+})
+}
+
+var initEditPermissions = function () {
+
+$(document).on("click", ".EditPermissionClose", function () {
+    $(".EditPermission").attr("disabled", false);
+    $(".EditPermissionName").removeClass("valid");
+    $(".EditPermissionDescription").removeClass("valid");
+    $(".EditPermissionName").removeClass("invalid");
+    $(".EditPermissionDescription").removeClass("invalid");
+})
+}
+
+//建立Role欄位驗證
+var setRoleInputValidation = function () {
+
+var RoleName = document.querySelector(".EditRoleName");
+
+RoleName.addEventListener("input", function () {
+
+    var RoleNameIsVaild = RoleName.checkValidity();
+
+    if (RoleNameIsVaild) {
+
+        RoleName.classList.add("valid");
+        RoleName.classList.remove("invalid");
+        $(".EditRole").attr("disabled", false);
+    }
+    else {
+
+        RoleName.classList.add("invalid");
+        RoleName.classList.remove("valid");
+        $(".EditRole").attr("disabled", true);
+    }
+
+})
+
+}
+
+//建立User欄位驗證
+var setUserInputValidation = function () {
+
+var UserNameIsVaild = true;
+var UserAccountIsVaild = true;
+
+//建立UserName欄位驗證
+var UserName = document.querySelector(".EditUserName");
+
+UserName.addEventListener("input", function () {
+
+    UserNameIsVaild = UserName.checkValidity();
+
+    if (UserNameIsVaild) {
+
+        UserName.classList.add("valid");
+        UserName.classList.remove("invalid");
+
+    }
+    else {
+
+        UserName.classList.add("invalid");
+        UserName.classList.remove("valid");
+
+    }
+
+    checkUserSummit(UserNameIsVaild, UserAccountIsVaild);
+
+})
+
+//建立UserAccount欄位驗證
+var UserAccount = document.querySelector(".EditUserAccount");
+
+
+UserAccount.addEventListener("input", function () {
+
+    UserAccountIsVaild = UserAccount.checkValidity();
+
+    if (UserAccountIsVaild) {
+
+        UserAccount.classList.add("valid");
+        UserAccount.classList.remove("invalid");
+
+    }
+    else {
+
+        UserAccount.classList.add("invalid");
+        UserAccount.classList.remove("valid");
+    }
+
+    checkSummit(UserNameIsVaild, UserAccountIsVaild);
+
+})
+
+}
+
+//確認是否可以提交
+var checkUserSummit = function (UserNameIsVaild, UserAccountIsVaild) {
+
+if (UserNameIsVaild && UserAccountIsVaild) {
+
+    $(".EditUser").attr("disabled", false);
+}
+else {
+    $(".EditUser").attr("disabled", true);
+}
+}
+
+//建立Permission欄位驗證
+var setPermissionValidation = function () {
+
+var PermissionNameIsVaild = true;
+var PermissionDescriptionIsVaild = true;
+
+//建立PermissionName欄位驗證
+var PermissionName = document.querySelector(".EditPermissionName");
+
+PermissionName.addEventListener("input", function () {
+
+    PermissionNameIsVaild = PermissionName.checkValidity();
+
+    if (PermissionNameIsVaild) {
+
+        PermissionName.classList.add("valid");
+        PermissionName.classList.remove("invalid");
+
+    }
+    else {
+
+        PermissionName.classList.add("invalid");
+        PermissionName.classList.remove("valid");
+
+    }
+
+    checkPermissionSummit(PermissionNameIsVaild, PermissionDescriptionIsVaild);
+
+})
+
+//建立PermissionDescription欄位驗證
+var PermissionDescription = document.querySelector(".EditPermissionDescription");
+
+
+PermissionDescription.addEventListener("input", function () {
+
+    PermissionDescriptionIsVaild = PermissionDescription.checkValidity();
+
+    if (PermissionDescriptionIsVaild) {
+
+        PermissionDescription.classList.add("valid");
+        PermissionDescription.classList.remove("invalid");
+
+    }
+    else {
+
+        PermissionDescription.classList.add("invalid");
+        PermissionDescription.classList.remove("valid");
+    }
+
+    checkPermissionSummit(PermissionNameIsVaild, PermissionDescriptionIsVaild);
+
+})
+
+}
+
+//確認是否可以提交
+var checkPermissionSummit = function (PermissionNameIsVaild, PermissionDescriptionIsVaild) {
+
+if (PermissionNameIsVaild && PermissionDescriptionIsVaild) {
+
+    $(".EditPermission").attr("disabled", false);
+}
+else {
+    $(".EditPermission").attr("disabled", true);
+}
+}
+//取得資料區
+//==================================================================================================
+
+//取得職位資料 ==============>串接API
+var setRoleData = function () {
+
+let url = "/api/RoleApi/GetAll";
+fetch(url, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache'
+    }
+})
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        setRoleChoose(data);
+})
+
+}
+
+//取得使用者資料 ==============>串接API
+var setUserDate = function () {
+
+let url = "/api/UserApi/GetAll";
+
+fetch(url, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache'
+    }
+})
+.then(function (response) {
+    return response.json();
+})
+.then(function (data) {
+    setUserChoose(data);
+})
+
+
+}
+
+
+//取得權限資料 ==============>串接API
+var setPermissionData = function () {
+
+let url = "/api/PermissionApi/GetAll";
+
+fetch(url, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache'
+    }
+})
+.then(function (response) {
+    return response.json();
+})
+.then(function (data) {
+    setPermissionChoose(data);
+})
+
+
+}
+
+//設置職位按鈕
+var setRoleChoose = function (data) {
+
+var template = getTemplate("RoleBotton");
+
+var RoleChoose = $(".RoleChoose");
+
+RoleChoose.empty();
+
+data.forEach(element => {
+
+    var RoleBotton = $(template).clone();
+
+    RoleBotton.attr("RoleId", element.Id);
+    RoleBotton.text(element.Name);
+
+    RoleChoose.append(RoleBotton);
+});
+
+}
+
+//設置使用者按鈕
+var setUserChoose = function (data) {
+
+var template = getTemplate("UserBotton");
+
+var UserChoose = $(".UserChoose");
+
+UserChoose.empty();
+
+data.forEach(element => {
+
+    var UserBotton = $(template).clone();
+
+    UserBotton.attr("UserId", element.Id);
+    UserBotton.text(element.Name);
+
+    UserChoose.append(UserBotton);
+});
+}
+
+//設置權限按鈕
+var setPermissionChoose = function (data) {
+
+var template = getTemplate("PermissionBotton");
+
+var PermissionChoose = $(".PermissionChoose");
+
+PermissionChoose.empty();
+
+data.forEach(element => {
+
+    var PermissionBotton = $(template).clone();
+
+    PermissionBotton.attr("PermissionId", element.Id);
+    PermissionBotton.text(element.Name);
+
+    PermissionChoose.append(PermissionBotton);
+});
+}
+
+
+//取得模板
+var getTemplate = function (name) {
+
+var templateName = "template." + name;
+
+var template = $(templateName).html();
+
+return template;
+}
+
+
+
+//==================================================================================================    
+//取得資料區
+
+//編輯資料區
+//==================================================================================================
+
+
+
+//搜尋職位資料 ==============>串接API
+var SearchRoleData = function (RoleId) {
+
+let url = "/api/RoleApi/Get?RoleId=" + RoleId;
+
+fetch(url, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+.then(function (response) {
+    return response.json();
+})
+.then(function (data) {
+    setRoleModel(data);
+})
+
+}
+
+
+//搜尋使用者資料 =================>串接API
+var SearchUserData = function (UserId) {
+
+let url = "/api/UserApi/Get?UserId=" + UserId;
+
+fetch(url, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+.then(function (response) {
+    return response.json();
+})
+.then(function (data) {
+    setUserModel(data);
+})
+
+}
+
+//搜尋權限資料 =================>串接API
+var SearchPermissionData = function (PermissionId) {
+
+let url = "/api/PermissionApi/Get?PermissionId=" + PermissionId;
+
+fetch(url, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+.then(function (response) {
+    return response.json();
+})
+.then(function (data) {
+    setPermissionModel(data);
+})
+
+}
+
+//設置RoleModel資料
+var setRoleModel = function (data) {
+
+var RoleModel = $("#RoleModel");
+
+RoleModel.find(".EditRoleName").val(data.Name);
+RoleModel.find(".EditRole").attr("RoleId", data.Id);
+
+}
+
+
+//設置UserModel資料
+var setUserModel = function (data) {
+
+var UserModel = $("#UserModel");
+
+UserModel.find(".EditUserName").val(data.Name);
+UserModel.find(".EditUserAccount").val(data.Account);
+
+UserModel.find(".EditUser").attr("UserId", data.Id);
+
+}
+
+//設置PermissionModel資料
+var setPermissionModel = function (data) {
+
+var PermissionModel = $("#PermissionModel");
+
+PermissionModel.find(".EditPermissionName").val(data.Name);
+PermissionModel.find(".EditPermissionDescription").val(data.Description);
+
+PermissionModel.find(".EditPermission").attr("PermissionId", data.Id);
+}
+
+
+//==================================================================================================
+//編輯資料區
+
+
+//儲存資料區
+//==================================================================================================
+
+//提交職位變更
+var roleSummit = function () {
+
+$(".EditRole").click(function () {
+
+    var RoleId = $(this).attr("RoleId");
+
+    var RoleName = $("#RoleModel").find(".EditRoleName").val();
+
+    var data = { "Id": RoleId, "Name": RoleName };
+
+    saveRole(data);
+})
+}
+
+
+//提交使用者變更
+var userSummit = function () {
+
+$(".EditUser").click(function () {
+
+    var UserId = $(this).attr("UserId");
+
+    var UserName = $("#UserModel").find(".EditUserName").val();
+    var UserAccount = $("#UserModel").find(".EditUserAccount").val();
+    var UserPassword = $("#UserModel").find(".EditUserPassword").val();
+
+    var data = { "Id": UserId, "Name": UserName, "Account": UserAccount, "Password": UserPassword };
+
+    saveUser(data);
+})
+}
+
+//提交權限變更
+var permissionSummit = function () {
+
+$(".EditPermission").click(function () {
+
+    var PermissionId = $(this).attr("PermissionId");
+
+    var PermissionName = $("#PermissionModel").find(".EditPermissionName").val();
+    var PermissionDescription = $("#PermissionModel").find(".EditPermissionDescription").val();
+
+    var data = { "Id": PermissionId, "Name": PermissionName, "Description": PermissionDescription };
+
+    savePermission(data);
+})
+}
+
+//儲存職位變更 ==========>串接API
+var saveRole = function (data) {
+
+let url = "/api/RoleApi/Update";
+
+fetch(url, {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+}).then (function (response) {
+
+})
+
+setTimeout(() => {
+    setRoleData();
+}, 300);
+
+
+}
+
+//儲存使用者變更 ==========>串接API
+var saveUser = function (data) {
+
+let url = "/api/UserApi/Update";
+
+fetch(url, {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json',
+
+    },
+    body: JSON.stringify(data)
+}).then(function (response) {
+    
+})
+
+setTimeout(() => {
+    setUserDate();
+}, 300);
+
+
+// window.location.reload(true);
+}
+
+//儲存權限變更 ==========>串接API
+var savePermission = function (data) {
+
+let url = "/api/PermissionApi/Update";
+
+fetch(url, {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+}).then(function (response) {
+    
+})
+
+setTimeout(() => {
+    setPermissionData();
+}, 300);
+
+
+//window.location.reload(true);
+}
+
+    </script>
+</body>
+</html>

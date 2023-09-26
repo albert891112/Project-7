@@ -410,6 +410,7 @@
     <Content Include="File\Tshirt4.jpg" />
     <Content Include="File\Tshirt5.jpg" />
     <Content Include="Global.asax" />
+    <Content Include="Js\EditRoles.js" />
     <Content Include="Js\PermissionControll.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -474,6 +475,7 @@
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Member\Edit.cshtml" />
     <Content Include="Views\PermissionControll\ToPermissionControll.cshtml" />
+    <Content Include="Views\PermissionControll\ToEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

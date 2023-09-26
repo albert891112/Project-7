@@ -28,15 +28,18 @@ namespace _7_Team_WebApi.Repositories
             db.SaveChanges();
         }
 
+
         /// <summary>
         /// Get all permissions
         /// </summary>
         /// <returns></returns>
         public List<PermissionEntity> GetAll()
         {
-            List<PermissionEntity> permissions = db.Premissions.Select(p => p.ToEntity()).ToList();
+            List<Premission> permissions = db.Premissions.ToList();
+            
+            List<PermissionEntity> entities = permissions.Select(x => x.ToEntity()).ToList();   
 
-            return permissions;
+            return entities;
         }
 
 
@@ -45,9 +48,21 @@ namespace _7_Team_WebApi.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public PermissionEntity GetById(int id)
+        public PermissionEntity Get(int id)
         {
             PermissionEntity permission = db.Premissions.FirstOrDefault(p => p.Id == id).ToEntity();
+
+            return permission;
+        }
+
+        /// <summary>
+        /// Get permission by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public Premission Get(string name)
+        {
+            Premission permission = db.Premissions.FirstOrDefault(p => p.PermissionName == name);
 
             return permission;
         }

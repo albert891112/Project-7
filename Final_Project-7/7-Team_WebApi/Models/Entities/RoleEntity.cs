@@ -20,6 +20,7 @@ namespace _7_Team_WebApi.Models.Entities
         {
             return new RoleEntity()
             {
+                Id = dto.Id,
                 Name = dto.Name
             };
         }

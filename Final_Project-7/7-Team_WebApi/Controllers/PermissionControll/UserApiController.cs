@@ -31,6 +31,21 @@ namespace _7_Team_WebApi.Controllers
         }
 
         /// <summary>
+        /// Get a user by id
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult Get(int UserId)
+        {
+            UserDTO dto = this.serv.Get(UserId);
+
+            UserVM vm = dto.ToVM();
+
+            return Ok(vm);
+        }
+
+        /// <summary>
         /// Create a new user
         /// </summary>
         /// <param name="user"></param>
@@ -41,7 +56,28 @@ namespace _7_Team_WebApi.Controllers
 
             UserDTO dto = user.ToDTO();
 
-            this.serv.Create(dto);
+            try
+            {
+                this.serv.Create(dto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
+        }
+
+        /// <summary>
+        /// update a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public IHttpActionResult Update(UserVM user)
+        {
+            UserDTO dto = user.ToDTO();
+
+            this.serv.Update(dto);
 
             return Ok();
         }

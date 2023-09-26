@@ -23,14 +23,11 @@ namespace _7_Team_WebApi.Models.Entities
         public static UserEntity ToEntity(this UserDTO dto)
         {
 
-            string salt = Hashing.GetSalt();
-
-            string HashedPassword = Hashing.ToSHA256(dto.Password, salt);
-
             return new UserEntity()
             {
+                Id = dto.Id,
                 Account = dto.Account,
-                Password = HashedPassword,
+                Password = dto.Password,
                 Name = dto.Name
             };
         }
@@ -39,12 +36,12 @@ namespace _7_Team_WebApi.Models.Entities
         {
             string salt = Hashing.GetSalt();
 
-            string HashedPassword = Hashing.ToSHA256(model.Password, salt);
+      
 
             return new UserEntity()
             {
+                Id = model.Id,
                 Account = model.Account,
-                Password = HashedPassword,
                 Name = model.Name
             };
         }

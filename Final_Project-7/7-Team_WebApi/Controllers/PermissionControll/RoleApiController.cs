@@ -34,6 +34,37 @@ namespace _7_Team_WebApi.Controllers.PermissionControll
         }
 
         /// <summary>
+        /// get role by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult Get(int RoleId)
+        {
+            RoleDTO roleDTO = this.serv.Get(RoleId);
+
+            RoleVM roleVM = roleDTO.ToVM();
+
+            return Ok(roleVM);
+        }
+
+
+        /// <summary>
+        /// Update a role
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public IHttpActionResult Update(RoleVM vm)
+        {
+            RoleDTO dto = vm.ToDTO();
+
+            this.serv.Update(dto);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Create a new role
         /// </summary>
         /// <param name="vm"></param>
@@ -44,7 +75,15 @@ namespace _7_Team_WebApi.Controllers.PermissionControll
             
             RoleDTO roleDTO = vm.ToDTO();
 
-            this.serv.Create(roleDTO);
+            try
+            {
+                this.serv.Create(roleDTO);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
 
             return Ok();
         }

@@ -1,4 +1,5 @@
 ﻿using _7_Team_WebApi.Models.DTOs;
+using _7_Team_WebApi.Models.EFModels;
 using _7_Team_WebApi.Models.Entities;
 using _7_Team_WebApi.Models.Entities.PermissionControll;
 using _7_Team_WebApi.Repositories;
@@ -31,11 +32,43 @@ namespace _7_Team_WebApi.Services
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public RoleDTO Get(int id)
+        {
+            RoleEntity entity = this.repo.Get(id);
+
+            RoleDTO dto = entity.ToDTO();
+
+            return dto;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        public void Update(RoleDTO dto)
+        {
+            RoleEntity entity = dto.ToEntity();
+
+            this.repo.Update(entity);
+        }
+
+        /// <summary>
         /// Create a new role
         /// </summary>
         /// <param name="dto"></param>
         public void Create(RoleDTO dto)
         {
+            Role existRole = this.repo.Get(dto.Name);
+
+            if (existRole != null)
+            {
+                throw new Exception("Role name is exist");
+            }
+
             RoleEntity entity = dto.ToEntity();
 
             this.repo.Create(entity);

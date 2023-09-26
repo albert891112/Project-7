@@ -51,6 +51,15 @@
                             <li class="nav-item">@Html.ActionLink("註冊新會員", "Register", "Members", new { area = "" }, new { @class = "nav-link" })</li>
                         }
                     }
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            權限管理
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="./PermissionControll/ToEdit"></a></li>
+
+                        </ul>
+                    </div>
                 </ul>
             </div>
 

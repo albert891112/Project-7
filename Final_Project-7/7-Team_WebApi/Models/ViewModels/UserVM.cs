@@ -45,7 +45,6 @@ namespace _7_Team_WebApi.Models.ViewModels
             {
                 Id = dto.Id,
                 Account = dto.Account,
-                Password = dto.Password,
                 Name = dto.Name
             };
         }

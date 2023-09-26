@@ -1,0 +1,265 @@
+﻿<style>
+    .valid {
+        border: 2px solid green;
+        border-radius: 5px;
+    }
+
+    .invalid {
+        border: 2px solid red;
+        border-radius: 5px;
+    }
+
+    .bordercolor {
+        border: 2px solid rgb(210, 201, 201);
+        border-radius: 5px;
+    }
+
+    .scroll {
+        overflow-y: scroll;
+        height: 500px;
+    }
+</style>
+
+<body>
+    <!--職位模板-->
+    <template class="RoleBotton">
+        <button type="button" class="list-group-item list-group-item-action Rolebtn" data-bs-toggle="modal" data-bs-target="#RoleModel" model="RoleModel" RoleId="">
+            The current button
+        </button>
+    </template>
+    <!--職位模板-->
+    <!--使用者模板-->
+    <template class="UserBotton">
+        <button type="button" class="list-group-item list-group-item-action Userbtn" data-bs-toggle="modal" data-bs-target="#UserModel" model="UserModel" UserId="">
+            The current button
+        </button>
+    </template>
+    <!--使用者模板-->
+    <!--權限模板-->
+    <template class="PermissionBotton">
+        <button type="button" class="list-group-item list-group-item-action Permissionbtn" data-bs-toggle="modal" data-bs-target="#PermissionModel" model="PermissionModel" PermissionId="">
+            The current button
+        </button>
+    </template>
+    <!--權限模板-->
+    <!--標題-->
+    <div class="title my-5 text-center">
+        <h3>權限控管</h3>
+    </div>
+    <!--標題-->
+    <!--編輯區塊-->
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <!--職位編輯-->
+                <div class="Role">
+                    <div class="title">
+                        <h4 class="text-center">職位</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll" tabindex="0">
+                        <!--職位按鈕放置-->
+                        <ul class="list-group list-group-flush RoleChoose">
+                            <button type="button" class="list-group-item list-group-item-action Rolebtn" data-bs-toggle="modal" data-bs-target="#RoleModel" RoleId="">
+                                載入中............
+                            </button>
+                        </ul>
+                        <!--職位按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--職位編輯-->
+                <div class="RoleCreate d-flex justify-content-center">
+                    <button class="RoleCreatebtn btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#RoleCreateModel">新增職位</button>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <!--使用者編輯-->
+                <div class="User">
+                    <div class="title">
+                        <h4 class="text-center">使用者</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll" tabindex="0">
+                        <!--使用者按鈕放置-->
+                        <ul class="list-group list-group-flush UserChoose">
+                            <button type="button" class="list-group-item list-group-item-action Userbtn" data-bs-toggle="modal" data-bs-target="#UserModel" UserId="">
+                                載入中............
+                            </button>
+
+                        </ul>
+                        <!--使用者按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--使用者編輯-->
+                <div class="UserCreate d-flex justify-content-center">
+                    <button class="userCreatebtn btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#UserCreateModel">新增使用者</button>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <!--權限編輯-->
+                <div class="Permission">
+                    <div class="title">
+                        <h4 class="text-center">權限</h4>
+                    </div>
+                    <!--編輯區-->
+                    <div class="choose bordercolor scroll" tabindex="0">
+                        <!--權限按鈕放置-->
+                        <ul class="list-group list-group-flush PermissionChoose">
+                            <button type="button" class="list-group-item list-group-item-action Permission" data-bs-toggle="modal" data-bs-target="#PermissionModel" PermissionId="">
+                                載入中............
+                            </button>
+                        </ul>
+                        <!--權限按鈕放置-->
+                    </div>
+                    <!--編輯區-->
+                </div>
+                <!--權限編輯-->
+                <div class="PermissionCreate d-flex justify-content-center">
+                    <button class="PermissionCreatebtn btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#PermissionCreateModel">新增權限</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--編輯區塊-->
+    <!-- RoleModal -->
+    <div class="modal fade" id="RoleModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯職位</h5>
+                    <button type="button" class="btn-close EditRoleClose" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <label for="EditRoleName">權限名稱 ： </label>
+                    <input type="text" class="EditRoleName" id="EditRoleName" value="" belong="EditRole" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary EditRoleClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit EditRole" data-bs-dismiss="modal" RoleId="">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- RoleModal -->
+    <!-- UserModal -->
+    <div class="modal fade" id="UserModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯使用者</h5>
+                    <button type="button" class="btn-close EditUserClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <label for="EditUserName">使用者名稱 ： </label>
+                    <input type="text" class="EditUserName my-1" id="EditUserName" value="" belong="EditUser" required> <br>
+                    <label for="EditUserAccount">使用者帳號 ： </label>
+                    <input type="text" class="EditUserAccount my-1" id="EditUserAccount" value="" belong="EditUser" required> <br>
+                    <label for="EditUserPassword">使用者密碼 ： </label>
+                    <input type="password" class="EditUserPassword my-1" id="EditUserPassword" value="" belong="EditUser">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary EditUserClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit EditUser" data-bs-dismiss="modal" UserId="">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- UserModal -->
+    <!-- PermissionModal -->
+    <div class="modal fade" id="PermissionModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯權限</h5>
+                    <button type="button" class="btn-close EditPermissionClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <label for="EditPermissionName">權限名稱 ： </label>
+                    <input type="text" class="EditPermissionName my-1" id="EditPermissionName" value="" belong="EditPermission" required> <br>
+                    <p class="text-center my-1">權限描述 </p>
+                    <textarea class="EditPermissionDescription" id="EditPermissionDescription" cols="30" rows="10" belong="EditPermission" required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary EditPermissionClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit EditPermission " data-bs-dismiss="modal" PermissionId="">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PermissionModal -->
+    <!-- RoleCreateModal -->
+    <div class="modal fade" id="RoleCreateModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯職位</h5>
+                    <button type="button" class="btn-close CreateRoleClose" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <label for="CreateRoleName">權限名稱 ： </label>
+                    <input type="text" class="CreateRoleName" id="CreateRoleName" value="" belong="CreateRole" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary CreateRoleClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit CreateRole " data-bs-dismiss="modal" RoleId="" disabled="disabled">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- RoleCreateModal -->
+    <!-- UserCreateModal -->
+    <div class="modal fade" id="UserCreateModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯使用者</h5>
+                    <button type="button" class="btn-close CreateUserClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <label for="CreateUserName">使用者名稱 ： </label>
+                    <input type="text" class="CreateUserName my-1" id="CreateUserName" value="" belong="CreateUser" required> <br>
+                    <label for="CreateUserAccount">使用者帳號 ： </label>
+                    <input type="text" class="CreateUserAccount my-1" id="CreateUserAccount" value="" belong="CreateUser" required> <br>
+                    <label for="CreateUserPassword">使用者密碼 ： </label>
+                    <input type="password" class="CreateUserPassword my-1" id="CreateUserPassword" value="" belong="CreateUser" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary CreateUserClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit CreateUser" data-bs-dismiss="modal" UserId="" disabled="disabled">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- UserCreateModal -->
+    <!-- PermissionCreateModal -->
+    <div class="modal fade" id="PermissionCreateModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯權限</h5>
+                    <button type="button" class="btn-close CreatePermissionClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <label for=" CreatePermissionName">權限名稱 ： </label>
+                    <input type="text" class="CreatePermissionName my-1" id="CreatePermissionName" value="" belong="CreatePermission" required> <br>
+                    <p class="text-center my-1">權限描述 </p>
+                    <textarea class="CreatePermissionDescription" id="CreatePermissionDescription" cols="30" rows="10" belong="CreatePermission" required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary CreatePermissionClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit CreatePermission" data-bs-dismiss="modal" disabled="disabled">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PermissionModal -->
+
+
+</body>
+
+@section scripts{
+    <script src="~/Js/EditRoles.js"></script>
+}
