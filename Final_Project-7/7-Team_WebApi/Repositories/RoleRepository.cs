@@ -171,11 +171,21 @@ namespace _7_Team_WebApi.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public RoleEntity GetById(int id)
+        public RoleEntity Get(int id)
         {
             RoleEntity role = db.Roles.FirstOrDefault(r => r.Id == id).ToEntity();
 
             return role;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public Role Get(string name)
+        {
+            return db.Roles.FirstOrDefault(r => r.RoleName == name);
         }
 
 

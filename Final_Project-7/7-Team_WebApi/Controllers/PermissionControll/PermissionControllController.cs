@@ -13,5 +13,10 @@ namespace _7_Team_WebApi.Controllers.PermissionControll
         {
             return View();
         }
+
+        public ActionResult ToEdit()
+        {
+            return View();
+        }
     }
 }

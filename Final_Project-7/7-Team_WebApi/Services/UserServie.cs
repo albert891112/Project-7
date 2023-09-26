@@ -1,4 +1,5 @@
 ﻿using _7_Team_WebApi.Models.DTOs;
+using _7_Team_WebApi.Models.EFModels;
 using _7_Team_WebApi.Models.Entities;
 using _7_Team_WebApi.Repositories;
 using System;
@@ -29,15 +30,77 @@ namespace _7_Team_WebApi.Services
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public UserDTO Get(int id)
+        {
+            UserEntity entity = this.repo.Get(id);
+
+            UserDTO dto = entity.ToDTO();
+
+            return dto;
+        }
+
+        /// <summary>
         /// Create a new user
         /// </summary>
         /// <param name="dto"></param>
         public void Create(UserDTO dto)
         {
-            UserEntity entity = dto.ToEntity();
+            User user = this.repo.Get(dto.Account);
 
-            this.repo.Create(entity);
+            if(user == null)
+            {
+                string salt = Hashing.GetSalt();
+
+                string HashPassword = Hashing.ToSHA256(dto.Password, salt);
+
+                dto.Password = HashPassword;
+
+                UserEntity entity = dto.ToEntity();
+
+                this.repo.Create(entity);
+            }
+            else
+            {
+                throw new Exception("Account already exists");
+            }
+            
         }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        public void Update(UserDTO dto)
+        {
+            string Password = dto.Password;
+
+            UserEntity entity = new UserEntity();
+
+            //if password is null or empty, don't update password
+            if (String.IsNullOrEmpty(Password))
+            {
+                dto.Password = null;
+                entity = dto.ToEntity();
+            }
+            else
+            {
+                string salt = Hashing.GetSalt();
+
+                string HashedPassword = Hashing.ToSHA256(Password, salt);
+
+                dto.Password = HashedPassword;
+
+                entity = dto.ToEntity();
+            }
+
+            this.repo.Update(entity);
+        }   
 
     }
 

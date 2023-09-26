@@ -24,6 +24,7 @@ namespace _7_Team_WebApi.Models.DTOs
 
             return new UserDTO()
             {
+                Id = vm.Id,
                 Account = vm.Account,
                 Password = vm.Password,
                 Name = vm.Name
@@ -37,7 +38,6 @@ namespace _7_Team_WebApi.Models.DTOs
             {
                 Id = entity.Id,
                 Account = entity.Account,
-                Password = entity.Password,
                 Name = entity.Name
             };
         }

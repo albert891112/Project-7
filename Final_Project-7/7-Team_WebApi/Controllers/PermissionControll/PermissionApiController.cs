@@ -23,13 +23,63 @@ namespace _7_Team_WebApi.Controllers.PermissionControll
         [HttpPost]
         public IHttpActionResult Create(PermissionVM vm)
         {
-            PermissionDTO  dto = vm.ToDTO();    
-
-            this.serv.Create(dto);
+            PermissionDTO  dto = vm.ToDTO(); 
+            
+            try
+            {
+                this.serv.Create(dto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
 
             return Ok();
         }
 
+        /// <summary>
+        /// Get all permissions
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetAll()
+        {
+            List<PermissionDTO> dtos = this.serv.GetAll();
 
+            List<PermissionVM> vms = dtos.Select(x => x.ToVM()).ToList();
+
+            return Ok(vms);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="PermissionId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult Get(int PermissionId)
+        {
+            PermissionDTO dto = this.serv.Get(PermissionId);
+
+            PermissionVM vm = dto.ToVM();
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Update permission
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public IHttpActionResult Update(PermissionVM vm)
+        {
+            PermissionDTO dto = vm.ToDTO();
+
+            this.serv.Update(dto);
+
+            return Ok();
+        }
     }
 }

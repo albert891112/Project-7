@@ -20,6 +20,7 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="user"></param>
         public void Create(UserEntity user)
         {
+
             User newUser = user.ToModel();
 
             db.Users.Add(newUser);
@@ -40,6 +41,53 @@ namespace _7_Team_WebApi.Repositories
 
             return userEntities;
         }   
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public UserEntity Get(int id)
+        {
+            User user = db.Users.FirstOrDefault(x => x.Id == id);
+
+            UserEntity userEntity = user.ToEntity();
+
+            return userEntity;
+        }
+
+
+        public User Get(string account)
+        {
+            User user = db.Users.FirstOrDefault(x => x.Account == account);
+
+            return user;
+        }
+
+
+
+        /// <summary>
+        /// update user
+        /// </summary>
+        /// <param name="user"></param>
+        public void Update(UserEntity user)
+        {
+            string sql = @"UPDATE Users SET 
+                    Name = CASE WHEN @Name IS NULL THEN Name ELSE @Name END,
+                    Account = CASE WHEN @Account IS NULL THEN Account ELSE @Account END, 
+                    Password = CASE WHEN @Password IS NULL THEN Password ELSE @Password END
+                    WHERE Id = @Id";
+
+            object obj = new
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Account = user.Account,
+                Password = user.Password
+            };
+
+            this.connection.Update(sql, "default" , obj);
+        }
     
     }
 }
