@@ -1,6 +1,8 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    initLoadPay();    
+    initLoadPay();   
+
+   
 
     //計算總金額  
     var productTotalPrice = $(".productTotalPrice")
@@ -367,7 +369,7 @@
 
 
 //設定getCartTemplate
-var getCartTemplate = function (name) {
+var getTemplate = function (name) {
 
     var templateName = "template." + name;
     var template = $(templateName).html();
@@ -378,11 +380,10 @@ var getCartTemplate = function (name) {
 
 //設置cartItems
 var cartItems = function (data) {    
-    var cartTemplate = getCartTemplate("cartItem_list");
-    var total = 0;
-    console.log(data);
+    var cartTemplate = getTemplate("cartItem_list");
+    var total = 0;   
 
-   // $(".cartItemData").empty();
+    $(".cartItemData").empty();
 
     $.each(data.CartItems, function (index, ele) {
 
@@ -396,16 +397,38 @@ var cartItems = function (data) {
         cartItems.find(".cart_unitPrice").text("$" + ele.Product.Price);
         cartItems.find(".cart_qty").text(ele.Qty);
         cartItems.find(".cart_subtotal").text("$" + ele.SubTotal);
+        
         $(".cartTable").append(cartItems);
 
         total += ele.SubTotal;                   
     });
 
     $(".cart_total").text(" 商品總額 : " + total);
-    $(".productTotalPrice").text(total);
+    $(".productTotalPrice").text(total);  
     
 };
 
+
+
+
+var selects = function (data) {
+    var orderTemplate = getTemplate("selects_list");
+    
+    console.log(data);     
+
+    $.each(data.Orders, function (index, ele) {
+
+        var orders = orderTemplate.clone();
+
+        orders.find(".cart_img").attr("");
+        orders.find(".cart_productName").text(ele.Product.Name);
+       
+
+        $(".cartTable").append(cartItems);
+
+     
+    });
+};
 
 //設定getToCartItem
 var getToCartItem = function () {

@@ -12,6 +12,7 @@ namespace _7_Team_WebApi.Models.ViewModels
 {
     public class OrderVM
     {
+        [Display(Name = "訂單編號")]
         public int Id { get; set; }
 
         [Display(Name = "會員")]
@@ -35,6 +36,9 @@ namespace _7_Team_WebApi.Models.ViewModels
         [Display(Name = "總金額")]
         public int Total { get; set; }
 
+        [Display(Name = "購買日期")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime OrderDate { get; set; }
     }
 
     public static class OrderVMExtension
@@ -51,6 +55,7 @@ namespace _7_Team_WebApi.Models.ViewModels
                 Payment = dto.Payment.PaymentMethod,
                 Shipping = dto.Shipping.ShippingMethod,
                 Total = dto.Total,
+                OrderDate = dto.OrderTime
             };
         }
         public static OrderVM ToVM(this OrderEntity entity)
@@ -65,6 +70,7 @@ namespace _7_Team_WebApi.Models.ViewModels
                 Payment = entity.Payment.PaymentMethod,
                 Shipping = entity.Shipping.ShippingMethod,
                 Total = entity.Total,
+                OrderDate = entity.OrderTime
             };
         }
     }

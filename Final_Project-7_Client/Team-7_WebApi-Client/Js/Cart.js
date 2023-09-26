@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
 
     getToCart();  
 
@@ -15,15 +15,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    $(document).on("click",".btnAdd", function () {
+    $("#cartTable").on("click",".btnAdd", function () {
+
+        addOne.call(this);
         
-        addOne();
     });
 
-    $(document).on("click", ".btnSub", function () {
+    $("#cartTable").on("click", ".btnSub", function () {
         
-        subOne();
+        subOne.call(this);
     });
+
+
 
     
     //$("#sort").change(function () {
@@ -51,67 +54,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//�[�@
+
+//加一
 var addOne = function () {    
 
-    //�ӫ~�ƶq+1
-    var Qty = 1;   
+    var Qty = 1;
 
-    var Size = $(".cart_size").attr("size");
+    // 使用 $(this) 來參照當前被點擊的按鈕
+    var button = $(this);
 
-    var Id = $(".cart_size").attr("product");
+    // 使用 closest() 方法找到包含指定類別的父元素
+    var parentRow = button.closest("tr");
 
-    //�إ߰ӫ~��ƨ��o�ӫ~ID,�ʪ����ƶq,�ʪ����ؤo
-    var data = {            
-        "ProductId": Id,        
-        "Qty": Qty,
-        "Size": Size
-    }   
+    // 從父元素中獲取所需的數據
+    var Size = parentRow.find(".cart_size").attr("size");
+    var Id = parentRow.find(".cart_size").attr("product");
 
-    //�[�J�ʪ���
-    let url = '/api/CartApi/AddCartItem';
-
-    fetch(url, {
-        method: 'POST',
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(data)
-    }).then(function (response) {
-        console.log("response=", response);
-        if (response.ok) {
-            //alert("�[�J�ʪ������\")
-           
-            getToCart();
-            location.reload();      
-          
-        }
-    })
-    
-
-}
-
-//��@
-var subOne = function () {
-
-    //�ӫ~�ƶq-1
-    var Qty = -1;
-
-    var Size = $(".cart_size").attr("size");
-
-    var Id = $(".cart_size").attr("product");
-
-    //�إ߰ӫ~��ƨ��o�ӫ~ID,�ʪ����ƶq,�ʪ����ؤo
+    // 建立商品數據，包括商品ID、購物車數量和尺寸
     var data = {
         "ProductId": Id,
         "Qty": Qty,
         "Size": Size
     }
 
-
-    console.log("data=", data);
-
-    //�[�J�ʪ���
+    //加入購物車
     let url = '/api/CartApi/AddCartItem';
 
     fetch(url, {
@@ -123,12 +89,55 @@ var subOne = function () {
     }).then(function (response) {
         console.log("response=", response);
         if (response.ok) {
-            
+            //alert("加入購物車成功")
+           
+            getToCart();
+            location.reload();               
+        }
+    })   
+}
+
+
+
+//減一
+var subOne = function () {
+
+    var Qty = -1;
+
+    // 使用 $(this) 來參照當前被點擊的按鈕
+    var button = $(this);
+
+    // 使用 closest() 方法找到包含指定類別的父元素
+    var parentRow = button.closest("tr");
+
+    // 從父元素中獲取所需的數據
+    var Size = parentRow.find(".cart_size").attr("size");
+    var Id = parentRow.find(".cart_size").attr("product");
+
+    // 建立商品數據，包括商品ID、購物車數量和尺寸
+    var data = {
+        "ProductId": Id,
+        "Qty": Qty,
+        "Size": Size
+    }
+
+    //加入購物車
+    let url = '/api/CartApi/AddCartItem';
+
+    fetch(url, {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        console.log("response=", response);
+        if (response.ok) {            
+
             getToCart();
             location.reload();
         }
     })
-
 }
 
 
@@ -164,20 +173,28 @@ var setCart = function (data) {
         var cartItems = cartTemplate.clone();
         
         cartItems.find(".cart_img").attr("src", "../../Files/" + ele.Product.Image);
-        cartItems.find(".cart_productName").text(ele.Product.Name);
+        cartItems.find(".cart_productName").text(ele.Product.Name);        
         cartItems.find(".cart_size").text(ele.Size);
         cartItems.find(".cart_size").attr("size", ele.Size);
         cartItems.find(".cart_size").attr("product", ele.Product.Id);
         cartItems.find(".cart_unitPrice").text("$" +ele.Product.Price);
         cartItems.find(".cart_qty").text(ele.Qty);
         cartItems.find(".cart_subtotal").text("$" + ele.SubTotal);
+
+        cartItems.find(".cart_qty").attr("value", ele.Qty);
+        cartItems.find(".cart_productName").attr("num", ele.Product.S);
+        cartItems.find(".cart_size").attr("num", ele.Product.M);
+        cartItems.find(".cart_unitPrice").attr("num", ele.Product.L);
+        cartItems.find(".cart_qty").attr("num", ele.Product.XL);
+
         $("#cartTable").append(cartItems);
         
         total += ele.SubTotal;                   
       
     });
+    console.log("total=", data);
     
-    $(".cart_total").text(" Total : " + total);   
+    $(".cart_total").text(" 商品金額 : " + total);   
 };
 
 

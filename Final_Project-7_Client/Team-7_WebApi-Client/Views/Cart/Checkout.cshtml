@@ -131,7 +131,7 @@
                                     <td class="text-end ps-4 pe-4">小計</td>
                                 </tr>
                             </thead>
-
+                            <!-- 購物車清單Template START -->
                             <tbody class="cartItemData">
                                 <template class="cartItem_list">
                                     <tr>
@@ -146,7 +146,7 @@
                                     </tr>
                                 </template>
                             </tbody>
-
+                            <!-- 購物車清單Template End -->
                             <tfoot>
                                 <tr>
                                     <td colspan="6" class="text-end ps-4 pe-4 cart_total" id="totalAmount">總金額：</td>
@@ -175,30 +175,30 @@
                         </div>
                         <!-- LABEL END -->
                         <!-- METHOD START -->
-                        <!-- <template class="orderData_list"> -->
+                        <template class="selects_list">
                         <div class="row">
                             <div class="col-3 col-md-3 mt-3">
-                                <select name="paymentMethodSelect" id="paymentMethodSelect" class="form-select c">
+                                <select name="paymentMethodSelect" id="paymentMethodSelect" class="form-select c paymentMethodSelect">
                                     <option value="請選擇" class="noSelect">請選擇</option>
                                     <option value="現金付款">現金付款</option>
-                                    <option value="信用卡">信用卡</option>
-                                    <div id="paydesc" class="amount-wrapper" style="display: none;"></div>
+                                    <option value="信用卡">信用卡</option>                                   
                                 </select>
                             </div>
                             <div class="col-3 col-md-3 mt-3">
-                                <select name="shippingMethodSelect" id="shippingMethodSelect" class="form-select c">
+                                <select name="shippingMethodSelect" id="shippingMethodSelect" class="form-select c shippingMethodSelect">
                                     <option value="請選擇" class="noSelect">請選擇</option>
                                     <option value="送到府" class="shippingHome">送到府</option>
                                     <option value="超商取貨" class="shippingstore">超商取貨</option>
                                 </select>
                             </div>
                             <div class="col-3 col-md-3 mt-3">
-                                <select name="coupon" id="coupon" class="form-select">
+                                <select name="coupon" id="coupon" class="form-select coupon">
                                     <option value="請選擇" class="noSelect">請選擇</option>
                                     <option value="100" class="coupon_discount">優惠券1</option>
                                 </select>
                             </div>
-                            <!-- </template> -->
+                            </div>
+                            </template>
                             <!-- 總金額 -->
                             <div class="col-3 labelcentLef">
                                 <label for="totalAmount"></label>
