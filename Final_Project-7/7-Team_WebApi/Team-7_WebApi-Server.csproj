@@ -200,6 +200,7 @@
     <Compile Include="Controllers\Categories\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Members\MemberController.cs" />
+    <Compile Include="Controllers\Orders\OrderController.cs" />
     <Compile Include="Controllers\PermissionControll\PermissionApiController.cs" />
     <Compile Include="Controllers\PermissionControll\PermissionControllController.cs" />
     <Compile Include="Controllers\PermissionControll\RoleApiController.cs" />
@@ -482,6 +483,7 @@
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Member\Edit.cshtml" />
     <Content Include="Views\PermissionControll\ToPermissionControll.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,27 +17,28 @@ namespace Team_7_WebApi_Client.Repositories
         {
             SqlDb connection = new SqlDb();
 
-            string sql = @"SELECT O.*, OI.*, M.*, P.*, OS.*
-                   FROM OrderItems as OI
-                   INNER JOIN Orders as O ON O.Id = OI.OrderId
-                   INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId
-                   INNER JOIN Members as M ON M.Id = O.MemberId
-                   INNER JOIN Products as P ON P.Id = OI.ProductId
-                   WHERE O.MemberId = @MemberId
-                   ORDER BY O.ID";
+            string sql = @"SELECT O.*, OS.*, M.*, P.*, Sh.*, OI.* FROM Orders as O 
+INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId 
+INNER JOIN Members as M ON M.Id = O.MemberId 
+INNER JOIN Payments as P ON P.Id = O.PaymentId 
+INNER JOIN Shippings as Sh ON Sh.Id = O.ShippingId 
+INNER JOIN OrderItems as OI ON OI.OrderId = O.Id
+WHERE O.MemberId = @MemberId
+ORDER BY O.ID DESC";
 
             object obj = new { MemberId = memberId };
 
-            Func<SqlConnection, string, object, List<OrderEntity>> func = (conn, s, o) =>
+            Func<SqlConnection, string, object, List<OrderEntity>> func = (conn, s, ob) =>
             {
                 Dictionary<int, OrderEntity> OrderList = new Dictionary<int, OrderEntity>();
-                conn.Query<OrderEntity, OrderItemEntity, MemberEntity, ProductEntity, OrderStatusEntity, OrderEntity >(s, (O, OI, M, P, OS) =>
+                conn.Query<OrderEntity, OrderStatusEntity, MemberEntity, PaymentEntity, ShippingEntity, OrderItemEntity,  OrderEntity > (sql, (O, OS, M, P, SH, OI) =>
                 {
 
                     if (OrderList.TryGetValue(O.Id, out OrderEntity Order) == false)
                     {
                         O.Member = M;
-                        OI.Product = P;
+                        O.Payment= P;
+                        O.Shipping = SH;
                         O.OrderStatus = OS;
                         O.OrderItemList = new List<OrderItemEntity>();
                         O.OrderItemList.Add(OI);
@@ -49,7 +50,7 @@ namespace Team_7_WebApi_Client.Repositories
                     }
                     return O;
                     
-                }, o);
+                }, ob);
 
                 return OrderList.Values.ToList();
             };

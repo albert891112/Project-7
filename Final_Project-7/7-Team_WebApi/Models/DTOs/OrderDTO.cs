@@ -31,7 +31,7 @@ namespace _7_Team_WebApi.Models.DTOs
                 OrderStatus = entity.OrderStatus.ToDTO(),
                 PhoneNumber = entity.PhoneNumber,
                 Address = entity.Address,
-                Coupon = entity.Coupon.ToDTO(),
+                //Coupon = entity.Coupon.ToDTO(),
                 Shipping = entity.Shipping.ToDTO(),
                 Payment = entity.Payment.ToDTO(),
                 OrderTime = entity.OrderTime,

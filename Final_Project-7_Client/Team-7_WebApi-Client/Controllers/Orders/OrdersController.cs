@@ -39,8 +39,11 @@ namespace Team_7_WebApi_Client.Controllers.Orders
                     memberId = order.Member, 
                     Id = order.Id,
                     OrderDate = order.OrderTime,
-                    OrderItems = order.OrderItemList, 
-                    Status = order.OrderStatus.Status
+                    OrderItems = order.OrderItemList,
+                    Payment = order.Payment.PaymentMethod,
+                    Shipping = order.Shipping.ShippingMethod,
+                    Status = order.OrderStatus.Status,
+                    Total=order.Total
                 }
             ).ToList();
 

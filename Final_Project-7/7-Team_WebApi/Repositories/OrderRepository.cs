@@ -5,10 +5,11 @@ using System.Linq;
 using System.Web;
 using _7_Team_WebApi.Models.Entities;
 using Dapper;
+using System.Data.SqlClient;
 
 namespace _7_Team_WebApi.Repositories
 {
-    public class OrderRepository : IRepository<OrderEntity>
+    public class OrderRepository 
     {
 
         SqlDb connection = new SqlDb();
@@ -19,15 +20,40 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public OrderEntity Get(int id)
+ 
+        
+        public List<OrderItemEntity> GetOrderById(int Id)
         {
-            string sql = $"SELECT * FROM Orders WHERE Id = @Id";
+            SqlDb connection = new SqlDb();
 
-            object obj = new { Id = id };
+            string sql = @"SELECT O.*, OI.*, M.*, P.*, OS.*
+                   FROM OrderItems as OI
+                   INNER JOIN Orders as O ON O.Id = OI.OrderId
+                   INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId
+                   INNER JOIN Members as M ON M.Id = O.MemberId
+                   INNER JOIN Products as P ON P.Id = OI.ProductId
+                   WHERE OI.OrderId = @OrderId
+                   ORDER BY O.ID";
 
-            OrderEntity entity = this.connection.Get<OrderEntity>(sql, "default", obj);
+            object obj = new { OrderId = Id };
 
-            return entity;
+            Func<SqlConnection, string, object, List<OrderItemEntity>> func = (conn, s, parameter) =>
+            {
+                return conn.Query<OrderEntity, OrderItemEntity, MemberEntity, ProductEntity, OrderStatusEntity, OrderItemEntity>(s, (O, OI, M, P, OS) =>
+                {
+                    OI.Product = P;
+                    O.OrderItemList = new List<OrderItemEntity>();
+
+
+                    return OI;
+
+                }, parameter).ToList();
+
+            };
+
+            List<OrderItemEntity> result = connection.Search<List<OrderItemEntity>>(sql, "default", obj, func);
+
+            return result;
         }
 
 
@@ -38,11 +64,46 @@ namespace _7_Team_WebApi.Repositories
         /// <exception cref="NotImplementedException"></exception>
         public List<OrderEntity> GetAll()
         {
-            string sql = $"SELECT * FROM Orders";
+            //string sql = $"SELECT * FROM Orders";
+            string sql = @"SELECT O.*, OS.*, M.*, P.*, Sh.*, OI.* FROM Orders as O 
+INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId 
+INNER JOIN Members as M ON M.Id = O.MemberId 
+INNER JOIN Payments as P ON P.Id = O.PaymentId 
+INNER JOIN Shippings as Sh ON Sh.Id = O.ShippingId 
+INNER JOIN OrderItems as OI ON OI.OrderId = O.Id 
+ORDER BY O.ID";
 
-            List<OrderEntity> entity = this.connection.GetAll<OrderEntity>(sql, "default");
+            Func<SqlConnection, string, List<OrderEntity>> func = (conn, s) =>
+            {
+                
+                Dictionary<int, OrderEntity> OrderList = new Dictionary<int, OrderEntity>();
 
-            return entity;
+                conn.Query<OrderEntity, OrderStatusEntity, MemberEntity, PaymentEntity, ShippingEntity, OrderItemEntity,  OrderEntity>(sql, (o, os, m ,p ,sh ,oi) =>
+                {
+                    if (OrderList.TryGetValue(o.Id, out OrderEntity Order) == false)
+                    {
+                        o.OrderStatus = os;
+                        o.Member = m;
+                        o.Payment = p;
+                        o.Shipping = sh;
+                        o.OrderItemList = new List<OrderItemEntity>();
+                        o.OrderItemList.Add(oi);
+                        OrderList.Add(o.Id, o);
+                        
+                    }
+                    else
+                    {
+                        Order.OrderItemList.Add(oi);
+                    }
+                    return o;
+                });
+                return OrderList.Values.ToList();
+
+            };
+            List<OrderEntity> orders = this.connection.GetAll<OrderEntity>(sql, "default", func);
+            return orders;
+            //List<OrderEntity> entity = this.connection.GetAll<OrderEntity>(sql, "default");
+            //return entity;
         }
 
 
@@ -75,7 +136,18 @@ namespace _7_Team_WebApi.Repositories
         /// <exception cref="NotImplementedException"></exception>
         public void Update(OrderEntity entity)
         {
-            throw new NotImplementedException();
+            SqlDb connection = new SqlDb();
+
+            string sql = "UPDATE Orders SET statusId = @StatusId , Address = @Address WHERE Id = @Id;";
+
+            object obj = new
+            {
+                Id = entity.Id,
+                Address = entity.Address,
+                StatusId = entity.OrderStatus,
+            };
+
+            connection.Update(sql, "default", obj);
         }
     }
 }
