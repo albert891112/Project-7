@@ -147,16 +147,18 @@
                                 </template>
                             </tbody>
 
-                            <tr>
-                                <td colspan="6" class="text-end ps-4 pe-4 cart_total " id="totalAmount">總金額：</td>
-                            </tr>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6" class="text-end ps-4 pe-4 cart_total" id="totalAmount">總金額：</td>
+                                </tr>
+                            </tfoot>
                         </table>
 
                         <!-- LABEL START -->
                         <div class="row ">
-                            <!-- 小計 -->
+                            <!-- 商品總額 -->
                             <div class="col-3 labelLef">
-                                <label for="subtotal">小計</label>
+                                <label for="subtotal">商品總額</label>
                             </div>
                             <!-- 運送方式 -->
                             <div class="col-3 labelLef">
@@ -166,9 +168,9 @@
                             <div class="col-3 labelLef">
                                 <label for="coupon">優惠券</label>
                             </div>
-                            <!-- 總金額 -->
+                            <!-- 應付金額 -->
                             <div class="col-3 labelLef">
-                                <label for="totalAmount">總金額</label>
+                                <label for="totalAmount">應付金額</label>
                             </div>
                         </div>
                         <!-- LABEL END -->
@@ -206,7 +208,7 @@
                         <div class="row">
                             <div class="col-2 ">
                                 <div class="amount-wrapper">
-                                    <label for="subtotal" value="" class="subtotal">0</label>
+                                    <label for="subtotal" value="" class="productTotalPrice ">0</label>
                                 </div>
                             </div>
                             <div class="col-1 ">
@@ -307,52 +309,53 @@
 
         <!-- 填寫表格START -->
         <div class="m-5">
-            <table id="cartTable" class="table table-striped table-bordered align-middle products">
+            <table id="cartTable" class="table table-striped table-bordered align-middle products cartTable">
                 <thead class="table-light fw-bolder">
                     <tr>
                         <td>照片</td>
                         <td>品名</td>
+                        <td>尺寸</td>
                         <td class="text-end ps-4 pe-4">單價</td>
                         <td class="text-end ps-4 pe-4">數量</td>
                         <td class="text-end ps-4 pe-4">小計</td>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <img src="" alt="">
-                        </td>
-                        <td>品名</td>
-                        <td class="text-end ps-4 pe-4">1000</td>
-                        <td class="text-end ps-4 pe-4">1</td>
-                        <td class="text-end ps-4 pe-4">1000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="" alt="">
-                        </td>
-                        <td>品名</td>
-                        <td class="text-end ps-4 pe-4">2000</td>
-                        <td class="text-end ps-4 pe-4">1</td>
-                        <td class="text-end ps-4 pe-4">2000</td>
-                    </tr>
+                <tbody class="cartItemData">
+                    <template class="cartItem_list">
+                        <tr>
+                            <td class="col-md-3 cart_img ">
+                                <img src="" alt="" style="width:200px">
+                            </td>
+                            <td class="productName col-md-3 cart_productName"></td>
+                            <td class="text-end ps-4 pe-4 col-md-1 cart_size"></td>
+                            <td class="text-end ps-4 pe-4 col-md-2 cart_unitPrice"></td>
+                            <td class="text-end ps-4 pe-4 col-md-1 cart_qty"></td>
+                            <td class="text-end ps-4 pe-4 col-md-2 cart_subtotal"></td>
+                        </tr>
+                    </template>
                 </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="6" class="text-end ps-4 pe-4 cart_total" id="totalAmount">總金額：</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <div class="row">
             <div class=" col-3 mt-3 ">
                 <label for="shipping">運費:</label>
-                <label for="ShippingValue" value="ShippingValue"></label>
+                <label for="ShippingValue" value="ShippingValue" class="shippingcost"></label>
                 <label for="Unit">元</label>
             </div>
             <div class=" col-3 mt-3">
                 <label for="coupon">折扣:</label>
-                <label for="couponValue" value="couponValue"></label>
+                <label for="couponValue" value="couponValue" class="couponcost"></label>
                 <label for="Unit">元</label>
             </div>
-            <div class=" col-3 mt-3">
+            <div class=" col-5 mt-3">
                 <label for="TotalPrice">應付金額:</label>
-                <label for="TotalPriceValue" value="TotalPriceValue"></label>
+                <label for="TotalPriceValue"  class="totalAmount"></label>
                 <label for="Unit">元</label>
             </div>
 
@@ -381,7 +384,7 @@
                                 </div>
                                 <div>
                                     <label for="totalPrice">應付金額:</label>
-                                    <label for="totalPriceValue">應付金額</label>
+                                    <label for="totalPriceValue" class="totalAmount">應付金額</label>
                                 </div>
                                 <!-- <template class="orderData_list"> -->
                                 <div class="form-group mt-3 cradTable" id="creditCardFieldsPill">
@@ -544,19 +547,19 @@
                                 </div>
                                 <div class=" form-group mt-3">
                                     <label for="shipping">運送金額:</label>
-                                    <label for="shippingValue">運送金額</label>
+                                    <label for="shippingValue" class="shippingcost">運送金額</label>
                                 </div>
                                 <div class=" form-group mt-3">
                                     <label for="couponName">優惠券名稱:</label>
-                                    <label for="couponNameValue" id="couponNameValue">優惠券名稱</label>
+                                    <label for="couponNameValue" id="couponNameValue" >優惠券名稱</label>
                                 </div>
                                 <div class=" form-group mt-3">
                                     <label for="couponDiscount">優惠券金額:</label>
-                                    <label for="couponDiscountValue" id="couponDiscountValue">優惠券金額</label>
+                                    <label for="couponDiscountValue" id="couponDiscountValue" class="couponcost">優惠券金額</label>
                                 </div>
                                 <div class=" form-group mt-3">
                                     <label for="Total">應付金額:</label>
-                                    <label for="TotalValue">應付金額</label>
+                                    <label for="TotalValue" class="totalAmount">應付金額</label>
                                 </div>
                             </form>
                         </div>
