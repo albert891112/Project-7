@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using Antlr.Runtime.Misc;
 using Dapper;
 using System.Data;
+using _7_Team_WebApi.Models.EFModels;
 
 namespace _7_Team_WebApi.Repositories
 {
@@ -15,7 +16,8 @@ namespace _7_Team_WebApi.Repositories
     {
 
         SqlDb connection = new SqlDb();
-        
+      
+        AppDbContext db  = new AppDbContext();
 
         /// <summary>
         /// Get Product by id

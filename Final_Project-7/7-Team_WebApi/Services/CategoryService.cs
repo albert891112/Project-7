@@ -1,4 +1,5 @@
 ﻿using _7_Team_WebApi.Models.DTOs;
+using _7_Team_WebApi.Models.EFModels;
 using _7_Team_WebApi.Models.Entities;
 using _7_Team_WebApi.Models.ViewModels;
 using _7_Team_WebApi.Repositories;
@@ -39,7 +40,7 @@ namespace _7_Team_WebApi.Services
         /// </summary>
         /// <param name="Gender"></param>
         /// <returns></returns>
-        public List<CategoryDTO> GetByGender(int Gender)
+        public List<CategoryDTO> GetByGender(int Id)
         {
             List<CategoryEntity> entities = this.repo.GetAll();
 
@@ -50,7 +51,7 @@ namespace _7_Team_WebApi.Services
                 //if GenderCategory contain gender , set result to true
                 foreach(var item in x.GenderCategories)
                 {
-                    if(item.Gender == Gender)
+                    if(item.Id == Id)
                     {
                         result = true;
                     }
@@ -86,6 +87,13 @@ namespace _7_Team_WebApi.Services
         /// <param name="dto"></param>
         public void Create(CategoryCreateDTO dto)
         {
+            Category exist = this.repo.Get(dto.Name);
+
+            if(exist != null)
+            {
+                throw new Exception("Category is exist");
+            }
+
             List<GenderCategoryEntity> genderCategories = dto.Gender.Select(x => new GenderCategoryEntity
             {
                 Id = x
@@ -104,15 +112,37 @@ namespace _7_Team_WebApi.Services
         /// <param name="dto"></param>
         public void Update(CategoryCreateDTO dto)
         {
-            List<GenderCategoryEntity> genderCategories = dto.Gender.Select(x => new GenderCategoryEntity
+
+            if(!String.IsNullOrEmpty(dto.Name))
             {
-                Id = x
+                Category  exist = this.repo.Get(dto.Name);
+ 
+                if(exist != null)
+                {
+                    throw new Exception("Category is exist");
+                }
+                else
+                {
+                    CategoryEntity entity = dto.ToEntity();
 
-            }).ToList();
+                    this.repo.UpdateName(entity);
+                }
+            }
 
-            CategoryEntity entities = dto.ToEntity(genderCategories);
+            if (dto.Gender != null)
+            {
+                List<GenderCategoryEntity> genderCategories = dto.Gender.Select(x => new GenderCategoryEntity
+                {
+                    Id = x
 
-            this.repo.Update(entities);
+                }).ToList();
+
+                CategoryEntity entity = dto.ToEntity(genderCategories);
+
+                this.repo.UpdateGender(entity);
+            }
+            
+
         }
 
         /// <summary>

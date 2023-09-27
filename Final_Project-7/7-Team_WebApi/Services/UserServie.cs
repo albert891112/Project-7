@@ -121,7 +121,7 @@ namespace _7_Team_WebApi.Services
 
             if (user == null) return false;
             else
-                return String.Compare(user.Password, HashedPassword, StringComparison.OrdinalIgnoreCase) == 0;
+                return String.Compare(user.Password.Trim(), HashedPassword, StringComparison.OrdinalIgnoreCase) == 0;
         }
 
 

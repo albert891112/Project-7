@@ -125,6 +125,7 @@ var initEditUsers = function () {
         $(".EditUserAccount").removeClass("valid");
         $(".EditUserName").removeClass("invalid");
         $(".EditUserAccount").removeClass("invalid");
+        $(".EditUserPassword").val("");
     })
 }
 
@@ -579,6 +580,7 @@ var userSummit = function () {
         var UserName = $("#UserModel").find(".EditUserName").val();
         var UserAccount = $("#UserModel").find(".EditUserAccount").val();
         var UserPassword = $("#UserModel").find(".EditUserPassword").val();
+        $("#UserModel").find(".EditUserPassword").val("")
 
         var data = { "Id": UserId, "Name": UserName, "Account": UserAccount, "Password": UserPassword };
 
@@ -637,12 +639,10 @@ var saveUser = function (data) {
         },
         body: JSON.stringify(data)
     }).then(function (response) {
-
+        setUserDate();
     })
 
-    setTimeout(() => {
-        setUserDate();
-    }, 300);
+   
 
 
     // window.location.reload(true);
@@ -660,12 +660,10 @@ var savePermission = function (data) {
         },
         body: JSON.stringify(data)
     }).then(function (response) {
-
+        setPermissionData();
     })
 
-    setTimeout(() => {
-        setPermissionData();
-    }, 300);
+  
 
 
     //window.location.reload(true);
@@ -880,11 +878,12 @@ var saveRoleCreate = function (data) {
         {
             alert("職位名稱重複");
         }
+        else{
+            setRoleData();
+        }
     })
 
-    setTimeout(() => {
-        setRoleData();
-    }, 300);
+
 
 }
 
@@ -926,10 +925,12 @@ var savePermissionCreate = function (data) {
     if(!response.ok)
     {
         alert("權限名稱重複");
+
+    }
+    else{
+        setPermissionData();
     }
 })
 
-    setTimeout(() => {
-        setPermissionData();
-    }, 300);
+
 }

@@ -34,17 +34,18 @@ namespace _7_Team_WebApi.Controllers.Categories
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int Id)
         {
-            CategoryVM vm = serv.Get(id).ToVM();
+            CategoryVM vm = serv.Get(Id).ToVM();
 
             return Ok(vm);
         }
 
+
         [HttpGet]
-        public IHttpActionResult GetByGender(int Gender)
+        public IHttpActionResult GetByGender(int GenderId)
         {
-            List<CategoryVM> vms = this.serv.GetByGender(Gender).Select(x => x.ToVM()).ToList();
+            List<CategoryVM> vms = this.serv.GetByGender(GenderId).Select(x => x.ToVM()).ToList();
 
             return Ok(vms);
         }
@@ -57,8 +58,15 @@ namespace _7_Team_WebApi.Controllers.Categories
         [HttpPost]
         public IHttpActionResult Create(CategoryCreateVM vm)
         {
-            serv.Create(vm.ToDTO());
-
+            try
+            {
+                serv.Create(vm.ToDTO());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
             return Ok();
         }
 
@@ -77,7 +85,7 @@ namespace _7_Team_WebApi.Controllers.Categories
             }
             catch(Exception ex)
             {
-                ErrorMessage = ex.Message;
+               return BadRequest(ex.Message);
             }
            
 
@@ -92,7 +100,15 @@ namespace _7_Team_WebApi.Controllers.Categories
         [HttpPut]
         public IHttpActionResult Update(CategoryCreateVM vm)
         {
-            serv.Update(vm.ToDTO());
+            try
+            {
+                serv.Update(vm.ToDTO());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
 
             return Ok();
         }

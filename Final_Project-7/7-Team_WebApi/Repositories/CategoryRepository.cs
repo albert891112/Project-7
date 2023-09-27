@@ -13,9 +13,11 @@ using System.Linq;
 
 namespace _7_Team_WebApi.Repositories
 {
-    public class CategoryRepository : IRepository<CategoryEntity>
+    public class CategoryRepository 
     {
         SqlDb connection = new SqlDb();
+
+        AppDbContext db = new AppDbContext();
 
     
         /// <summary>
@@ -24,10 +26,9 @@ namespace _7_Team_WebApi.Repositories
 		/// <returns></returns>
 		public List<CategoryEntity> GetAll()
         {
-            string sql = @"SELECT  G.*, C.*
-                    FROM[dbo].[GenderCategories_Categories] AS GC
-                    INNER JOIN[dbo].[GenderCategories] AS G ON GC.[GenderCategoryId] = G.[Id]
-                    INNER JOIN[dbo].[Categories] AS C ON GC.[CategoryId] = C.[Id]";
+            string sql = @"SELECT G.* , C.* FROM Categories as C 
+                    Left OUTER JOIN GenderCategories_Categories as GC ON C.Id = GC.CategoryId
+                    Left OUTER JOIN GenderCategories as G ON G.Id = GC.GenderCategoryId";
 
 
             Func<SqlConnection, string, List<CategoryEntity>> func = (conn, s) =>
@@ -149,11 +150,26 @@ namespace _7_Team_WebApi.Repositories
 
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public Category Get(string Name)
+        {
+            Category exist = db.Categories.FirstOrDefault(c => c.Name == Name);
+            
+            return exist;
+        }
+
+
+        /// <summary>
         /// Update Category
         /// </summary>
         /// <param name="dto"></param>
-        public void Update(CategoryEntity entity)
+        public void UpdateName(CategoryEntity entity)
         {
+
             //Update Category datas
             string createNewCategory = "UPDATE　Categories SET Name = @Name WHERE Id = @Id";
 
@@ -165,6 +181,15 @@ namespace _7_Team_WebApi.Repositories
 
             this.connection.Update(createNewCategory, "default", obj);
 
+        }
+
+
+        /// <summary>
+        /// Update Category Gender Reference
+        /// </summary>
+        /// <param name="entity"></param>
+        public void UpdateGender(CategoryEntity entity)
+        {
 
             //Delete all GenderCategory reference in GenderCategories_Categories
             string deleteAllReference = "DELETE FROM GenderCategories_Categories WHERE CategoryId = @CategoryId";
@@ -191,8 +216,6 @@ namespace _7_Team_WebApi.Repositories
 
                 this.connection.Create(setNewReference, "default", obj3);
             }
-
-            
         }
 
 

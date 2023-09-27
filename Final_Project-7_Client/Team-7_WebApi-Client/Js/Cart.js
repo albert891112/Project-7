@@ -164,6 +164,7 @@ var getToCart = function () {
 
 
 var setCart = function (data) {    
+    
 
     var cartTemplate = getCartTemplate("show_cart");
     var total = 0;    
@@ -172,7 +173,8 @@ var setCart = function (data) {
 
         var cartItems = cartTemplate.clone();
         
-        cartItems.find(".cart_img").attr("src", "../../Files/" + ele.Product.Image);
+        console.log("ele=", ele.Product.Image);
+        cartItems.find(".cart_img").attr("src", "/Files/" + ele.Product.Image);
         cartItems.find(".cart_productName").text(ele.Product.Name);        
         cartItems.find(".cart_size").text(ele.Size);
         cartItems.find(".cart_size").attr("size", ele.Size);

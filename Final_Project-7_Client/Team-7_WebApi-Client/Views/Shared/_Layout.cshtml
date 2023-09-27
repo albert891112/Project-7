@@ -30,39 +30,32 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse"  id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">@Html.ActionLink("首頁", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                <ul>
+                    <div class="nav navbar-nav navbar-right">
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                @*<li><a href="/Members/Index/" class="nav-link">@(User.Identity.Name)</a></li>*@
 
-                    @{
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            @*<li><a href="/Members/Index/" class="nav-link">@(User.Identity.Name)</a></li>*@
-
-                            <li class="nav-item">@Html.ActionLink("購物車", "ToCart", "Cart", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item navbar-right">@Html.ActionLink("購物車", "ToCart", "Cart", new { area = "" }, new { @class = "nav-link" })</li>
                             <li class="nav-item">@Html.ActionLink("會員中心", "Index", "Members", new { area = "" }, new { @class = "nav-link" })</li>
                             <li class="nav-item">@Html.ActionLink("登出會員", "Logout", "Members", new { area = "" }, new { @class = "nav-link" })</li>
 
-                        }
-                        else
-                        {
+                            }
+                            else
+                            {
                             <li class="nav-item">@Html.ActionLink("登入", "Login", "Members", new { area = "" }, new { @class = "nav-link" })</li>
                             <li class="nav-item">@Html.ActionLink("註冊新會員", "Register", "Members", new { area = "" }, new { @class = "nav-link" })</li>
-                        }
-                    }
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            權限管理
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="./PermissionControll/ToEdit"></a></li>
-
-                        </ul>
-                    </div>
+                                }
+                            }
+                     </div>
                 </ul>
             </div>
-
         </div>
     </nav>
     <div class="container body-content">

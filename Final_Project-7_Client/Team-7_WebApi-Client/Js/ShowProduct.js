@@ -186,7 +186,7 @@ var setProductDetail = function (data) {
     template.find(".name").text(data.Name)
     template.find(".price").text("$$" + data.Price)
     template.find(".Description").text(data.Description)
-    template.find(".photo").attr("src", "../../Files/" + data.Image)
+    template.find(".photo").attr("src", "/Files/" + data.Image)
 
     $(".show_detail").append(template);
 

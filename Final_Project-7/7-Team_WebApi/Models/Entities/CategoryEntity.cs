@@ -58,7 +58,19 @@ namespace _7_Team_WebApi.Models.Entities
             };
         }
 
-      
-        
+
+        public static CategoryEntity ToEntity(this CategoryCreateDTO category)
+        {
+            return new CategoryEntity
+            {
+                Id = category.Id,
+                Name = category.Name,
+             
+            };
+        }
+
+
+
+
     }
 }
