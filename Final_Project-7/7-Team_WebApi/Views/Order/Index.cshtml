@@ -57,6 +57,11 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.OrderStatus)
+            @Html.DropDownListFor(modelItem => item.OrderStatus, new List<SelectListItem>
+            { new SelectListItem {Text="未出貨", Value="2" },
+            new SelectListItem{Text="運送中", Value="3"},
+            new SelectListItem{Text="已到貨", Value="4"},
+            new SelectListItem{Text="完成", Value="5"}}, "更新狀態")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Payment)
