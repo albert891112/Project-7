@@ -1,5 +1,6 @@
 ﻿using _7_Team_WebApi.Models.DTOs;
 using _7_Team_WebApi.Models.Entities;
+using _7_Team_WebApi.Models.ViewModels;
 using _7_Team_WebApi.Repositories;
 using System;
 using System.Collections.Generic;
@@ -36,8 +37,9 @@ namespace _7_Team_WebApi.Services
             return entity;
         }
 
-        public void Update(OrderEntity entity)
+        public void Update(OrderVM orderVM)
         {
+            OrderEntity entity = orderVM.ToEntity();
             this.repo.Update(entity);
         }
 

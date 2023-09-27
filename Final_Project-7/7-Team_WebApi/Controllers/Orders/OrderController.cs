@@ -47,5 +47,17 @@ namespace _7_Team_WebApi.Controllers.Orders
             return View(vmList);
         }
 
+        [HttpPost]
+        public ActionResult Edit(OrderVM orderVM)
+        {
+            if (ModelState.IsValid)
+            {
+                serv.Update(orderVM);
+
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }
