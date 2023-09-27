@@ -22,7 +22,7 @@ namespace _7_Team_WebApi.Repositories
         /// <exception cref="NotImplementedException"></exception>
  
         
-        public List<OrderItemEntity> GetOrderById(int Id)
+        public List<OrderItemEntity> GetOrderItemById(int Id)
         {
             SqlDb connection = new SqlDb();
 
@@ -138,16 +138,56 @@ ORDER BY O.ID";
         {
             SqlDb connection = new SqlDb();
 
-            string sql = "UPDATE Orders SET statusId = @StatusId , Address = @Address WHERE Id = @Id;";
+            string sql = "UPDATE Orders SET statusId = @StatusId WHERE Id = @Id;";
 
             object obj = new
             {
                 Id = entity.Id,
-                Address = entity.Address,
                 StatusId = entity.OrderStatus,
             };
 
             connection.Update(sql, "default", obj);
         }
-    }
+
+		/// <summary>
+		/// Get Orders by orderId
+		/// </summary>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
+		public OrderEntity GetOrder(int id)
+		{
+		
+			string sql = @"SELECT O.*, OS.*, M.*, P.*, Sh.*, OI.* FROM Orders as O 
+INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId 
+INNER JOIN Members as M ON M.Id = O.MemberId 
+INNER JOIN Payments as P ON P.Id = O.PaymentId 
+INNER JOIN Shippings as Sh ON Sh.Id = O.ShippingId 
+INNER JOIN OrderItems as OI ON OI.OrderId = O.Id 
+WHERE O.Id = @Id";
+
+
+			object obj = new { Id = id };
+
+			Func<SqlConnection, string, object, OrderEntity> func = (conn, s, o) =>
+			{
+				return conn.Query<OrderEntity, OrderStatusEntity, MemberEntity, PaymentEntity, ShippingEntity, OrderItemEntity, OrderEntity>(s, (O, OS, M, P, Sh, OI) =>
+				{
+                    O.OrderStatus = OS;
+                    O.Member = M;
+                    O.Payment = P;
+                    O.Shipping = Sh;
+					O.OrderItemList = new List<OrderItemEntity>();
+
+					return O;
+
+				}, o).FirstOrDefault();
+
+			};
+
+			OrderEntity result = this.connection.Get<OrderEntity>(sql, "default", obj, func);
+
+			return result;
+
+		}
+	}
 }

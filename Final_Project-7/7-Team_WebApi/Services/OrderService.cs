@@ -30,9 +30,9 @@ namespace _7_Team_WebApi.Services
             return entities;
         }
 
-        public List<OrderItemEntity> Get(int orderid)
+        public List<OrderItemEntity> GetOrderItem(int orderid)
         {
-            List<OrderItemEntity> entity = this.repo.GetOrderById(orderid);
+            List<OrderItemEntity> entity = this.repo.GetOrderItemById(orderid);
 
             return entity;
         }
@@ -41,6 +41,12 @@ namespace _7_Team_WebApi.Services
         {
             OrderEntity entity = orderVM.ToEntity();
             this.repo.Update(entity);
+        }
+
+        public OrderEntity Get(int id)
+        {
+            OrderEntity entities=this.repo.GetOrder(id);
+            return entities;
         }
 
     }

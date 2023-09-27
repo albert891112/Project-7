@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.DynamicData;
 
 namespace _7_Team_WebApi.Models.DTOs
 {
@@ -38,6 +39,26 @@ namespace _7_Team_WebApi.Models.DTOs
                 Total = entity.Total,
             };
         }
-       
-    }
+
+        public static OrderDTO ToDTO(this OrderVM vm)
+        {
+            OrderStatusDTO orderStatusDTO= GetOrderStatusDTOByStatus(vm.OrderStatus);
+
+
+			return new OrderDTO() 
+            { 
+                Id = vm.Id,
+                OrderStatus=orderStatusDTO,
+                PhoneNumber=vm.PhoneNumber,
+                Address = vm.Address,
+                OrderTime=vm.OrderDate, 
+                Total = vm.Total
+            };
+        }
+
+		private static OrderStatusDTO GetOrderStatusDTOByStatus(string orderStatus)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
