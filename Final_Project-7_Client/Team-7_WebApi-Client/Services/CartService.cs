@@ -71,6 +71,23 @@ namespace Team_7_WebApi_Client.Services
         }
 
 
-		
+		public List<ShippingDTO> GetShipping()
+		{
+			List<ShippingEntity> entities = this.repo.GetShippings();
+
+			List<ShippingDTO> dtos = entities.Select(s => s.ToDTO()).ToList();
+
+			return dtos;
+		}
+
+		public List<PaymentDTO> GetPayment()
+		{
+			List<PaymentEntity> entities = this.repo.GetPayments();
+
+			List<PaymentDTO> dtos = entities.Select(p => p.ToDTO()).ToList();
+
+			return dtos;
+		}
+
 	}
 }

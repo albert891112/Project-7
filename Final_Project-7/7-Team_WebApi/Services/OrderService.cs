@@ -1,5 +1,6 @@
 ﻿using _7_Team_WebApi.Models.DTOs;
 using _7_Team_WebApi.Models.Entities;
+using _7_Team_WebApi.Models.ViewModels;
 using _7_Team_WebApi.Repositories;
 using System;
 using System.Collections.Generic;
@@ -29,16 +30,23 @@ namespace _7_Team_WebApi.Services
             return entities;
         }
 
-        public List<OrderItemEntity> Get(int orderid)
+        public List<OrderItemEntity> GetOrderItem(int orderid)
         {
-            List<OrderItemEntity> entity = this.repo.GetOrderById(orderid);
+            List<OrderItemEntity> entity = this.repo.GetOrderItemById(orderid);
 
             return entity;
         }
 
-        public void Update(OrderEntity entity)
+        public void Update(OrderVM orderVM)
         {
+            OrderEntity entity = orderVM.ToEntity();
             this.repo.Update(entity);
+        }
+
+        public OrderEntity Get(int id)
+        {
+            OrderEntity entities=this.repo.GetOrder(id);
+            return entities;
         }
 
     }

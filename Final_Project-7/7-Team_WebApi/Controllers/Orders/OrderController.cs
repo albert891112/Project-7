@@ -25,7 +25,7 @@ namespace _7_Team_WebApi.Controllers.Orders
         public ActionResult GetOrderItems(int orderId)
         {
 
-            List<OrderItemEntity> orderItems = serv.Get(orderId);
+            List<OrderItemEntity> orderItems = serv.GetOrderItem(orderId);
 
             List<OrderItemVM> vmList = new List<OrderItemVM>();
 
@@ -45,6 +45,25 @@ namespace _7_Team_WebApi.Controllers.Orders
             }
 
             return View(vmList);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int Id)
+        {
+            var vm = serv.Get(Id).ToVM();
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(OrderVM orderVM)
+        {
+            if (ModelState.IsValid)
+            {
+                serv.Update(orderVM);
+
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
 
     }

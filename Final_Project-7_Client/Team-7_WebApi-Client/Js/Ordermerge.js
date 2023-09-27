@@ -2,68 +2,80 @@
 
     initLoadPay();   
 
-   
+    shippingMethod(); 
 
-    //計算總金額  
-    var productTotalPrice = $(".productTotalPrice")
+    paymentMethod();
+
+    //計算總金額     
+    
     var shippingcostLabel = $(".shippingcost");
     var couponcostLabel = $(".couponcost");
-    var totalAmountLabel = $(".totalAmount");
+    var totalAmountLabel = $(".totalAmount");    
+   
 
     // 下拉列表的更改事件
     $("#shippingMethodSelect, #coupon").change(function () {
+
+        
         // 獲取所選選項的值
-    
+        var productTotalValue = $(".productTotalPrice").attr("value");
         var shippingMethodValue = $("#shippingMethodSelect").val();
         var couponValue = $("#coupon").val();
+        var totalAmountValue = $(".totalAmount").attr("value");
+       
 
-        if (shippingMethodValue === "送到府") {
-            shippingMethodValue = 150;
-        }
-        if (shippingMethodValue === "超商取貨") {
-            shippingMethodValue = 60;
-        }
+        $(".shippingcost").attr("value", shippingMethodValue);        
+      
         //如果couponcostValue為空值，則設為0
         if (isNaN(couponValue)) {
             couponValue = 0;
+            
         }
-        if (isNaN(productTotalPrice)) {
-            productTotalPrice = 0;
+        if (isNaN(productTotalValue)) {
+            productTotalValue = 0;
+            
         }
         if (isNaN(shippingMethodValue)) {
             shippingMethodValue = 0;
+          
+            
         }
         //如果總金額為NAN，則設為0
-        if (isNaN(totalAmountLabel.text())) {
-            totalAmountLabel.text(0);
+        if (isNaN(totalAmountValue)) {
+            totalAmountValue = 0;           
+                     
         }
-
+        
         // 進行相應的加法操作
-        var productTotalPriceValue = parseFloat(productTotalPrice);
+        var productTotalPriceValue = parseFloat(productTotalValue);
         var shippingcostValue = parseFloat(shippingMethodValue);
-        var couponcostValue = parseFloat(couponValue);
-        var totalAmount = productTotalPriceValue + shippingcostValue - couponcostValue;
+        var couponcostValue = parseFloat(couponValue);        
+
+        totalAmountValue = productTotalPriceValue + shippingcostValue - couponcostValue;
+       
 
         //如果totalAmount為小於0，則設為0
-        if (totalAmount < 0) {
-            totalAmount = 0;
+        if (totalAmountValue < 0) {
+            totalAmountValue = 0;
             alert("總金額小於0");
         }
-
+      
         // 更新標籤的文本        
         shippingcostLabel.text(shippingcostValue);
-        couponcostLabel.text(couponcostValue);
-        totalAmountLabel.text(totalAmount);
+        couponcostLabel.text(couponcostValue);        
+        totalAmountLabel.text(totalAmountValue);
+        $(".totalAmount").attr("value", totalAmountValue);
 
     });
 
   
 
     //paymentmethod======================================================
-    // 做出選擇後，顯示注意事項
+     //做出選擇後，顯示注意事項
     var paymentMethodSelect = document.getElementById("paymentMethodSelect");
     var shippingMethodSelect = document.getElementById("shippingMethodSelect");
 
+    
     //付款方式顯示注意事項
     paymentMethodSelect.addEventListener("change", function () {
         if (paymentMethodSelect.value == "信用卡") {
@@ -74,9 +86,10 @@
     });
 
     //運送方式顯示注意事項
-    $("#shippingMethodSelect").change(function () {
+    $("#shippingMethodSelect").change(function () {               
+        
 
-        if (shippingMethodSelect.value == "送到府") {
+        if (shippingMethodSelect.value == "運送到府") {
 
             document.getElementById("shippinghomedesc").style.display = "block";
             document.getElementById("pillAddressTable").style.display = "block";
@@ -363,6 +376,102 @@
 });
 
 //設定函數庫=============================================================================================
+//設定取用paymentMethodSelect Start=============================================================================================
+var setPayment = function (data) {
+    var paymentSelect = $('.paymentMethodSelect');
+    paymentSelect.empty();
+
+    var firstOption = document.createElement('option');
+    $(firstOption).attr('data-id', 0);
+    firstOption.innerText = '請選擇';
+    paymentSelect.append(firstOption);
+
+  
+        data.forEach(function (ele) {
+            var option = document.createElement('option');
+            $(option).attr('data-id', ele.Id);               
+            option.innerText = ele.PaymentMethod;
+            paymentSelect.append(option);
+        });
+   
+};
+
+
+
+
+var paymentMethod = function () {
+
+    let url = '/api/CartApi/GetPaymentMethod';
+
+    fetch(url, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(function (response) {
+        return response.json();
+    }).then(function (result) {       
+        setPayment(result);   
+    }).catch(function (err) {
+
+        console.log(err);
+    });
+
+};
+
+
+
+//設定取用paymentMethodSelect END=============================================================================================
+
+
+//設定取用ShippingMethod Start=============================================================================================
+var setShipping = function (data) {
+    
+    var shippingSelect = $('.shippingMethodSelect');
+    shippingSelect.empty();
+
+    var firstOption = document.createElement('option');
+    $(firstOption).attr('data-id', 0);
+    firstOption.innerText = '請選擇';
+    shippingSelect.append(firstOption);
+
+
+    data.forEach(function (ele) {
+        var option = document.createElement('option');
+        $(option).attr('data-id', ele.Id);
+        option.innerText = ele.ShippingMethod;
+        option.value = ele.Price;
+        shippingSelect.append(option);         
+
+       
+       
+    });    
+     
+
+};
+var shippingMethod = function () {   
+
+    let url = '/api/CartApi/GetShippingMethod';
+
+    fetch(url, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(function (response) {
+        return response.json();
+    }).then(function (result) {
+        setShipping(result);
+    }).catch(function (err) {
+
+        console.log(err);
+    });
+
+};
+
+
+
+//設定取用ShippingMethod END=============================================================================================
 //設定初始payHtml
 
 
@@ -400,11 +509,14 @@ var cartItems = function (data) {
         
         $(".cartTable").append(cartItems);
 
-        total += ele.SubTotal;                   
+        total += ele.SubTotal;      
+        
     });
 
     $(".cart_total").text(" 商品總額 : " + total);
+    $(".cart_total").attr("value" , total);
     $(".productTotalPrice").text(total);  
+    $(".productTotalPrice").attr("value", total);
     
 };
 

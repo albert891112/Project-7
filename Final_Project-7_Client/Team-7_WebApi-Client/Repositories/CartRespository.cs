@@ -138,6 +138,31 @@ namespace Team_7_WebApi_Client.Repositories
 			return entity;
 		
 		}
+
+		public List<ShippingEntity> GetShippings()
+		{
+			SqlDb connection = new SqlDb();
+
+			string sql = @"SELECT S.* FROM Shippings As S ORDER BY Id";
+
+
+			List<ShippingEntity> entities = connection.GetAll<ShippingEntity>(sql, "default");
+
+			return entities;
+		}
+
+
+		public List<PaymentEntity> GetPayments()
+		{
+			SqlDb connection = new SqlDb();
+
+			string sql = @"SELECT P.* FROM Payments AS P ORDER BY Id";
+			
+
+			List<PaymentEntity> entities = connection.GetAll<PaymentEntity>(sql, "default");
+
+			return entities;
+		}
 	}
 		    
 		

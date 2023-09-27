@@ -11,13 +11,13 @@ using Team_7_WebApi_Client.Models.Entities;
 
 namespace Team_7_WebApi_Client.Repositories
 {
-    public class OrderRepository
-    {
-        public List<OrderEntity> GetOrdersbyMember(int memberId)
-        {
-            SqlDb connection = new SqlDb();
+	public class OrderRepository
+	{
+		public List<OrderEntity> GetOrdersbyMember(int memberId)
+		{
+			SqlDb connection = new SqlDb();
 
-            string sql = @"SELECT O.*, OS.*, M.*, P.*, Sh.*, OI.* FROM Orders as O 
+			string sql = @"SELECT O.*, OS.*, M.*, P.*, Sh.*, OI.* FROM Orders as O 
 INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId 
 INNER JOIN Members as M ON M.Id = O.MemberId 
 INNER JOIN Payments as P ON P.Id = O.PaymentId 
@@ -26,38 +26,38 @@ INNER JOIN OrderItems as OI ON OI.OrderId = O.Id
 WHERE O.MemberId = @MemberId
 ORDER BY O.ID DESC";
 
-            object obj = new { MemberId = memberId };
+			object obj = new { MemberId = memberId };
 
-            Func<SqlConnection, string, object, List<OrderEntity>> func = (conn, s, ob) =>
-            {
-                Dictionary<int, OrderEntity> OrderList = new Dictionary<int, OrderEntity>();
-                conn.Query<OrderEntity, OrderStatusEntity, MemberEntity, PaymentEntity, ShippingEntity, OrderItemEntity,  OrderEntity > (sql, (O, OS, M, P, SH, OI) =>
-                {
+			Func<SqlConnection, string, object, List<OrderEntity>> func = (conn, s, ob) =>
+			{
+				Dictionary<int, OrderEntity> OrderList = new Dictionary<int, OrderEntity>();
+				conn.Query<OrderEntity, OrderStatusEntity, MemberEntity, PaymentEntity, ShippingEntity, OrderItemEntity, OrderEntity>(sql, (O, OS, M, P, SH, OI) =>
+				{
 
-                    if (OrderList.TryGetValue(O.Id, out OrderEntity Order) == false)
-                    {
-                        O.Member = M;
-                        O.Payment= P;
-                        O.Shipping = SH;
-                        O.OrderStatus = OS;
-                        O.OrderItemList = new List<OrderItemEntity>();
-                        O.OrderItemList.Add(OI);
-                        OrderList.Add(O.Id, O);
-                    }
-                    else
-                    {
-                        Order.OrderItemList.Add(OI);
-                    }
-                    return O;
-                    
-                }, ob);
+					if (OrderList.TryGetValue(O.Id, out OrderEntity Order) == false)
+					{
+						O.Member = M;
+						O.Payment = P;
+						O.Shipping = SH;
+						O.OrderStatus = OS;
+						O.OrderItemList = new List<OrderItemEntity>();
+						O.OrderItemList.Add(OI);
+						OrderList.Add(O.Id, O);
+					}
+					else
+					{
+						Order.OrderItemList.Add(OI);
+					}
+					return O;
 
-                return OrderList.Values.ToList();
-            };
+				}, ob);
 
-            List<OrderEntity> result = connection.Search<List<OrderEntity>>(sql, "default", obj, func);
-            return result;
-        }
+				return OrderList.Values.ToList();
+			};
+
+			List<OrderEntity> result = connection.Search<List<OrderEntity>>(sql, "default", obj, func);
+			return result;
+		}
 
 		public List<OrderItemEntity> GetOrderById(int orderId)
 		{
@@ -80,7 +80,7 @@ ORDER BY O.ID DESC";
 				{
 					OI.Product = P;
 					O.OrderItemList = new List<OrderItemEntity>();
-					
+
 
 					return OI;
 
@@ -93,32 +93,10 @@ ORDER BY O.ID DESC";
 			return result;
 		}
 
-		public List<ShippingEntity> Get(int Id)
-		{
-			SqlDb connection = new SqlDb();
 
-			string sql = @"SELECT S.* FROM Shippings 
-WHERE Id = @Id";
-
-			object obj = new
-			{
-				Id = Id,
-			};
-
-
-			Func<SqlConnection, string, object, List<ShippingEntity>> func = (conn, s, o) =>
-			{
-				return conn.Query<ShippingEntity>(s, o).ToList();
-			};
-
-
-			List<ShippingEntity> entity = connection.Get<List<ShippingEntity>>(sql, "default", obj, func);
-
-			return entity;
-		}
 
 	}
-
-
-
 }
+
+
+
