@@ -52,5 +52,29 @@ namespace Team_7_WebApi_Client.Controllers.Cart
 
             return Ok(cartVM);
         }
-    }
+
+		CartService serv = new CartService();
+
+		[HttpGet]
+		public IHttpActionResult GetShippingMethod()
+		{			
+
+			List<ShippingDTO> dtos = this.serv.GetShipping();
+
+			List<ShippingVM> vms = dtos.Select(s => s.ToVM()).ToList();
+
+			return Ok(vms);
+		}
+
+		[HttpGet]
+		public IHttpActionResult GetPaymentMethod()
+		{
+
+			List<PaymentDTO> dtos = this.serv.GetPayment();
+
+			List<PaymentVM> vms = dtos.Select(p => p.ToVM()).ToList();
+
+			return Ok(vms);
+		}
+	}
 }
