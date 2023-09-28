@@ -66,6 +66,21 @@
         totalAmountLabel.text(totalAmountValue);
         $(".totalAmount").attr("value", totalAmountValue);
 
+                
+        //將運送方式選擇的值存入label     
+
+       var selectedValue = $(".shippingMethodSelect").val();
+       
+        var selectedOption = $(".shippingMethodSelect option[value='" + selectedValue + "']");
+       
+        var shippingMethodselectedOption = selectedOption.text();
+    
+        var shippingMethodSelectresultLabel = $(".shippingMethodValue");
+
+        shippingMethodSelectresultLabel.text(shippingMethodselectedOption);
+
+       
+
     });
 
   
@@ -120,10 +135,10 @@
         paymentMethodSelectresultLabel.textContent = paymentMethodselectedOption;
 
         //將運送方式選擇的值存入label
-        var shippingMethodselectedOption = shippingMethodSelect.options[shippingMethodSelect.selectedIndex].value;
-        var shippingMethodSelectresultLabel = document.getElementById("shippingMethodValue");
+        //var shippingMethodselectedOption = shippingMethodSelect.options[shippingMethodSelect.selectedIndex].value;
+        //var shippingMethodSelectresultLabel = document.getElementById("shippingMethodValue");
 
-        shippingMethodSelectresultLabel.textContent = shippingMethodselectedOption;
+        //shippingMethodSelectresultLabel.textContent = shippingMethodselectedOption;
 
 
         //如選選擇信用卡 顯示填寫信用卡資料
@@ -295,11 +310,7 @@
 
         showCheckout();
 
-        //將運送方式選擇的值存入label
-        var shippingMethodselectedOption = shippingMethodSelect.options[shippingMethodSelect.selectedIndex].value;
-        var shippingMethodSelectresultLabel = document.getElementById("shippingMethodValue1");
-
-        shippingMethodSelectresultLabel.textContent = shippingMethodselectedOption;
+ 
 
     });
 
@@ -610,13 +621,13 @@ var showPay = function () {
 //設定感謝訂購
 var OrderFinish = function () {
 
-    window.location.href = "OrderFinish.html";
+    window.location.href="../Orders/OrderFinish";
 
 }
 
 var LastpageCart = function () {
 
-    window.location.href = "Cart.html";
+    window.location.href = "ToCart";
 
 }
 

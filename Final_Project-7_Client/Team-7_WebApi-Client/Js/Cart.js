@@ -164,16 +164,15 @@ var getToCart = function () {
 
 
 var setCart = function (data) {    
-    
 
+    console.log(data);
     var cartTemplate = getCartTemplate("show_cart");
     var total = 0;    
     $(".cartData").empty();
-    $.each(data.CartItems, function (index, ele) {         
+    $.each(data,data.CartItems, function (index, ele) {         
 
         var cartItems = cartTemplate.clone();
         
-        console.log("ele=", ele.Product.Image);
         cartItems.find(".cart_img").attr("src", "/Files/" + ele.Product.Image);
         cartItems.find(".cart_productName").text(ele.Product.Name);        
         cartItems.find(".cart_size").text(ele.Size);
@@ -194,7 +193,7 @@ var setCart = function (data) {
         total += ele.SubTotal;                   
       
     });
-    console.log("total=", data);
+   
     
     $(".cart_total").text(" 商品金額 : " + total);   
 };

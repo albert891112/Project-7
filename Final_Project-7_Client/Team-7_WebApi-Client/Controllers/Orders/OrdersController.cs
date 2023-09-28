@@ -88,5 +88,10 @@ namespace Team_7_WebApi_Client.Controllers.Orders
 
             return member.Id;
         }
-    }
+
+		public ActionResult OrderFinish()
+		{
+			return View();
+		}
+	}
 }
