@@ -58,5 +58,18 @@ namespace Team_7_WebApi_Client.Models.DTOS
                 Product = entity.Product.ToDTO(),
             };
         }
+
+		public static CartItemDTO ToDTO(this CartItemVM vm)
+		{
+			return new CartItemDTO
+			{
+				Id = vm.Id,
+				CartId = vm.CartId,
+				ProductId = vm.ProductId,
+				Qty = vm.Qty,
+				Size = vm.Size,
+				Product = vm.Product.ToDTO(),
+			};
+		}
 	}
 }

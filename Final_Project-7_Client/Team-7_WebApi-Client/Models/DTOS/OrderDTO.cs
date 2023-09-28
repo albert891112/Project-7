@@ -12,8 +12,8 @@ namespace Team_7_WebApi_Client.Models.DTOS
 	public class OrderDTO
 	{
 		public int Id { get; set; }
-	    public MemberDTO Member { get; set; }
-		public OrderStatusDTO OrderStatus { get; set; }
+	    public MemberDTO Member { get; set; }       
+        public OrderStatusDTO OrderStatus { get; set; }
 		public string PhoneNumber { get; set; }
 		public string Address { get; set; }
 		public CouponDTO Coupon { get; set; }
@@ -24,23 +24,6 @@ namespace Team_7_WebApi_Client.Models.DTOS
 		public List<OrderItemDTO> OrderItemList { get; set; }
 	}	
 
-	//public class OrderSearchDTO
-	//{
-	//	public DateTime StartTime { get; set; }
-	//	public DateTime EndTime { get; set; }
-	//}
-
-	//public class OrderItemSearchDTO
-	//{
-	//	public int Id { get; set; }
-	//	public ProductEntity Product { get; set; }
-	//	public OrderEntity Order { get; set; }
-	//	public int Qty { get; set; }
-	//	public int Price { get; set; }
-	//	public string ProductName { get; set; }
-	//	public int Subtotal { get; set; }
-	//	public string Size { get; set; }
-	//}
 
 	public static class OrderDTOExtensions
 	{
@@ -48,7 +31,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 		{
 			return new OrderDTO
 			{
-				Id = entity.Id,
+				Id = entity.Id,				
 				OrderStatus = entity.OrderStatus.ToDTO(),
 				PhoneNumber = entity.PhoneNumber,
 				Address = entity.Address,
@@ -63,7 +46,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 		{
 			return new OrderDTO
 			{
-				Id = vm.Id,
+				Id = vm.Id,				
 				OrderStatus = vm.OrderStatus.ToDTO(),
 				PhoneNumber = vm.PhoneNumber,
 				Address = vm.Address,

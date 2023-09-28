@@ -8,8 +8,8 @@ namespace Team_7_WebApi_Client.Models.Entities
 {
 	public class OrderEntity
 	{
-		public int Id { get; set; }
-		public MemberEntity Member { get; set; }
+		public int Id { get; set; }      
+        public MemberEntity Member { get; set; }
 		public OrderStatusEntity OrderStatus { get; set; }
 		public string PhoneNumber { get; set; }
 		public string Address { get; set; }
@@ -28,7 +28,7 @@ namespace Team_7_WebApi_Client.Models.Entities
 		{
 			return new OrderEntity
 			{
-				Id = dto.Id,
+				Id = dto.Id,				
 				OrderStatus = dto.OrderStatus.ToEntity(),
 				PhoneNumber = dto.PhoneNumber,
 				Address = dto.Address,

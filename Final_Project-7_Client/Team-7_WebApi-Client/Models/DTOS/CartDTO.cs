@@ -50,6 +50,16 @@ namespace Team_7_WebApi_Client.Models.DTOS
                 CartItems = entity.CartItems.Select(x => x.ToDTO()).ToList(),
             };
         }
+
+		public static CartDTO ToDTO(this CartVM vm)
+		{
+			return new CartDTO
+			{
+				Id = vm.Id,
+				MemberId = vm.MemberId,
+				CartItems = vm.CartItems.Select(x => x.ToDTO()).ToList(),
+			};
+		}
 	}
 
 

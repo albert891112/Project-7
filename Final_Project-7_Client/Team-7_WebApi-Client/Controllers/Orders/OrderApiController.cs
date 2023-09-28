@@ -12,6 +12,19 @@ namespace Team_7_WebApi_Client.Controllers.Orders
 {
     public class OrderApiController : ApiController
     {
-		
+
+		OrderService serv = new OrderService();
+
+		[HttpPost]
+		public IHttpActionResult CreateOrder(OrderVM order,CartVM cart)
+		{
+			OrderDTO orders = order.ToDTO();
+
+			CartDTO carts = cart.ToDTO();
+
+			this.serv.Create(orders,carts);
+
+			return Ok();
+		}
 	}
 }
