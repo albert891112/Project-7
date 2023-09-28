@@ -555,7 +555,7 @@ var getToCartItem = function () {
     }).then(function (response) {
         return response.json();
     }).then(function (result) {
-        
+        console.log(result);
          cartItems(result);       
     }).catch(function (err) {
         console.log(err);
