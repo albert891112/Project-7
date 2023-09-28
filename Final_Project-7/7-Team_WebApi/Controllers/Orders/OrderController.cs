@@ -50,11 +50,15 @@ namespace _7_Team_WebApi.Controllers.Orders
         [HttpGet]
         public ActionResult Edit(int Id)
         {
-            var vm = serv.Get(Id).ToVM();
-            return View(vm);
-        }
+			var vm = serv.Get(Id).ToVM();
 
-        [HttpPost]
+            vm.OrderStatusList=serv.GetStatus();
+
+			return View(vm);
+
+		}
+
+		[HttpPost]
         public ActionResult Edit(OrderVM orderVM)
         {
             if (ModelState.IsValid)
@@ -66,5 +70,5 @@ namespace _7_Team_WebApi.Controllers.Orders
             return RedirectToAction("Index");
         }
 
-    }
+	}
 }

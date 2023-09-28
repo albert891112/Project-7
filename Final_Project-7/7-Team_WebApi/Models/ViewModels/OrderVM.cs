@@ -39,7 +39,9 @@ namespace _7_Team_WebApi.Models.ViewModels
         [Display(Name = "購買日期")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime OrderDate { get; set; }
-    }
+
+		public List<OrderStatusEntity> OrderStatusList { get; set; }
+	}
 
     public static class OrderVMExtension
     {
@@ -73,5 +75,6 @@ namespace _7_Team_WebApi.Models.ViewModels
                 OrderDate = entity.OrderTime
             };
         }
+
     }
 }
