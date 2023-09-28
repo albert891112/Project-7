@@ -23,7 +23,7 @@ namespace Team_7_WebApi_Client.Controllers
             return View();
         }
 
-		/// <summary>
+        /// <summary>
         /// 註冊
         /// </summary>
         /// <returns></returns>

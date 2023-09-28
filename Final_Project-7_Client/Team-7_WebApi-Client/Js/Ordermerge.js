@@ -21,9 +21,8 @@
         var productTotalValue = $(".productTotalPrice").attr("value");
         var shippingMethodValue = $("#shippingMethodSelect").val();
         var couponValue = $("#coupon").val();
-        var totalAmountValue = $(".totalAmount").attr("value");
-       
-
+        var totalAmountValue = $(".totalAmount").attr("value");       
+      
         $(".shippingcost").attr("value", shippingMethodValue);        
       
         //如果couponcostValue為空值，則設為0
@@ -194,24 +193,29 @@
         }
 
         //將姓名input的值存入label
-        var inputName = document.getElementById("inputName").value;
+        var inputName = document.getElementById("inputName").value; 
         var myselfLabelNameValue = document.getElementById("myselfLabelNameValue");
         myselfLabelNameValue.textContent = inputName;
 
+        $(".inputName").attr("value", inputName);
         //將信箱input的值存入label
         var inputEmail = document.getElementById("inputEmail").value;
         var myselfLabelEmailValue = document.getElementById("myselfLabelEmailValue");
         myselfLabelEmailValue.textContent = inputEmail;
 
+        $(".inputEmail").attr("value", inputEmail);
         //將地址textarea的值存入label
         var inputAddress = document.getElementById("inputAddress").value;
         var myselfLabelAddressValue = document.getElementById("myselfLabelAddressValue");
         myselfLabelAddressValue.textContent = inputAddress;
 
+        $(".inputAddress").attr("value", inputAddress);
         //將電話input的值存入label
         var inputPhone = document.getElementById("inputPhone").value;
         var myselfLabelPhoneValue = document.getElementById("myselfLabelPhoneValue");
         myselfLabelPhoneValue.textContent = inputPhone;
+
+        $(".inputPhone").attr("value", inputPhone);
 
         //驗證姓名、信箱、地址、電話是否為空值    
         var nameError = document.getElementById("nameError");
@@ -330,10 +334,32 @@
 
     $("#btnNextOrderFinish").click(function () {
 
-        OrderFinish();
-        var postOrderData = function () {
+        postOrderData();
 
-            let url = '/api/CartApi/Post';
+        OrderFinish();
+
+
+
+
+        var postOrderData = function () {
+            
+            var MemberId                
+            var PhoneNumber = find(".inputPhone").attr("value");
+            var Adderss = find(".inputAddress").attr("value");
+            var ShippingId = find(".shippingMethodSelect").attr("value");
+            var Name = find(".inputName").attr("value");
+            var Qty = find(".cart_qty").attr("value");
+            var Size = find(".cart_size").attr("size");
+            var Id = find(".cart_size").attr("product");
+
+            // 建立商品數據，包括商品ID、購物車數量和尺寸
+            var data = {
+                "ProductId": Id,
+                "Qty": Qty,
+                "Size": Size
+            }
+
+            let url = '/api/OrderApi/CreateOrder';
 
             fetch(url, {
                 method: 'Post',

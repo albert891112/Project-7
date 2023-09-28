@@ -169,7 +169,7 @@ var setCart = function (data) {
     var cartTemplate = getCartTemplate("show_cart");
     var total = 0;    
     $(".cartData").empty();
-    $.each(data,data.CartItems, function (index, ele) {         
+    $.each(data.CartItems, function (index, ele) {         
 
         var cartItems = cartTemplate.clone();
         
@@ -188,7 +188,7 @@ var setCart = function (data) {
         cartItems.find(".cart_unitPrice").attr("num", ele.Product.L);
         cartItems.find(".cart_qty").attr("num", ele.Product.XL);
 
-        $("#cartTable").append(cartItems);
+        $(".cartTable").append(cartItems);
         
         total += ele.SubTotal;                   
       
