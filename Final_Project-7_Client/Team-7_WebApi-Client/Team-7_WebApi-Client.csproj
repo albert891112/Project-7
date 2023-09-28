@@ -403,6 +403,12 @@
     <Content Include="Global.asax" />
     <Content Include="Js\addCart.js" />
     <Content Include="Js\Cart.js" />
+    <Content Include="Js\HomePage.es5.js">
+      <DependentUpon>HomePage.js</DependentUpon>
+    </Content>
+    <Content Include="Js\HomePage.es5.min.js">
+      <DependentUpon>HomePage.es5.js</DependentUpon>
+    </Content>
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\Ordermerge.js" />
     <Content Include="Js\ShowProduct.js" />

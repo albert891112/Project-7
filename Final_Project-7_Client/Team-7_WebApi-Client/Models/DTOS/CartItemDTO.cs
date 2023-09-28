@@ -12,8 +12,8 @@ namespace Team_7_WebApi_Client.Models.DTOS
 	public class CartItemDTO
 	{
 		public int Id { get; set; }
-		public OrderDTO Order { get; set; }
-		public ProductDTO Product { get; set; }
+        public int CartId { get; set; }
+        public ProductDTO Product { get; set; }
 		public string ProductName { get; set; }
 		public int ProductId { get; set; }	
 		public int Qty { get; set; }
@@ -51,6 +51,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
             return new CartItemDTO
 			{
                 Id = entity.Id,
+				CartId = entity.CartId,
                 ProductId = entity.ProductId,
                 Qty = entity.Qty,
                 Size = entity.Size,

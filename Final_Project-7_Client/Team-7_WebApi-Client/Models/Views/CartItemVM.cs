@@ -33,6 +33,8 @@ namespace Team_7_WebApi_Client.Models.Views
 			return new CartItemVM
 			{
 				Id = dto.Id,
+				ProductId = dto.ProductId,
+				CartId = dto.CartId,
 				Product = dto.Product.ToVM(),
 				Qty = dto.Qty,
 				Size = dto.Size
