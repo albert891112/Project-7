@@ -6,6 +6,9 @@ using System.Web;
 using _7_Team_WebApi.Models.Entities;
 using Dapper;
 using System.Data.SqlClient;
+using System.Web.SessionState;
+using System.Web.UI.WebControls;
+using _7_Team_WebApi.Models.EFModels;
 
 namespace _7_Team_WebApi.Repositories
 {
@@ -143,7 +146,7 @@ ORDER BY O.ID";
             object obj = new
             {
                 Id = entity.Id,
-                StatusId = entity.OrderStatus,
+                StatusId = entity.OrderStatus.Id,
             };
 
             connection.Update(sql, "default", obj);
@@ -189,5 +192,16 @@ WHERE O.Id = @Id";
 			return result;
 
 		}
-	}
+
+
+        public List<OrderStatusEntity> GetOrderStatus()
+        {
+			using (var conn = new SqlDb().GetConnection("default"))
+			{
+				string sql = "SELECT Id, Status FROM OrderStatus ORDER BY DisplayOrder";
+				var results = conn.Query<OrderStatusEntity>(sql).ToList();
+				return results;
+			};
+		}
+    }
 }
