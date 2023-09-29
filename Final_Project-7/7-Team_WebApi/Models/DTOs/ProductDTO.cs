@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Albert.Lib;
+using System.Collections.Specialized;
 
 namespace _7_Team_WebApi.Models.DTOs
 {
@@ -20,6 +21,19 @@ namespace _7_Team_WebApi.Models.DTOs
         public string Description { get; set; }
         public StockDTO Stock { get; set; }
         public bool Enable { get; set; }
+    }
+
+    public class ProductUploadDTO
+    {
+        public int? Id { get; set; }
+        public int? CategoryId { get; set; }
+        public int? GenderId { get; set; }
+        public string Name { get; set; }
+        public int? Price { get; set; }
+        public HttpPostedFile Image { get; set; }
+        public string Description { get; set; }
+        public StockUploadDTO Stock { get; set; }
+        public int? Enable { get; set; }
     }
 
     public class ProductSearchDTO
@@ -77,30 +91,36 @@ namespace _7_Team_WebApi.Models.DTOs
             };
         }
 
-        public static ProductDTO ToDTO(this ProductCreateVM vm)
+        
+        public static ProductUploadDTO ToDTO(this NameValueCollection Form , HttpPostedFile Image)
         {
-            return new ProductDTO
+            return new ProductUploadDTO
             {
-                Id = vm.Id,
-                Category = new CategoryDTO { Id = vm.CategoryId },
-                Gender = new GenderCategoryDTO { Id = vm.GenderId },
-                Name = vm.Name,
-                Price = vm.Price,
-                Image = vm.Image,
-                Description = vm.Description,
-                Stock = new StockDTO
-                {
-                    S = vm.S,
-                    M = vm.M,
-                    L = vm.L,
-                    XL = vm.XL
-                },
-                Enable = vm.Enable
 
+                Id = Form["Id"].IntHasValue(),
+
+                CategoryId = Form["CategoryId"].IntHasValue(),
+                GenderId = Form["GenderId"].IntHasValue(),
+                Name = Form["Name"],
+                Price = Form["Price"].IntHasValue(),
+                Description = Form["Description"],
+                Enable = Form["Enable"].IntHasValue(),
+                Image = Image,
+                Stock = new StockUploadDTO
+                {
+                    Id = Form["Id"].IntHasValue(),
+                    S = Form["S"].IntHasValue(),
+                    M = Form["M"].IntHasValue(),
+                    L = Form["L"].IntHasValue(),
+                    XL = Form["XL"].IntHasValue()
+
+                }
 
             };
         }
 
+
+        
     }
 
 }

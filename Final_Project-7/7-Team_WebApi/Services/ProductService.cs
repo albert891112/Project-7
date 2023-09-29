@@ -3,8 +3,11 @@ using _7_Team_WebApi.Models.Entities;
 using _7_Team_WebApi.Repositories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
+using Albert.Lib;
 
 namespace _7_Team_WebApi.Services
 {
@@ -39,37 +42,95 @@ namespace _7_Team_WebApi.Services
             return dtos;
         }
 
-        /// <summary>
-        /// Create new Product
-        /// </summary>
-        /// <param name="dto"></param>
-        public void Create(ProductDTO dto)
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="dto"></param>
+        public void Create(ProductUploadDTO dto)
         {
-            ProductEntity product = dto.ToEntity();
+            HttpPostedFile Image = dto.Image;
 
-            this.repo.Create(product);
-        }
+            string fileName = String.Empty;
+            string path = HttpContext.Current.Server.MapPath("~/File/");
+            string destRelativePath = @"..\..\..\Final_Project-7_Client\Team-7_WebApi-Client\Files";
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dto"></param>
-        public void Update(ProductDTO dto)
-        {
-            ProductEntity product = dto.ToEntity();
+            IFileValidator[] validator = new IFileValidator[]
+            {
+                //檔案是必須的
+                new FileRequired(),
+                //照片必須是圖片
+                new ImageValidator(),
+            };
 
-            this.repo.Update(product);
-        }
+            try
+            {
+
+                fileName = UploadFileHelper.Save(Image, path, validator);
+
+                UploadFileHelper.Copy(path, destRelativePath, fileName);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+
+            ProductUploadEntity entity = dto.ToEntity(fileName);
+
+            this.repo.Create(entity);
+        }   
 
         /// <summary>
         /// Update Stock
         /// </summary>
         /// <param name="stock"></param>
-        public void UpdateStock(StockEntity stock)
+        public void UpdateStock(StockUploadEntity stock)
         {
             StockRepository stockRepository = new StockRepository();
 
             stockRepository.Update(stock);
         }
+    
+    
+        /// <summary>
+        /// Update Product
+        /// </summary>
+        /// <param name="dto"></param>
+        public void Update(ProductUploadDTO dto)
+        {
+            HttpPostedFile Image = dto.Image;
+
+            string fileName = String.Empty;
+            string path = HttpContext.Current.Server.MapPath("~/File/");
+            string destRelativePath = @"..\..\..\Final_Project-7_Client\Team-7_WebApi-Client\Files";
+
+            IFileValidator[] validator = new IFileValidator[]
+            {
+                //照片必須是圖片
+                new ImageValidator(),
+            };
+            
+            try
+            {
+                fileName = UploadFileHelper.Save(Image, path, validator);
+
+                UploadFileHelper.Copy(path, destRelativePath, fileName);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ProductUploadEntity entity = dto.ToEntity(fileName);
+
+            this.repo.Update(entity);
+
+        }
+    
+    
     }
 }

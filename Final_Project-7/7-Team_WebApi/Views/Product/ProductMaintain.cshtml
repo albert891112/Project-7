@@ -1,0 +1,47 @@
+﻿
+    <input type="file" name="file" id="uploadfile" />
+    <br />
+    <input type="text" name="fullname" id="name" value="" />
+    <br />
+    <input type="text" name="fullname" id="price" value="" />
+    <br />
+    <input type="button" name="btn" id="summit" value="Save" />
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var file = document.getElementById("uploadfile");
+        var name = document.getElementById("name");
+        var price = document.getElementById("price");
+
+        var data = new FormData();
+
+        
+       
+
+        $("#summit").click(function () {
+            data.append("file", file.files[0]);
+            data.append("name", name.value);
+            data.append("price", price.value);
+            summit(data);
+        });
+
+    })
+
+    var summit = function (data) {
+
+        let url = "/api/ProductApi/Create"
+
+        fetch(url, {
+            method: "POST",
+            body: data
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+            });
+    }
+</script>

@@ -54,7 +54,7 @@ namespace _7_Team_WebApi.Controllers.PermissionControll
         {
           
        
-            if (!this.serv.IsValid(formData.Account, formData.Password))
+            if (!this.serv.IsValid(formData.Account.Trim(), formData.Password.Trim()))
             {
       
                 ModelState.AddModelError(string.Empty, "帳號或密碼錯誤");
@@ -84,13 +84,6 @@ namespace _7_Team_WebApi.Controllers.PermissionControll
             return RedirectToAction("Login");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Unauthorized()
-        {
-            return View();
-        }
+        
     }
 }

@@ -135,7 +135,7 @@ namespace _7_Team_WebApi.Services
         public string ProcessLogin(string account, bool rememberMe, out HttpCookie cookie)
         {
 
-            UserPermissionDTO dto = this.repo.GetByAccount(account).ToDTO();
+            UserPermissionDTO dto = this.repo.GetByAccount(account.Trim()).ToDTO();
 
             string functions = dto.Permissions;
 

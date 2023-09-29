@@ -17,7 +17,7 @@ namespace _7_Team_WebApi.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public int Create(StockEntity entity)
+        public int Create(StockUploadEntity entity)
         {
             string sql = "INSERT INTO Stocks (S , M , L  , XL) VALUES (@S , @M , @L  , @XL); SELECT CAST(SCOPE_IDENTITY() as int)";
 
@@ -40,7 +40,7 @@ namespace _7_Team_WebApi.Repositories
         /// Update stock data
         /// </summary>
         /// <param name="entity"></param>
-        public void Update(StockEntity entity)
+        public void Update(StockUploadEntity entity)
         {
             string sql = @"UPDATE Stocks SET 
                         S = CASE WHEN @S IS NULL THEN S ELSE @S END , 
