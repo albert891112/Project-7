@@ -104,7 +104,11 @@ ORDER BY O.ID DESC";
 
 			string sql = @"INSERT INTO Orders(MemberId,PhoneNumber,Address,ShippingId,CouponId,PaymentId,Total,StatusId,OrderTime)
 VALUES(@MemberId,@PhoneNumber,@Address,@ShippingId,@CouponId,@PaymentId,@Total,@StatusId,@OrderTime)
-SELECT * FROM Orders WHERE Id = SCOPE_IDENTITY()";
+WHERE Id = SCOPE_IDENTITY()";
+
+			string sql2 = @"INSERT INTO OrderItems(OrderId,ProductId,ProductName,Price,Size,Qty,Subtotal)
+VALUES(@OrderId,@ProductId,@ProductName,@Price,@Size,@Qty,@Subtotal)
+WHERE Id = SCOPE_IDENTITY()";
 
 			object obj = new
 			{
@@ -131,7 +135,7 @@ SELECT * FROM Orders WHERE Id = SCOPE_IDENTITY()";
 					Subtotal = item.Product.Price * item.Qty,
 					
 				};
-				this.connection.CreateAndGetId(sql, "default", orderItem);
+				this.connection.CreateAndGetId(sql2, "default", orderItem);
 			}
 
 			 this.connection.CreateAndGetId(sql, "default", obj);

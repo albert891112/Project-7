@@ -6,8 +6,7 @@
 
     paymentMethod();
 
-    //計算總金額     
-    
+    //計算總金額        
     var shippingcostLabel = $(".shippingcost");
     var couponcostLabel = $(".couponcost");
     var totalAmountLabel = $(".totalAmount");    
@@ -18,9 +17,9 @@
 
         
         // 獲取所選選項的值
-        var productTotalValue = $(".productTotalPrice").attr("value");
-        var shippingMethodValue = $("#shippingMethodSelect").val();
-        var couponValue = $("#coupon").val();
+        var productTotalValue = $(".cart_total").attr("value");
+        var shippingMethodValue = $(".shippingMethodSelect").val();
+        var couponValue = $(".couponMethodSelect").val();
         var totalAmountValue = $(".totalAmount").attr("value");       
       
         $(".shippingcost").attr("value", shippingMethodValue);        
@@ -46,11 +45,11 @@
         }
         
         // 進行相應的加法操作
-        var productTotalPriceValue = parseFloat(productTotalValue);
+        var cart_totalValue = parseFloat(productTotalValue);
         var shippingcostValue = parseFloat(shippingMethodValue);
         var couponcostValue = parseFloat(couponValue);        
 
-        totalAmountValue = productTotalPriceValue + shippingcostValue - couponcostValue;
+        totalAmountValue = cart_totalValue + shippingcostValue - couponcostValue;
        
 
         //如果totalAmount為小於0，則設為0
@@ -61,7 +60,9 @@
       
         // 更新標籤的文本        
         shippingcostLabel.text(shippingcostValue);
+        shippingcostLabel.attr("value", shippingcostValue);
         couponcostLabel.text(couponcostValue);        
+        couponcostLabel.attr("value", couponcostValue);
         totalAmountLabel.text(totalAmountValue);
         $(".totalAmount").attr("value", totalAmountValue);
 
@@ -76,9 +77,7 @@
     
         var shippingMethodSelectresultLabel = $(".shippingMethodValue");
 
-        shippingMethodSelectresultLabel.text(shippingMethodselectedOption);
-
-       
+        shippingMethodSelectresultLabel.text(shippingMethodselectedOption);      
 
     });
 
@@ -91,37 +90,36 @@
 
     
     //付款方式顯示注意事項
-    paymentMethodSelect.addEventListener("change", function () {
-        if (paymentMethodSelect.value == "信用卡") {
+    $(document).on("change", ".paymentMethodSelect", function () {
+        if ($(".paymentMethodSelect").val() == "金融卡") {
             document.getElementById("carddesc").style.display = "block";
         } else {
             document.getElementById("carddesc").style.display = "none";
         }
     });
+   
 
     //運送方式顯示注意事項
-    $("#shippingMethodSelect").change(function () {               
-        
+    $(document).on("change", ".shippingMethodSelect", function () {
 
-        if (shippingMethodSelect.value == "運送到府") {
+        if (shippingMethodSelect.value == "130") {
 
             document.getElementById("shippinghomedesc").style.display = "block";
-            document.getElementById("pillAddressTable").style.display = "block";
+            document.getElementById("inputAddress").style.display = "block";
             document.getElementById("shippingsuperstoredesc").style.display = "none";
 
-        } else if (shippingMethodSelect.value == "超商取貨") {
+        } else if (shippingMethodSelect.value == "70") {
             document.getElementById("shippingsuperstoredesc").style.display = "block";
             document.getElementById("shippinghomedesc").style.display = "none";
 
         } else {
             document.getElementById("shippingsuperstoredesc").style.display = "none";
             document.getElementById("shippinghomedesc").style.display = "none";
-            document.getElementById("pillAddressTable").style.display = "none";
-
+            document.getElementById("inputAddress").style.display = "none";
         }
-
-
     });
+
+
 
 
 
@@ -131,17 +129,11 @@
         var paymentMethodselectedOption = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].value;
         var paymentMethodSelectresultLabel = document.getElementById("paymentMethodValue");
 
-        paymentMethodSelectresultLabel.textContent = paymentMethodselectedOption;
-
-        //將運送方式選擇的值存入label
-        //var shippingMethodselectedOption = shippingMethodSelect.options[shippingMethodSelect.selectedIndex].value;
-        //var shippingMethodSelectresultLabel = document.getElementById("shippingMethodValue");
-
-        //shippingMethodSelectresultLabel.textContent = shippingMethodselectedOption;
+        paymentMethodSelectresultLabel.textContent = paymentMethodselectedOption;     
 
 
-        //如選選擇信用卡 顯示填寫信用卡資料
-        if (paymentMethodSelect.value == "信用卡") {
+        //如選選擇金融卡 顯示填寫金融卡資料
+        if (paymentMethodSelect.value == "金融卡") {
             document.getElementById("creditCardFieldsPill").style.display = "block";
             document.getElementById("cvvFieldPill").style.display = "block";
         } else {
@@ -183,14 +175,22 @@
         var paymentMethodSelectresultLabel = document.getElementById("paymentMethodValue1");
 
         paymentMethodSelectresultLabel.textContent = paymentMethodselectedOption;
-        //如選選擇信用卡 顯示填寫信用卡資料
-        if (paymentMethodSelect.value == "信用卡") {
+        //如選選擇金融卡 顯示填寫金融卡資料
+        if (paymentMethodSelect.value == "金融卡") {
             document.getElementById("creditCardFields").style.display = "block";
             document.getElementById("cvvField").style.display = "block";
         } else {
             document.getElementById("creditCardFields").style.display = "none";
             document.getElementById("cvvField").style.display = "none";
         }
+
+        var inputexpiryDate = document.getElementById("expiryDate").value;
+        var myselfLabelexpiryDateValue = document.getElementById("myselfLabelexpiryDateValue");
+        myselfLabelexpiryDateValue.textContent = inputexpiryDate;
+
+        var inputcvv = document.getElementById("cvv").value;
+        var myselfLabelcvvValue = document.getElementById("myselfLabelcvvValue");
+        myselfLabelcvvValue.textContent = inputcvv;
 
         //將姓名input的值存入label
         var inputName = document.getElementById("inputName").value; 
@@ -226,9 +226,9 @@
         var month = parseInt(parts[0], 10);
 
 
-        if (expiryDate.value === "" && paymentMethodSelect.value === "信用卡") {
+        if (expiryDate.value === "" && paymentMethodSelect.value === "金融卡") {
 
-            //如果信用卡日期為空值,顯示錯誤訊息
+            //如果金融卡日期為空值,顯示錯誤訊息
 
             showExpiryDateError();
 
@@ -236,22 +236,22 @@
 
             return;
         }
-        //如果信用卡日期不是MM/YY格式,顯示錯誤訊息
-        else if (!/^\d{2}\/\d{2}$/.test(expiryDate.value) && paymentMethodSelect.value === "信用卡") {
+        //如果金融卡日期不是MM/YY格式,顯示錯誤訊息
+        else if (!/^\d{2}\/\d{2}$/.test(expiryDate.value) && paymentMethodSelect.value === "金融卡") {
 
             showExpiryDateError();
 
             expiryDateError.textContent = "請輸入格式為MM/YY";
             return;
 
-        } else if (month < 1 || month > 12 && paymentMethodSelect.value === "信用卡") {
-            //如果信用卡日期不是1~12月,顯示錯誤訊息
+        } else if (month < 1 || month > 12 && paymentMethodSelect.value === "金融卡") {
+            //如果金融卡日期不是1~12月,顯示錯誤訊息
 
             showExpiryDateError();
 
             expiryDateError.textContent = "月份必須在1到12之間";
             return;
-        } else if (cvv.value === "" && paymentMethodSelect.value === "信用卡") {
+        } else if (cvv.value === "" && paymentMethodSelect.value === "金融卡") {
             //如果安全碼為空值,顯示錯誤訊息
 
             showCvvError();
@@ -259,7 +259,7 @@
             cvvError.textContent = "請輸入安全碼";
             return;
         }
-        else if (cvv.value.length !== 3 && paymentMethodSelect.value === "信用卡") {
+        else if (cvv.value.length !== 3 && paymentMethodSelect.value === "金融卡") {
             //如果安全碼不是3碼,顯示錯誤訊息
 
             showCvvError();
@@ -324,7 +324,7 @@
         showPay();
 
     });
-
+   
 
 
     //orderData  end======================================================
@@ -336,63 +336,7 @@
 
         postOrderData();
 
-        OrderFinish();
-
-
-
-
-        var postOrderData = function () {
-            
-            var MemberId                
-            var PhoneNumber = find(".inputPhone").attr("value");
-            var Adderss = find(".inputAddress").attr("value");
-            var ShippingId = find(".shippingMethodSelect").attr("value");
-            var Name = find(".inputName").attr("value");
-            var Qty = find(".cart_qty").attr("value");
-            var Size = find(".cart_size").attr("size");
-            var Id = find(".cart_size").attr("product");
-
-            // 建立商品數據，包括商品ID、購物車數量和尺寸
-            var data = {
-                "ProductId": Id,
-                "Qty": Qty,
-                "Size": Size
-            }
-
-            let url = '/api/OrderApi/CreateOrder';
-
-            fetch(url, {
-                method: 'Post',
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            }).then(function (response) {
-                return response.json();
-            }).then(function (result) {
-                setPostOrderData(result);
-            }).catch(function (err) {
-                console.log(err);
-            });
-
-        }
-
-        var setPostOrderData = function (data) {
-
-            var orderDataTemplate = getOrderDataTemplate("orderData_list");
-
-            $.each(data, function (index, ele) {
-
-                var orderData = orderDataTemplate.clone();
-                orderData.find(".inputName").text(ele.Name);
-                orderData.find(".inputEmail").text(ele.Email);
-                orderData.find(".inputAddress").text(ele.Address);
-                orderData.find(".inputPhone").text(ele.Phone);
-                //    orderData.find(".expiryDate").text(ele.Size);
-                //     orderData.find(".cvv").text(ele.UnitPrice);
-
-                // $("#orderDataTable").append(orderData);
-            });
-        }
+        //OrderFinish();      
 
     });
 
@@ -413,6 +357,83 @@
 });
 
 //設定函數庫=============================================================================================
+//設定送出訂單
+var postOrderData = function () {
+    
+    //ORDERS
+    var MemberId = $(".head_productName").attr("memberId")
+    var PhoneNumber = $(".inputPhone").attr("value");
+    var Adderss = $(".inputAddress").attr("value");
+    var ShippingId = $(".shippingMethodSelect").attr("data_id");
+    var PaymentId = $(".paymentMethodSelect").attr("data_id");   
+    var Total = $(".totalAmount").attr("value");
+    var StatusId = 2;
+    var OderTime = Date.now();
+
+    //ORDERITEMS
+    var ProductId = $("cart_productName").attr("data_id");
+    var ProductName = $(".inputName").attr("value");
+    var Price = $(".cart_unitPrice").attr("value");
+    var Size = $(".cart_size").attr("value");
+    var Qty = $(".cart_qty").attr("value");
+    var SubTotal = $(".cart_subtotal").attr("value");   
+     
+   
+
+    // 建立商品數據，包括商品ID、購物車數量和尺寸
+    var data = {
+        "MemberId": MemberId,
+        "PhoneNumber": PhoneNumber,
+        "Adderss": Adderss,
+        "ShippingId": ShippingId,
+        "PaymentId": PaymentId,
+        "Total": Total,
+        "StatusId": StatusId,
+        "OderTime": OderTime,        
+        "ProductId": ProductId,
+        "ProductName": ProductName,
+        "Price": Price,
+        "Size": Size,
+        "Qty": Qty,
+        "SubTotal": SubTotal
+    }
+
+    let url = '/api/OrderApi/CreateOrder';
+
+    fetch(url, {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(data)
+    }).then(function (response) {       
+           
+       
+    })
+
+}
+
+//var setPostOrderData = function (data) {
+
+//    var orderDataTemplate = getOrderDataTemplate("orderData_list");
+
+//    $.each(data, function (index, ele) {
+
+//        var orderData = orderDataTemplate.clone();
+//        orderData.find(".inputName").text(ele.Name);
+//        orderData.find(".inputEmail").text(ele.Email);
+//        orderData.find(".inputAddress").text(ele.Address);
+//        orderData.find(".inputPhone").text(ele.Phone);
+//         //  orderData.find(".expiryDate").text(ele.Size);
+//         //  orderData.find(".cvv").text(ele.UnitPrice);
+
+//       //  $("#orderDataTable").append(orderData);
+//    });
+//}
+
+
+
+
 //設定取用paymentMethodSelect Start=============================================================================================
 var setPayment = function (data) {
     var paymentSelect = $('.paymentMethodSelect');
@@ -428,6 +449,8 @@ var setPayment = function (data) {
             var option = document.createElement('option');
             $(option).attr('data-id', ele.Id);               
             option.innerText = ele.PaymentMethod;
+           
+
             paymentSelect.append(option);
         });
    
@@ -531,52 +554,39 @@ var cartItems = function (data) {
 
     $(".cartItemData").empty();
 
+   
+    $(".head_productName").attr("memberId", data.MemberId);
+    
     $.each(data.CartItems, function (index, ele) {
 
-        var cartItems = cartTemplate.clone();
 
+        var cartItems = cartTemplate.clone();
+        
+        $(".head_productName").attr("cartId", ele.CartId);
         cartItems.find(".cart_img").attr("src", "../../Files/" + ele.Product.Image);
+        cartItems.find(".cart_productName").attr("data_id", ele.ProductId)
         cartItems.find(".cart_productName").text(ele.Product.Name);
         cartItems.find(".cart_size").text(ele.Size);
         cartItems.find(".cart_size").attr("size", ele.Size);
         cartItems.find(".cart_size").attr("product", ele.Product.Id);
         cartItems.find(".cart_unitPrice").text("$" + ele.Product.Price);
+        cartItems.find(".cart_unitPrice").attr("value", ele.Product.Price);
         cartItems.find(".cart_qty").text(ele.Qty);
-        cartItems.find(".cart_subtotal").text("$" + ele.SubTotal);
-        
-        $(".cartTable").append(cartItems);
+        cartItems.find(".cart_qty").attr("value",ele.Qty);
+        cartItems.find(".cart_subtotal").text("$" + ele.SubTotal); 
+        cartItems.find(".cart_subtotal").attr("value", ele.SubTotal);
 
-        total += ele.SubTotal;      
-        
-    });
-
-    $(".cart_total").text(" 商品總額 : " + total);
-    $(".cart_total").attr("value" , total);
-    $(".productTotalPrice").text(total);  
-    $(".productTotalPrice").attr("value", total);
-    
-};
-
-
-
-
-var selects = function (data) {
-    var orderTemplate = getTemplate("selects_list");
-    
-    console.log(data);     
-
-    $.each(data.Orders, function (index, ele) {
-
-        var orders = orderTemplate.clone();
-
-        orders.find(".cart_img").attr("");
-        orders.find(".cart_productName").text(ele.Product.Name);
+      
        
-
+        
         $(".cartTable").append(cartItems);
 
-     
+        total += ele.SubTotal;             
     });
+    $(".cartPriceTotal").attr("value", total);
+    $(".cartPriceTotal").text("商品總額 : "+ total);
+    $(".cart_total").attr("value", total);
+    $(".cart_total").text(total);
 };
 
 //設定getToCartItem
@@ -667,7 +677,7 @@ var initErrortext = function () {
     document.getElementById("phoneError").style.display = "none";
 }
 
-//設定信用卡日期顯示錯誤訊息
+//設定金融卡日期顯示錯誤訊息
 var showExpiryDateError = function () {
 
     document.getElementById("expiryDateError").style.display = "block";
@@ -679,7 +689,7 @@ var showExpiryDateError = function () {
 
 }
 
-//設定信用卡安全碼顯示錯誤訊息
+//設定金融卡安全碼顯示錯誤訊息
 var showCvvError = function () {
 
     document.getElementById("expiryDateError").style.display = "none";

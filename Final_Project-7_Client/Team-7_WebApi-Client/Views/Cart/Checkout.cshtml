@@ -124,7 +124,7 @@
                             <thead class="table-light fw-bolder">
                                 <tr>
                                     <td>照片</td>
-                                    <td>品名</td>
+                                    <td  class="head_productName">品名</td>
                                     <td>尺寸</td>
                                     <td class="text-end ps-4 pe-4">單價</td>
                                     <td class="text-end ps-4 pe-4">數量</td>
@@ -149,7 +149,7 @@
                             <!-- 購物車清單Template End ==============================================-->
                             <tfoot>
                                 <tr>
-                                    <td colspan="6" class="text-end ps-4 pe-4 cart_total" id="totalAmount">總金額：</td>
+                                    <td colspan="6" class="text-end ps-4 pe-4 cartPriceTotal" >商品總額：</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -210,7 +210,7 @@
                             <div class="row">
                                 <div class="col-2 ">
                                     <div class="amount-wrapper">
-                                        <label for="subtotal" value="" class="productTotalPrice ">0</label>
+                                        <label for="subtotal" value="" class="cart_total ">0</label>
                                     </div>
                                 </div>
                                 <div class="col-1 ">
@@ -339,7 +339,7 @@
 
                 <tfoot>
                     <tr>
-                        <td colspan="6" class="text-end ps-4 pe-4 cart_total" id="totalAmount">總金額：</td>
+                        <td colspan="6" class="text-end ps-4 pe-4 cart_total" >商品總額：</td>
                     </tr>
                 </tfoot>
             </table>
@@ -537,11 +537,11 @@
                                 </div>
                                 <div class="form-group mt-3" id="creditCardFields">
                                     <label for="expiryDate">信用卡到期日 (MM/YY)</label>
-                                    <label for="expiryDateValue">信用卡到期日 (MM/YY)</label>
+                                    <label for="expiryDateValue" id="myselfLabelexpiryDateValue">信用卡到期日 (MM/YY)</label>
                                 </div>
                                 <div class="form-group mt-3" id="cvvField">
                                     <label for="cvv">CVV:</label>
-                                    <label for="cvvValue">CVV</label>
+                                    <label for="cvvValue" id="myselfLabelcvvValue">CVV</label>
                                 </div>
                                 <div class=" form-group mt-3">
                                     <label for="shipping">運送方式:</label>
@@ -574,7 +574,7 @@
         <div class="row">
             <div class="col-12 text-center mt-5">
                 <input type="button" class="btn btn-secondary" value="上一步" id="btnLastOrderData" style="margin-right: 50px;">
-                <input type="button" class="btn btn-primary" value="完成" id="btnNextOrderFinish" style="margin-left: 50px;">
+                <input type="button" class="btn btn-primary" value="送出訂單" id="btnNextOrderFinish" style="margin-left: 50px;">
             </div>
         </div>
 
