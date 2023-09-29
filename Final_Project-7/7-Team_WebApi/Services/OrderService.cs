@@ -49,5 +49,11 @@ namespace _7_Team_WebApi.Services
             return entities;
         }
 
+        public List<OrderStatusEntity> GetStatus()
+        {
+            List<OrderStatusEntity> entities=this.repo.GetOrderStatus();
+            return entities;
+        }
+
     }
 }

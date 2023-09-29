@@ -8,11 +8,16 @@ using System.Web;
 using Team_7_WebApi_Client.Models.EFModels;
 using Dapper;
 using Team_7_WebApi_Client.Models.Entities;
+using Team_7_WebApi_Client.Models.Views;
 
 namespace Team_7_WebApi_Client.Repositories
 {
 	public class OrderRepository
 	{
+
+		SqlDb connection = new SqlDb();
+
+		AppDbContext db = new AppDbContext();
 		public List<OrderEntity> GetOrdersbyMember(int memberId)
 		{
 			SqlDb connection = new SqlDb();
@@ -94,7 +99,45 @@ ORDER BY O.ID DESC";
 		}
 
 
+		public  void CreateOrder( OrderEntity order,CartEntity cart)
+		{			
 
+			string sql = @"INSERT INTO Orders(MemberId,PhoneNumber,Address,ShippingId,CouponId,PaymentId,Total,StatusId,OrderTime)
+VALUES(@MemberId,@PhoneNumber,@Address,@ShippingId,@CouponId,@PaymentId,@Total,@StatusId,@OrderTime)
+SELECT * FROM Orders WHERE Id = SCOPE_IDENTITY()";
+
+			object obj = new
+			{
+				MemberId = order.Member.Id,
+				PhoneNumber = order.PhoneNumber,
+				Address = order.Address,
+				ShippingId = order.Shipping.Id,
+				CouponId = order.Coupon.Id,
+				PaymentId = order.Payment.Id,
+				Total = order.Total,
+				StatusId = 1,
+				OrderTime = DateTime.Now
+			};
+
+			foreach (var item in cart.CartItems)
+			{
+				var orderItem = new OrderItemEntity
+				{				
+					ProductId = item.Product.Id,
+					ProductName = item.Product.Name,
+					Price = item.Product.Price,
+					Size = item.Size,
+					Qty = item.Qty,
+					Subtotal = item.Product.Price * item.Qty,
+					
+				};
+				this.connection.CreateAndGetId(sql, "default", orderItem);
+			}
+
+			 this.connection.CreateAndGetId(sql, "default", obj);
+			
+
+		}
 	}
 }
 

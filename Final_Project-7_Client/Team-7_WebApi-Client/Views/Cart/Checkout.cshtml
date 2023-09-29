@@ -135,8 +135,8 @@
                             <tbody class="cartItemData">
                                 <template class="cartItem_list">
                                     <tr>
-                                        <td class="col-md-3 cart_img ">
-                                            <img src="" alt="" style="width:200px">
+                                        <td class="col-md-3  ">
+                                            <img src="" alt="" style="width:200px" class="cart_img">
                                         </td>
                                         <td class="productName col-md-3 cart_productName"></td>
                                         <td class="text-end ps-4 pe-4 col-md-1 cart_size"></td>
@@ -179,24 +179,16 @@
                                 <div class="row ">
                                     <div class="col-3 col-md-3 mt-3 ">
                                         <!-- paymentMethodSelect START ==============================================-->
-                                        @*<template class="paymentMethodSelect_list">*@
-                                            <select name="paymentMethodSelect" id="paymentMethodSelect" class="form-select c paymentMethodSelect">
-                                                @*<option value="請選擇" class="noSelect">請選擇</option>
-                                                <option value="現金付款">現金付款</option>
-                                                <option value="信用卡">信用卡</option>*@
-                                            </select>
-                                        @*</template>*@
+                                     
+                                            <select name="paymentMethodSelect" id="paymentMethodSelect" class="form-select c paymentMethodSelect"></select>
+                                  
                                            <!-- paymentMethodSelect END ==============================================-->
                                     </div>
                                     <div class="col-3 col-md-3 mt-3">
                                         <!-- shippingMethodSelect START ==============================================-->
-                                        @*<template class="shippingMethodSelect_list">*@
-                                            <select name="shippingMethodSelect" id="shippingMethodSelect" class="form-select c shippingMethodSelect">
-                                                @*<option value="請選擇" class="noSelect">請選擇</option>
-                                                <option value="送到府" class="shippingHome"></option>
-                                                <option value="超商取貨" class="shippingstore"></option>*@
-                                            </select>
-                                            @*</template>*@
+                                      
+                                            <select name="shippingMethodSelect" id="shippingMethodSelect" class="form-select c shippingMethodSelect"></select>
+                                          
                                             <!-- shippingMethodSelect END ==============================================-->
                                     </div>
 
@@ -390,7 +382,7 @@
                                 </div>
                                 <div>
                                     <label for="shipping">運送方式:</label>
-                                    <label for="shippingValue" id="shippingMethodValue">運送方式</label>
+                                    <label for="shippingValue" id="" class="shippingMethodValue">運送方式</label>
                                 </div>
                                 <div>
                                     <label for="totalPrice">應付金額:</label>
@@ -446,7 +438,7 @@
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="phone">手機號碼</label>
-                                    <input type="phone" class="form-control inputPhone" id="inputPhone" placeholder="請輸入手機號碼">
+                                    <input  class="form-control inputPhone" id="inputPhone" placeholder="請輸入手機號碼">
                                     <label id="phoneError" class="error" style="display: none;"></label>
                                 </div>
                                 <!-- </template> -->
@@ -553,7 +545,7 @@
                                 </div>
                                 <div class=" form-group mt-3">
                                     <label for="shipping">運送方式:</label>
-                                    <label for="shippingValue" id="shippingMethodValue1">運送方式</label>
+                                    <label for="shippingValue" id="" class="shippingMethodValue">運送方式</label>
                                 </div>
                                 <div class=" form-group mt-3">
                                     <label for="shipping">運送金額:</label>
@@ -561,7 +553,7 @@
                                 </div>
                                 <div class=" form-group mt-3">
                                     <label for="couponName">優惠券名稱:</label>
-                                    <label for="couponNameValue" id="couponNameValue" >優惠券名稱</label>
+                                    <label for="couponNameValue" id="couponNameValue" >優惠券1</label>
                                 </div>
                                 <div class=" form-group mt-3">
                                     <label for="couponDiscount">優惠券金額:</label>

@@ -11,6 +11,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 	{
 		public int Id { get; set; }
 		public OrderDTO Order { get; set; }
+		public int ProductId { get; set; }
 		public ProductDTO Product { get; set; }
 		public string ProductName { get; set; }
 		public string Size { get; set; }
@@ -26,6 +27,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 			return new OrderItemDTO
 			{
 				Id = entity.Id,
+				ProductId = entity.ProductId,
 				Order = entity.Order.ToDTO(),
 				Product = entity.Product.ToDTO(),
 				ProductName = entity.Product.Name,
@@ -41,6 +43,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 			return new OrderItemDTO
 			{
 				Id = vm.Id,
+				ProductId = vm.ProductId,
 				Order = vm.Order.ToDTO(),
 				Product = vm.Product.ToDTO(),
 				ProductName = vm.Product.Name,

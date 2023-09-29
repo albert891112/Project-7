@@ -11,7 +11,7 @@ namespace Team_7_WebApi_Client.Models.Views
 {
 	public class OrderVM
 	{
-		public int Id { get; set; }
+		public int Id { get; set; }		
     	public MemberVM Member { get; set; }
 		public OrderStatusVM OrderStatus { get; set; }
 		public string PhoneNumber { get; set; }
@@ -29,7 +29,7 @@ namespace Team_7_WebApi_Client.Models.Views
 		{
 			return new OrderVM
 			{
-				Id = dto.Id,
+				Id = dto.Id,				
 				OrderStatus = dto.OrderStatus.ToVM(),
 				PhoneNumber = dto.PhoneNumber,
 				Address = dto.Address,
