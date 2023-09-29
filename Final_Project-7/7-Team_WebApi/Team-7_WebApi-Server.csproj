@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Albert.Lib">
-      <HintPath>..\..\..\..\Albert.Lib.Solution\Albert.Lib\bin\Debug\Albert.Lib.dll</HintPath>
+      <HintPath>..\..\..\..\Albert.Lib.Solution\Albert.Lib\obj\Debug\Albert.Lib.dll</HintPath>
     </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.151\lib\net461\Dapper.dll</HintPath>
@@ -207,6 +207,7 @@
     <Compile Include="Controllers\PermissionControll\RoleApiController.cs" />
     <Compile Include="Controllers\Products\ProductApiController.cs" />
     <Compile Include="Controllers\PermissionControll\UserApiController.cs" />
+    <Compile Include="Controllers\Products\ProductController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -498,6 +499,7 @@
     <Content Include="Views\PermissionControll\Login.cshtml" />
     <Content Include="Views\PermissionControll\InsufficientPermissions.cshtml" />
     <Content Include="Views\Category\CategoryMaintain.cshtml" />
+    <Content Include="Views\Product\ProductMaintain.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

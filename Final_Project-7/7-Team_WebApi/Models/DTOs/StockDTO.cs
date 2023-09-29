@@ -17,6 +17,16 @@ namespace _7_Team_WebApi.Models.DTOs
         public int XL { get; set; }
     }
 
+    public class StockUploadDTO
+    {
+        public int? Id { get; set; }
+        public int? ProductId { get; set; }
+        public int? S { get; set; }
+        public int? M { get; set; }
+        public int? L { get; set; }
+        public int? XL { get; set; }
+    }
+
     public static class StockDTOExtenssion
     {
         public static StockDTO ToDTO(this StockEntity entity)

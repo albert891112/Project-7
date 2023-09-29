@@ -19,6 +19,18 @@ namespace _7_Team_WebApi.Models.Entities
         public StockEntity Stock { get; set; }
         public bool Enable { get; set; }
     }
+    public class ProductUploadEntity
+    {
+        public int? Id { get; set; }
+        public int? CategoryId { get; set; }
+        public int? GenderId { get; set; }
+        public string Name { get; set; }
+        public int? Price { get; set; }
+        public string Image { get; set; }
+        public string Description { get; set; }
+        public StockUploadEntity Stock { get; set; }
+        public int? Enable { get; set; }
+    }
 
     public class ProductSearchEntity
     {
@@ -60,6 +72,25 @@ namespace _7_Team_WebApi.Models.Entities
                 LowPrice = dto.LowPrice,
                 Gender = dto.Gender
             };
+        }
+
+
+
+        public static ProductUploadEntity ToEntity(this ProductUploadDTO dto , string Image)
+        {
+            return new ProductUploadEntity
+            {
+                Id = dto.Id,
+                CategoryId = dto.CategoryId,
+                GenderId = dto.GenderId,
+                Name = dto.Name,
+                Price = dto.Price,
+                Image = Image,
+                Description = dto.Description,
+                Stock = dto.Stock.ToEntity(),
+                Enable = dto.Enable
+            };
+            
         }
     }
 

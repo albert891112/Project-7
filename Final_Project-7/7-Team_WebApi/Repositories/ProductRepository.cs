@@ -151,7 +151,7 @@ namespace _7_Team_WebApi.Repositories
         /// Create new product and get its id
         /// </summary>
         /// <param name="entity"></param>
-        public void Create(ProductEntity entity)
+        public void Create(ProductUploadEntity entity)
         {
             //Create new Stock and get its id
             StockRepository stockRepository = new StockRepository();
@@ -170,8 +170,8 @@ namespace _7_Team_WebApi.Repositories
                 Name = entity.Name,
                 Price = entity.Price,
                 Image = entity.Image,
-                CategoryId = entity.Category.Id,
-                GenderId = entity.Gender.Id, 
+                CategoryId = entity.CategoryId,
+                GenderId = entity.GenderId, 
                 Description = entity.Description,
                 StockId = stockId,
                 Enable = entity.Enable
@@ -197,7 +197,7 @@ namespace _7_Team_WebApi.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void Update(ProductEntity entity)
+        public void Update(ProductUploadEntity entity)
         {
 
             //Update Product data
@@ -206,7 +206,7 @@ namespace _7_Team_WebApi.Repositories
                 "Price = CASE WHEN @Price IS NULL THEN Price ELSE @Price END, " +
                 "Image = CASE WHEN @Image IS NULL THEN Image ELSE @Image END, " +
                 "Description = CASE WHEN @Description IS NULL THEN Description ELSE @Description END, " +
-                "Enable = CASE WHEN @Enable IS NULL THEN Enable ELSE @Enable END" +
+                "Enable = CASE WHEN @Enable IS NULL THEN Enable ELSE @Enable END " +
                 "WHERE Id = @Id";
 
             object obj = new

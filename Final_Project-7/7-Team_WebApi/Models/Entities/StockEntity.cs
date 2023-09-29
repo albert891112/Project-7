@@ -16,6 +16,18 @@ namespace _7_Team_WebApi.Models.Entities
         public int? XL { get; set; }
     }
 
+
+
+    public class StockUploadEntity
+    {
+        public int? Id { get; set; }
+        public int? ProductId { get; set; }
+        public int? S { get; set; }
+        public int? M { get; set; }
+        public int? L { get; set; }
+        public int? XL { get; set; }
+    }
+
     public static class StockEntityExtenssion
     {
         public static StockEntity ToEntity(this StockDTO dto)
@@ -30,5 +42,24 @@ namespace _7_Team_WebApi.Models.Entities
                 XL = dto.XL
             };
         }
+
+
+        public static StockUploadEntity ToEntity(this StockUploadDTO dto)
+        {
+            return new StockUploadEntity
+            {
+                Id = dto.Id,
+                ProductId = dto.ProductId,
+                S = dto.S,
+                M = dto.M,
+                L = dto.L,
+                XL = dto.XL
+            };
+        }
     }
+
+
+
+
+
  }
