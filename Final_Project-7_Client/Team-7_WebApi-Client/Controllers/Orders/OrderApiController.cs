@@ -16,13 +16,11 @@ namespace Team_7_WebApi_Client.Controllers.Orders
 		OrderService serv = new OrderService();
 
 		[HttpPost]
-		public IHttpActionResult CreateOrder(OrderVM order,CartVM cart)
+		public IHttpActionResult CreateOrder(OrderPostVM order)
 		{
-			OrderDTO orders = order.ToDTO();
+			OrderPostDTO orders = order.ToDTO();			
 
-			CartDTO carts = cart.ToDTO();
-
-			this.serv.Create(orders,carts);
+			this.serv.Create(orders);
 
 			return Ok();
 		}

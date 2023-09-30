@@ -13,7 +13,7 @@
    
 
     // 下拉列表的更改事件
-    $("#shippingMethodSelect, #coupon").change(function () {
+    $(".shippingMethodSelect, .couponMethodSelect").change(function () {
 
         
         // 獲取所選選項的值
@@ -77,7 +77,10 @@
     
         var shippingMethodSelectresultLabel = $(".shippingMethodValue");
 
-        shippingMethodSelectresultLabel.text(shippingMethodselectedOption);      
+        shippingMethodSelectresultLabel.text(shippingMethodselectedOption);  
+
+
+
 
     });
 
@@ -101,21 +104,22 @@
 
     //運送方式顯示注意事項
     $(document).on("change", ".shippingMethodSelect", function () {
-
-        if (shippingMethodSelect.value == "130") {
+      
+        if ($(".shippingMethodSelect").val() == "130") {
 
             document.getElementById("shippinghomedesc").style.display = "block";
-            document.getElementById("inputAddress").style.display = "block";
+            document.getElementById("pillAddressTable").style.display = "block";
             document.getElementById("shippingsuperstoredesc").style.display = "none";
 
-        } else if (shippingMethodSelect.value == "70") {
+        } else if ($(".shippingMethodSelect").val() == "70") {
             document.getElementById("shippingsuperstoredesc").style.display = "block";
             document.getElementById("shippinghomedesc").style.display = "none";
+            document.getElementById("pillAddressTable").style.display = "none";
 
         } else {
             document.getElementById("shippingsuperstoredesc").style.display = "none";
             document.getElementById("shippinghomedesc").style.display = "none";
-            document.getElementById("inputAddress").style.display = "none";
+            document.getElementById("pillAddressTable").style.display = "none";
         }
     });
 
@@ -350,8 +354,7 @@
     //coupon begin======================================================
 
     //coupon end======================================================   
-
-
+    
 
 
 });
@@ -362,21 +365,31 @@ var postOrderData = function () {
     
     //ORDERS
     var MemberId = $(".head_productName").attr("memberId")
+    console.log(MemberId);
     var PhoneNumber = $(".inputPhone").attr("value");
-    var Adderss = $(".inputAddress").attr("value");
-    var ShippingId = $(".shippingMethodSelect").attr("data_id");
-    var PaymentId = $(".paymentMethodSelect").attr("data_id");   
+    var Address = $(".inputAddress").attr("value");
+    console.log(Address);
+    var ShippingId = $(".shippingMethodSelect option:selected").data("id");
+    var PaymentId = $(".paymentMethodSelect option:selected").data("id");     
     var Total = $(".totalAmount").attr("value");
-    var StatusId = 2;
-    var OderTime = Date.now();
+    var OrderStatusId = "2";
+    var OrderTime = Date.now();
+    var CouponId = "2";
+
+    if (shippingMethodSelect.value == "70") {
+       
+        Address = "超商取貨";
+    }
+
+    
 
     //ORDERITEMS
-    var ProductId = $("cart_productName").attr("data_id");
-    var ProductName = $(".inputName").attr("value");
-    var Price = $(".cart_unitPrice").attr("value");
-    var Size = $(".cart_size").attr("value");
-    var Qty = $(".cart_qty").attr("value");
-    var SubTotal = $(".cart_subtotal").attr("value");   
+    //var ProductId = $("cart_productName").attr("data_id");
+    //var ProductName = $(".inputName").attr("value");
+    //var Price = $(".cart_unitPrice").attr("value");
+    //var Size = $(".cart_size").attr("value");
+    //var Qty = $(".cart_qty").attr("value");
+    //var SubTotal = $(".cart_subtotal").attr("value");   
      
    
 
@@ -384,19 +397,23 @@ var postOrderData = function () {
     var data = {
         "MemberId": MemberId,
         "PhoneNumber": PhoneNumber,
-        "Adderss": Adderss,
+        "Address": Address,
         "ShippingId": ShippingId,
         "PaymentId": PaymentId,
         "Total": Total,
-        "StatusId": StatusId,
-        "OderTime": OderTime,        
-        "ProductId": ProductId,
-        "ProductName": ProductName,
-        "Price": Price,
-        "Size": Size,
-        "Qty": Qty,
-        "SubTotal": SubTotal
+        "OrderStatusId": OrderStatusId,
+        "OrderTime": OrderTime,   
+        "CouponId": CouponId        
     }
+    console.log(data);
+
+    //"ProductId": ProductId,
+    //    "ProductName": ProductName,
+    //    "Price": Price,
+    //    "Size": Size,
+    //    "Qty": Qty,
+    //    "SubTotal": SubTotal
+    
 
     let url = '/api/OrderApi/CreateOrder';
 

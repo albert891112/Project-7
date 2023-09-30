@@ -23,13 +23,44 @@ namespace Team_7_WebApi_Client.Models.Views
 		public int Total { get; set; }
 	}	
 
+	public class OrderPostVM
+	{
+		public int Id { get; set; }
+		public string MemberId { get; set; }
+		public string OrderStatusId { get; set; }
+		public string PhoneNumber { get; set; }
+		public string Address { get; set; }
+		public string CouponId { get; set; }
+		public string ShippingId { get; set; }
+		public string PaymentId { get; set; }
+		public DateTime OrderTime = DateTime.Now;
+		public int Total { get; set; }
+	}
+
 	public static class OrderVMExtensions
 	{
+		public static OrderPostVM ToVM(this OrderPostDTO dto)
+		{
+			return new OrderPostVM
+			{
+				Id = dto.Id,	
+				MemberId = dto.MemberId,
+				OrderStatusId = dto.OrderStatusId,
+				PhoneNumber = dto.PhoneNumber,
+				Address = dto.Address,
+				CouponId = dto.CouponId,
+				ShippingId = dto.ShippingId,
+				PaymentId = dto.PaymentId,
+				OrderTime = dto.OrderTime,
+				Total = dto.Total,
+			};
+		}
+
 		public static OrderVM ToVM(this OrderDTO dto)
 		{
 			return new OrderVM
 			{
-				Id = dto.Id,				
+				Id = dto.Id,
 				OrderStatus = dto.OrderStatus.ToVM(),
 				PhoneNumber = dto.PhoneNumber,
 				Address = dto.Address,
@@ -39,6 +70,6 @@ namespace Team_7_WebApi_Client.Models.Views
 				OrderTime = dto.OrderTime,
 				Total = dto.Total,
 			};
-		}				
+		}
 	}
 }

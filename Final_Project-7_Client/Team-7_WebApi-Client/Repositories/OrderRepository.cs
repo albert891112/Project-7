@@ -99,48 +99,52 @@ ORDER BY O.ID DESC";
 		}
 
 
-		public  void CreateOrder( OrderEntity order,CartEntity cart)
-		{			
-
+		public  void CreateOrder( OrderPostEntity order)
+		{
 			string sql = @"INSERT INTO Orders(MemberId,PhoneNumber,Address,ShippingId,CouponId,PaymentId,Total,StatusId,OrderTime)
 VALUES(@MemberId,@PhoneNumber,@Address,@ShippingId,@CouponId,@PaymentId,@Total,@StatusId,@OrderTime)
-WHERE Id = SCOPE_IDENTITY()";
-
-			string sql2 = @"INSERT INTO OrderItems(OrderId,ProductId,ProductName,Price,Size,Qty,Subtotal)
-VALUES(@OrderId,@ProductId,@ProductName,@Price,@Size,@Qty,@Subtotal)
-WHERE Id = SCOPE_IDENTITY()";
+SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";		
 
 			object obj = new
 			{
-				MemberId = order.Member.Id,
+				MemberId = order.MemberId,
 				PhoneNumber = order.PhoneNumber,
 				Address = order.Address,
-				ShippingId = order.Shipping.Id,
-				CouponId = order.Coupon.Id,
-				PaymentId = order.Payment.Id,
+				ShippingId = order.ShippingId,
+				CouponId = order.CouponId,
+				PaymentId = order.PaymentId,
 				Total = order.Total,
-				StatusId = 1,
+				StatusId = order.OrderStatusId = "2",
 				OrderTime = DateTime.Now
-			};
+			};			
+
+			 this.connection.CreateAndGetId(sql, "default", obj);
+
+		}
+
+
+
+		public void CreateOrderItem(CartEntity cart)
+		{			
+
+			string sql = @"INSERT INTO OrderItems(OrderId,ProductId,ProductName,Price,Size,Qty,Subtotal)
+VALUES(@OrderId,@ProductId,@ProductName,@Price,@Size,@Qty,@Subtotal)";
+			//SELECT FROM * ORDERITEMS WHERE Id = SCOPE_IDENTITY()";
 
 			foreach (var item in cart.CartItems)
 			{
 				var orderItem = new OrderItemEntity
-				{				
+				{
 					ProductId = item.Product.Id,
 					ProductName = item.Product.Name,
 					Price = item.Product.Price,
 					Size = item.Size,
 					Qty = item.Qty,
 					Subtotal = item.Product.Price * item.Qty,
-					
+
 				};
-				this.connection.CreateAndGetId(sql2, "default", orderItem);
-			}
-
-			 this.connection.CreateAndGetId(sql, "default", obj);
-			
-
+				this.connection.CreateAndGetId(sql, "default", orderItem);
+			}		
 		}
 	}
 }
