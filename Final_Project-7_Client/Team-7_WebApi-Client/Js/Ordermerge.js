@@ -127,7 +127,9 @@
 
 
 
-    document.getElementById("btnNextOrderData").addEventListener("click", function () {
+    document.getElementById("btnNextOrderData").addEventListener("click", function () {        
+
+        getEmail();
 
         //將付款方式選擇的值存入label
         var paymentMethodselectedOption = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].value;
@@ -203,11 +205,11 @@
 
         $(".inputName").attr("value", inputName);
         //將信箱input的值存入label
-        var inputEmail = document.getElementById("inputEmail").value;
-        var myselfLabelEmailValue = document.getElementById("myselfLabelEmailValue");
-        myselfLabelEmailValue.textContent = inputEmail;
+        //var inputEmail = document.getElementById("inputEmail").value;
+        //var myselfLabelEmailValue = document.getElementById("myselfLabelEmailValue");
+        //myselfLabelEmailValue.textContent = inputEmail;
 
-        $(".inputEmail").attr("value", inputEmail);
+        //$(".inputEmail").attr("value", inputEmail);
         //將地址textarea的值存入label
         var inputAddress = document.getElementById("inputAddress").value;
         var myselfLabelAddressValue = document.getElementById("myselfLabelAddressValue");
@@ -278,19 +280,20 @@
 
             nameError.textContent = "請輸入姓名";
             return;
-        } else if (inputEmail === "") {
-            //如果信箱為空值,顯示錯誤訊息
-
-            showEmailError();
-
-            emailError.textContent = "請輸入信箱";
-            return;
-        } else if (! /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(inputEmail)) {
-            //如果信箱不符合格式,顯示錯誤訊息
-            showEmailError();
-            emailError.textContent = "請輸入對的信箱格式";
-            return;
         }
+        // else if (inputEmail === "") {
+        //    //如果信箱為空值,顯示錯誤訊息
+
+        //    showEmailError();
+
+        //    emailError.textContent = "請輸入信箱";
+        //    return;
+        //} else if (! /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(inputEmail)) {
+        //    //如果信箱不符合格式,顯示錯誤訊息
+        //    showEmailError();
+        //    emailError.textContent = "請輸入對的信箱格式";
+        //    return;
+        //}
 
         else if (inputAddress === "" && shippingMethodSelect.value === "送到府") {
             //如果地址為空值,顯示錯誤訊息
@@ -364,11 +367,9 @@
 var postOrderData = function () {
     
     //ORDERS
-    var MemberId = $(".head_productName").attr("memberId")
-    console.log(MemberId);
+    var MemberId = $(".head_productName").attr("memberId")    
     var PhoneNumber = $(".inputPhone").attr("value");
-    var Address = $(".inputAddress").attr("value");
-    console.log(Address);
+    var Address = $(".inputAddress").attr("value");    
     var ShippingId = $(".shippingMethodSelect option:selected").data("id");
     var PaymentId = $(".paymentMethodSelect option:selected").data("id");     
     var Total = $(".totalAmount").attr("value");
@@ -376,44 +377,24 @@ var postOrderData = function () {
     var OrderTime = Date.now();
     var CouponId = "2";
 
-    if (shippingMethodSelect.value == "70") {
+    if (ShippingId == "70") {
        
         Address = "超商取貨";
-    }
-
-    
-
-    //ORDERITEMS
-    //var ProductId = $("cart_productName").attr("data_id");
-    //var ProductName = $(".inputName").attr("value");
-    //var Price = $(".cart_unitPrice").attr("value");
-    //var Size = $(".cart_size").attr("value");
-    //var Qty = $(".cart_qty").attr("value");
-    //var SubTotal = $(".cart_subtotal").attr("value");   
-     
+    }    
    
 
-    // 建立商品數據，包括商品ID、購物車數量和尺寸
-    var data = {
-        "MemberId": MemberId,
-        "PhoneNumber": PhoneNumber,
-        "Address": Address,
-        "ShippingId": ShippingId,
-        "PaymentId": PaymentId,
-        "Total": Total,
-        "OrderStatusId": OrderStatusId,
-        "OrderTime": OrderTime,   
-        "CouponId": CouponId        
-    }
-    console.log(data);
-
-    //"ProductId": ProductId,
-    //    "ProductName": ProductName,
-    //    "Price": Price,
-    //    "Size": Size,
-    //    "Qty": Qty,
-    //    "SubTotal": SubTotal
-    
+    // 建立商品數據，包括商品ID、購物車數量和尺寸  
+    var data = {       
+            "MemberId": MemberId,
+            "PhoneNumber": PhoneNumber,
+            "Address": Address,
+            "ShippingId": ShippingId,
+            "PaymentId": PaymentId,
+            "Total": Total,
+            "OrderStatusId": OrderStatusId,
+            "OrderTime": OrderTime,
+            "CouponId": CouponId        
+    }       
 
     let url = '/api/OrderApi/CreateOrder';
 
@@ -427,26 +408,9 @@ var postOrderData = function () {
            
        
     })
-
 }
 
-//var setPostOrderData = function (data) {
 
-//    var orderDataTemplate = getOrderDataTemplate("orderData_list");
-
-//    $.each(data, function (index, ele) {
-
-//        var orderData = orderDataTemplate.clone();
-//        orderData.find(".inputName").text(ele.Name);
-//        orderData.find(".inputEmail").text(ele.Email);
-//        orderData.find(".inputAddress").text(ele.Address);
-//        orderData.find(".inputPhone").text(ele.Phone);
-//         //  orderData.find(".expiryDate").text(ele.Size);
-//         //  orderData.find(".cvv").text(ele.UnitPrice);
-
-//       //  $("#orderDataTable").append(orderData);
-//    });
-//}
 
 
 
@@ -500,6 +464,31 @@ var paymentMethod = function () {
 
 //設定取用paymentMethodSelect END=============================================================================================
 
+var getEmail = function () {   
+
+    var account = $("#btnNextOrderData").attr("data-value");    
+
+    var url = "/api/MemberApi/GetEmail?account="+ account ;
+
+    fetch(url, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(function (response) {
+        return response.json();
+    }).then(function (result) {
+        console.log(result);
+       //將其塞入label
+        var myselfLabelEmailValue = document.getElementById("myselfLabelEmailValue");
+        myselfLabelEmailValue.textContent = result.Email;
+
+    }).catch(function (err) {
+        console.log(err);
+    });
+}
+
+
 
 //設定取用ShippingMethod Start=============================================================================================
 var setShipping = function (data) {
@@ -549,6 +538,9 @@ var shippingMethod = function () {
 
 
 //設定取用ShippingMethod END=============================================================================================
+
+
+
 //設定初始payHtml
 
 
@@ -618,8 +610,7 @@ var getToCartItem = function () {
         })
     }).then(function (response) {
         return response.json();
-    }).then(function (result) {
-        console.log(result);
+    }).then(function (result) {        
          cartItems(result);       
     }).catch(function (err) {
         console.log(err);
@@ -639,7 +630,7 @@ var initLoadPay = function () {
 
     showPay();
 
-    getToCartItem();   
+    getToCartItem();      
 
     
 
@@ -689,7 +680,7 @@ var initErrortext = function () {
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
     document.getElementById("nameError").style.display = "none";
-    document.getElementById("emailError").style.display = "none";
+   // document.getElementById("emailError").style.display = "none";
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 }
@@ -700,7 +691,7 @@ var showExpiryDateError = function () {
     document.getElementById("expiryDateError").style.display = "block";
     document.getElementById("cvvError").style.display = "none";
     document.getElementById("nameError").style.display = "none";
-    document.getElementById("emailError").style.display = "none";
+    //document.getElementById("emailError").style.display = "none";
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 
@@ -712,7 +703,7 @@ var showCvvError = function () {
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "block";
     document.getElementById("nameError").style.display = "none";
-    document.getElementById("emailError").style.display = "none";
+   // document.getElementById("emailError").style.display = "none";
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 
@@ -724,7 +715,7 @@ var showNameError = function () {
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
     document.getElementById("nameError").style.display = "block";
-    document.getElementById("emailError").style.display = "none";
+    //document.getElementById("emailError").style.display = "none";
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 
@@ -736,7 +727,7 @@ var showEmailError = function () {
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
     document.getElementById("nameError").style.display = "none";
-    document.getElementById("emailError").style.display = "block";
+   // document.getElementById("emailError").style.display = "block";
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 
@@ -748,7 +739,7 @@ var showAddressError = function () {
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
     document.getElementById("nameError").style.display = "none";
-    document.getElementById("emailError").style.display = "none";
+   // document.getElementById("emailError").style.display = "none";
     document.getElementById("addressError").style.display = "block";
     document.getElementById("phoneError").style.display = "none";
 
@@ -760,7 +751,7 @@ var showPhoneError = function () {
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
     document.getElementById("nameError").style.display = "none";
-    document.getElementById("emailError").style.display = "none";
+   // document.getElementById("emailError").style.display = "none";
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "block";
 

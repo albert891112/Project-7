@@ -275,7 +275,7 @@
                     <div class="row mt-5">
                         <div class="col-12 text-center">
                             <input type="button" class="btn btn-secondary" value="上一步" id="btnLastCart" style="margin-right: 50px;">
-                            <input type="button" class="btn btn-secondary" value="下一步" id="btnNextOrderData" style="margin-left: 50px;">
+                            <input type="button" class="btn btn-secondary" value="下一步" id="btnNextOrderData" style="margin-left: 50px;" data-value="@User.Identity.Name">
                         </div>
                     </div>
                 </div>
@@ -426,11 +426,11 @@
                                     <input type="text" class="form-control inputName" id="inputName" placeholder="請輸入姓名">
                                     <label id="nameError" class="error" style="display: none;"></label>
                                 </div>
-                                <div class="form-group mt-3">
+                                @*<div class="form-group mt-3">
                                     <label for="email">電子郵件</label>
                                     <input type="email" class="form-control inputEmail" id="inputEmail" placeholder="請輸入電子郵件">
                                     <label id="emailError" class="error" style="display: none;"></label>
-                                </div>
+                                </div>*@
                                 <div class="form-group mt-3 pillAddressTable" id="pillAddressTable" style="display: none;">
                                     <label for="address">地址</label>
                                     <textarea class="form-control inputAddress" id="inputAddress" rows="3" placeholder="請輸入地址"></textarea>

@@ -99,13 +99,13 @@ ORDER BY O.ID DESC";
 		}
 
 
-		public  void CreateOrder( OrderPostEntity order)
+		public  int CreateOrder( OrderPostEntity order)
 		{
 			string sql = @"INSERT INTO Orders(MemberId,PhoneNumber,Address,ShippingId,CouponId,PaymentId,Total,StatusId,OrderTime)
 VALUES(@MemberId,@PhoneNumber,@Address,@ShippingId,@CouponId,@PaymentId,@Total,@StatusId,@OrderTime)
 SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";		
 
-			object obj = new
+			object orders = new 
 			{
 				MemberId = order.MemberId,
 				PhoneNumber = order.PhoneNumber,
@@ -114,38 +114,63 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 				CouponId = order.CouponId,
 				PaymentId = order.PaymentId,
 				Total = order.Total,
-				StatusId = order.OrderStatusId = "2",
+				StatusId = "2",
 				OrderTime = DateTime.Now
 			};			
 
-			 this.connection.CreateAndGetId(sql, "default", obj);
+			var orderId = this.connection.CreateAndGetId(sql, "default", orders);
 
-		}
+			var memberId = int.TryParse(order.MemberId, out int id) ? id : 0;
 
+			var cartItems = GetCartItem(memberId);
 
-
-		public void CreateOrderItem(CartEntity cart)
-		{			
-
-			string sql = @"INSERT INTO OrderItems(OrderId,ProductId,ProductName,Price,Size,Qty,Subtotal)
-VALUES(@OrderId,@ProductId,@ProductName,@Price,@Size,@Qty,@Subtotal)";
-			//SELECT FROM * ORDERITEMS WHERE Id = SCOPE_IDENTITY()";
-
-			foreach (var item in cart.CartItems)
+			var orderItems =  cartItems.Select(x => new OrderItem
 			{
-				var orderItem = new OrderItemEntity
-				{
-					ProductId = item.Product.Id,
-					ProductName = item.Product.Name,
-					Price = item.Product.Price,
-					Size = item.Size,
-					Qty = item.Qty,
-					Subtotal = item.Product.Price * item.Qty,
+				OrderId = orderId,
+				ProductId = x.ProductId,
+				ProductName = x.Product.Name,
+				Price = x.Product.Price,
+				Size = x.Size,
+				Qty = x.Qty,
+				SubTotal = x.Product.Price * x.Qty
 
-				};
-				this.connection.CreateAndGetId(sql, "default", orderItem);
-			}		
+			}).ToList();
+
+			db.OrderItems.AddRange(orderItems);
+			db.SaveChanges();			
+
+			return orderId;
 		}
+
+
+		public List<Order> GetOrder(string account)
+		{
+			var memberId = db.Members.Where(x => x.Account == account).Select(x => x.Id).FirstOrDefault();			
+
+			object obj = new {
+				MemberId = memberId 
+			};		
+			
+			var orders = db.Orders.Where(x => x.MemberId == memberId).ToList();
+
+			return orders;			
+			
+		}
+
+		public List<CartItem>GetCartItem (int memberId)
+		{
+
+			var cart = db.Carts.Where(x => x.MemberId == memberId).FirstOrDefault();
+
+			var cartItems = db.CartItems.Where(x => x.CartId == cart.Id).ToList();
+
+			cartItems.ForEach(x => x.Product = db.Products.Where(p => p.Id == x.ProductId).FirstOrDefault());
+
+
+			return cartItems;
+		}
+		
+		
 	}
 }
 

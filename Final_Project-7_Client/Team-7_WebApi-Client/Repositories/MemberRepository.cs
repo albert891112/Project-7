@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 
 namespace Team_7_WebApi_Client.Repositories
@@ -24,5 +25,20 @@ namespace Team_7_WebApi_Client.Repositories
 
             return id;  
         }
-    }
+
+		public string GetEmailByAccount(string account)
+        {
+			string sql = "select Email from Members where Account = @Account";
+
+			object obj = new
+			{
+				account = account 
+
+			};
+
+			string email = this.connection.Get<string>(sql, "default", obj);
+
+			return email;
+		}
+	}
 }

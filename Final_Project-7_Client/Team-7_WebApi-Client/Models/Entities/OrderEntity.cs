@@ -25,7 +25,7 @@ namespace Team_7_WebApi_Client.Models.Entities
 	{
 		public int Id { get; set; }
 		public string MemberId { get; set; }
-		public string OrderStatusId { get; set; }
+		public string StatusId { get; set; }
 		public string PhoneNumber { get; set; }
 		public string Address { get; set; }
 		public string CouponId { get; set; }
@@ -44,7 +44,7 @@ namespace Team_7_WebApi_Client.Models.Entities
 			{
 				Id = dto.Id,
 				MemberId = dto.MemberId,
-				OrderStatusId = dto.OrderStatusId,
+				StatusId = dto.StatusId,
 				PhoneNumber = dto.PhoneNumber,
 				Address = dto.Address,
 				CouponId = dto.CouponId,
