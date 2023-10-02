@@ -22,7 +22,7 @@
         <div class="container-fluid">
             @*@Html.ActionLink("挖系宜蘭郎", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
 
-            <a class="navbar-brand" href="Home">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
                 <img src="~/Files/pic01.jpg" alt="挖系宜蘭郎" width="75" height="40">
             </a>
 
