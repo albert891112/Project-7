@@ -31,6 +31,19 @@ namespace Team_7_WebApi_Client.Models.Entities
 
     }
 
+    public class ProductRankingEntity
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Price { get; set; }
+        public int S { get; set; }
+        public int M { get; set; }
+        public int L { get; set; }
+        public int XL { get; set; }
+
+        public int TotalQty { get; set; }
+    }
+
     public static class ProductEntityExtenssion
     {
         public static ProductEntity ToEntity(this ProductDTO dto)

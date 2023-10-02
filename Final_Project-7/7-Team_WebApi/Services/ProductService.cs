@@ -145,5 +145,16 @@ namespace _7_Team_WebApi.Services
 
             return result;
         }   
+
+        /// <summary>
+        /// Get Product sales Ranking
+        /// </summary>
+        /// <returns></returns>
+        public List<ProductRankingEntity> GetSalesRank()
+        {
+            List<ProductRankingEntity> entities = this.repo.GetProductRanking();
+
+            return entities;
+        }
     }
 }
