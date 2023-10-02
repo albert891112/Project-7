@@ -1,13 +1,12 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    getToCart();  
+    getToCart();
 
-    $("#btnPay").click(function () {       
+    $("#btnPay").click(function () {
 
         btnPay();
 
     });
- 
 
     $("#btnCheckoutHome").click(function () {
 
@@ -15,45 +14,44 @@
 
     });
 
-    $("#cartTable").on("click",".btnAdd", function () {
+    $("#cartTable").on("click", ".btnAdd", function () {
 
         addOne.call(this);
-        
+
     });
 
     $("#cartTable").on("click", ".btnSub", function () {
-        
+
         subOne.call(this);
     });
 
 
 
-    
-    //$("#sort").change(function () {
-
-    //    var sortBy = $(this).val(); 
-
-    //    if (sortBy === "unitprice") {
-          
-    //        data.CartItems.sort(function (a, b) {
-    //            return a.Product.Price - b.Product.Price;
-    //        });
-    //    } else if (sortBy === "subtotal") {
-            
-    //        data.CartItems.sort(function (a, b) {
-    //            return b.SubTotal - a.SubTotal;
-    //        });
-    //    }
-        
-    //    $("#cartTable").empty();
-     
-    //    setCart(data);
-    //});
-  
 });
 
+//let data = []
 
+//$(document).on("change", "#sort", function () {
 
+//    var sortBy = $(this).val();
+
+//    if (sortBy === "unitprice") {
+
+//        data.CartItems.sort(function (a, b) {
+//            return b.Product.Price - a.Product.Price;
+//        });
+//    } else if (sortBy === "subtotal") {
+
+//        data.CartItems.sort(function (a, b) {
+//            return b.SubTotal - a.SubTotal;
+//        });
+//    }
+
+//    //$("#cartTable").empty();
+
+//    setCart(data);
+
+//});
 
 //加一
 var addOne = function () {    
@@ -98,7 +96,6 @@ var addOne = function () {
 }
 
 
-
 //減一
 var subOne = function () {
 
@@ -140,7 +137,6 @@ var subOne = function () {
     })
 }
 
-
 var getToCart = function () {
 
     let url = '/api/CartApi/ShowCart';
@@ -153,6 +149,7 @@ var getToCart = function () {
     }).then(function (response) {
         return response.json();
     }).then(function (result) {
+        data = result;
         setCart(result);       
     }).catch(function (err) {
         
@@ -161,16 +158,13 @@ var getToCart = function () {
 
 };
 
-
-
 var setCart = function (data) {    
-
-    console.log(data);
+   
     var cartTemplate = getCartTemplate("show_cart");
-    var total = 0;    
-    $(".cartData").empty();
-    $.each(data.CartItems, function (index, ele) {         
-
+    var total = 0;
+    $(".cartData").empty();    
+    $.each(data.CartItems, function (index, ele) {
+        
         var cartItems = cartTemplate.clone();
         
         cartItems.find(".cart_img").attr("src", "/Files/" + ele.Product.Image);
@@ -180,27 +174,19 @@ var setCart = function (data) {
         cartItems.find(".cart_size").attr("product", ele.Product.Id);
         cartItems.find(".cart_unitPrice").text("$" +ele.Product.Price);
         cartItems.find(".cart_qty").text(ele.Qty);
-        cartItems.find(".cart_subtotal").text("$" + ele.SubTotal);
-
+        cartItems.find(".cart_subtotal").text("$" + ele.SubTotal);       
         cartItems.find(".cart_qty").attr("value", ele.Qty);
         cartItems.find(".cart_productName").attr("num", ele.Product.S);
         cartItems.find(".cart_size").attr("num", ele.Product.M);
         cartItems.find(".cart_unitPrice").attr("num", ele.Product.L);
         cartItems.find(".cart_qty").attr("num", ele.Product.XL);
 
-        $(".cartTable").append(cartItems);
-        
-        total += ele.SubTotal;                   
-      
-    });
-   
+        $(".cartTable").append(cartItems);        
+        total += ele.SubTotal;      
+    });      
     
     $(".cart_total").text(" 商品金額 : " + total);   
 };
-
-
-
-
 
 var getCartTemplate = function (name) {
 
@@ -209,8 +195,6 @@ var getCartTemplate = function (name) {
 
     return $(template).clone();
 }
-
-
 
 var btnPay = function () {
 

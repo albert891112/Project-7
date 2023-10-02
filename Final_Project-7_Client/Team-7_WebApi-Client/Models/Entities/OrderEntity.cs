@@ -21,9 +21,41 @@ namespace Team_7_WebApi_Client.Models.Entities
 		public List<OrderItemEntity> OrderItemList { get; set; }
 	}
 
+	public class OrderPostEntity
+	{
+		public int Id { get; set; }
+		public string MemberId { get; set; }
+		public string StatusId { get; set; }
+		public string PhoneNumber { get; set; }
+		public string Address { get; set; }
+		public string CouponId { get; set; }
+		public string ShippingId { get; set; }
+		public string PaymentId { get; set; }
+		public DateTime OrderTime = DateTime.Now;
+		public int Total { get; set; }
+	}
+
 
 	public static class OrderEntityExtensions
 	{
+		public static OrderPostEntity ToEntity(this OrderPostDTO dto)
+		{
+			return new OrderPostEntity
+			{
+				Id = dto.Id,
+				MemberId = dto.MemberId,
+				StatusId = dto.StatusId,
+				PhoneNumber = dto.PhoneNumber,
+				Address = dto.Address,
+				CouponId = dto.CouponId,
+				ShippingId = dto.ShippingId,
+				PaymentId = dto.PaymentId,
+				OrderTime = dto.OrderTime,
+				Total = dto.Total,
+			};
+		}
+
+
 		public static OrderEntity ToEntity(this OrderDTO dto)
 		{
 			return new OrderEntity

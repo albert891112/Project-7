@@ -179,6 +179,7 @@
     <Compile Include="Controllers\Cart\CartController.cs" />
     <Compile Include="Controllers\Category\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Members\MemberApiController.cs" />
     <Compile Include="Controllers\Members\MembersController.cs" />
     <Compile Include="Controllers\Orders\OrderApiController.cs" />
     <Compile Include="Controllers\Orders\OrdersController.cs" />

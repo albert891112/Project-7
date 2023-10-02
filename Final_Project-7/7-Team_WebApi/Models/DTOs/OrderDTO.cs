@@ -42,7 +42,7 @@ namespace _7_Team_WebApi.Models.DTOs
 
         public static OrderDTO ToDTO(this OrderVM vm)
         {
-            OrderStatusDTO orderStatusDTO= GetOrderStatusDTOByStatus(vm.OrderStatus);
+            OrderStatusDTO orderStatusDTO= GetOrderStatusDTOByStatus(vm.StatusID);
 
 
 			return new OrderDTO() 
@@ -56,7 +56,7 @@ namespace _7_Team_WebApi.Models.DTOs
             };
         }
 
-		private static OrderStatusDTO GetOrderStatusDTOByStatus(string orderStatus)
+		private static OrderStatusDTO GetOrderStatusDTOByStatus(int orderStatus)
 		{
 			throw new NotImplementedException();
 		}

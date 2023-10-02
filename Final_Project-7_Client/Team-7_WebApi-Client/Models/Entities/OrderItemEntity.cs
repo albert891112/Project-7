@@ -10,7 +10,9 @@ namespace Team_7_WebApi_Client.Models.Entities
 	{
 		public int Id { get; set; }
 		public OrderEntity Order { get; set; }
-		public int ProductId { get; set; }
+
+        public int OrderId { get; set; }
+        public int ProductId { get; set; }
 		
 		public ProductEntity Product { get; set; }
 		public string ProductName { get; set; }
@@ -28,6 +30,7 @@ namespace Team_7_WebApi_Client.Models.Entities
 			return new OrderItemEntity
 			{
 				Id = dto.Id,
+				OrderId = dto.OrderId,
 				ProductId = dto.ProductId,					
 				Order = dto.Order.ToEntity(),
 				Product = dto.Product.ToEntity(),

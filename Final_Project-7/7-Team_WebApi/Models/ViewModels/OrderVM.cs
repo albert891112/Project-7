@@ -24,10 +24,12 @@ namespace _7_Team_WebApi.Models.ViewModels
         [Display(Name = "地址")]
         public string Address { get; set; }
 
-        [Display(Name = "訂單狀態")]
-        public string OrderStatus { get; set; }
+        public int StatusID { get; set; }
 
-        [Display(Name = "付款方式")]
+		[Display(Name = "訂單狀態")]
+		public string OrderStatus { get; set; }
+
+		[Display(Name = "付款方式")]
         public string Payment { get; set; }
 
         [Display(Name = "運送方式")]
@@ -53,7 +55,8 @@ namespace _7_Team_WebApi.Models.ViewModels
                 Member = dto.Member.Account,
                 PhoneNumber = dto.PhoneNumber,
                 Address = dto.Address,
-                OrderStatus = dto.OrderStatus.Status,
+                StatusID = dto.OrderStatus.Id,
+                OrderStatus=dto.OrderStatus.Status,
                 Payment = dto.Payment.PaymentMethod,
                 Shipping = dto.Shipping.ShippingMethod,
                 Total = dto.Total,
@@ -68,7 +71,8 @@ namespace _7_Team_WebApi.Models.ViewModels
                 Member = entity.Member.Account,
                 PhoneNumber = entity.PhoneNumber,
                 Address = entity.Address,
-                OrderStatus = entity.OrderStatus.Status,
+                StatusID = entity.OrderStatus.Id,
+                OrderStatus=entity.OrderStatus.Status,
                 Payment = entity.Payment.PaymentMethod,
                 Shipping = entity.Shipping.ShippingMethod,
                 Total = entity.Total,

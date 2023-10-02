@@ -10,6 +10,7 @@ namespace Team_7_WebApi_Client.Models.Views
 	{
 		public int Id { get; set; }
 		public OrderVM Order { get; set; }
+		public int OrderId { get; set; }
 		public int ProductId { get; set; }
 		public ProductVM Product { get; set; }
 		public string ProductName { get; set; }
@@ -27,6 +28,7 @@ namespace Team_7_WebApi_Client.Models.Views
 			return new OrderItemVM
 			{
 				Id = dto.Id,
+				OrderId = dto.OrderId,
 				Order = dto.Order.ToVM(),
 				ProductId = dto.Product.Id,
 				Product = dto.Product.ToVM(),

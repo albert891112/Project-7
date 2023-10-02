@@ -12,13 +12,11 @@ namespace Team_7_WebApi_Client.Services
 	{
 		OrderRepository repo = new OrderRepository();		
 
-		public void Create(OrderDTO order,CartDTO cart)
+		public void Create(OrderPostDTO order)
 		{
-			OrderEntity orders = order.ToEntity();
+			OrderPostEntity orders = order.ToEntity();			
 
-			CartEntity carts = cart.ToEntity();
-
-			this.repo.CreateOrder(orders, carts);
+			this.repo.CreateOrder(orders);
 		}
 	}
 }

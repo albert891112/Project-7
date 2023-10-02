@@ -21,5 +21,13 @@ namespace Team_7_WebApi_Client.Services
 
             return id;
         } 
+
+        public string GetEmail(string account)
+        {				
+				string email = repo.GetEmailByAccount(account);
+				return email;	
+			
+		}
+
     }
 }
