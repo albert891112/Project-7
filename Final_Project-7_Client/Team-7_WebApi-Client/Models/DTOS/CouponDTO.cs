@@ -13,13 +13,28 @@ namespace Team_7_WebApi_Client.Models.DTOS
 		public int Id { get; set; }
 		public string CouponCode { get; set; }
 		public string CouponName { get; set; }
-		public DiscountTypeDTO Discount { get; set; }
+		public int DiscountTypeId { get; set; }
 		public decimal DiscountValue { get; set; }
 		public string CouponDescription { get; set; }
 		public DateTime ExpiratinDate { get; set; }
 		public int UsageCount { get; set; }
 		public bool Enable { get; set; }
 		public string Image { get; set; }
+	}
+
+	public class GetCouponDTO
+	{
+		public int Id { get; set; }
+
+		public string CouponName { get; set; }
+
+		public decimal DiscountValue { get; set; }
+
+		public string CouponDescription { get; set; }
+
+		public DateTime EndDate { get; set; }
+
+		public bool Enabled { get; set; }
 	}
 
 	public class DiscountTypeDTO
@@ -31,6 +46,32 @@ namespace Team_7_WebApi_Client.Models.DTOS
 
 	public static class CouponDTOExtenssion
 	{
+
+		public static GetCouponDTO ToDTO(this GetCouponVM vm)
+		{
+			return new GetCouponDTO
+			{
+				Id = vm.Id,
+				CouponName = vm.CouponName,
+				DiscountValue = vm.DiscountValue,
+				CouponDescription = vm.CouponDescription,
+				EndDate = vm.EndDate,
+				Enabled = vm.Enabled,
+			};
+		}
+
+		public static GetCouponDTO ToDTO(this GetCouponEntity entity)
+		{
+			return new GetCouponDTO
+			{
+				Id = entity.Id,
+				CouponName = entity.CouponName,
+				DiscountValue = entity.DiscountValue,
+				CouponDescription = entity.CouponDescription,
+				EndDate = entity.EndDate,
+				Enabled = entity.Enabled,
+			};
+		}
 		public static CouponDTO ToDTO(this CouponEntity entity)
 		{
 			return new CouponDTO
@@ -38,7 +79,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 				Id = entity.Id,
 				CouponCode = entity.CouponCode,
 				CouponName = entity.CouponName,
-				Discount = entity.Discount.ToDTO(),
+				DiscountTypeId = entity.DiscountTypeId,
 				DiscountValue =entity.DiscountValue,
 				CouponDescription = entity.CouponDescription,
 				ExpiratinDate =entity.ExpiratinDate,
@@ -55,7 +96,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 				Id = vm.Id,
 				CouponCode = vm.CouponCode,
 				CouponName = vm.CouponName,
-				Discount = vm.Discount.ToDTO(),
+				DiscountTypeId = vm.DiscountTypeId,
 				DiscountValue = vm.DiscountValue,
 				CouponDescription = vm.CouponDescription,
 				ExpiratinDate = vm.ExpiratinDate,

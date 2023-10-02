@@ -3,38 +3,18 @@
     ViewBag.Title = "OrderFinish";
 }
 
-<style>
-    .startcontainer {
-        margin-top: 80px;
-    }
-
-    .blue-box,
-    .gray-box {
-        width: 200px;
-        height: 150px;
-        border-radius: 20px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin: 0 10px;
-    }
-
-
-    .blue-box {
-        background-color: rgb(119, 119, 189);
-    }
-
-    .gray-box {
-        background-color: rgb(179, 179, 189);
-    }
+<style> 
+   
 
     .text-center {
         font-size: 30px;
         color: aliceblue;
     }
 
+   
+
     .congracontainer-box {
+        margin-top: 300px;
         width: 500px;
         height: 250px;
         border-radius: 60px;
@@ -42,7 +22,8 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        background-color: rgb(50, 199, 199,0.1);
+        background-color: rgb(50, 199, 199,0);
+        
         color: black;
     }
 
@@ -60,6 +41,7 @@
          width: 100%;
          opacity: 30%;
 }
+
 </style>
 
 <body>
@@ -67,11 +49,11 @@
         <img src="/Files/pic-login.jpg">
     </div>
     <!-- 感謝框 begin -->
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-12 d-flex justify-content-center align-items-center">
                 <div class="congracontainer-box text-center">
-                    謝謝您的訂購
+                    感謝您的訂購
                 </div>
             </div>
         </div>
@@ -79,7 +61,7 @@
     <!-- 感謝框 end -->
     <div class="row">
         <div class="col-12 text-center mt-5">
-            <input type="button" class="btn btn-secondary" value="回到首頁" id="btnCheckoutHome" style="margin-right: 50px;">
+            <input type="button" class="btn btn-secondary" value="回到首頁" id="btnCheckoutHome">
         </div>
     </div>
     <script>
@@ -90,8 +72,12 @@
 
             btnCheckoutHome.addEventListener("click", function () {
 
-                window.location.href = "Homephage.html"; // 将 "index.html" 替换为您的首页的 URL
+                window.location.href = "/Home/Index";
             });
+
+            setTimeout(function () {
+            window.location.href = "/Home/Index"; 
+        }, 3000); 
         });
 
 

@@ -6,6 +6,8 @@
 
     paymentMethod();
 
+    couponMethod();
+
     //計算總金額        
     var shippingcostLabel = $(".shippingcost");
     var couponcostLabel = $(".couponcost");
@@ -343,7 +345,7 @@
 
         postOrderData();
 
-        //OrderFinish();      
+        OrderFinish();      
 
     });
 
@@ -363,7 +365,9 @@
 });
 
 //設定函數庫=============================================================================================
-//設定送出訂單
+//設定送出訂單 Start=============================================================================================
+
+
 var postOrderData = function () {
     
     //ORDERS
@@ -410,10 +414,53 @@ var postOrderData = function () {
     })
 }
 
+//設定送出訂單 END=============================================================================================
+
+//設定取用CouponMethodSelect Start=============================================================================================
+var setcoupon = function (data) {
+    var couponSelect = $('.couponMethodSelect');
+    couponSelect.empty();
+    
+    var firstOption = document.createElement('option');
+    $(firstOption).attr('data-id', 0);
+    firstOption.innerText = '請選擇';
+    couponSelect.append(firstOption);
+
+    data.forEach(function (ele) {
+        var option = document.createElement('option');
+        $(option).attr('data-id', ele.Id);
+        $(option).attr('desc', ele.CouponDescription);
+        $(option).attr('enable', ele.Enalbe);
+        $(option).attr('EndDate', ele.EndDate)
+        option.innerText = ele.CouponName;
+        option.value = ele.DiscountValue;
+        couponSelect.append(option);
+    });
+};
+
+
+var couponMethod = function () {
+
+    let url = '/api/CartApi/GetCouponMethod';
+
+    fetch(url, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(function (response) {
+        return response.json();
+    }).then(function (result) {
+        setcoupon(result);
+    }).catch(function (err) {
+        console.log(err);
+    });
+
+};
 
 
 
-
+//設定取用CouponMethodSelect END=============================================================================================
 
 //設定取用paymentMethodSelect Start=============================================================================================
 var setPayment = function (data) {

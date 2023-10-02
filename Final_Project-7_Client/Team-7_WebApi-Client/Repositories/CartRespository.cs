@@ -143,7 +143,7 @@ namespace Team_7_WebApi_Client.Repositories
 		{
 			SqlDb connection = new SqlDb();
 
-			string sql = @"SELECT S.* FROM Shippings As S ORDER BY Id";
+			string sql = @"SELECT * FROM Shippings  ORDER BY Id";
 
 
 			List<ShippingEntity> entities = connection.GetAll<ShippingEntity>(sql, "default");
@@ -156,10 +156,21 @@ namespace Team_7_WebApi_Client.Repositories
 		{
 			SqlDb connection = new SqlDb();
 
-			string sql = @"SELECT P.* FROM Payments AS P ORDER BY Id";
+			string sql = @"SELECT * FROM Payments  ORDER BY Id";
 			
 
 			List<PaymentEntity> entities = connection.GetAll<PaymentEntity>(sql, "default");
+
+			return entities;
+		}
+
+		public List<GetCouponEntity> GetCoupons()
+		{
+			SqlDb connection = new SqlDb();
+
+			string sql = @"SELECT * FROM Coupons AS C ORDER BY C.Id";
+
+			List<GetCouponEntity> entities = connection.GetAll<GetCouponEntity>(sql, "default");
 
 			return entities;
 		}

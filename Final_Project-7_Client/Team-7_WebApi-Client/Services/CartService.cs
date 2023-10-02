@@ -89,5 +89,21 @@ namespace Team_7_WebApi_Client.Services
 			return dtos;
 		}
 
+		public List<GetCouponDTO> GetCoupon()
+		{
+			List<GetCouponEntity> entities = this.repo.GetCoupons();
+
+			List<GetCouponDTO> dtos = entities.Select(c => c.ToDTO()).ToList();
+
+			//如果Enabled = false , 則移除
+			dtos.RemoveAll(c => c.Enabled == false);
+
+			//如果截止日期小於今天，則移除
+			dtos.RemoveAll(c => c.EndDate < DateTime.Now);
+
+
+			return dtos;
+		}
+
 	}
 }

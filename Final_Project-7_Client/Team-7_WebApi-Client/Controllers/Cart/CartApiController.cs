@@ -76,5 +76,17 @@ namespace Team_7_WebApi_Client.Controllers.Cart
 
 			return Ok(vms);
 		}
+
+
+		[HttpGet]
+		public IHttpActionResult GetCouponMethod()
+		{
+
+			List<GetCouponDTO> dtos = this.serv.GetCoupon();
+
+			List<GetCouponVM> vms = dtos.Select(c => c.ToVM()).ToList();
+
+			return Ok(vms);
+		}
 	}
 }

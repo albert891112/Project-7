@@ -200,6 +200,10 @@ var btnPay = function () {
 
     window.location.href = "/Cart/Checkout";
 
+    $(".payHtml").show("slow", "swing");
+    $(".orderDataHtml").hide()
+    $(".checkoutHtml").hide()
+
 }
 
 var btnCheckoutHome = function () {
