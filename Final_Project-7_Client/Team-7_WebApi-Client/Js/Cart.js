@@ -111,30 +111,36 @@ var subOne = function () {
     var Size = parentRow.find(".cart_size").attr("size");
     var Id = parentRow.find(".cart_size").attr("product");
 
+    //如果數量等於零,移除商品
+    
+
+
+
     // 建立商品數據，包括商品ID、購物車數量和尺寸
     var data = {
         "ProductId": Id,
         "Qty": Qty,
         "Size": Size
     }
+    
+        //加入購物車
+        let url = '/api/CartApi/AddCartItem';
 
-    //加入購物車
-    let url = '/api/CartApi/AddCartItem';
+        fetch(url, {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            console.log("response=", response);
+            if (response.ok) {
 
-    fetch(url, {
-        method: 'POST',
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(data)
-    }).then(function (response) {
-        console.log("response=", response);
-        if (response.ok) {            
-
-            getToCart();
-            location.reload();
-        }
-    })
+                getToCart();
+                location.reload();
+            }
+        })
+    
 }
 
 var getToCart = function () {
@@ -199,6 +205,10 @@ var getCartTemplate = function (name) {
 var btnPay = function () {
 
     window.location.href = "/Cart/Checkout";
+
+    $(".payHtml").show("slow", "swing");
+    $(".orderDataHtml").hide()
+    $(".checkoutHtml").hide()
 
 }
 

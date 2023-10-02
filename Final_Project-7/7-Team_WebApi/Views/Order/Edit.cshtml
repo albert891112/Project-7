@@ -13,6 +13,10 @@
 {
     @Html.AntiForgeryToken()
 
+    <div class="bg">
+        <img src="/File/pic-login.jpg">
+    </div>
+
     <div class="form-horizontal">
 
         <hr />
@@ -22,71 +26,70 @@
         <div class="mb-3">
             @Html.LabelFor(model => model.Member, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            @Html.EditorFor(model => model.Member, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Member, "", new { @class = "text-danger" })
+            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Member)</span>
+
 
         </div>
 
         <div class="mb-3">
             @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.PhoneNumber)</span>
+
 
         </div>
 
         <div class="mb-3">
             @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Address)</span>
+
 
         </div>
 
         <div class="mb-3" id="OrderStatus">
             @Html.LabelFor(model => model.OrderStatus, htmlAttributes: new { @class = "control-label col-md-2" })
 
+            <div class="form-control" style="border: none; background-color: transparent;">
+                @Html.DropDownListFor(model => model.StatusID,
+                new SelectList(Model.OrderStatusList, "Id", "Status"),
+                "請選擇欲更改的狀態",
+                new { @class = "custom-select", required = "required" })
+            </div>
 
-            @Html.DropDownListFor(model => model.OrderStatus,
-            new SelectList(Model.OrderStatusList, "Id", "Status"),
-            "請選擇欲更改的狀態",
-            new { @class = "form-control" })
-
-            
             @Html.ValidationMessageFor(model => model.OrderStatus, "", new { @class = "text-danger" })
-
-
         </div>
+
 
         <div class="mb-3">
             @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            @Html.EditorFor(model => model.Payment, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Payment, "", new { @class = "text-danger" })
+            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Payment)</span>
+
 
         </div>
 
         <div class="mb-3">
             @Html.LabelFor(model => model.Shipping, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            @Html.EditorFor(model => model.Shipping, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Shipping, "", new { @class = "text-danger" })
+            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Shipping)</span>
+
 
         </div>
 
         <div class="mb-3">
             @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Total)</span>
+
 
         </div>
 
         <div class="mb-3">
             @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.OrderDate)</span>
+
 
         </div>
 
@@ -104,4 +107,23 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}
+
+@section CSS {
+    <style>
+        .bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -999;
+        }
+
+            .bg img {
+                min-height: 100%;
+                width: 100%;
+                opacity: 30%;
+            }
+    </style>
 }

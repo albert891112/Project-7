@@ -6,12 +6,29 @@
 
     paymentMethod();
 
-    //計算總金額        
+    couponMethod();
+
+    //計算總金額    
     var shippingcostLabel = $(".shippingcost");
     var couponcostLabel = $(".couponcost");
-    var totalAmountLabel = $(".totalAmount");    
-   
+    var totalAmountLabel = $(".totalAmount");
 
+   
+ 
+
+   
+   
+    //if (cartTotalValue < 1000) {
+    //    // 選擇 couponMethodSelect 下的所有 option
+    //    $(".couponMethodSelect option").each(function () {
+    //        // 檢查每個 option 的 discounttype 屬性
+    //        if ($(this).attr("discounttype") === "2") {
+    //            // 如果 discounttype 屬性為 "2"，則隱藏該 option
+    //            $(this).css("display", "none");
+    //        }
+    //    });
+    //}
+    
     // 下拉列表的更改事件
     $(".shippingMethodSelect, .couponMethodSelect").change(function () {
 
@@ -20,7 +37,9 @@
         var productTotalValue = $(".cart_total").attr("value");
         var shippingMethodValue = $(".shippingMethodSelect").val();
         var couponValue = $(".couponMethodSelect").val();
-        var totalAmountValue = $(".totalAmount").attr("value");       
+        var totalAmountValue = $(".totalAmount").attr("value"); 
+
+        
       
         $(".shippingcost").attr("value", shippingMethodValue);        
       
@@ -78,9 +97,6 @@
         var shippingMethodSelectresultLabel = $(".shippingMethodValue");
 
         shippingMethodSelectresultLabel.text(shippingMethodselectedOption);  
-
-
-
 
     });
 
@@ -147,9 +163,6 @@
             document.getElementById("cvvFieldPill").style.display = "none";
         }
 
-
-
-
         //驗證付款方式、運送方式是否沒選擇
         if (paymentMethodSelect.value === "請選擇" || shippingMethodSelect.value === "請選擇") {
 
@@ -159,7 +172,6 @@
         showOrderData();
 
     });
-
 
     $("#btnLastCart").click(function () {
 
@@ -204,12 +216,7 @@
         myselfLabelNameValue.textContent = inputName;
 
         $(".inputName").attr("value", inputName);
-        //將信箱input的值存入label
-        //var inputEmail = document.getElementById("inputEmail").value;
-        //var myselfLabelEmailValue = document.getElementById("myselfLabelEmailValue");
-        //myselfLabelEmailValue.textContent = inputEmail;
-
-        //$(".inputEmail").attr("value", inputEmail);
+      
         //將地址textarea的值存入label
         var inputAddress = document.getElementById("inputAddress").value;
         var myselfLabelAddressValue = document.getElementById("myselfLabelAddressValue");
@@ -281,20 +288,6 @@
             nameError.textContent = "請輸入姓名";
             return;
         }
-        // else if (inputEmail === "") {
-        //    //如果信箱為空值,顯示錯誤訊息
-
-        //    showEmailError();
-
-        //    emailError.textContent = "請輸入信箱";
-        //    return;
-        //} else if (! /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(inputEmail)) {
-        //    //如果信箱不符合格式,顯示錯誤訊息
-        //    showEmailError();
-        //    emailError.textContent = "請輸入對的信箱格式";
-        //    return;
-        //}
-
         else if (inputAddress === "" && shippingMethodSelect.value === "送到府") {
             //如果地址為空值,顯示錯誤訊息
 
@@ -321,8 +314,6 @@
 
         showCheckout();
 
- 
-
     });
 
     //顯示上一頁payHtml
@@ -343,7 +334,7 @@
 
         postOrderData();
 
-        //OrderFinish();      
+        OrderFinish();      
 
     });
 
@@ -363,7 +354,9 @@
 });
 
 //設定函數庫=============================================================================================
-//設定送出訂單
+//設定送出訂單 Start=============================================================================================
+
+
 var postOrderData = function () {
     
     //ORDERS
@@ -410,10 +403,54 @@ var postOrderData = function () {
     })
 }
 
+//設定送出訂單 END=============================================================================================
+
+//設定取用CouponMethodSelect Start=============================================================================================
+var setcoupon = function (data) {
+    var couponSelect = $('.couponMethodSelect');
+    couponSelect.empty();
+    
+    var firstOption = document.createElement('option');
+    $(firstOption).attr('data-id', 0);
+    firstOption.innerText = '請選擇';
+    couponSelect.append(firstOption);
+
+    data.forEach(function (ele) {
+        var option = document.createElement('option');
+        $(option).attr('data-id', ele.Id);
+        $(option).attr('desc', ele.CouponDescription);
+        $(option).attr('enable', ele.Enalbe);
+        $(option).attr('endDate', ele.EndDate)
+        $(option).attr('discountType', ele.DiscountTypeId)
+        option.innerText = ele.CouponName;
+        option.value = ele.DiscountValue;
+        couponSelect.append(option);
+    });
+};
+
+
+var couponMethod = function () {
+
+    let url = '/api/CartApi/GetCouponMethod';
+
+    fetch(url, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(function (response) {
+        return response.json();
+    }).then(function (result) {
+        setcoupon(result);
+    }).catch(function (err) {
+        console.log(err);
+    });
+
+};
 
 
 
-
+//設定取用CouponMethodSelect END=============================================================================================
 
 //設定取用paymentMethodSelect Start=============================================================================================
 var setPayment = function (data) {
