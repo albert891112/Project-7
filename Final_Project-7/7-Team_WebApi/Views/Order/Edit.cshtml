@@ -54,7 +54,7 @@
                 @Html.DropDownListFor(model => model.OrderStatus,
                 new SelectList(Model.OrderStatusList, "Id", "Status"),
                 "請選擇欲更改的狀態",
-                new { @class = "custom-select" })
+                new { @class = "custom-select", required = "required" })
             </div>
 
             @Html.ValidationMessageFor(model => model.OrderStatus, "", new { @class = "text-danger" })
