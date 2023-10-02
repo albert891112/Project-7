@@ -51,7 +51,7 @@
             @Html.LabelFor(model => model.OrderStatus, htmlAttributes: new { @class = "control-label col-md-2" })
 
             <div class="form-control" style="border: none; background-color: transparent;">
-                @Html.DropDownListFor(model => model.OrderStatus,
+                @Html.DropDownListFor(model => model.StatusID,
                 new SelectList(Model.OrderStatusList, "Id", "Status"),
                 "請選擇欲更改的狀態",
                 new { @class = "custom-select", required = "required" })

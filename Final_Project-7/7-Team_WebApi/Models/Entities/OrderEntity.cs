@@ -28,7 +28,7 @@ namespace _7_Team_WebApi.Models.Entities
             return new OrderEntity()
             {
                 Id = ordervm.Id,
-                OrderStatus = new OrderStatusEntity() { Id = Convert.ToInt32(ordervm.OrderStatus) },
+                OrderStatus = new OrderStatusEntity() { Id = ordervm.StatusID, Status = ordervm.OrderStatus  },
                 PhoneNumber = ordervm.PhoneNumber,
                 Address = ordervm.Address,
                 Payment = new PaymentEntity() { PaymentMethod = ordervm.Payment },
