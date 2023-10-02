@@ -46,7 +46,8 @@ namespace _7_Team_WebApi.Models.ViewModels
         public string HightPrice { get; set; }
         public string LowPrice { get; set; }
 
-        public string Gender { get; set; }
+        public string GenderId { get; set; }
+        public string Enable { get; set; }
     }
 
     public static class ProductVMExtenssion

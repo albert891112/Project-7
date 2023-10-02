@@ -111,7 +111,8 @@ namespace _7_Team_WebApi.Repositories
                 "AND (@Name IS NULL OR P.Name LIKE '%' + @Name +'%') " +
                 "AND (@LowPrice IS NULL OR P.Price >= @LowPrice) " +
                 "AND (@HightPrice IS NULL OR P.Price <= @HightPrice) " +
-                "AND (@Gender IS NULL OR GC.Gender = @Gender)" +
+                "AND (@GenderId IS NULL OR GC.Id = @GenderId) " +
+                "AND(@Enable IS NULL OR P.Enable = @Enable)"+
                 "Order By p.Id";
 
             object obj = new
@@ -120,8 +121,9 @@ namespace _7_Team_WebApi.Repositories
                 Name = entity.Name,
                 LowPrice = entity.LowPrice,
                 HightPrice = entity.HightPrice,
-                Gender = entity.Gender,
-                CategoryId = entity.CategoryId
+                GenderId = entity.GenderId,
+                CategoryId = entity.CategoryId,
+                Enable = entity.Enable
 
             };
 
@@ -131,8 +133,10 @@ namespace _7_Team_WebApi.Repositories
                 {
                     p.Gender = gc;
                     p.Category = c;
+                    p.Category.GenderCategories = new List<GenderCategoryEntity>();
                     p.Stock = st;
                     return p;
+
 
                 }, o).ToList();
 
