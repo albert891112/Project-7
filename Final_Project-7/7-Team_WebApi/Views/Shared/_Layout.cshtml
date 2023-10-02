@@ -11,6 +11,7 @@
             margin-top: 10px;
             text-align: center;
         }
+       
     </style>
 
     @RenderSection("css", required: false)
@@ -18,9 +19,14 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("挖洗宜蘭郎", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container-fluid">
+            @*@Html.ActionLink("挖洗宜蘭郎", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <img src="~/File/pic01.jpg" alt="挖系宜蘭郎" width="75" height="40">
+            </a>
+
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -37,7 +43,7 @@
                         <li>@Html.ActionLink("會員維護", "Index", "Member", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>
                             <div class="dropdown">
-                                <button class="btn btn-dark dropdown-toggle nav-link" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-light bg-white dropdown-toggle nav-link" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     權限管理
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -48,8 +54,8 @@
                         </li>
                     </ul>
                     <div class="nav navbar-nav navbar-right">
-                        <li class="ml-5"><a href="#" class="text-white text-decoration-none nav-link ">你好： @(User.Identity.Name)</a></li>
-                        <li class="ml-5"><a href="/PermissionControll/Logout/" class="text-white text-decoration-none nav-link">登出</a></li>
+                        <li class="ml-5"><a href="#" class="text-black text-decoration-none nav-link ">你好： @(User.Identity.Name)</a></li>
+                        <li class="ml-5"><a href="/PermissionControll/Logout/" class="text-black text-decoration-none nav-link">登出</a></li>
                     </div>
                         
                 }
