@@ -58,17 +58,23 @@ namespace _7_Team_WebApi.Controllers.Orders
 
 		}
 
-		[HttpPost]
+        [HttpPost]
         public ActionResult Edit(OrderVM orderVM)
         {
+            if (orderVM.OrderStatus == null)
+            {
+                ModelState.AddModelError("OrderStatus", "請選擇欲更改的出貨狀態");
+            }
+
             if (ModelState.IsValid)
             {
                 serv.Update(orderVM);
-
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+
+            return View(orderVM);
         }
 
-	}
+
+    }
 }
