@@ -25,8 +25,11 @@ namespace Team_7_WebApi_Client.Models.Entities
 		public int Id { get; set; }
 		
 		public string CouponName { get; set; }
-		
-		public decimal DiscountValue { get; set; }
+
+        public int DiscountTypeId { get; set; }
+
+
+        public decimal DiscountValue { get; set; }
 
 		public string CouponDescription { get; set; }
 
@@ -68,6 +71,7 @@ namespace Team_7_WebApi_Client.Models.Entities
 			{
 				Id = dto.Id,
 				CouponName = dto.CouponName,
+				DiscountTypeId = dto.DiscountTypeId,
 				DiscountValue = dto.DiscountValue,
 				CouponDescription = dto.CouponDescription,
 				EndDate = dto.EndDate,

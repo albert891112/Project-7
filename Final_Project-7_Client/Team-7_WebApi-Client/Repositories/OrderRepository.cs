@@ -137,25 +137,15 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 			}).ToList();
 
 			db.OrderItems.AddRange(orderItems);
-			db.SaveChanges();			
+			db.SaveChanges();
+
+			EmptyCart(memberId);
 
 			return orderId;
 		}
 
 
-		public List<Order> GetOrder(string account)
-		{
-			var memberId = db.Members.Where(x => x.Account == account).Select(x => x.Id).FirstOrDefault();			
-
-			object obj = new {
-				MemberId = memberId 
-			};		
-			
-			var orders = db.Orders.Where(x => x.MemberId == memberId).ToList();
-
-			return orders;			
-			
-		}
+	
 
 		public List<CartItem>GetCartItem (int memberId)
 		{
@@ -169,8 +159,19 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 
 			return cartItems;
 		}
-		
-		
+
+		private void EmptyCart(int memberId)
+		{
+			
+			var cart = db.Carts.Where(x => x.MemberId == memberId).FirstOrDefault();
+
+			if (cart == null) return;
+
+			db.Carts.Remove(cart);
+			db.SaveChanges();
+		}
+
+
 	}
 }
 

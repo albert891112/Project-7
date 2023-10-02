@@ -42,7 +42,7 @@
                             {
                                 @*<li><a href="/Members/Index/" class="nav-link">@(User.Identity.Name)</a></li>*@
 
-                            <li class="nav-item navbar-right">@Html.ActionLink("購物車", "ToCart", "Cart", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item navbar-right ">@Html.ActionLink("購物車", "ToCart", "Cart", new { area = "" }, new { @class = "nav-link" })</li>
                             <li class="nav-item">@Html.ActionLink("會員中心", "Index", "Members", new { area = "" }, new { @class = "nav-link" })</li>
                             <li class="nav-item">@Html.ActionLink("登出會員", "Logout", "Members", new { area = "" }, new { @class = "nav-link" })</li>
 
@@ -69,7 +69,7 @@
                 <p class="text-center text-muted">© 挖洗宜蘭郎</p>
             </footer>
         </div>
-    </div>
+    </div>  
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

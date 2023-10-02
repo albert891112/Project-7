@@ -27,6 +27,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 		public int Id { get; set; }
 
 		public string CouponName { get; set; }
+		public int DiscountTypeId { get; set; }
 
 		public decimal DiscountValue { get; set; }
 
@@ -53,6 +54,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 			{
 				Id = vm.Id,
 				CouponName = vm.CouponName,
+				DiscountTypeId = vm.DiscountTypeId,
 				DiscountValue = vm.DiscountValue,
 				CouponDescription = vm.CouponDescription,
 				EndDate = vm.EndDate,
@@ -66,6 +68,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
 			{
 				Id = entity.Id,
 				CouponName = entity.CouponName,
+				DiscountTypeId = entity.DiscountTypeId,
 				DiscountValue = entity.DiscountValue,
 				CouponDescription = entity.CouponDescription,
 				EndDate = entity.EndDate,

@@ -6,6 +6,7 @@ using Team_7_WebApi_Client.Models.EFModels;
 using Team_7_WebApi_Client.Models.Entities;
 using System.Data.SqlClient;
 using Dapper;
+using Team_7_WebApi_Client.Models.Views;
 
 namespace Team_7_WebApi_Client.Repositories
 {
@@ -26,7 +27,6 @@ namespace Team_7_WebApi_Client.Repositories
 
 			return Cart;
 		}
-
 
 
 		/// <summary>
@@ -174,7 +174,6 @@ namespace Team_7_WebApi_Client.Repositories
 
 			return entities;
 		}
-	}
-		    
-		
+
+	}		
 }

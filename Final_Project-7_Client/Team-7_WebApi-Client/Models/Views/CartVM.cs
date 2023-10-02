@@ -13,7 +13,7 @@ namespace Team_7_WebApi_Client.Models.Views
         public int Id { get; set; }
         public int MemberId { get; set; }
 
-        public List<CartItemVM> CartItems { get; set; }
+        public IEnumerable<CartItemVM> CartItems { get; set; }
 
         public int Total => CartItems.Sum(x => x.SubTotal);
     }
