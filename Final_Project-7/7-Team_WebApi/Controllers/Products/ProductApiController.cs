@@ -86,8 +86,22 @@ namespace _7_Team_WebApi.Controllers.Products
             return Ok();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult Search(ProductSearchVM vm)
+        {
 
-     
+            var dto  = vm.ToDTO();
+            List<ProductDTO> dtos = this.serv.Search(dto);
+
+          
+
+            return Ok(dtos);
+        }
 
 
 

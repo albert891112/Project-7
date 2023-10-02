@@ -131,6 +131,19 @@ namespace _7_Team_WebApi.Services
 
         }
     
-    
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public List<ProductDTO> Search(ProductSearchDTO dto)
+        {
+            List<ProductEntity> entities = this.repo.Search(dto.ToEntity());
+
+            var result = entities.Select(x => x.ToDTO()).ToList();
+
+            return result;
+        }   
     }
 }

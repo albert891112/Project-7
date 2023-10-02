@@ -37,9 +37,10 @@ namespace _7_Team_WebApi.Models.Entities
         public int? CategoryId { get; set; }
         public string Name { get; set; }
 
-        public int? Gender { get; set; }
+        public int? GenderId { get; set; }
         public int? HightPrice { get; set; }
         public int? LowPrice { get; set; }
+        public int? Enable { get; set; }
 
     }
 
@@ -70,7 +71,8 @@ namespace _7_Team_WebApi.Models.Entities
                 Name = dto.Name,
                 HightPrice = dto.HightPrice,
                 LowPrice = dto.LowPrice,
-                Gender = dto.Gender
+                GenderId = dto.GenderId,
+                Enable = dto.Enable
             };
         }
 

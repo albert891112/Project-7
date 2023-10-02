@@ -43,7 +43,9 @@ namespace _7_Team_WebApi.Models.DTOs
         public int? HightPrice { get; set; }
         public int? LowPrice { get; set; }
 
-        public int? Gender { get; set; }
+        public int? GenderId { get; set; }
+
+        public int? Enable { get; set; }
     }
 
     public static class ProductDTOExtenssion
@@ -87,7 +89,8 @@ namespace _7_Team_WebApi.Models.DTOs
                 Name = vm.Name,
                 HightPrice = vm.HightPrice.IntHasValue(),
                 LowPrice = vm.LowPrice.IntHasValue(),
-                Gender = vm.Gender.IntHasValue()
+                GenderId = vm.GenderId.IntHasValue(),
+                Enable = vm.Enable.IntHasValue()
             };
         }
 

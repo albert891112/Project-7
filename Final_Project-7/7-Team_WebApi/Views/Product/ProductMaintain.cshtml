@@ -1,47 +1,350 @@
-﻿
-    <input type="file" name="file" id="uploadfile" />
-    <br />
-    <input type="text" name="fullname" id="name" value="" />
-    <br />
-    <input type="text" name="fullname" id="price" value="" />
-    <br />
-    <input type="button" name="btn" id="summit" value="Save" />
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-
-        var file = document.getElementById("uploadfile");
-        var name = document.getElementById("name");
-        var price = document.getElementById("price");
-
-        var data = new FormData();
-
-        
-       
-
-        $("#summit").click(function () {
-            data.append("file", file.files[0]);
-            data.append("name", name.value);
-            data.append("price", price.value);
-            summit(data);
-        });
-
-    })
-
-    var summit = function (data) {
-
-        let url = "/api/ProductApi/Create"
-
-        fetch(url, {
-            method: "POST",
-            body: data
-        })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (myJson) {
-                console.log(myJson);
-            });
+﻿<style>
+    .valid {
+        border: 2px solid green;
+        border-radius: 5px;
     }
-</script>
+
+    .invalid {
+        border: 2px solid red;
+        border-radius: 5px;
+    }
+
+    .bordercolor {
+        border: 2px solid rgb(210, 201, 201);
+        border-radius: 5px;
+    }
+
+    .scroll {
+        overflow-y: scroll;
+        height: 250px;
+    }
+</style>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <h3 class="text-center">商品維護</h3>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 col-md-6">
+                <div class="item">
+                    <div class="input-group ">
+                        <span class="input-group-text" id="basic-addon1">商品名稱</span>
+                        <input type="text" class="form-control SearchProductName w-100" value="" placeholder="以商品名稱搜尋" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="item my-2">
+                    <select name="" id="SearchGenderSelect" class="mx-2">
+                        <option value="" selected>以性別搜尋</option>
+                        <option value="1">男裝</option>
+                        <option value="2">女裝</option>
+                    </select>
+
+                    <select name="" id="SearchCategorySelect" class="mx-2">
+                        <option value="" selected>以分類搜尋</option>
+                    </select>
+
+                    <select name="" id="SearchStatus" class="mx-2">
+                        <option value="" selected>以狀態搜尋</option>
+                        <option value="1">Enabled</option>
+                        <option value="0">Disabled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="item my-2">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">價格下限</span>
+                        <input type="text" class="form-control CreateProductLowPrice" value="" placeholder="以價格下限搜尋" aria-describedby="basic-addon1" required>
+                        <span class="input-group-text" id="basic-addon1">價格上限</span>
+                        <input type="text" class="form-control CreateProductHightPrice" value="" placeholder="以價格上限搜尋" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="item my-2">
+                    <button type="button" class="btn btn-primary SearchProduct">
+                        搜尋商品
+                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateProductModel">
+                        新增商品
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--商品模板-->
+    <template class="ProductTemplate">
+        <div class="item mx-3 my-3">
+            <div class="col-12 col-lg-6 my-3">
+                <div class="card" style="max-width: 650px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="/Image/棉質印花短版上衣.jpeg" class="img-fluid rounded-start photo" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title name">棉質印花短版上衣<small class="mx-3 text-muted gender">男裝</small><small class="mx-1 text-muted category">分類</small></h5>
+                                <div class="ProductPrice my-3">
+                                    <h6>價格: <small class="mx-3 price">2341234123</small></h6>
+                                </div>
+                                <div class="box my-3">
+                                    <h6>描述:</h6>
+                                    <p class="description text-truncate">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid repellat saepe inventore nobis consectetur deserunt ad illo atque nisi. Dignissimos ad iusto quisquam tempore unde laboriosam aliquam adipisci inventore modi? awefawfefefefawefawefawefawefawefawef</p>
+                                </div>
+                                <div class="stock">
+                                    <table class="table table-bordered">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">尺寸</th>
+                                                <th scope="col">S</th>
+                                                <th scope="col">M</th>
+                                                <th scope="col">L</th>
+                                                <th scope="col">XL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">庫存</th>
+                                                <td class="s">234</td>
+                                                <td class="m">12</td>
+                                                <td class="l">234</td>
+                                                <td class="xl">123</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary ToEdit" ProductId="" data-bs-toggle="modal" data-bs-target="#EditProductModel">
+                                        編輯商品
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <!--商品模板-->
+    <!--商品放置-->
+    <div class="container">
+        <div class="row ProductList">
+
+
+        </div>
+    </div>
+    <!--商品放置-->
+    <!--編輯商品Model-->
+    <div class="modal fade" id="EditProductModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯商品</h5>
+                    <button type="button" class="btn-close EditProductClose" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <div class="container">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">商品名稱</span>
+                            <input type="text" class="form-control EditProductName" value="" placeholder="請輸入商品名稱" aria-describedby="basic-addon1" required>
+                        </div>
+                    </div>
+                    <!--分類選擇-->
+                    <div class="container my-2">
+                        <div class="row">
+                            <div class="col-6">
+                                <select class="form-select" id="EditGenderSelect" aria-label="Default select example">
+                                    <option value="" selected>請選擇性別</option>
+                                    <option value="1">男裝</option>
+                                    <option value="2">女裝</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select" id="EditCategorySelect" aria-label="Default select example">
+                                    <option value="" selected>請選擇分類</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--分類選擇-->
+                    <!--商品價格描述-->
+                    <div class="container">
+                        <div class="input-group my-2">
+                            <span class="input-group-text" id="basic-addon1">商品價格</span>
+                            <input type="text" class="form-control EditProductPrice" value="" placeholder="請輸入商品價格" aria-describedby="basic-addon1" required>
+                        </div>
+                        <div class="des my-1">
+                            <h6 class="text-center">商品描述</h6>
+                            <textarea name="" id="" cols="30" rows="5" class="w-100 EditProductDes" required></textarea>
+                        </div>
+                    </div>
+                    <!--商品價格描述-->
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">S</span>
+                                    <input type="text" class="form-control EditProductS" value="" placeholder="庫存" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">M</span>
+                                    <input type="text" class="form-control EditProductM" value="" placeholder="庫存" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">L</span>
+                                    <input type="text" class="form-control EditProductL" value="" placeholder="庫存" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">XL</span>
+                                    <input type="text" class="form-control EditProductXL" value="" placeholder="庫存" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!--狀態圖片選擇-->
+                    <div class="container my-2">
+                        <div class="row">
+                            <div class="col-6">
+                                <select class="form-select" id="statusSelect" aria-label="Default select example">
+                                    <option value="" selected>請選擇狀態</option>
+                                    <option value="1">Enabled</option>
+                                    <option value="0">Disabled</option>
+
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <input type="file" class="form-control EditProductPhoto" accept="image/*" value="請輸入商品照片" required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--狀態圖片選擇-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary EditProductClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit EditProduct " data-bs-dismiss="modal" ProductId="">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--編輯商品Model-->
+    <!--新增商品Model-->
+    <div class="modal fade" id="CreateProductModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">新增商品</h5>
+                    <button type="button" class="btn-close CreateProductClose" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body mx-auto">
+                    <div class="container">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">商品名稱</span>
+                            <input type="text" class="form-control CreateProductName" value="" placeholder="請輸入商品名稱" aria-describedby="basic-addon1" required>
+                        </div>
+                    </div>
+                    <!--分類選擇-->
+                    <div class="container my-2">
+                        <div class="row">
+                            <div class="col-6">
+                                <select class="form-select" id="CreateGenderSelect" aria-label="Default select example">
+                                    <option value="" selected>請選擇性別</option>
+                                    <option value="1">男裝</option>
+                                    <option value="2">女裝</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select" id="CreateCategorySelect" aria-label="Default select example">
+                                    <option value="" selected>請選擇分類</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--分類選擇-->
+                    <!--商品價格描述-->
+                    <div class="container">
+                        <div class="input-group my-2">
+                            <span class="input-group-text" id="basic-addon1">商品價格</span>
+                            <input type="text" class="form-control CreateProductPrice" value="" placeholder="請輸入商品價格" aria-describedby="basic-addon1" required>
+                        </div>
+                        <div class="des my-1">
+                            <h6 class="text-center">商品描述</h6>
+                            <textarea name="" id="" cols="30" rows="5" class="w-100 CreateProductDes" required></textarea>
+                        </div>
+                    </div>
+                    <!--商品價格描述-->
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">S</span>
+                                    <input type="text" class="form-control CreateProductS" value="" placeholder="庫存" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">M</span>
+                                    <input type="text" class="form-control CreateProductM" value="" placeholder="庫存" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">L</span>
+                                    <input type="text" class="form-control CreateProductL" value="" placeholder="庫存" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">XL</span>
+                                    <input type="text" class="form-control CreateProductXL" value="" placeholder="庫存" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--狀態圖片選擇-->
+                    <div class="container my-2">
+                        <div class="row">
+                            <div class="col-6">
+                                <select class="form-select" id="CreateStatusSelect" aria-label="Default select example">
+                                    <option value="" selected>請選擇狀態</option>
+                                    <option value="1">Enabled</option>
+                                    <option value="0">Disabled</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <input type="file" class="form-control CreateProductPhoto" accept="image/*" value="請輸入商品照片" required>
+                            </div>
+                        </div>
+                    </div>
+                    <!--狀態圖片選擇-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary CreateProductClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary submmit CreateProduct " data-bs-dismiss="modal" ProductId="" disabled="disabled">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+@section scripts{
+    <script src="~/Js/ProductMaintain.js"></script>
+}
