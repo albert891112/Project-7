@@ -47,7 +47,7 @@ namespace _7_Team_WebApi.Models.DTOs
             return new RoleDTO()
             {
                 Id = entity.Id,
-                Name = entity.Name
+                Name = entity.RoleName
             };
         }
     }

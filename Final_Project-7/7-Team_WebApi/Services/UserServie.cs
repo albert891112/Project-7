@@ -71,6 +71,20 @@ namespace _7_Team_WebApi.Services
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public UserRoleDTO GetUserRoles(string account)
+        {
+            UserRoleEntity entity = this.repo.GetUserRole(account);
+
+            UserRoleDTO dto = entity.ToDTO();
+
+            return dto;
+        }
+
 
 
         /// <summary>

@@ -34,7 +34,18 @@ namespace _7_Team_WebApi.Models.ViewModels
         [StringLength(50)]
         public string Name { get; set; }
     }
-    
+
+    public class UserRoleVM
+    {
+        public int Id { get; set; }
+        public string Account { get; set; }
+
+        public string[] Role { get; set; }
+
+        public string LoginTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
+    }
+
 
 
     public static class UserVMExtenssion
@@ -46,6 +57,17 @@ namespace _7_Team_WebApi.Models.ViewModels
                 Id = dto.Id,
                 Account = dto.Account,
                 Name = dto.Name
+            };
+        }
+
+
+        public static UserRoleVM ToVM(this UserRoleDTO dto)
+        {
+            return new UserRoleVM
+            {
+                Id = dto.Id,
+                Account = dto.Account,
+                Role = dto.Role.Select(x => x.Name).ToArray()    
             };
         }
     }   

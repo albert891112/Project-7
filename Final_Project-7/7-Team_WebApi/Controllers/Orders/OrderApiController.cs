@@ -1,4 +1,5 @@
 ﻿
+using _7_Team_WebApi.Models.ViewModels;
 using _7_Team_WebApi.Services;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,14 @@ namespace _7_Team_WebApi.Controllers.Orders
             var result = this.serv.GetByStatusId(StatusId);
 
             return Ok(result);
+        }
+
+        [HttpPut]
+        public IHttpActionResult UpdateStatus(OrderVM orderVM)
+        {
+            this.serv.Update(orderVM);
+
+            return Ok();
         }
 
 

@@ -15,6 +15,22 @@ namespace _7_Team_WebApi.Controllers
 
         UserServie serv = new UserServie();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetUserRoles()
+        {
+            var account = User.Identity.Name;
+
+            var user = serv.GetUserRoles(account);
+
+            var vm = user.ToVM();
+
+            return Ok(vm);
+        }
+
 
         /// <summary>
         /// Get all users

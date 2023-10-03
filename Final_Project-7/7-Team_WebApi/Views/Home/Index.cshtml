@@ -1,8 +1,148 @@
-﻿<div class="card mb-3">
-    <img class="card-img-top" src="~/File/pic01-bigger.jpeg" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">這裡是宜蘭人a後台</h5>
-        <p class="card-text">宜蘭人a後台有好幾個管理功能，都寫在列表上了</p>
-        
+﻿<style>
+    .scrollit {
+        overflow: scroll;
+        height: 250px;
+    }
+</style>
+<body>
+    <!--ProductRank模板-->
+    <template class="RankTemplate">
+        <tr>
+            <td class="text-center rank"></td>
+            <td class="text-center Total">r</td>
+            <td class="text-center Name">r</td>
+            <td class="text-center Price">r</td>
+            <td class="text-center S">r</td>
+            <td class="text-center M">r</td>
+            <td class="text-center L">r</td>
+            <td class="text-center XL">e</td>
+        </tr>
+    </template>
+
+    <!--訂單模板-->
+    <template class="OrderTemplate">
+        <tr>
+            <td class="text-center Status">狀態</td>
+            <td class="text-center Name">姓名</td>
+            <td class="text-center Address">地址</td>
+            <td class="text-center Ship">運送方法</td>
+            <td class="text-center TotalPrice">總價</td>
+            <td class="text-center OrderTime">訂購時間</td>
+            <td class="text-center "><button class="btn btn-primary checkDetail" data-bs-toggle="modal" data-bs-target="#exampleModal" orderId="">查看訂單明細</button></td>
+            <td class="text-center "><button class="btn btn-primary Send" orderId="">已出貨</button></td>
+        </tr>
+    </template>
+
+    <!--訂單明細模板-->
+    <template class="OrderItemTemplate">
+        <tr>
+            <td class="text-center Id">狀態</td>
+            <td class="text-center Name">姓名</td>
+            <td class="text-center Size">地址</td>
+            <td class="text-center Qty">運送方法</td>
+        </tr>
+    </template>
+
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-4">
+                <div class="mt-5">
+                    <div class="item User">
+                        <h5 class="my-2 mx-5">帳號 :</h5>
+                        <h5 class="Account text-center my-2">albert</h5>
+                        <h5 class="my-2 mx-5">身份 :</h5>
+                        <h5 class="Role text-center my-2 ">1</h5>
+                        <h5 class="my-2 mx-5">登入時間 :</h5>
+                        <h5 class="loginTime text-center my-2 ">登入時間</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <h4 class="text-center">商品銷售排行</h4>
+                <table class="table table-striped table-hover product">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-center" scope="col">排序</th>
+                            <th class="text-center" scope="col">總售出</th>
+                            <th class="text-center" scope="col">商品名稱</th>
+                            <th class="text-center" scope="col">商品價格</th>
+                            <th class="text-center" scope="col">Ｓ</th>
+                            <th class="text-center" scope="col">Ｍ</th>
+                            <th class="text-center" scope="col">Ｌ</th>
+                            <th class="text-center" scope="col">ＸＬ</th>
+                        </tr>
+                    </thead>
+                    <tbody class="RankList ">
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="item">
+                    <h4 class="text-center">未出貨訂單</h4>
+                    <table class="table table-striped table-hover orderlist">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-center" scope="col">狀態</th>
+                                <th class="text-center" scope="col">訂購人</th>
+                                <th class="text-center" scope="col">地址</th>
+                                <th class="text-center" scope="col">運送方法</th>
+                                <th class="text-center" scope="col">總價</th>
+                                <th class="text-center" scope="col">訂購時間</th>
+                                <th class="text-center" scope="col">檢視訂單</th>
+                                <th class="text-center" scope="col">出貨確認</th>
+                            </tr>
+                        </thead>
+                        <tbody class="OrderList ">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">訂單明細</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <div class="item">
+                        <table class="table table-striped table-hover">
+                            <tbody class="OrderItemList">
+                                <tr class="table-dark">
+                                    <td class="text-center Id">商品編號</td>
+                                    <td class="text-center Name">商品名稱</td>
+                                    <td class="text-center Size">尺寸</td>
+                                    <td class="text-center Qty">數量</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+@section scripts{
+    <script src="~/Js/HomePage.js"></script>
+}

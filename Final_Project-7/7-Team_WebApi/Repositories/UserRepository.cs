@@ -62,6 +62,48 @@ namespace _7_Team_WebApi.Repositories
             return userPermissionsEntity;
         }
 
+        /// <summary>
+        /// Get user role
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public UserRoleEntity GetUserRole(string account)
+        {
+            string sql = @"SELECT U.* , R.* FROM Users as U
+                        INNER JOIN Users_Roles as UR ON U.Id = UR.UserId
+                        INNER JOIN Roles as R ON UR.RoleId = R.Id
+                        Where U.Account = @Account";
+
+            object obj = new { Account = account };
+
+            Func<SqlConnection, string, object, UserRoleEntity> func = (conn, s, o) =>
+            {
+                UserRoleEntity entity = null;
+
+                conn.Query<UserRoleEntity, RoleEntity, UserRoleEntity>(s, (u, r) =>
+                {
+                    if(entity == null)
+                    {
+                        u.Role = new List<RoleEntity>();
+                        u.Role.Add(r);
+                        entity = u;
+                    }
+                    else
+                    {
+                        entity.Role.Add(r);
+                    }
+
+                    return u;
+                }, o);
+
+                return entity;
+            };
+
+
+            UserRoleEntity userRoleEntity = this.connection.Get<UserRoleEntity>(sql, "default", obj, func);
+
+            return userRoleEntity;
+        }
 
         /// <summary>
         /// Create a new user
