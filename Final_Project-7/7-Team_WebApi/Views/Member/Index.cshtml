@@ -31,7 +31,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr class="customTablebackground">
         <td>
             @Html.DisplayFor(modelItem => item.Account)
         </td>
@@ -44,13 +44,25 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Enable)
+        <td >
+            @Html.DisplayFor(modelItem => item.Enable ,null, new { @class = "custom-control" })
         </td>
         <td>
-            @Html.ActionLink("啟用/停用帳號", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("啟用/停用帳號", "Edit") |
         </td>
     </tr>
 }
 
 </table>
+@section CSS {
+    <style>    
+              body{
+        margin-bottom: 60px;
+    }
+     .customTablebackground{
+         background-color: rgba(240, 240, 240, 0.6);
+    }
+
+   
+    </style>
+}

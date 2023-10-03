@@ -102,7 +102,7 @@
 }
 
 <div>
-    @Html.ActionLink("返回訂單總覽", "Index")
+    @Html.ActionLink("返回訂單總覽", "Index",null,new {@class ="btn btn-primary"})
 </div>
 
 @section Scripts {
@@ -125,5 +125,8 @@
                 width: 100%;
                 opacity: 30%;
             }
+              body{
+        margin-bottom: 60px;
+    }
     </style>
 }

@@ -6,44 +6,86 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    <style>
+
+<style>
+
+  .bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -999;
+        }
+
+        .bg img {
+            min-height: 100%;
+            width: 100%;
+            opacity: 30%;
+        }
+         body {
+            font-family: "微軟正黑體";
+            font-weight: bold;
+            font-size: 20px;            
+        }
         #footer {
             margin-top: 10px;
             text-align: center;
         }
-       
-    </style>
+
+        .navbarbackground {
+            background-color: #e3f2fd;
+
+        }
+        .dropdownbackground{
+             background-color: #e3f2fd;
+             border:none;
+        }
+
+       footer {
+    text-align: center; 
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #e3f2fd;
+    padding: 10px 0 0; 
+    
+}
+</style>
 
     @RenderSection("css", required: false)
 </head>
-</head>
-<body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+<body>
+<div class="bg">
+        <img src="/File/pic-login.jpg">
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light navbarbackground">
         <div class="container-fluid">
             @*@Html.ActionLink("挖洗宜蘭郎", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             
-            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-                <img src="~/File/pic01.jpg" alt="挖系宜蘭郎" width="75" height="40">
+            <a class="navbar-brand " href="@Url.Action("Index", "Home")">
+                <img src="~/File/pic01.jpg" alt="挖系宜蘭郎" width="100" height="70">
             </a>
 
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+            <button type="button" class="navbar-toggler " data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between navbarbackground">
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 ">
                         <li>@Html.ActionLink("首頁", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("商品維護", "ProductMaintain", "Product", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("分類維護", "CategoryMaintain", "Category", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("訂單維護", "Index", "Order", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("會員維護", "Index", "Member", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>
-                            <div class="dropdown">
-                                <button class="btn btn-light bg-white dropdown-toggle nav-link" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="dropdown ">
+                                <button class="btn btn-light  dropdown-toggle nav-link dropdownbackground" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     權限管理
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -53,16 +95,16 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="nav navbar-nav navbar-right">
+                    <div class="nav navbar-nav navbar-right  ">
                         <li class="ml-5"><a href="#" class="text-black text-decoration-none nav-link ">你好： @(User.Identity.Name)</a></li>
-                        <li class="ml-5"><a href="/PermissionControll/Logout/" class="text-black text-decoration-none nav-link">登出</a></li>
+                        <li class="ml-5"><a href="/PermissionControll/Logout/" class="text-danger text-decoration-none nav-link ">登出</a></li>
                     </div>
                         
                 }
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content ">
         @RenderBody()
         <hr />
         <footer>

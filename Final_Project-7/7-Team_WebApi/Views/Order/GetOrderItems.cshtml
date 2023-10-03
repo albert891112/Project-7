@@ -54,9 +54,13 @@
 
 </table>
 
-<div class="back">
-    <p><a href="/Order/Index/">返回訂單總覽</a></p>
+<div>
+    @Html.ActionLink("返回訂單總覽", "Index",null,new {@class ="btn btn-primary"})
 </div>
+
+<!-- <div class="back">
+    <p ><a href="/Order/Index/">返回訂單總覽</a></p>
+</div> -->
 
 @section CSS {
     <style>
@@ -74,5 +78,8 @@
             width: 100%;
             opacity: 30%;
         }
+          body{
+        margin-bottom: 60px;
+    }
     </style>
 }
