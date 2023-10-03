@@ -58,7 +58,6 @@
     //當點擊首頁按鈕時，顯示首頁
     $(".ToHome").click(function(){
       initLoad();
-      showHome();
     })
   
       
@@ -115,7 +114,9 @@
   //get product data ======> To do : get data from server
   var getAllProduct = function(){
     
-    let url = '/api/ProductApi/GetAll';
+    const bestNumOfProduct = 4;
+
+    let url = '/api/ProductApi/GetSalesRank?numOfPrduct=' + bestNumOfProduct;
 
     fetch(url, {
         method: 'GET',
@@ -125,21 +126,17 @@
     }).then(function (response) {
       return response.json();
     }).then(function (result) {
-      setProduct(result);
+      setProduct(result).then(function(){
+        showHome();
+      });
+     
     }).catch(function (err) {
       console.log(err);
     });
 
-   
-
-      // var products=[
-      // {name:"高腰牛仔短褲", price:865, src:"https://tw.906studio.kr/web/product/big/202106/48428bb00743bc5ed42b869240bf7048.jpg", cart:false, follow:false},
-      // {name:"綁帶A字長裙", price:840, src:"https://tw.906studio.kr/web/product/big/202105/fc9aee31a0c05b6ef536216c8566cd69.jpg", cart:false, follow:false},
-      // {name:"短版針織外套", price:599, src:"https://tw.906studio.kr/web/product/big/202106/1cd6fbcde8a5b8df1984c992ef86e73b.jpg", cart:false, follow:false},
-      // {name:"風衣長洋裝", price:2205, src:"https://tw.906studio.kr/web/product/big/202105/6c5e6c93b6342932d639143da1fb1652.jpg", cart:false, follow:false},
-      //];
-
-      //setProduct(products)
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
     
   }
   
@@ -188,7 +185,9 @@
         console.log(err);
     });
   
-    
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
   }
   
   //建立商品
@@ -206,6 +205,10 @@
           item.find(".name").text(ele.Name);
           item.find(".price").text("$" + ele.Price);
           $(".product_show_list").append(item);
+      });
+
+      return new Promise((resolve, reject) => {
+        resolve();
       });
   }
   
@@ -241,11 +244,8 @@
   //畫面初始化
   var initLoad = function(){
   
-    getAllProduct();
-    
+    getAllProduct()
 
-    showHome();  
-      
   }
   
   //分類初始化

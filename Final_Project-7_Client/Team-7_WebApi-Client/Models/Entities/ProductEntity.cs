@@ -42,7 +42,6 @@ namespace Team_7_WebApi_Client.Models.Entities
         public int M { get; set; }
         public int L { get; set; }
         public int XL { get; set; }
-
         public int TotalQty { get; set; }
     }
 

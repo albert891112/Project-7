@@ -10,7 +10,7 @@
     <img src="/File/pic-login.jpg">
 </div>
 
-<table class="table">
+<table class="table table-striped table-hover">
     <tr>
         
         <th>
@@ -28,11 +28,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Total)
         </th>
-        <th></th>
+        
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr class="customTablebackground">
         <td>
             @Html.DisplayFor(modelItem => item.ProductName)
         </td>
@@ -48,7 +48,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Total)
         </td>
-        
+
     </tr>
 }
 
@@ -80,6 +80,9 @@
         }
         body {
             margin-top: 120px;
+        }
+        .customTablebackground {
+            background-color: rgba(240, 240, 240, 0.8);
         }
     </style>
 }
