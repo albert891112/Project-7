@@ -63,11 +63,30 @@ namespace Team_7_WebApi_Client.Services
         /// Get Product sales Ranking
         /// </summary>
         /// <returns></returns>
-        public List<ProductRankingEntity> GetSalesRank()
+        public List<ProductDTO> GetSalesRank(int bestNum)
         {
-            List<ProductRankingEntity> entities = this.repo.GetProductRanking().Take(4).ToList();
+            List<ProductRankingEntity> rankProduct = this.repo.GetProductRanking().ToList();
 
-            return entities;
+            //if bestNum is bigger than the number of products, set bestNum to the number of products
+            if(bestNum > rankProduct.Count)
+            {
+                bestNum = rankProduct.Count;
+            }
+
+            var dtos = rankProduct.Take(bestNum).Select(e => e).ToList();
+
+            List<ProductEntity>  entities = new List<ProductEntity>();
+
+            //convert ProductRankingEntity to ProductEntity
+            foreach (var dto in dtos)
+            {
+                var product = this.repo.Get(dto.Id);
+                entities.Add(product);
+            }
+
+            return entities.Select(e => e.ToDTO()).ToList();
+
+            
         }
 
     }

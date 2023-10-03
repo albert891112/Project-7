@@ -13,7 +13,7 @@ namespace Team_7_WebApi_Client.Models.DTOS
         public int  Id { get; set; }
         public string Name { get; set; }
 
-        List<GenderCategoryDTO> GenderCategories { get; set; }
+        public List<GenderCategoryDTO> GenderCategories { get; set; }
 
     }
 
@@ -21,11 +21,18 @@ namespace Team_7_WebApi_Client.Models.DTOS
     {
         public static CategoryDTO ToDTO(this CategoryEntity entity)
         {
+            List<GenderCategoryDTO> genders = null;
+
+            if(entity.GenderCategories != null)
+            {
+                genders = entity.GenderCategories.Select(gc => gc.ToDTO()).ToList();
+            }
             
             return new CategoryDTO
             {
                 Id = entity.Id,
-                Name = entity.Name
+                Name = entity.Name,
+                GenderCategories = genders
             };
         }
 

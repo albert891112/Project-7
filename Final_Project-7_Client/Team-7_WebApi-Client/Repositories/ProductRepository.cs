@@ -62,9 +62,10 @@ namespace Team_7_WebApi_Client.Repositories
         /// <returns></returns>
         public List<ProductEntity> GetAll()
         {
-            string sql = "SELECT P.* , GC.* , C.* FROM Products as P " +
-                "INNER JOIN GenderCategories as GC ON P.GenderId = GC.Id " +
-                "INNER JOIN Categories as C ON P.CategoryId = C.Id;";
+            string sql = @"SELECT P.* , GC.* , C.* FROM Products as P 
+                        INNER JOIN GenderCategories as GC ON P.GenderId = GC.Id
+                        INNER JOIN Categories as C ON P.CategoryId = C.Id 
+                        WHERE P.Enable = 1";
 
 
 
@@ -104,7 +105,8 @@ namespace Team_7_WebApi_Client.Repositories
                 "AND (@Name IS NULL OR P.Name LIKE '%' + @Name +'%') " +
                 "AND (@LowPrice IS NULL OR P.Price >= @LowPrice) " +
                 "AND (@HightPrice IS NULL OR P.Price <= @HightPrice) " +
-                "AND (@Gender IS NULL OR GC.Gender = @Gender)" +
+                "AND (@Gender IS NULL OR GC.Gender = @Gender) " +
+                "AND P.Enable = 1" +
                 "Order By p.Id";
 
             object obj = new

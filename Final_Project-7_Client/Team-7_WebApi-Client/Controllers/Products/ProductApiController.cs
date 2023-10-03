@@ -63,11 +63,11 @@ namespace Team_7_WebApi_Client.Controllers.Products
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IHttpActionResult GetSalesRank()
+        public IHttpActionResult GetSalesRank(int numOfPrduct)
         {
-            var resuilt = this.service.GetSalesRank();
+            var result = this.service.GetSalesRank(numOfPrduct);
 
-            return Ok(resuilt);
+            return Ok(result);
         }
 
 
