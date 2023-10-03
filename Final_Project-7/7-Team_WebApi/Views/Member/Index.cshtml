@@ -28,9 +28,11 @@
             @Html.DisplayNameFor(model => model.StatusText)
         </th>
         <th></th>
+        
     </tr>
 
 @foreach (var item in Model) {
+
     <tr class="customTablebackground">
         <td>
             @Html.DisplayFor(modelItem => item.Account)
@@ -44,16 +46,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-<<<<<<< Updated upstream
-        <td >
-            @Html.DisplayFor(modelItem => item.Enable ,null, new { @class = "custom-control" })
-=======
+
         <td>
             @Html.DisplayFor(modelItem => item.StatusText)
->>>>>>> Stashed changes
+
         </td>
         <td>
-            @Html.ActionLink("啟用/停用帳號", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("啟用/停用帳號", "Edit", new { id = item.Id },new { @class = "btn btn-outline-dark" }) |
         </td>
     </tr>
 }
