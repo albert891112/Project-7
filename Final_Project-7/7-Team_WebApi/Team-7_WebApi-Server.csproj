@@ -201,6 +201,7 @@
     <Compile Include="Controllers\Categories\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Members\MemberController.cs" />
+    <Compile Include="Controllers\Orders\OrderApiController.cs" />
     <Compile Include="Controllers\Orders\OrderController.cs" />
     <Compile Include="Controllers\PermissionControll\PermissionApiController.cs" />
     <Compile Include="Controllers\PermissionControll\PermissionControllController.cs" />
@@ -450,6 +451,7 @@
     <Content Include="Global.asax" />
     <Content Include="Js\CategoryMaintain.js" />
     <Content Include="Js\EditRoles.js" />
+    <Content Include="Js\HomePage.js" />
     <Content Include="Js\PermissionControll.js" />
     <Content Include="Js\ProductMaintain.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />

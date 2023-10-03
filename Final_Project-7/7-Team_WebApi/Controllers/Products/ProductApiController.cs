@@ -103,7 +103,17 @@ namespace _7_Team_WebApi.Controllers.Products
             return Ok(dtos);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetSalesRank()
+        {
+            var resuilt = this.serv.GetSalesRank();
 
+            return Ok(resuilt);
+        }
 
                                                       
     }

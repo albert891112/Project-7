@@ -23,8 +23,6 @@ namespace _7_Team_WebApi.Repositories
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
- 
-        
         public List<OrderItemEntity> GetOrderItemById(int Id)
         {
             SqlDb connection = new SqlDb();
@@ -58,7 +56,6 @@ namespace _7_Team_WebApi.Repositories
 
             return result;
         }
-
 
         /// <summary>
         /// Get All Orders Data

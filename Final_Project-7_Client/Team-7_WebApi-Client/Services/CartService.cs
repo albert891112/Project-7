@@ -14,13 +14,31 @@ namespace Team_7_WebApi_Client.Services
 		CartRepository repo = new CartRepository();
 		MemberRepository memberRepo = new MemberRepository();
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="Account"></param>
+		/// <returns></returns>
 		public CartDTO ShowCart(string Account)
 		{
-			CartEntity cart = this.repo.GetCartByMember(Account);	
+			CartEntity cart = this.repo.GetCartByMember(Account);
 
-			return cart.ToDTO();
+			CartDTO dto =null ;
+			
+			try
+			{
+				dto = cart.ToDTO();
+			}
+			catch (Exception)
+			{
+
+                throw new Exception("購物車是空的");
+            }
+
+			return dto;
 		}
+		
+	
 
 		/// <summary>
 		/// If Cart is exist, update cartItem or Create new cart

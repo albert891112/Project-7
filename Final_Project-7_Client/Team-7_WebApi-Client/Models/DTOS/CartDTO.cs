@@ -43,11 +43,18 @@ namespace Team_7_WebApi_Client.Models.DTOS
 
 		public static CartDTO ToDTO(this CartEntity entity)
 		{
+
+			List<CartItemDTO> cartItems = null;
+			if (entity.CartItems != null)
+			{
+				cartItems = entity.CartItems.Select(x => x.ToDTO()).ToList();
+			}
+
             return new CartDTO
 			{
                 Id = entity.Id,
                 MemberId = entity.MemberId,
-                CartItems = entity.CartItems.Select(x => x.ToDTO()).ToList(),
+                CartItems = cartItems
             };
         }
 

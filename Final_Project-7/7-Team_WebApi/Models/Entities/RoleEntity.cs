@@ -11,7 +11,7 @@ namespace _7_Team_WebApi.Models.Entities
     public class RoleEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string RoleName { get; set; }
     }
 
     public static class RoleEntityExtension
@@ -21,7 +21,7 @@ namespace _7_Team_WebApi.Models.Entities
             return new RoleEntity()
             {
                 Id = dto.Id,
-                Name = dto.Name
+                RoleName = dto.Name
             };
         }
 
@@ -31,7 +31,7 @@ namespace _7_Team_WebApi.Models.Entities
             return new RoleEntity()
             {
                 Id = model.Id,
-                Name = model.RoleName
+                RoleName = model.RoleName
             };
         }
     }

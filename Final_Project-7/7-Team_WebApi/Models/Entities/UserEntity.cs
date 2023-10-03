@@ -26,6 +26,15 @@ namespace _7_Team_WebApi.Models.Entities
         public List<PermissionEntity> Permission { get; set; }
     }
 
+    public class UserRoleEntity 
+    {
+        public int Id { get; set; }
+        public string Account { get; set; }
+
+        public List<RoleEntity> Role { get; set; }
+
+    }
+
 
 
 

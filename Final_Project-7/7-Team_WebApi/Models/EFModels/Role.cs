@@ -37,7 +37,7 @@ namespace _7_Team_WebApi.Models.EFModels
             return new Role()
             {
                 Id = role.Id,
-                RoleName = role.Name
+                RoleName = role.RoleName
             };
         }
     }

@@ -69,6 +69,10 @@ namespace Team_7_WebApi_Client.Repositories
 			//Get new cart id
             int newCartId = newCart.Id;	
 
+			if(entity.CartItem == null)
+			{
+                return;
+            }
 			//Set new cartitem
 			var newCartItem = entity.CartItem.ToModel();
 			newCartItem.CartId = newCartId;
@@ -76,12 +80,9 @@ namespace Team_7_WebApi_Client.Repositories
 			//Create new cartitem
 			db.CartItems.Add(newCartItem);
 			db.SaveChanges();
-
-            
         }	
 
-
-
+	
 		/// <summary>
 		/// Get cart by member account
 		/// </summary>
@@ -91,11 +92,11 @@ namespace Team_7_WebApi_Client.Repositories
 		{
 			string sql = @"SELECT C.* , M.Id , Ci.* , P.* , Ca.* , G.* , S.* FROM Carts as C 
 						INNER JOIN Members as M ON C.MemberId = M.Id 
-						INNER JOIN CartItems as CI ON Ci.CartId = c.Id 
-						INNER JOIN Products as P ON CI.ProductId = P.Id 
+						INNER JOIN CartItems as CI ON Ci.CartId = c.Id
+						INNER JOIN Products as P ON CI.ProductId = P.Id
 						INNER JOIN Categories as Ca ON P.CategoryId = Ca.Id
 						INNER JOIN GenderCategories as G ON P.GenderId = G.Id
-						INNER JOIN Stocks as S ON P.Id = S.ProductId
+						INNER JOIN Stocks as S ON P.Id = S.ProductId		 
 						WHERE M.Account = @Account";
 
 			object obj = new { Account = Account };
@@ -175,5 +176,9 @@ namespace Team_7_WebApi_Client.Repositories
 			return entities;
 		}
 
+		
+
+	
+	
 	}		
 }

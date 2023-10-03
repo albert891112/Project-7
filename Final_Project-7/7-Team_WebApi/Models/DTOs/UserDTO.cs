@@ -23,7 +23,16 @@ namespace _7_Team_WebApi.Models.DTOs
         public string Password { get; set; }
 
         public string Permissions { get; set; }
-    }   
+    }
+
+    public class UserRoleDTO
+    {
+        public int Id { get; set; }
+        public string Account { get; set; }
+
+        public List<RoleDTO> Role { get; set; }
+
+    }
 
     public static class UserRegisterDTOExtension
     {
@@ -37,6 +46,16 @@ namespace _7_Team_WebApi.Models.DTOs
                 Account = vm.Account,
                 Password = vm.Password,
                 Name = vm.Name
+            };
+        }
+
+        public static UserRoleDTO ToDTO(this UserRoleEntity entity)
+        {
+            return new UserRoleDTO()
+            {
+                Id = entity.Id,
+                Account = entity.Account,
+                Role = entity.Role.Select(x => x.ToDTO()).ToList()
             };
         }
 

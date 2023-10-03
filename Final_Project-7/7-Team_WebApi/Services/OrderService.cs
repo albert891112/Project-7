@@ -55,5 +55,20 @@ namespace _7_Team_WebApi.Services
             return entities;
         }
 
+
+        /// <summary>
+        /// Get Order by StatusId
+        /// </summary>
+        /// <param name="StatusId"></param>
+        /// <returns></returns>
+        public List<OrderEntity> GetByStatusId(int StatusId)
+        {
+            List<OrderEntity> entities = this.repo.GetAll();
+
+            entities = entities.Select(x => x).Where(x => x.OrderStatus.Id == StatusId).ToList();   
+
+            return entities;
+        }   
+
     }
 }
