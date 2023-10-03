@@ -25,12 +25,14 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Enable)
+            @Html.DisplayNameFor(model => model.StatusText)
         </th>
         <th></th>
+        
     </tr>
 
 @foreach (var item in Model) {
+
     <tr class="customTablebackground">
         <td>
             @Html.DisplayFor(modelItem => item.Account)
@@ -44,11 +46,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        <td >
-            @Html.DisplayFor(modelItem => item.Enable ,null, new { @class = "custom-control" })
+
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusText)
+
         </td>
         <td>
-            @Html.ActionLink("啟用/停用帳號", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("啟用/停用帳號", "Edit", new { id = item.Id },new { @class = "btn btn-outline-dark" }) |
         </td>
     </tr>
 }

@@ -6,7 +6,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>編輯訂單狀態</h2>
+<h3>編輯訂單狀態</h3>
 
 
 @using (Html.BeginForm())
@@ -17,92 +17,97 @@
         <img src="/File/pic-login.jpg">
     </div>
 
-    <div class="form-horizontal">
+    <div class="container">
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+        <div class="form-horizontal">
 
-        <div class="mb-3">
-            @Html.LabelFor(model => model.Member, htmlAttributes: new { @class = "control-label col-md-2" })
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
 
-            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Member)</span>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Member, htmlAttributes: new { @class = "control-label col-md-2" })
 
-
-        </div>
-
-        <div class="mb-3">
-            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.PhoneNumber)</span>
+                <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Member)</span>
 
 
-        </div>
-
-        <div class="mb-3">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Address)</span>
-
-
-        </div>
-
-        <div class="mb-3" id="OrderStatus">
-            @Html.LabelFor(model => model.OrderStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <div class="form-control" style="border: none; background-color: transparent;">
-                @Html.DropDownListFor(model => model.StatusID,
-                new SelectList(Model.OrderStatusList, "Id", "Status"),
-                "請選擇欲更改的狀態",
-                new { @class = "custom-select", required = "required" })
             </div>
 
-            @Html.ValidationMessageFor(model => model.OrderStatus, "", new { @class = "text-danger" })
-        </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.PhoneNumber)</span>
 
 
-        <div class="mb-3">
-            @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
 
-            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Payment)</span>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
 
-
-        </div>
-
-        <div class="mb-3">
-            @Html.LabelFor(model => model.Shipping, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Shipping)</span>
+                <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Address)</span>
 
 
-        </div>
+            </div>
 
-        <div class="mb-3">
-            @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="mb-3" id="OrderStatus">
+                @Html.LabelFor(model => model.OrderStatus, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Total)</span>
+                <div class="form-control" style="border: none; background-color: transparent;">
+                    @Html.DropDownListFor(model => model.StatusID,
+                    new SelectList(Model.OrderStatusList, "Id", "Status"),
+                    "請選擇欲更改的狀態",
+                    new { @class = "custom-select", required = "required" })
+                </div>
+
+                @Html.ValidationMessageFor(model => model.OrderStatus, "", new { @class = "text-danger" })
+            </div>
 
 
-        </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
 
-        <div class="mb-3">
-            @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.OrderDate)</span>
+                <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Payment)</span>
 
 
-        </div>
+            </div>
 
-        <div class="mb-3">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="儲存" class="btn btn-success" />
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Shipping, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Shipping)</span>
+
+
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.Total)</span>
+
+
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                <span class="form-control" style="border: none; background-color: transparent;">@Html.DisplayFor(model => model.OrderDate)</span>
+
+
+            </div>
+
+            <div class="mb-3">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="儲存" class="btn btn-success" />
+                </div>
             </div>
         </div>
+
     </div>
+    
 }
 
 <div>
-    @Html.ActionLink("返回訂單總覽", "Index",null,new {@class ="btn btn-primary"})
+    @Html.ActionLink("返回訂單總覽", "Index",null,new {@class = "btn btn-outline-dark" })
 </div>
 
 @section Scripts {
@@ -120,13 +125,19 @@
             z-index: -999;
         }
 
-            .bg img {
-                min-height: 100%;
-                width: 100%;
-                opacity: 30%;
-            }
+        .bg img {
+            min-height: 100%;
+            width: 100%;
+            opacity: 30%;
+        }
         body {
             margin-top: 120px;
+        }
+        .container {
+            background-color: #ffffff; 
+            padding: 20px; 
+            border-radius: 10px;
+            opacity: 0.9;
         }
     </style>
 }
