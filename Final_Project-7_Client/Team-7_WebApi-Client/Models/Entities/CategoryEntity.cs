@@ -11,6 +11,7 @@ namespace Team_7_WebApi_Client.Models.Entities
         public int  Id { get; set; }
 
         public string  Name { get; set; }
+        public List<GenderCategoryEntity> GenderCategories { get; set; }
     }
 
     public static class CategoryEntityExtensions

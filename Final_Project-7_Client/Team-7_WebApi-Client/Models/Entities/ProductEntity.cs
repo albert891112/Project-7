@@ -34,6 +34,8 @@ namespace Team_7_WebApi_Client.Models.Entities
     public class ProductRankingEntity
     {
         public int Id { get; set; }
+        public CategoryEntity Category { get; set; }
+        public GenderCategoryEntity Gender { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public int S { get; set; }

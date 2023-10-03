@@ -43,6 +43,11 @@ namespace Team_7_WebApi_Client.Controllers.Products
             return Ok(dtos);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
         [HttpPost]
         public IHttpActionResult Search(ProductSearchVM vm)
         {
@@ -51,7 +56,20 @@ namespace Team_7_WebApi_Client.Controllers.Products
             List<ProductDTO> dtos = this.service.Search(dto);
 
             return Ok(dtos);
-        }   
-   
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetSalesRank()
+        {
+            var resuilt = this.service.GetSalesRank();
+
+            return Ok(resuilt);
+        }
+
+
     }
 }

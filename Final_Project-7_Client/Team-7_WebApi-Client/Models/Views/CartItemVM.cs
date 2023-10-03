@@ -37,7 +37,7 @@ namespace Team_7_WebApi_Client.Models.Views
 				CartId = dto.CartId,
 				Product = dto.Product.ToVM(),
 				Qty = dto.Qty,
-				Size = dto.Size
+				Size = dto.Size.Trim()
 
 			};
 		}

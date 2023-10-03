@@ -138,5 +138,37 @@ namespace Team_7_WebApi_Client.Repositories
             return products;
         }
 
+
+        /// <summary>
+        /// GEt Product Sale Ranking
+        /// </summary>
+        /// <returns></returns>
+        public List<ProductRankingEntity> GetProductRanking()
+        {
+            SqlDb connection = new SqlDb();
+
+            string procedure = "GetSalesRank";
+
+            object obj = new { Id = 0 };
+
+            Func<SqlConnection, string, List<ProductRankingEntity>> func = (conn, pro) =>
+            {
+                return conn.Query<CategoryEntity, GenderCategoryEntity, ProductRankingEntity, ProductRankingEntity>(pro, (c, g, p) =>
+                {
+                    p.Category = c;
+                    p.Category.GenderCategories = new List<GenderCategoryEntity>();
+                    p.Category.GenderCategories.Add(g);
+                    p.Gender = g;
+                    return p;
+
+                }, commandType: CommandType.StoredProcedure).ToList();
+            };
+
+            List<ProductRankingEntity> result = connection.GetAll<ProductRankingEntity>(procedure, "default", func);
+
+            return result;
+        }
+
+
     }
 }

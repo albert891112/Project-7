@@ -15,7 +15,10 @@ namespace Team_7_WebApi_Client.Controllers.Cart
         [Authorize]
         public ActionResult ToCart()
         {
-          return View();
+
+            this.serv.CreateCart();
+
+            return View();
     
         }
 

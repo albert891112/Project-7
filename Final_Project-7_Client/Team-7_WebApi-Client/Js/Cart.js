@@ -2,6 +2,13 @@
 
     getToCart();
 
+    $(document).on("click", ".btnDel", function () {
+        var Id = $(this).attr("CartItemId");
+
+        DelCartItem(Id);
+    });
+
+
     $("#btnPay").click(function () {
 
         btnPay();
@@ -15,12 +22,31 @@
     });
 
     $("#cartTable").on("click", ".btnAdd", function () {
-
+       
+        var btn = $(this);
+        var Max = btn.attr("Max");
+        var currentQty = btn.closest("tr").find(".cart_qty").attr("value");
+    
+    
+        if (currentQty >= Max) {
+            alert("已達庫存上限");
+            return;
+        }
+    
         addOne.call(this);
 
     });
 
     $("#cartTable").on("click", ".btnSub", function () {
+        
+        var btn = $(this);
+        var min =1;
+        var currentQty = btn.closest("tr").find(".cart_qty").attr("value");
+    
+    
+        if (currentQty <= min) {
+            return;
+        }
 
         subOne.call(this);
     });
@@ -68,6 +94,8 @@ var addOne = function () {
     var Size = parentRow.find(".cart_size").attr("size");
     var Id = parentRow.find(".cart_size").attr("product");
 
+   
+
     // 建立商品數據，包括商品ID、購物車數量和尺寸
     var data = {
         "ProductId": Id,
@@ -90,7 +118,7 @@ var addOne = function () {
             //alert("加入購物車成功")
            
             getToCart();
-            location.reload();               
+
         }
     })   
 }
@@ -137,7 +165,7 @@ var subOne = function () {
             if (response.ok) {
 
                 getToCart();
-                location.reload();
+
             }
         })
     
@@ -166,12 +194,29 @@ var getToCart = function () {
 
 var setCart = function (data) {    
    
+
     var cartTemplate = getCartTemplate("show_cart");
     var total = 0;
     $(".cartData").empty();    
     $.each(data.CartItems, function (index, ele) {
         
         var cartItems = cartTemplate.clone();
+
+        var Size = ele.Size;
+        var Max = 0;
+
+        if(Size == "S"){
+            Max = ele.Product.S;
+        }
+        else if (Size == "M") {
+            Max = ele.Product.M;
+        }
+        else if (Size == "L") {
+            Max = ele.Product.L;
+        }
+        else if (Size == "XL") {
+            Max = ele.Product.XL;
+        }
         
         cartItems.find(".cart_img").attr("src", "/Files/" + ele.Product.Image);
         cartItems.find(".cart_productName").text(ele.Product.Name);        
@@ -186,8 +231,10 @@ var setCart = function (data) {
         cartItems.find(".cart_size").attr("num", ele.Product.M);
         cartItems.find(".cart_unitPrice").attr("num", ele.Product.L);
         cartItems.find(".cart_qty").attr("num", ele.Product.XL);
+        cartItems.find(".btnAdd").attr("Max", Max);
+        cartItems.find(".btnDel").attr("CartItemId", ele.Id );
 
-        $(".cartTable").append(cartItems);        
+        $(".cartData").append(cartItems);        
         total += ele.SubTotal;      
     });      
     
@@ -215,5 +262,27 @@ var btnPay = function () {
 var btnCheckoutHome = function () {
 
     window.location.href = "/Home/Index";
+
+}
+
+
+
+var DelCartItem = function (Id) {
+
+    let url = "/api/CartApi/DeleteCartItem?Id=" + Id;
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(function (response) {
+        console.log("response=", response);
+        if (response.ok) {
+            alert("刪除成功");
+            getToCart();
+        }
+    })
+
 
 }

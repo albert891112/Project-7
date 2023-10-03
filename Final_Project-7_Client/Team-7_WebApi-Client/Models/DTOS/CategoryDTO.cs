@@ -13,12 +13,15 @@ namespace Team_7_WebApi_Client.Models.DTOS
         public int  Id { get; set; }
         public string Name { get; set; }
 
+        List<GenderCategoryDTO> GenderCategories { get; set; }
+
     }
 
     public static class CategoryDTOExtensions
     {
         public static CategoryDTO ToDTO(this CategoryEntity entity)
         {
+            
             return new CategoryDTO
             {
                 Id = entity.Id,

@@ -15,7 +15,7 @@ namespace Team_7_WebApi_Client.Models.Views
 
         public IEnumerable<CartItemVM> CartItems { get; set; }
 
-        public int Total => CartItems.Sum(x => x.SubTotal);
+        public int Total { get; set; }
     }
 
 	public class CartCreateVM
@@ -31,11 +31,20 @@ namespace Team_7_WebApi_Client.Models.Views
     {
         public static CartVM ToVM(this CartDTO dto)
         {
+            List<CartItemVM> cartItem = null;
+            int total = 0;  
+            if(dto.CartItems != null)
+            {
+                cartItem = dto.CartItems.Select(x => x.ToVM()).ToList();
+                total = cartItem.Sum(x => x.SubTotal);
+            }
+
             return new CartVM
             {
                 Id = dto.Id,
                 MemberId = dto.MemberId,
-                CartItems = dto.CartItems.Select(x => x.ToVM()).ToList(),
+                CartItems = cartItem,
+                Total = total
             };
         }
     } 

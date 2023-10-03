@@ -176,11 +176,19 @@ var setProductList = function (data) {
 
         item.find(".ToEdit").attr("ProductId", element.Id);
 
+        console.log(element);
+
         item.find(".photo").attr("src", "../../File/" + element.Image);
         item.find(".price").text(element.Price);
         item.find(".description").text(element.Description);
         item.find(".name").text(element.Name);
         item.find(".category").text(element.Category.Name);
+        if(element.Gender.Gender == 1){
+            item.find(".gender").text("男裝");
+        }
+        else{
+            item.find(".gender").text("女裝");
+        }
         item.find(".s").text(element.Stock.S);
         item.find(".m").text(element.Stock.M);
         item.find(".l").text(element.Stock.L);

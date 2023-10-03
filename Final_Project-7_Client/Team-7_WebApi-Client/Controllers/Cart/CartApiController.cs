@@ -88,5 +88,20 @@ namespace Team_7_WebApi_Client.Controllers.Cart
 
 			return Ok(vms);
 		}
+
+        /// <summary>
+        /// Delete CartItem from Cart
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public IHttpActionResult DeleteCartItem(int Id)
+        {
+            var service = new CartService();
+
+            service.DeleteCartItem(Id);
+
+            return Ok();
+        }
 	}
 }

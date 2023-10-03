@@ -57,5 +57,18 @@ namespace Team_7_WebApi_Client.Services
 
             return products.Select(p => p.ToDTO()).ToList();
         }
+
+
+        /// <summary>
+        /// Get Product sales Ranking
+        /// </summary>
+        /// <returns></returns>
+        public List<ProductRankingEntity> GetSalesRank()
+        {
+            List<ProductRankingEntity> entities = this.repo.GetProductRanking().Take(4).ToList();
+
+            return entities;
+        }
+
     }
 }

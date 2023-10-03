@@ -83,61 +83,82 @@ namespace Team_7_WebApi_Client.Repositories
         }	
 
 	
+
+
 		/// <summary>
-		/// Get cart by member account
+		/// 
 		/// </summary>
 		/// <param name="Account"></param>
 		/// <returns></returns>
 		public CartEntity GetCartByMember(string Account)
 		{
-			string sql = @"SELECT C.* , M.Id , Ci.* , P.* , Ca.* , G.* , S.* FROM Carts as C 
-						INNER JOIN Members as M ON C.MemberId = M.Id 
-						INNER JOIN CartItems as CI ON Ci.CartId = c.Id
-						INNER JOIN Products as P ON CI.ProductId = P.Id
-						INNER JOIN Categories as Ca ON P.CategoryId = Ca.Id
-						INNER JOIN GenderCategories as G ON P.GenderId = G.Id
-						INNER JOIN Stocks as S ON P.Id = S.ProductId		 
-						WHERE M.Account = @Account";
+			string sql = @"SELECT C.* , M.* FROM Carts as C 
+                        INNER JOIN Members as M ON C.MemberId = M.Id 
+                        WHERE M.Account = @Account";
 
 			object obj = new { Account = Account };
 
 			Func<SqlConnection, string, object, CartEntity> func = (conn, s, o) =>
 			{
-				CartEntity cart = null;
+                CartEntity cart = null;
 
-				return conn.Query<CartEntity, MemberEntity, CartItemEntity, ProductEntity, CategoryEntity , GenderCategoryEntity ,StockEntity, CartEntity>(s, (c, m, ci, p , ca , g , st) =>
+                return conn.Query<CartEntity, MemberEntity, CartEntity>(s, (c, m) =>
 				{
                     if (cart != null)
 					{
-						p.Stock = st;
-						p.Gender = g;
-						p.Category = ca;
-						ci.Product = p;
-						cart.CartItems.Add(ci);
+                        cart.MemberId = m.Id;
                     }
-					else
+                    else
 					{
-						c.MemberId = m.Id;
-						p.Stock = st;
-						p.Category = ca;
-						p.Gender = g;
-						ci.Product = p;
-						c.CartItems = new List<CartItemEntity> ();
-						c.CartItems.Add(ci);
-						cart = c;
-                        
-					}
+                        c.MemberId = m.Id;
+                        cart = c;
+                    }
                     return cart;
 
                 }, o).FirstOrDefault();
 
-			};
+            };
+
+			CartEntity Cart = this.connection.Get(sql, "default", obj, func);	
+
+			return Cart;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="entity"></param>
+		/// <returns></returns>
+		public List<CartItemEntity> GetCartItem(CartEntity entity)
+		{
+			string sql = @"SELECT CI.* , P.* , C.* , GC.* , S.*  FROM CartItems as CI 
+						INNER JOIN Products as P ON CI.ProductId = P.Id
+						INNER JOIN Categories as C ON P.CategoryId = C.Id
+						INNER JOIN GenderCategories as GC ON P.GenderId = GC.Id
+                        INNER JOIN Stocks as S ON P.StockId = S.Id
+						WHERE CartId = @CartId";
+
+			object obj = new { CartId = entity.Id };
+
+			Func<SqlConnection, string, object, List<CartItemEntity>> func = (conn, s, o) =>
+			{
+				return conn.Query<CartItemEntity, ProductEntity, CategoryEntity, GenderCategoryEntity, StockEntity ,CartItemEntity>(s, (ci, p, c ,g ,st) =>
+				{
+                    p.Category = c;
+					p.Gender = g;
+					p.Stock = st;
+                    ci.Product = p;
+					return ci;
+
+                }, o).ToList();
+
+            };
 			
+			List<CartItemEntity> CartItems = this.connection.Get<List<CartItemEntity>>(sql, "default", obj, func);
 
-			CartEntity entity = this.connection.Get(sql, "default" , obj , func );
+			return CartItems;
 
-			return entity;
-		
+
 		}
 
 		public List<ShippingEntity> GetShippings()
@@ -176,8 +197,17 @@ namespace Team_7_WebApi_Client.Repositories
 			return entities;
 		}
 
-		
+		/// <summary>
+		/// Delete CartItem by its Id
+		/// </summary>
+		/// <param name="CartItemId"></param>
+		public void DeleteCartItem(int CartItemId)
+		{
+            var CartItem = db.CartItems.FirstOrDefault(c => c.Id == CartItemId);
 
+            db.CartItems.Remove(CartItem);
+            db.SaveChanges();
+        }
 	
 	
 	}		

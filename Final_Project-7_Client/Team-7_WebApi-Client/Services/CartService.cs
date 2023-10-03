@@ -23,22 +23,42 @@ namespace Team_7_WebApi_Client.Services
 		{
 			CartEntity cart = this.repo.GetCartByMember(Account);
 
-			CartDTO dto =null ;
-			
-			try
+			List<CartItemEntity> cartitem = this.repo.GetCartItem(cart);
+
+			if (cartitem.Count > 0)
 			{
-				dto = cart.ToDTO();
+				cart.CartItems = cartitem;
 			}
-			catch (Exception)
-			{
 
-                throw new Exception("購物車是空的");
-            }
-
-			return dto;
+			return cart.ToDTO();
 		}
-		
-	
+
+		/// <summary>
+		/// If Cart is not exist, create new cart
+		/// </summary>
+		public void CreateCart()
+		{
+			//get MemberId by Account
+			string account = HttpContext.Current.User.Identity.Name;
+			int MemberId = memberRepo.GetIdByAccount(account);
+
+			//Get Cart by MemberId
+			var existCart = IsCartExist(account);
+
+			if (existCart == null)
+			{
+				//Create new cart
+				CartCreateEntity newCart = new CartCreateEntity
+				{
+					MemberId = MemberId,
+				};
+
+
+				this.repo.Create(newCart);
+			}
+		}
+
+
 
 		/// <summary>
 		/// If Cart is exist, update cartItem or Create new cart
@@ -51,9 +71,9 @@ namespace Team_7_WebApi_Client.Services
 			int MemberId = memberRepo.GetIdByAccount(account);
 
 			//Get Cart by MemberId
-			var existCart = IsCartExist(MemberId);
+			var existCart = IsCartExist(account);
 
-			if(existCart == null)
+			if (existCart == null)
 			{
 				//Create new cart
 				CartCreateEntity newCart = new CartCreateEntity
@@ -61,7 +81,7 @@ namespace Team_7_WebApi_Client.Services
 					MemberId = MemberId,
 					CartItem = cart.ToEntity()
 				};
-				
+
 
 				this.repo.Create(newCart);
 			}
@@ -73,7 +93,7 @@ namespace Team_7_WebApi_Client.Services
 
 				this.repo.Upsert(cartItem);
 			}
-        }
+		}
 
 
 		/// <summary>
@@ -81,12 +101,12 @@ namespace Team_7_WebApi_Client.Services
 		/// </summary>
 		/// <param name="MemberId"></param>
 		/// <returns></returns>
-		public Cart IsCartExist(int MemberId)
+		public CartEntity IsCartExist(string Account)
 		{
 
-            return  repo.Search(MemberId);
+			return this.repo.GetCartByMember(Account);
 
-        }
+		}
 
 
 		public List<ShippingDTO> GetShipping()
@@ -123,5 +143,16 @@ namespace Team_7_WebApi_Client.Services
 			return dtos;
 		}
 
+	
+		/// <summary>
+		/// Delete CartItem
+		/// </summary>
+		/// <param name="CartItemId"></param>
+		public void DeleteCartItem(int CartItemId)
+		{
+            this.repo.DeleteCartItem(CartItemId);
+        }
+	
 	}
+
 }
