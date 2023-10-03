@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 
 namespace _7_Team_WebApi.Models.ViewModels
 {
@@ -23,8 +24,18 @@ namespace _7_Team_WebApi.Models.ViewModels
         [Display(Name ="帳號")]
         public string Account { get; set; }
 
-        [Display(Name ="帳號可用狀態")]
+        [Display(Name = "帳號可用狀態")]
         public bool Enable { get; set; }
+
+        [Display(Name = "帳號可用狀態")]
+        public string StatusText
+        {
+            get
+            {
+                return Enable ? "啟用" : "停用";
+            }
+        }
+
     }
 
     public static class MemberVMExtension
