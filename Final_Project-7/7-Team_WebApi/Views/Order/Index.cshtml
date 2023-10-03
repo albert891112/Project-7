@@ -41,7 +41,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr class="customTablebackground">
         <td>
             @Html.DisplayFor(modelItem => item.Id)
         </td>
@@ -72,11 +72,22 @@
             @Html.DisplayFor(modelItem => item.OrderDate)
         </td>
         <td>
-            @Html.ActionLink("商品明細", "GetOrderItems", new { orderid = item.Id }) |
-            @Html.ActionLink("編輯訂單狀態", "Edit", new { Id = item.Id }) |
+            @Html.ActionLink("商品明細", "GetOrderItems", new { orderid = item.Id },new {@class ="btn btn-secondary"}) |
+            @Html.ActionLink("編輯訂單狀態", "Edit", new { Id = item.Id },new {@class ="btn btn-info"}) |
 
         </td>
     </tr>
 }
 
 </table>
+@section CSS {
+    <style>   
+          body{
+        margin-bottom: 60px;
+        
+    }
+    .customTablebackground{
+         background-color: rgba(240, 240, 240, 0.8);
+    }
+    </style>
+}

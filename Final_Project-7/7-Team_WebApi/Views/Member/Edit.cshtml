@@ -69,7 +69,7 @@
 }
 
 <div>
-    @Html.ActionLink("返回會員總覽", "Index")
+    @Html.ActionLink("返回會員總覽", "Index",null,new {@class ="btn btn-primary"})
 </div>
 
 
@@ -93,5 +93,8 @@
             width: 100%;
             opacity: 30%;
         }
+                  body{
+        margin-bottom: 60px;
+    }
     </style>
 }

@@ -6,6 +6,9 @@
 
 <h3 class="search">訂單明細</h3>
 
+<div class="bg">
+    <img src="/Files/pic-login.jpg">
+</div>
 
 <table class="table">
     <tr>
@@ -28,12 +31,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Total)
         </th>
-        
+
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr bgcolor="white">
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
@@ -60,7 +63,7 @@
 </table>
 
 <div class="back">
-    <p><a href="/Orders/GetOrdersForCurrentUser/" >返回訂單總覽</a></p>
+    <p><a href="/Orders/GetOrdersForCurrentUser/">返回訂單總覽</a></p>
 </div>
 
 @section css{
@@ -74,10 +77,40 @@
         .table {
             padding-bottom: 100px;
         }
-        .back{
-            text-align:end;
+
+        .back {
+            text-align: end;
         }
 
+        .bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -999;
+        }
+
+            .bg img {
+                min-height: 100%;
+                width: 100%;
+                opacity: 30%;
+            }
+
+        #footer {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+
+        .mb-3 {
+            padding-bottom: 30px;
+            text-align: center;
+        }
+
+        .container {
+            padding-bottom: 100px;
+        }
     </style>
 }
 

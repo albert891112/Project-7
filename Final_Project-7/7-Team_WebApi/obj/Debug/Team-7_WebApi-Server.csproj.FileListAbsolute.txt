@@ -292,9 +292,6 @@ C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\r
 C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\roslyn\vbc.rsp
 C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\roslyn\VBCSCompiler.exe
 C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\Albert.Lib.pdb
-C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\Albert.Lib.xml
-C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\Albert.Lib.dll.config
 C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\Dapper.xml
 C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\EntityFramework.xml
 C:\Users\user\source\repos\linyang\Project-7\Final_Project-7\7-Team_WebApi\bin\EntityFramework.SqlServer.xml
