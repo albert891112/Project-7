@@ -133,9 +133,15 @@ namespace _7_Team_WebApi.Services
             var salt = Hashing.GetSalt();
             var HashedPassword = Hashing.ToSHA256(password, salt);
 
-            if (user == null) return false;
+            if (user == null)
+            {
+                return false;
+            }
             else
+            {
                 return String.Compare(user.Password.Trim(), HashedPassword, StringComparison.OrdinalIgnoreCase) == 0;
+            }
+                
         }
 
 

@@ -15,13 +15,17 @@ namespace _7_Team_WebApi.Controllers.Orders
     {
         // GET: Order
         private OrderService serv = new OrderService();
-        
+
+        [UserAuthorize(Functions = "7")]
         public ActionResult Index()
         {
             List<OrderVM> vms = serv.GetAll().Select(x => x.ToVM()).ToList();
 
             return View(vms);
         }
+
+        [UserAuthorize(Functions = "7")]
+        [HttpGet]
         public ActionResult GetOrderItems(int orderId)
         {
 
@@ -47,6 +51,7 @@ namespace _7_Team_WebApi.Controllers.Orders
             return View(vmList);
         }
 
+        [UserAuthorize(Functions = "8")]
         [HttpGet]
         public ActionResult Edit(int Id)
         {
@@ -58,6 +63,7 @@ namespace _7_Team_WebApi.Controllers.Orders
 
 		}
 
+        [UserAuthorize(Functions = "8")]
         [HttpPost]
         public ActionResult Edit(OrderVM orderVM)
         {

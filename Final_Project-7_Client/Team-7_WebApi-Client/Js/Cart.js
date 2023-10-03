@@ -194,6 +194,13 @@ var getToCart = function () {
 
 var setCart = function (data) {    
    
+    
+    if(data.CartItems == null){
+        $("#btnPay").attr("disabled", true);
+    }
+    else{
+        $("#btnPay").attr("disabled", false);
+    }
 
     var cartTemplate = getCartTemplate("show_cart");
     var total = 0;

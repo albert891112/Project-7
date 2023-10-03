@@ -1,7 +1,26 @@
 ﻿
-@{
-    ViewBag.Title = "InsufficientPermissions";
+<style>
+    body {
+        margin-top: 120px;
+    }
+</style>
+<body>
+    <div class="h-100 w-100">
+        <div class="h-auto my-auto">
+            <h1>您的權限不足</h1>
+            <p id="timer"></p>
+        </div>
+        <div>
+            <button onclick="history.back()" class="btn btn-primary">返回上一頁</button>
+        </div>
+    </div>
+</body>
+@section scripts{
+    <script src="~/Js/InsufficientPermissions.js"></script>
 }
 
-<h1>Insufficient Permissions</h1>
+
+
+
+
 

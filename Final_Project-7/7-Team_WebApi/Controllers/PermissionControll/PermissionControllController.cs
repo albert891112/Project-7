@@ -14,19 +14,19 @@ namespace _7_Team_WebApi.Controllers.PermissionControll
         UserServie serv = new UserServie();
         // GET: PermissionControll
 
-        [UserAuthorize(Functions="5")]
+        [UserAuthorize(Functions = "5")]
         public ActionResult ToPermissionControll()
         {
             return View();
         }
 
-        [UserAuthorize(Functions = "5")]
+        [UserAuthorize(Functions = "6")]
         public ActionResult ToEdit()
         {
             return View();
         }
 
-
+        [AllowAnonymous]
         public ActionResult InsufficientPermissions()
         {
             return View();
@@ -76,6 +76,7 @@ namespace _7_Team_WebApi.Controllers.PermissionControll
         /// 
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         public ActionResult Logout()
         {
             Session.Abandon();

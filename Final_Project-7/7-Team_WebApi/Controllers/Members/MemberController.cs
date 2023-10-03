@@ -15,6 +15,9 @@ namespace _7_Team_WebApi.Controllers.Members
         MemberService member = new MemberService();
 
         // GET: Member
+
+        [UserAuthorize(Functions = "2")]
+        [HttpGet]
         public ActionResult Index()
         {
             var memberVM = member.GetAll().Select(x => x.ToVM());   
@@ -22,6 +25,7 @@ namespace _7_Team_WebApi.Controllers.Members
             return View(memberVM);
         }
 
+        [UserAuthorize(Functions = "2")]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -30,6 +34,7 @@ namespace _7_Team_WebApi.Controllers.Members
             return View(memberVM);
         }
 
+        [UserAuthorize(Functions = "2")]
         [HttpPost]
         public ActionResult Edit(MemberVM memberVM)
         {

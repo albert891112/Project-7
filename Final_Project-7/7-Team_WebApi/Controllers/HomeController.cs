@@ -9,8 +9,7 @@ namespace _7_Team_WebApi.Controllers
 {
     public class HomeController : Controller
     {
-
-        [UserAuthorize]
+        [UserAuthorize(Functions = "7")]
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";

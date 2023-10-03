@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _7_Team_WebApi.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,8 @@ namespace _7_Team_WebApi.Controllers.Products
     public class ProductController : Controller
     {
         // GET: Product
+
+        [UserAuthorize(Functions = "1")]
         public ActionResult ProductMaintain()
         {
             return View();
