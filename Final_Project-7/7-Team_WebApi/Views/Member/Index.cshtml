@@ -48,17 +48,17 @@
             @Html.DisplayFor(modelItem => item.Enable ,null, new { @class = "custom-control" })
         </td>
         <td>
-            @Html.ActionLink("啟用/停用帳號", "Edit") |
+            @Html.ActionLink("啟用/停用帳號", "Edit", new { id = item.Id }) |
         </td>
     </tr>
 }
 
 </table>
 @section CSS {
-    <style>    
-              body{
-        margin-bottom: 60px;
-    }
+    <style>
+        body {
+            margin-top: 120px;
+        }
      .customTablebackground{
          background-color: rgba(240, 240, 240, 0.6);
     }
