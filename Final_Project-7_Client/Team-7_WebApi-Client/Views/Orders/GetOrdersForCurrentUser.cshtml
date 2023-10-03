@@ -14,7 +14,7 @@
     <img src="/Files/pic-login.jpg">
 </div>
 
-<table class="table table-hover">
+<table class="table table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Id)
@@ -45,7 +45,7 @@
 
     @foreach (var item in Model)
     {
-        <tr bgcolor="white">
+        <tr class="customTablebackground">
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
@@ -72,7 +72,7 @@
 
             <td>
 
-                @Html.ActionLink("檢視訂單明細", "GetOrderItems", new { orderid = item.Id }) |
+                @Html.ActionLink("檢視訂單明細", "GetOrderItems", new { orderid = item.Id }, new { @class = "btn btn-outline-dark" }) 
 
             </td>
         </tr>
@@ -120,6 +120,9 @@
 
         .container {
             padding-bottom: 100px;
+        }
+        .customTablebackground {
+            background-color: rgba(240, 240, 240, 0.8);
         }
 
     </style>

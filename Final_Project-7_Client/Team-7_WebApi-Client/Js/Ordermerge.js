@@ -11,27 +11,10 @@
     //計算總金額    
     var shippingcostLabel = $(".shippingcost");
     var couponcostLabel = $(".couponcost");
-    var totalAmountLabel = $(".totalAmount");
-
-   
- 
-
-   
-   
-    //if (cartTotalValue < 1000) {
-    //    // 選擇 couponMethodSelect 下的所有 option
-    //    $(".couponMethodSelect option").each(function () {
-    //        // 檢查每個 option 的 discounttype 屬性
-    //        if ($(this).attr("discounttype") === "2") {
-    //            // 如果 discounttype 屬性為 "2"，則隱藏該 option
-    //            $(this).css("display", "none");
-    //        }
-    //    });
-    //}
+    var totalAmountLabel = $(".totalAmount"); 
     
     // 下拉列表的更改事件
     $(".shippingMethodSelect, .couponMethodSelect").change(function () {
-
         
         // 獲取所選選項的值
         var productTotalValue = $(".cart_total").attr("value");
@@ -39,28 +22,27 @@
         var couponValue = $(".couponMethodSelect").val();
         var totalAmountValue = $(".totalAmount").attr("value"); 
 
-        
-      
-        $(".shippingcost").attr("value", shippingMethodValue);        
+             
       
         //如果couponcostValue為空值，則設為0
         if (isNaN(couponValue)) {
-            couponValue = 0;
-            
+            couponValue = 0;            
         }
+
+        //如果productTotalValue為空值，則設為0
         if (isNaN(productTotalValue)) {
             productTotalValue = 0;
             
         }
+
+        //如果shippingMethodValue為空值，則設為0
         if (isNaN(shippingMethodValue)) {
-            shippingMethodValue = 0;
-          
-            
+            shippingMethodValue = 0;            
         }
+
         //如果總金額為NAN，則設為0
         if (isNaN(totalAmountValue)) {
-            totalAmountValue = 0;           
-                     
+            totalAmountValue = 0;                     
         }
         
         // 進行相應的加法操作
@@ -85,6 +67,13 @@
         totalAmountLabel.text(totalAmountValue);
         $(".totalAmount").attr("value", totalAmountValue);
 
+
+        //將選取Coupon的值存入label
+        $(".couponNameValue").text($(".couponMethodSelect option:selected").text());
+
+        //將選取shipping的值存入label
+        $(".shippingcost").attr("value", shippingMethodValue);  
+
                 
         //將運送方式選擇的值存入label     
 
@@ -98,27 +87,23 @@
 
         shippingMethodSelectresultLabel.text(shippingMethodselectedOption);  
 
-    });
+    });  
 
-  
-
-    //paymentmethod======================================================
+    //paymentmethod Start======================================================
      //做出選擇後，顯示注意事項
     var paymentMethodSelect = document.getElementById("paymentMethodSelect");
     var shippingMethodSelect = document.getElementById("shippingMethodSelect");
-
     
-    //付款方式顯示注意事項
+    //付款change方式顯示注意事項
     $(document).on("change", ".paymentMethodSelect", function () {
         if ($(".paymentMethodSelect").val() == "金融卡") {
             document.getElementById("carddesc").style.display = "block";
         } else {
             document.getElementById("carddesc").style.display = "none";
         }
-    });
-   
+    });   
 
-    //運送方式顯示注意事項
+    //運送change事件方式顯示注意事項
     $(document).on("change", ".shippingMethodSelect", function () {
       
         if ($(".shippingMethodSelect").val() == "130") {
@@ -139,10 +124,7 @@
         }
     });
 
-
-
-
-
+    //按下OrderData的Click事件 Start======================================================
     document.getElementById("btnNextOrderData").addEventListener("click", function () {        
 
         getEmail();
@@ -173,6 +155,10 @@
 
     });
 
+//按下OrderData的Click事件 End======================================================
+
+  //按下Pay上一頁的Click事件 Start======================================================
+
     $("#btnLastCart").click(function () {
 
         LastpageCart();
@@ -181,18 +167,18 @@
 
     });
 
-
+//按下Pay上一頁的Click事件 End======================================================
 
     // payment end====================================================
 
     //orderData  begin======================================================
     document.getElementById("btnNextCheckout").addEventListener("click", function () {
 
-
         var paymentMethodselectedOption = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].value;
         var paymentMethodSelectresultLabel = document.getElementById("paymentMethodValue1");
 
         paymentMethodSelectresultLabel.textContent = paymentMethodselectedOption;
+
         //如選選擇金融卡 顯示填寫金融卡資料
         if (paymentMethodSelect.value == "金融卡") {
             document.getElementById("creditCardFields").style.display = "block";
@@ -237,7 +223,6 @@
         var phoneError = document.getElementById("phoneError");
         var parts = expiryDate.value.split('/');
         var month = parseInt(parts[0], 10);
-
 
         if (expiryDate.value === "" && paymentMethodSelect.value === "金融卡") {
 
@@ -302,11 +287,11 @@
 
             phoneError.textContent = "請輸入手機號碼";
             return;
-        } else if (!/^\d+$/.test(inputPhone)) {
+        } else if (!/^\d+$/.test(inputPhone) || !/^09\d{8}$/.test(inputPhone)) {
 
             showPhoneError();
 
-            phoneError.textContent = "手機號碼只能是數字";
+            phoneError.textContent = "手機號碼只能是數字且格式為0900000000";
             return;
         }
 
@@ -322,9 +307,6 @@
         showPay();
 
     });
-   
-
-
     //orderData  end======================================================
 
 
@@ -343,19 +325,10 @@
         showOrderData();
 
     });
-
-
-    //coupon begin======================================================
-
-    //coupon end======================================================   
-    
-
-
 });
 
 //設定函數庫=============================================================================================
 //設定送出訂單 Start=============================================================================================
-
 
 var postOrderData = function () {
     
@@ -428,7 +401,6 @@ var setcoupon = function (data) {
     });
 };
 
-
 var couponMethod = function () {
 
     let url = '/api/CartApi/GetCouponMethod';
@@ -445,10 +417,7 @@ var couponMethod = function () {
     }).catch(function (err) {
         console.log(err);
     });
-
 };
-
-
 
 //設定取用CouponMethodSelect END=============================================================================================
 
@@ -461,7 +430,6 @@ var setPayment = function (data) {
     $(firstOption).attr('data-id', 0);
     firstOption.innerText = '請選擇';
     paymentSelect.append(firstOption);
-
   
         data.forEach(function (ele) {
             var option = document.createElement('option');
@@ -470,12 +438,8 @@ var setPayment = function (data) {
            
 
             paymentSelect.append(option);
-        });
-   
+        });   
 };
-
-
-
 
 var paymentMethod = function () {
 
@@ -494,13 +458,11 @@ var paymentMethod = function () {
 
         console.log(err);
     });
-
 };
-
-
 
 //設定取用paymentMethodSelect END=============================================================================================
 
+//設定取用Email Start=============================================================================================
 var getEmail = function () {   
 
     var account = $("#btnNextOrderData").attr("data-value");    
@@ -525,7 +487,7 @@ var getEmail = function () {
     });
 }
 
-
+//設定取用Email END=============================================================================================
 
 //設定取用ShippingMethod Start=============================================================================================
 var setShipping = function (data) {
@@ -538,19 +500,14 @@ var setShipping = function (data) {
     firstOption.innerText = '請選擇';
     shippingSelect.append(firstOption);
 
-
     data.forEach(function (ele) {
         var option = document.createElement('option');
         $(option).attr('data-id', ele.Id);
         option.innerText = ele.ShippingMethod;
         option.value = ele.Price;
-        shippingSelect.append(option);         
-
+        shippingSelect.append(option);       
        
-       
-    });    
-     
-
+    });
 };
 var shippingMethod = function () {   
 
@@ -572,18 +529,9 @@ var shippingMethod = function () {
 
 };
 
-
-
 //設定取用ShippingMethod END=============================================================================================
 
-
-
-//設定初始payHtml
-
-
-
-
-//設定getCartTemplate
+//設定getCartTemplate Start=============================================================================================
 var getTemplate = function (name) {
 
     var templateName = "template." + name;
@@ -592,19 +540,18 @@ var getTemplate = function (name) {
     return $(template).clone();
 }
 
+//設定getCartTemplate END=============================================================================================
 
-//設置cartItems
+//設置cartItems Start=============================================================================================
 var cartItems = function (data) {    
     var cartTemplate = getTemplate("cartItem_list");
     var total = 0;   
 
     $(".cartItemData").empty();
-
    
     $(".head_productName").attr("memberId", data.MemberId);
     
     $.each(data.CartItems, function (index, ele) {
-
 
         var cartItems = cartTemplate.clone();
         
@@ -620,11 +567,9 @@ var cartItems = function (data) {
         cartItems.find(".cart_qty").text(ele.Qty);
         cartItems.find(".cart_qty").attr("value",ele.Qty);
         cartItems.find(".cart_subtotal").text("$" + ele.SubTotal); 
-        cartItems.find(".cart_subtotal").attr("value", ele.SubTotal);
-
-      
+        cartItems.find(".cart_subtotal").attr("value", ele.SubTotal);    
        
-        
+        //將加入的值加進TABLE
         $(".cartTable").append(cartItems);
 
         total += ele.SubTotal;             
@@ -635,7 +580,9 @@ var cartItems = function (data) {
     $(".cart_total").text(total);
 };
 
-//設定getToCartItem
+//設置cartItems END=============================================================================================
+
+//設定getToCartItem Start=============================================================================================
 var getToCartItem = function () {
 
     let url = '/api/CartApi/ShowCart';
@@ -655,6 +602,10 @@ var getToCartItem = function () {
 
 };
 
+//設定getToCartItem END=============================================================================================
+
+//設定PayHtml Start=============================================================================================
+
 var showPay = function () {
 
     $(".payHtml").show("slow", "swing");
@@ -663,17 +614,20 @@ var showPay = function () {
 
 }
 
+//設定PayHtml END=============================================================================================
+
+//設定initLoadPay Start=============================================================================================
+
 var initLoadPay = function () {
 
     showPay();
 
-    getToCartItem();      
-
-    
-
+    getToCartItem();
 }
 
-//設定顯示checkoutHtml
+//設定initLoadPay END=============================================================================================
+
+//設定顯示checkoutHtml Start=============================================================================================
 var showCheckout = function () {
 
     $(".payHtml").hide("slow", "swing");
@@ -682,7 +636,9 @@ var showCheckout = function () {
 
 }
 
-//設定顯示orderDataHtml
+//設定顯示checkoutHtml END=============================================================================================
+
+//設定顯示orderDataHtml Start=============================================================================================
 var showOrderData = function () {
 
     $(".payHtml").hide("slow", "swing");
@@ -691,108 +647,115 @@ var showOrderData = function () {
 
 }
 
-//顯示初始payHtml
-var showPay = function () {
+//設定顯示orderDataHtml END=============================================================================================
 
-    $(".payHtml").show();
-    $(".orderDataHtml").hide()
-    $(".checkoutHtml").hide()
-}
-
-//設定感謝訂購
+//設定感謝訂購 Start=============================================================================================
 var OrderFinish = function () {
 
     window.location.href="../Orders/OrderFinish";
 
 }
 
+//設定感謝訂購 END=============================================================================================
+
+//設定回到購物車 Start=============================================================================================
 var LastpageCart = function () {
 
     window.location.href = "ToCart";
 
 }
 
+//設定回到購物車 END=============================================================================================
+
+//設定初始欄位none Start=============================================================================================
 var initErrortext = function () {
 
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
-    document.getElementById("nameError").style.display = "none";
-   // document.getElementById("emailError").style.display = "none";
+    document.getElementById("nameError").style.display = "none";   
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 }
 
-//設定金融卡日期顯示錯誤訊息
+//設定初始欄位none END=============================================================================================
+
+//設定金融卡日期顯示錯誤訊息 Start=============================================================================================
 var showExpiryDateError = function () {
 
     document.getElementById("expiryDateError").style.display = "block";
     document.getElementById("cvvError").style.display = "none";
-    document.getElementById("nameError").style.display = "none";
-    //document.getElementById("emailError").style.display = "none";
+    document.getElementById("nameError").style.display = "none";    
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 
 }
 
-//設定金融卡安全碼顯示錯誤訊息
+//設定金融卡日期顯示錯誤訊息 END=============================================================================================
+
+//設定金融卡安全碼顯示錯誤訊息 Start=============================================================================================
 var showCvvError = function () {
 
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "block";
-    document.getElementById("nameError").style.display = "none";
-   // document.getElementById("emailError").style.display = "none";
+    document.getElementById("nameError").style.display = "none";   
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 
 }
 
-//設定姓名顯示錯誤訊息
+//設定金融卡安全碼顯示錯誤訊息 END=============================================================================================
+
+//設定姓名顯示錯誤訊息 Start=============================================================================================
 var showNameError = function () {
 
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
-    document.getElementById("nameError").style.display = "block";
-    //document.getElementById("emailError").style.display = "none";
+    document.getElementById("nameError").style.display = "block";   
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 
 }
 
-//設定信箱顯示錯誤訊息
+//設定姓名顯示錯誤訊息 END=============================================================================================
+
+//設定信箱顯示錯誤訊息 Start=============================================================================================
 var showEmailError = function () {
 
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
-    document.getElementById("nameError").style.display = "none";
-   // document.getElementById("emailError").style.display = "block";
+    document.getElementById("nameError").style.display = "none";   
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "none";
 
 }
 
-//設定地址顯示錯誤訊息
+//設定信箱顯示錯誤訊息 END=============================================================================================
+
+//設定地址顯示錯誤訊息 Start=============================================================================================
 var showAddressError = function () {
 
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
-    document.getElementById("nameError").style.display = "none";
-   // document.getElementById("emailError").style.display = "none";
+    document.getElementById("nameError").style.display = "none";   
     document.getElementById("addressError").style.display = "block";
     document.getElementById("phoneError").style.display = "none";
 
 }
 
-//設定電話顯示錯誤訊息
+//設定地址顯示錯誤訊息 END=============================================================================================
+
+//設定電話顯示錯誤訊息 Start=============================================================================================
 var showPhoneError = function () {
 
     document.getElementById("expiryDateError").style.display = "none";
     document.getElementById("cvvError").style.display = "none";
-    document.getElementById("nameError").style.display = "none";
-   // document.getElementById("emailError").style.display = "none";
+    document.getElementById("nameError").style.display = "none";   
     document.getElementById("addressError").style.display = "none";
     document.getElementById("phoneError").style.display = "block";
 
 }
+
+//設定電話顯示錯誤訊息 END=============================================================================================
 
 
 
