@@ -17,12 +17,7 @@ namespace Team_7_WebApi_Client.Controllers.Orders
 {
     public class OrdersController : Controller
     {
-        // GET: Orders      
-
-		public ActionResult Index()
-		{
-			return Index();
-		}
+		
 	       
         private OrderRepository _orderRepository = new OrderRepository();
         public ActionResult GetOrdersForCurrentUser()
@@ -89,6 +84,11 @@ namespace Team_7_WebApi_Client.Controllers.Orders
             return member.Id;
         }
 
+
+        /// <summary>
+        /// 訂單結束頁面
+        /// </summary>
+        /// <returns></returns>
 		public ActionResult OrderFinish()
 		{
 			return View();

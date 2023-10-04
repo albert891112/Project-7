@@ -1,7 +1,9 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
+    //初始讀取
     initLoadPay();   
 
+    //下拉清單讀取
     shippingMethod(); 
 
     paymentMethod();
@@ -188,10 +190,12 @@
             document.getElementById("cvvField").style.display = "none";
         }
 
+        //將金融卡日期input的值存入label
         var inputexpiryDate = document.getElementById("expiryDate").value;
         var myselfLabelexpiryDateValue = document.getElementById("myselfLabelexpiryDateValue");
         myselfLabelexpiryDateValue.textContent = inputexpiryDate;
 
+        //將金融卡安全碼input的值存入label
         var inputcvv = document.getElementById("cvv").value;
         var myselfLabelcvvValue = document.getElementById("myselfLabelcvvValue");
         myselfLabelcvvValue.textContent = inputcvv;
@@ -216,9 +220,8 @@
 
         $(".inputPhone").attr("value", inputPhone);
 
-        //驗證姓名、信箱、地址、電話是否為空值    
-        var nameError = document.getElementById("nameError");
-        var emailError = document.getElementById("emailError");
+        //驗證姓名、地址、電話是否為空值    
+        var nameError = document.getElementById("nameError");        
         var addressError = document.getElementById("addressError");
         var phoneError = document.getElementById("phoneError");
         var parts = expiryDate.value.split('/');
@@ -227,68 +230,71 @@
         if (expiryDate.value === "" && paymentMethodSelect.value === "金融卡") {
 
             //如果金融卡日期為空值,顯示錯誤訊息
-
             showExpiryDateError();
 
             expiryDateError.textContent = "請輸入有效期限";
 
             return;
-        }
-        //如果金融卡日期不是MM/YY格式,顯示錯誤訊息
+        }        
         else if (!/^\d{2}\/\d{2}$/.test(expiryDate.value) && paymentMethodSelect.value === "金融卡") {
 
+            //如果金融卡日期不是MM/YY格式,顯示錯誤訊息
             showExpiryDateError();
 
             expiryDateError.textContent = "請輸入格式為MM/YY";
             return;
-
-        } else if (month < 1 || month > 12 && paymentMethodSelect.value === "金融卡") {
+        }
+        else if (month < 1 || month > 12 && paymentMethodSelect.value === "金融卡") {
             //如果金融卡日期不是1~12月,顯示錯誤訊息
 
             showExpiryDateError();
 
             expiryDateError.textContent = "月份必須在1到12之間";
             return;
-        } else if (cvv.value === "" && paymentMethodSelect.value === "金融卡") {
-            //如果安全碼為空值,顯示錯誤訊息
+        }
+        else if (cvv.value === "" && paymentMethodSelect.value === "金融卡") {
 
+            //如果安全碼為空值,顯示錯誤訊息
             showCvvError();
 
             cvvError.textContent = "請輸入安全碼";
             return;
         }
         else if (cvv.value.length !== 3 && paymentMethodSelect.value === "金融卡") {
-            //如果安全碼不是3碼,顯示錯誤訊息
 
+            //如果安全碼不是3碼,顯示錯誤訊息
             showCvvError();
 
             cvvError.textContent = "安全碼必須為3碼";
             return;
         }
         else if (inputName === "") {
-            //如果姓名為空值,顯示錯誤訊息
 
+            //如果姓名為空值,顯示錯誤訊息
             showNameError();
 
             nameError.textContent = "請輸入姓名";
             return;
         }
         else if (inputAddress === "" && shippingMethodSelect.value === "送到府") {
-            //如果地址為空值,顯示錯誤訊息
 
+            //如果地址為空值,顯示錯誤訊息
             showAddressError();
 
             addressError.textContent = "請輸入地址";
             return;
-        } else if (inputPhone === "") {
-            //如果電話為空值,顯示錯誤訊息
+        }
+        else if (inputPhone === "") {
 
+            //如果電話為空值,顯示錯誤訊息
             showPhoneError();
 
             phoneError.textContent = "請輸入手機號碼";
             return;
+
         } else if (!/^\d+$/.test(inputPhone) || !/^09\d{8}$/.test(inputPhone)) {
 
+            //如果電話不是數字或格式不是0900000000,顯示錯誤訊息
             showPhoneError();
 
             phoneError.textContent = "手機號碼只能是數字且格式為0900000000";
@@ -332,7 +338,7 @@
 
 var postOrderData = function () {
     
-    //ORDERS
+    //將ORDERS參數放入變數
     var MemberId = $(".head_productName").attr("memberId")    
     var PhoneNumber = $(".inputPhone").attr("value");
     var Address = $(".inputAddress").attr("value");    
@@ -370,8 +376,7 @@ var postOrderData = function () {
             'Content-Type': 'application/json'
         }),
         body: JSON.stringify(data)
-    }).then(function (response) {       
-           
+    }).then(function (response) {           
        
     })
 }
@@ -380,14 +385,17 @@ var postOrderData = function () {
 
 //設定取用CouponMethodSelect Start=============================================================================================
 var setcoupon = function (data) {
+
     var couponSelect = $('.couponMethodSelect');
     couponSelect.empty();
-    
+
+    //塞入一個option為請選擇
     var firstOption = document.createElement('option');
     $(firstOption).attr('data-id', 0);
     firstOption.innerText = '請選擇';
     couponSelect.append(firstOption);
 
+    //塞入CouponMethodSelect的值
     data.forEach(function (ele) {
         var option = document.createElement('option');
         $(option).attr('data-id', ele.Id);
@@ -426,16 +434,17 @@ var setPayment = function (data) {
     var paymentSelect = $('.paymentMethodSelect');
     paymentSelect.empty();
 
+    //塞入一個option為請選擇
     var firstOption = document.createElement('option');
     $(firstOption).attr('data-id', 0);
     firstOption.innerText = '請選擇';
     paymentSelect.append(firstOption);
-  
+
+    //創建Select下的option並塞入值
         data.forEach(function (ele) {
             var option = document.createElement('option');
             $(option).attr('data-id', ele.Id);               
-            option.innerText = ele.PaymentMethod;
-           
+            option.innerText = ele.PaymentMethod;           
 
             paymentSelect.append(option);
         });   
@@ -464,7 +473,7 @@ var paymentMethod = function () {
 
 //設定取用Email Start=============================================================================================
 var getEmail = function () {   
-
+    
     var account = $("#btnNextOrderData").attr("data-value");    
 
     var url = "/api/MemberApi/GetEmail?account="+ account ;
@@ -478,7 +487,7 @@ var getEmail = function () {
         return response.json();
     }).then(function (result) {
         console.log(result);
-       //將其塞入label
+       //將信箱其塞入label
         var myselfLabelEmailValue = document.getElementById("myselfLabelEmailValue");
         myselfLabelEmailValue.textContent = result.Email;
 
@@ -495,11 +504,13 @@ var setShipping = function (data) {
     var shippingSelect = $('.shippingMethodSelect');
     shippingSelect.empty();
 
+    //塞入一個option為請選擇
     var firstOption = document.createElement('option');
     $(firstOption).attr('data-id', 0);
     firstOption.innerText = '請選擇';
     shippingSelect.append(firstOption);
 
+    //塞入ShippingMethodSelect的值
     data.forEach(function (ele) {
         var option = document.createElement('option');
         $(option).attr('data-id', ele.Id);
@@ -548,9 +559,11 @@ var cartItems = function (data) {
     var total = 0;   
 
     $(".cartItemData").empty();
-   
+
+    //塞入會員ID,用於傳回
     $(".head_productName").attr("memberId", data.MemberId);
-    
+
+    //塞入購物車商品資料
     $.each(data.CartItems, function (index, ele) {
 
         var cartItems = cartTemplate.clone();
