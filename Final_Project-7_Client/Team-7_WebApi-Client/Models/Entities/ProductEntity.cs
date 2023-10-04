@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 using Team_7_WebApi_Client.Models.DTOS;
+using Team_7_WebApi_Client.Models.EFModels;
 
 namespace Team_7_WebApi_Client.Models.Entities
 {
@@ -73,6 +74,22 @@ namespace Team_7_WebApi_Client.Models.Entities
                 LowPrice = dto.LowPrice,
                 Gender = dto.Gender
             } ;
+        }
+
+        public static ProductEntity ToEntity(this Product model)
+        {
+            return new ProductEntity
+            {
+                Id = model.Id,
+                Category = model.Category.ToEntity(),
+                Gender = model.GenderCategory.ToEntity(),
+                Name = model.Name,
+                Price = model.Price,
+                Image = model.Image,
+                Description = model.Description,
+                Stock = model.Stock.ToEntity(),
+                Enable = model.Enable
+            };
         }
     }
 

@@ -238,6 +238,7 @@
     <Compile Include="Models\Entities\OrderStatusEntity.cs" />
     <Compile Include="Models\Entities\PaymentEntity.cs" />
     <Compile Include="Models\Entities\ProductEntity.cs" />
+    <Compile Include="Models\Entities\ReviewEntity.cs" />
     <Compile Include="Models\Entities\ShippingEntity.cs" />
     <Compile Include="Models\Entities\StockEntity.cs" />
     <Compile Include="Models\Infra\HashUtility.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Repositories\MemberRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\ReviewRepository.cs" />
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\MemberService.cs" />
@@ -482,6 +484,7 @@
     <Content Include="Views\ShowProduct\Show.cshtml" />
     <Content Include="Views\Members\EditProfile.cshtml" />
     <Content Include="Views\Members\EditPassword.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\GetOrdersForCurrentUser.cshtml" />
     <Content Include="Views\Cart\ToCart.cshtml" />
     <Content Include="Views\Orders\GetOrderItems.cshtml" />

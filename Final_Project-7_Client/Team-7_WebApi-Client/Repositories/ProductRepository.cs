@@ -172,5 +172,30 @@ namespace Team_7_WebApi_Client.Repositories
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        public void UpdateStock(StockEntity entity)
+        {
+            string sql = @"UPDATE Stocks SET 
+                    S = CASE WHEN @S IS NULL THEN S ELSE (S-@S) END, 
+                    M = CASE WHEN @M IS NULL THEN M ELSE (M-@M) END,
+                    L = CASE WHEN @L IS NULL THEN L ELSE (L-@L) END,
+                    XL = CASE WHEN @XL IS NULL THEN XL ELSE (XL-@XL) END
+                    WHERE ProductId = @Id";
+
+            object obj = new
+            {
+                Id = entity.ProductId,
+                S = entity.S,
+                M = entity.M,
+                L = entity.L,
+                XL = entity.XL
+            };
+
+            this.connection.Update(sql, "default", obj);
+       
+        }
     }
 }
