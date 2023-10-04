@@ -30,8 +30,8 @@
         font-size: 20px;
     }
    .labelLef1 {
-        margin-top: 30px;
-        padding-left: 150px;
+        margin-top: 30px;       
+        text-align: end;
         font-size: 20px;
     }
 
@@ -99,6 +99,12 @@
     .customPillTable{
         font-size: 20px;
     }
+    .labelBg{
+        background-color: rgba(240, 240, 240, 0.5);
+        border:gray 1px solid;
+        border-radius: 10px;
+    }
+  
 
 </style>
 
@@ -172,6 +178,7 @@
                         </table>
                         <!-- 表格END ===================================================-->
                         <!-- LABEL START ===================================================-->
+                        <div class="labelBg">
                         <div class="row ">                        
                             <!-- 商品總額 -->
                             <div class="col-3 labelLef custombodytext">
@@ -218,7 +225,7 @@
                                 <div class="col-3 labelcentLef">
                                     <label for="totalAmount"></label>
                                 </div>
-                            </div>
+                            
                             <!-- METHOD END -->
 
                             <!-- 計算各種價錢 Start============================================= -->
@@ -255,6 +262,7 @@
                                     <label for="totalAmount" value="" class="totalAmount custombodytext">0</label>
                                 </div>
                             </div>
+                            
                             <!-- 計算各種價錢 END============================================= -->
                             <!-- 下拉選單說明 Start============================================= -->
                             <div class="row">
@@ -288,6 +296,7 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                         <!-- 下拉選單說明 END============================================= -->
                          <!-- button START=============================================                                -->
                     <div class="row mt-5">
@@ -300,6 +309,7 @@
                 </div>
             </div>
         </div>
+    </div>
     <!-- payHtml end==================================== -->
 
 
@@ -366,6 +376,7 @@
 
             <!-- 顯示各種價錢 Start============================================= -->
         </div>
+        <div class="labelBg">
         <div class="row ">
             <div class=" col-3 mt-3 text-end custombodytext">
                 <label for="shipping">運費:</label>
@@ -383,7 +394,7 @@
                 <label for="Unit">元</label>
             </div>
         </div>
-
+    </div>
         <!-- 顯示各種價錢END============================================= -->
 
 
@@ -445,12 +456,7 @@
                                     <label for="name">姓名</label>
                                     <input type="text" class="form-control inputName" id="inputName" placeholder="請輸入姓名">
                                     <label id="nameError" class="error" style="display: none;"></label>
-                                </div>
-                                @*<div class="form-group mt-3">
-                                    <label for="email">電子郵件</label>
-                                    <input type="email" class="form-control inputEmail" id="inputEmail" placeholder="請輸入電子郵件">
-                                    <label id="emailError" class="error" style="display: none;"></label>
-                                </div>*@
+                                </div>                                
                                 <div class="form-group mt-3 pillAddressTable customPillTable" id="pillAddressTable" style="display: none;">
                                     <label for="address">地址</label>
                                     <textarea class="form-control inputAddress" id="inputAddress" rows="3" placeholder="請輸入地址"></textarea>
