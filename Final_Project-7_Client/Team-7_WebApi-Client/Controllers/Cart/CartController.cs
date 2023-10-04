@@ -11,15 +11,13 @@ namespace Team_7_WebApi_Client.Controllers.Cart
     {
 
         CartService serv = new CartService();
-        // GET: Cart
+        
         [Authorize]
-        public ActionResult ToCart()
+        public ActionResult ToCart()  
         {
-
             this.serv.CreateCart();
 
-            return View();
-    
+            return View();    
         }
 
         [Authorize]

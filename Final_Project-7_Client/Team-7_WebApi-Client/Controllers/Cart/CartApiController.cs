@@ -14,51 +14,50 @@ namespace Team_7_WebApi_Client.Controllers.Cart
 {
     public class CartApiController : ApiController
     {
+		CartService serv = new CartService();
 
-        /// <summary>
-        /// Add CartItem to Cart
-        /// </summary>
-        /// <param name="vm"></param>
-        /// <returns></returns>
-        [Authorize]
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="vm"></param>
+		/// <returns></returns>
+		[Authorize]
         [HttpPost]
         public IHttpActionResult AddCartItem(CartItemCreateVM vm)
         {
-            var service = new CartService();
-
             var dto = vm.ToDTO();
 
-            service.AddCartItem(dto);
+			serv.AddCartItem(dto);
 
             return Ok();
         }
 
 
         /// <summary>
-        /// Show Cart
+        /// 
         /// </summary>
         /// <returns></returns>
         [Authorize]
         [HttpGet]
         public IHttpActionResult ShowCart()
         {
-            var service = new CartService();
-
             string account = HttpContext.Current.User.Identity.Name;
 
-            var cart = service.ShowCart(account);
+            var cart = serv.ShowCart(account);
 
             var cartVM = cart.ToVM();   
 
             return Ok(cartVM);
         }
 
-		CartService serv = new CartService();
-
+		
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
 		[HttpGet]
 		public IHttpActionResult GetShippingMethod()
-		{			
-
+		{
 			List<ShippingDTO> dtos = this.serv.GetShipping();
 
 			List<ShippingVM> vms = dtos.Select(s => s.ToVM()).ToList();
@@ -66,10 +65,13 @@ namespace Team_7_WebApi_Client.Controllers.Cart
 			return Ok(vms);
 		}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
 		[HttpGet]
 		public IHttpActionResult GetPaymentMethod()
 		{
-
 			List<PaymentDTO> dtos = this.serv.GetPayment();
 
 			List<PaymentVM> vms = dtos.Select(p => p.ToVM()).ToList();
@@ -77,11 +79,13 @@ namespace Team_7_WebApi_Client.Controllers.Cart
 			return Ok(vms);
 		}
 
-
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
 		[HttpGet]
 		public IHttpActionResult GetCouponMethod()
 		{
-
 			List<GetCouponDTO> dtos = this.serv.GetCoupon();
 
 			List<GetCouponVM> vms = dtos.Select(c => c.ToVM()).ToList();
@@ -90,7 +94,7 @@ namespace Team_7_WebApi_Client.Controllers.Cart
 		}
 
         /// <summary>
-        /// Delete CartItem from Cart
+        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

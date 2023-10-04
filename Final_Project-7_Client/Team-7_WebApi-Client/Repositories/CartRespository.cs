@@ -86,7 +86,7 @@ namespace Team_7_WebApi_Client.Repositories
 
 
 		/// <summary>
-		/// 
+		/// Get Cart by MemberId
 		/// </summary>
 		/// <param name="Account"></param>
 		/// <returns></returns>
@@ -125,7 +125,7 @@ namespace Team_7_WebApi_Client.Repositories
 		}
 
 		/// <summary>
-		/// 
+		/// Get CartItem by CartId
 		/// </summary>
 		/// <param name="entity"></param>
 		/// <returns></returns>
@@ -161,6 +161,11 @@ namespace Team_7_WebApi_Client.Repositories
 
 		}
 
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public List<ShippingEntity> GetShippings()
 		{
 			SqlDb connection = new SqlDb();
@@ -173,7 +178,10 @@ namespace Team_7_WebApi_Client.Repositories
 			return entities;
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public List<PaymentEntity> GetPayments()
 		{
 			SqlDb connection = new SqlDb();
@@ -186,6 +194,11 @@ namespace Team_7_WebApi_Client.Repositories
 			return entities;
 		}
 
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public List<GetCouponEntity> GetCoupons()
 		{
 			SqlDb connection = new SqlDb();
@@ -198,7 +211,7 @@ namespace Team_7_WebApi_Client.Repositories
 		}
 
 		/// <summary>
-		/// Delete CartItem by its Id
+		/// 
 		/// </summary>
 		/// <param name="CartItemId"></param>
 		public void DeleteCartItem(int CartItemId)

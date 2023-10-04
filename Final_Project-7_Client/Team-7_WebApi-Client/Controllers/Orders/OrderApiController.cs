@@ -16,6 +16,11 @@ namespace Team_7_WebApi_Client.Controllers.Orders
 
 		OrderService serv = new OrderService();
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="order"></param>
+		/// <returns></returns>
 		[HttpPost]
 		public IHttpActionResult CreateOrder(OrderPostVM order)
 		{
