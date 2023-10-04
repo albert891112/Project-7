@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime;
 using System.Web;
+using Team_7_WebApi_Client.Models.EFModels;
 
 namespace Team_7_WebApi_Client.Models.Entities
 {
@@ -20,6 +21,15 @@ namespace Team_7_WebApi_Client.Models.Entities
             {
                 Id = dto.Id,
                 Gender = dto.Gender
+            };
+        }
+
+        public static GenderCategoryEntity ToEntity(this GenderCategory model)
+        {
+            return new GenderCategoryEntity
+            {
+                Id = model.Id,
+                Gender = model.Gender
             };
         }
     }

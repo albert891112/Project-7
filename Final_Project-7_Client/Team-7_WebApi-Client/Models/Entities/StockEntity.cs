@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Team_7_WebApi_Client.Models.EFModels;
 
 namespace Team_7_WebApi_Client.Models.Entities
 {
@@ -13,4 +14,19 @@ namespace Team_7_WebApi_Client.Models.Entities
         public int L { get; set; }
         public int XL { get; set; }
     }
+
+    public static class StockEntityExtenssion
+    {
+        public static StockEntity ToEntity(this Stock model)
+        {
+            return new StockEntity
+            {
+                Id = model.Id,
+                S = model.S,
+                M = model.M,
+                L = model.L,
+                XL = model.XL
+            };
+        }
+    }   
 }

@@ -40,5 +40,20 @@ namespace Team_7_WebApi_Client.Models.Entities
 				Enable = dto.Enable,
 			};
 		}
+
+
+		public static MemberEntity ToEntity(this Member model)
+		{
+            return new MemberEntity
+			{
+                Id = model.Id,
+                Account = model.Account,
+                Password = model.Password,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Enable = model.Enable,
+            };
+        }
 	}
 }

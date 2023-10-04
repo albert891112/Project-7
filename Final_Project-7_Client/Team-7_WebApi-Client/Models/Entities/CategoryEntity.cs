@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Team_7_WebApi_Client.Models.DTOS;
+using Team_7_WebApi_Client.Models.EFModels;
 
 namespace Team_7_WebApi_Client.Models.Entities
 {
@@ -22,6 +23,15 @@ namespace Team_7_WebApi_Client.Models.Entities
             {
                 Id = dto.Id,
                 Name = dto.Name
+            };
+        }
+
+        public static CategoryEntity ToEntity(this Category model)
+        {
+            return new CategoryEntity
+            {
+                Id = model.Id,
+                Name = model.Name
             };
         }
     }
