@@ -18,16 +18,10 @@ namespace Team_7_WebApi_Client.Repositories
 		SqlDb connection = new SqlDb();
 
 		AppDbContext db = new AppDbContext();
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="memberId"></param>
-		/// <returns></returns>
 		public List<OrderEntity> GetOrdersbyMember(int memberId)
 		{
 			SqlDb connection = new SqlDb();
-		
+
 			string sql = @"SELECT O.*, OS.*, M.*, P.*, Sh.*, OI.* FROM Orders as O 
 INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId 
 INNER JOIN Members as M ON M.Id = O.MemberId 
@@ -70,16 +64,10 @@ ORDER BY O.ID DESC";
 			return result;
 		}
 
-
-		/// <summary>
-		///
-		/// </summary>
-		/// <param name="orderId"></param>
-		/// <returns></returns>
 		public List<OrderItemEntity> GetOrderById(int orderId)
 		{
 			SqlDb connection = new SqlDb();
-			
+
 			string sql = @"SELECT O.*, OI.*, M.*, P.*, OS.*
                    FROM OrderItems as OI
                    INNER JOIN Orders as O ON O.Id = OI.OrderId
@@ -98,6 +86,7 @@ ORDER BY O.ID DESC";
 					OI.Product = P;
 					O.OrderItemList = new List<OrderItemEntity>();
 
+
 					return OI;
 
 				}, parameter).ToList();
@@ -109,16 +98,9 @@ ORDER BY O.ID DESC";
 			return result;
 		}
 
-		/// <summary>
-		/// 加進訂單欄位,定義對應參數,並且把OrderPostEntity的值放進去
-		/// 將JSON字串傳進來的string memberId轉型為int
-		/// 找使用者的購物清單,利用查詢購物車清單將訂單明細,將訂單存入
-		/// 刪除使用者購物車,因資料庫有重疊顯示,所以購物清單一併刪除
-		/// </summary>
-		/// <param name="order"></param>
-		/// <returns></returns>
+
 		public  int CreateOrder( OrderPostEntity order)
-		{			
+		{
 			string sql = @"INSERT INTO Orders(MemberId,PhoneNumber,Address,ShippingId,CouponId,PaymentId,Total,StatusId,OrderTime)
 VALUES(@MemberId,@PhoneNumber,@Address,@ShippingId,@CouponId,@PaymentId,@Total,@StatusId,@OrderTime)
 SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";		
@@ -142,6 +124,9 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 
 			var cartItems = GetCartItem(memberId);
 
+			//Update Product Stock
+			UpdateStock(cartItems);
+
 			var orderItems =  cartItems.Select(x => new OrderItem
 			{
 				OrderId = orderId,
@@ -164,28 +149,23 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 
 
 	
-		/// <summary>
-		/// 使用LINQ,藉著memberId找出使用者的Cart,進而找出他的CartItem,並且把CartItem的ProductId拿去找出Product
-		/// </summary>
-		/// <param name="memberId"></param>
-		/// <returns></returns>
+
 		public List<CartItem>GetCartItem (int memberId)
 		{
 
 			var cart = db.Carts.Where(x => x.MemberId == memberId).FirstOrDefault();
+
 			var cartItems = db.CartItems.Where(x => x.CartId == cart.Id).ToList();
 
 			cartItems.ForEach(x => x.Product = db.Products.Where(p => p.Id == x.ProductId).FirstOrDefault());
 
+
 			return cartItems;
 		}
 
-		/// <summary>
-		/// 使用LINQ,藉著memberId找出使用者的Cart,並且刪除
-		/// </summary>
-		/// <param name="memberId"></param>
 		private void EmptyCart(int memberId)
-		{			
+		{
+			
 			var cart = db.Carts.Where(x => x.MemberId == memberId).FirstOrDefault();
 
 			if (cart == null) return;
@@ -193,6 +173,45 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 			db.Carts.Remove(cart);
 			db.SaveChanges();
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cartItems"></param>
+		public void UpdateStock(List<CartItem> cartItems)
+		{
+            var productRepo = new ProductRepository();
+
+            foreach (var item in cartItems)
+            {
+				StockEntity stock = new StockEntity();
+
+				stock.ProductId = item.ProductId;
+
+                if(item.Size.Trim() == "S")
+				{
+					stock.S = item.Qty;
+				}
+				else if(item.Size.Trim() == "M")
+				{
+					stock.M = item.Qty;
+				}
+				else if (item.Size.Trim() == "L")
+				{
+					stock.L = item.Qty;
+				}
+				else if (item.Size.Trim() == "XL")
+				{
+					stock.XL = item.Qty;
+				}
+
+				productRepo.UpdateStock(stock);
+            }
+        }
+
+		
+
+
 
 
 	}

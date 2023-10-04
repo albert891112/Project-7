@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Xml.Linq;
 using Team_7_WebApi_Client.Models.DTOS;
+using Team_7_WebApi_Client.Models.EFModels;
 
 namespace Team_7_WebApi_Client.Models.Entities
 {
