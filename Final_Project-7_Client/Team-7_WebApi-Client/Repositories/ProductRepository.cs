@@ -47,9 +47,7 @@ namespace Team_7_WebApi_Client.Repositories
 
             };
 
-
             ProductEntity product = this.connection.Get<ProductEntity>(sql, "default", obj, func);
-
 
             return product;
 

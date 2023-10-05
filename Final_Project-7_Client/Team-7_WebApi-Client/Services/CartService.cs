@@ -34,7 +34,7 @@ namespace Team_7_WebApi_Client.Services
 		}
 
 		/// <summary>
-		/// If Cart is not exist, create new cart
+		/// 如果Cart不存在,創建一個Cart
 		/// </summary>
 		public void CreateCart()
 		{
@@ -53,7 +53,6 @@ namespace Team_7_WebApi_Client.Services
 					MemberId = MemberId,
 				};
 
-
 				this.repo.Create(newCart);
 			}
 		}
@@ -61,7 +60,7 @@ namespace Team_7_WebApi_Client.Services
 
 
 		/// <summary>
-		/// If Cart is exist, update cartItem or Create new cart
+		/// 利用account取得memberId,如果Cart不存在,創建一個Cart與CartItem,如果Cart存在,則更新CartItem
 		/// </summary>
 		/// <param name="cart"></param>
 		public void AddCartItem(CartItemCreateDTO cart)
@@ -82,7 +81,6 @@ namespace Team_7_WebApi_Client.Services
 					CartItem = cart.ToEntity()
 				};
 
-
 				this.repo.Create(newCart);
 			}
 			else
@@ -97,7 +95,7 @@ namespace Team_7_WebApi_Client.Services
 
 
 		/// <summary>
-		/// Check if a cart exist by MemberId
+		/// 
 		/// </summary>
 		/// <param name="MemberId"></param>
 		/// <returns></returns>
@@ -108,7 +106,10 @@ namespace Team_7_WebApi_Client.Services
 
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public List<ShippingDTO> GetShipping()
 		{
 			List<ShippingEntity> entities = this.repo.GetShippings();
@@ -118,6 +119,10 @@ namespace Team_7_WebApi_Client.Services
 			return dtos;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public List<PaymentDTO> GetPayment()
 		{
 			List<PaymentEntity> entities = this.repo.GetPayments();
@@ -127,6 +132,10 @@ namespace Team_7_WebApi_Client.Services
 			return dtos;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public List<GetCouponDTO> GetCoupon()
 		{
 			List<GetCouponEntity> entities = this.repo.GetCoupons();
@@ -145,7 +154,7 @@ namespace Team_7_WebApi_Client.Services
 
 	
 		/// <summary>
-		/// Delete CartItem
+		/// 
 		/// </summary>
 		/// <param name="CartItemId"></param>
 		public void DeleteCartItem(int CartItemId)

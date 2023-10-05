@@ -18,6 +18,11 @@ namespace Team_7_WebApi_Client.Repositories
 		SqlDb connection = new SqlDb();
 
 		AppDbContext db = new AppDbContext();
+		/// <summary>
+		/// 抓取特定會員的order，並且抓取orderItem
+		/// </summary>
+		/// <param name="memberId"></param>
+		/// <returns></returns>
 		public List<OrderEntity> GetOrdersbyMember(int memberId)
 		{
 			SqlDb connection = new SqlDb();
@@ -64,6 +69,12 @@ ORDER BY O.ID DESC";
 			return result;
 		}
 
+
+		/// <summary>
+		/// 抓取單一訂單明細（對應訂單編號）
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <returns></returns>
 		public List<OrderItemEntity> GetOrderById(int orderId)
 		{
 			SqlDb connection = new SqlDb();
@@ -86,7 +97,6 @@ ORDER BY O.ID DESC";
 					OI.Product = P;
 					O.OrderItemList = new List<OrderItemEntity>();
 
-
 					return OI;
 
 				}, parameter).ToList();
@@ -98,7 +108,16 @@ ORDER BY O.ID DESC";
 			return result;
 		}
 
-
+		/// <summary>
+		/// 創建訂單,並且創建訂單明細,回傳訂單編號
+		/// StatusId = 2 代表未出貨 
+		/// 因為API進來的型別是String,所以要轉型int
+		/// 取得購物車,更新產品庫存
+		/// 創建訂單項目,並且加入訂單項目清單
+		/// 清空使用者購物車
+		/// </summary>
+		/// <param name="order"></param>
+		/// <returns></returns>
 		public  int CreateOrder( OrderPostEntity order)
 		{
 			string sql = @"INSERT INTO Orders(MemberId,PhoneNumber,Address,ShippingId,CouponId,PaymentId,Total,StatusId,OrderTime)
@@ -149,7 +168,11 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 
 
 	
-
+		/// <summary>
+		/// 從memeberId取得購物車,從購物車取得購物車清單裡的各項商品 
+		/// </summary>
+		/// <param name="memberId"></param>
+		/// <returns></returns>
 		public List<CartItem>GetCartItem (int memberId)
 		{
 
@@ -159,13 +182,15 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 
 			cartItems.ForEach(x => x.Product = db.Products.Where(p => p.Id == x.ProductId).FirstOrDefault());
 
-
 			return cartItems;
 		}
 
+		/// <summary>
+		/// 利用memberId取得購物車,並且刪除購物車
+		/// </summary>
+		/// <param name="memberId"></param>
 		private void EmptyCart(int memberId)
-		{
-			
+		{			
 			var cart = db.Carts.Where(x => x.MemberId == memberId).FirstOrDefault();
 
 			if (cart == null) return;
@@ -175,7 +200,7 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 		}
 
 		/// <summary>
-		/// 
+		/// 更新購物車庫存,因為會有空格所以要用Trim()去除		 
 		/// </summary>
 		/// <param name="cartItems"></param>
 		public void UpdateStock(List<CartItem> cartItems)
@@ -208,12 +233,6 @@ SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";
 				productRepo.UpdateStock(stock);
             }
         }
-
-		
-
-
-
-
 	}
 }
 

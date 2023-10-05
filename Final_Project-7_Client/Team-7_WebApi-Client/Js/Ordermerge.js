@@ -22,9 +22,7 @@
         var productTotalValue = $(".cart_total").attr("value");
         var shippingMethodValue = $(".shippingMethodSelect").val();
         var couponValue = $(".couponMethodSelect").val();
-        var totalAmountValue = $(".totalAmount").attr("value"); 
-
-             
+        var totalAmountValue = $(".totalAmount").attr("value");              
       
         //如果couponcostValue為空值，則設為0
         if (isNaN(couponValue)) {
@@ -52,8 +50,7 @@
         var shippingcostValue = parseFloat(shippingMethodValue);
         var couponcostValue = parseFloat(couponValue);        
 
-        totalAmountValue = cart_totalValue + shippingcostValue - couponcostValue;
-       
+        totalAmountValue = cart_totalValue + shippingcostValue - couponcostValue;       
 
         //如果totalAmount為小於0，則設為0
         if (totalAmountValue < 0) {
@@ -61,7 +58,7 @@
             alert("總金額小於0");
         }
       
-        // 更新標籤的文本        
+        // 更新標籤       
         shippingcostLabel.text(shippingcostValue);
         shippingcostLabel.attr("value", shippingcostValue);
         couponcostLabel.text(couponcostValue);        
@@ -160,7 +157,6 @@
 //按下OrderData的Click事件 End======================================================
 
   //按下Pay上一頁的Click事件 Start======================================================
-
     $("#btnLastCart").click(function () {
 
         LastpageCart();
