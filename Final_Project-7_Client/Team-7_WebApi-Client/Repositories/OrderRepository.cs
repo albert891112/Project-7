@@ -28,13 +28,13 @@ namespace Team_7_WebApi_Client.Repositories
 			SqlDb connection = new SqlDb();
 
 			string sql = @"SELECT O.*, OS.*, M.*, P.*, Sh.*, OI.* FROM Orders as O 
-INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId 
-INNER JOIN Members as M ON M.Id = O.MemberId 
-INNER JOIN Payments as P ON P.Id = O.PaymentId 
-INNER JOIN Shippings as Sh ON Sh.Id = O.ShippingId 
-INNER JOIN OrderItems as OI ON OI.OrderId = O.Id
-WHERE O.MemberId = @MemberId
-ORDER BY O.ID DESC";
+						INNER JOIN OrderStatus as OS ON OS.Id = O.StatusId 
+						INNER JOIN Members as M ON M.Id = O.MemberId 
+						INNER JOIN Payments as P ON P.Id = O.PaymentId 
+						INNER JOIN Shippings as Sh ON Sh.Id = O.ShippingId 
+						INNER JOIN OrderItems as OI ON OI.OrderId = O.Id
+						WHERE O.MemberId = @MemberId
+						ORDER BY O.ID DESC";
 
 			object obj = new { MemberId = memberId };
 
@@ -122,7 +122,8 @@ ORDER BY O.ID DESC";
 		{
 			string sql = @"INSERT INTO Orders(MemberId,PhoneNumber,Address,ShippingId,CouponId,PaymentId,Total,StatusId,OrderTime)
 VALUES(@MemberId,@PhoneNumber,@Address,@ShippingId,@CouponId,@PaymentId,@Total,@StatusId,@OrderTime)
-SELECT * FROM  ORDERS  WHERE Id = SCOPE_IDENTITY()";		
+SELECT * FROM  ORDERS 
+WHERE Id = SCOPE_IDENTITY()";		
 
 			object orders = new 
 			{

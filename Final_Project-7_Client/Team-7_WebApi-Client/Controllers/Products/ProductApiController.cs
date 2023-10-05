@@ -70,6 +70,56 @@ namespace Team_7_WebApi_Client.Controllers.Products
             return Ok(result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProductId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetReview(int ProductId)
+        {
+            ReviewService reviewServ = new ReviewService(); 
+
+            List<ReviewDTO> dtos = reviewServ.Get(ProductId);
+
+            var result = dtos.Select(d => d.ToVM()).ToList();
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult CreateReview(ReviewVM vm)
+        {
+            ReviewService reviewServ = new ReviewService();
+
+            ReviewDTO dto = vm.ToDTO();
+
+            reviewServ.Create(dto);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProductId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult CheckOrderItemExist(int ProductId)
+        {
+            ReviewService reviewServ = new ReviewService();
+
+            OrderDTO dto = reviewServ.CheckOrderItemExist(ProductId);
+
+            OrderReviewVM vm = dto.ToReviewVM();
+
+            return Ok(vm);
+        }
 
     }
 }

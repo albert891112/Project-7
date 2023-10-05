@@ -37,6 +37,15 @@ namespace Team_7_WebApi_Client.Models.Views
 		public int Total { get; set; }
 	}
 
+	public class OrderReviewVM
+	{
+        public int Id { get; set; }
+        public MemberVM Member { get; set; }
+        public string OrderTime { get; set; }
+        public string Size { get; set; }
+
+    }
+
 	public static class OrderVMExtensions
 	{
 		public static OrderPostVM ToVM(this OrderPostDTO dto)
@@ -70,6 +79,17 @@ namespace Team_7_WebApi_Client.Models.Views
 				OrderTime = dto.OrderTime,
 				Total = dto.Total,
 			};
+		}
+
+		public static OrderReviewVM ToReviewVM(this OrderDTO dto)
+		{
+			return new OrderReviewVM
+			{
+                Id = dto.Id,
+                Member = dto.Member.ToVM(),
+                OrderTime = dto.OrderTime.ToString("yyyy/mm/dd"),
+                Size = dto.OrderItemList.First().Size,	
+            };
 		}
 	}
 }

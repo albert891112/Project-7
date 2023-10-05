@@ -1,29 +1,77 @@
-﻿<style>
-    .btncolor {
-        background-color: white;
-        border: 1px solid white;
-        border-color: white;
-    }
+﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.btncolor {
+    background-color: white;
+    border: 1px solid white;
+    border-color: white;
+}
 
-    .Homecolor {
-        border: 1px solid rgba(248, 249, 250);
-        border-color: rgba(248, 249, 250)
-    }
+.Homecolor {
+    border: 1px solid rgba(248, 249, 250);
+    border-color: rgba(248, 249, 250)
+}
 
-    .sizebtn {
-        background-color: rgb(217, 213, 213);
-        border: 1px solid rgb(217, 213, 213);
-        border-color: rgb(217, 213, 213);
-    }
+.sizebtn {
+    background-color: rgb(217, 213, 213);
+    border: 1px solid rgb(217, 213, 213);
+    border-color: rgb(217, 213, 213);
+}
 
-    .currentbtn {
-        background-color: rgb(12, 12, 13);
-        color: white;
-        border: 1px solid rgb(255, 255, 255);
-        border-color: rgb(255, 255, 255);
-    }
+.currentbtn {
+    background-color: rgb(12, 12, 13);
+    color: white;
+    border: 1px solid rgb(255, 255, 255);
+    border-color: rgb(255, 255, 255);
+}
+
+.starcontainer {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    /* border:1px solid #ccc; */
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.panel ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+
+.panel li {
+    cursor: pointer;
+}
+
+/*請注意, 這三個css 撰寫順序不能亂調整, active最後寫,所以會覆蓋前面二個*/
+.panel li.blank {
+    color: #ccc;
+}
+
+.panel li.hover {
+    color: #ff0;
+}
+
+.panel li.active {
+    color: #f90;
+}
+
+.tip, .result {
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+textarea {
+     max-width: none
+}
 </style>
-</head>
+
 <body>
 
     <!--商品描述-->
@@ -65,11 +113,13 @@
                                 <button class="btn btn-dark addtocart">加入購物車</button>
                             </div>
                         </div>
-                        <div class="row mt-3">
+                        @*<div class="row mt-3">
                             <div class="col-12">
-                                <button class="btn btn-dark checkReview">查看產品評論</button>
+                                <button type="button" class="btn btn-dark toReview" data-bs-toggle="modal" data-bs-target="#CheckReview">
+                                    查看產品評論
+                                </button>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
 
                 </div>
@@ -78,6 +128,162 @@
         </div>
     </div>
 
+    <!--商品評論模板-->
+    <template class="CheckReviewTemplate">
+        <li class="list-group-item">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="account">
+                            <p class="accountName">albert96002</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="panel">
+                            <ul>
+                                <li class="blank"><i class="fa fa-star fa-fw"></i></li>
+                                <li class="hover"><i class="fa fa-star fa-fw"></i></li>
+                                <li class="active hover"><i class="fa fa-star fa-fw"></i></li>
+                                <li><i class="fa fa-star fa-fw"></i></li>
+                                <li><i class="fa fa-star fa-fw"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div>
+                            <small class="reviewSize">尺寸:S</small>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="date">
+                            <small class="reviewTime text-muted">2021/09/01</small>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="review">
+                            <p class="reviewContent">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil inventore officia illum ea. Maiores delectus libero fugit iusto numquam quia. Culpa eveniet sit fugiat at nulla fugit, nobis accusantium quaerat quas sapiente placeat tempora dolorem suscipit exercitationem similique, corporis ducimus explicabo, delectus ratione. Mollitia optio explicabo praesentium laborum nemo. Aut.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </template>
+    <!--商品評論模板-->
+    <!--查看評論Model-->
+    <div class="modal fade" id="CheckReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title reviewProductName" id="staticBackdropLabel">商品名稱</h5>
+                    <button type="button" class="btn-close CheckReviewClose" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group reviewList">
+                        <li class="list-group-item">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="account">
+                                            <p class="accountName">albert96002</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="panel">
+                                            <ul>
+                                                <li class="blank"><i class="fa fa-star fa-fw"></i></li>
+                                                <li class="hover"><i class="fa fa-star fa-fw"></i></li>
+                                                <li class="active hover"><i class="fa fa-star fa-fw"></i></li>
+                                                <li><i class="fa fa-star fa-fw"></i></li>
+                                                <li><i class="fa fa-star fa-fw"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div>
+                                            <small class="reviewSize text-muted">尺寸:S</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="date">
+                                            <small class="reviewTime text-muted">2021/09/01</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="review">
+                                            <p class="reviewContent">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil inventore officia illum ea. Maiores delectus libero fugit iusto numquam quia. Culpa eveniet sit fugiat at nulla fugit, nobis accusantium quaerat quas sapiente placeat tempora dolorem suscipit exercitationem similique, corporis ducimus explicabo, delectus ratione. Mollitia optio explicabo praesentium laborum nemo. Aut.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary CheckReviewClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-dark ToCreateReview" data-bs-toggle="modal" data-bs-target="#CreateReview">
+                        新增評論
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--查看評論Model-->
+    <!--新增評論Model-->
+    <div class="modal fade" id="CreateReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title ProductName" id="staticBackdropLabel">商品名稱</h5>
+                    <button type="button" class="btn-close CreateReviewClose" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="account">
+                                    <h7 class="CreateReviewtName">albert96002</h7>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div>
+                                    <small class="CreateReviewSize text-muted">尺寸:S</small>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="date">
+                                    <small class="CreateReviewOrderTime text-muted">購買時間:2021/09/01</small>
+                                </div>
+                            </div>
+                            <div class="col-12 my-2">
+                                <div class="panel createStar">
+                                    <ul>
+                                        <li class="blank"><i class="fa fa-star fa-fw"></i></li>
+                                        <li class="hover"><i class="fa fa-star fa-fw"></i></li>
+                                        <li class="active hover"><i class="fa fa-star fa-fw"></i></li>
+                                        <li><i class="fa fa-star fa-fw"></i></li>
+                                        <li><i class="fa fa-star fa-fw"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="review w-100">
+                                    <textarea class="createReviewDes w-100"  rows="10"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary CreateReviewClose" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-dark CreateReview" data-bs-dismiss="modal">送出評論</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--新增評論Model-->
 
 </body>
 
@@ -86,7 +292,7 @@
 
 @section scripts{
     <script src="~/Js/ShowProduct.js"></script>
-    <script >
+    <script>
         $(document).ready(function () {
 
             $("#add2cart").each(function () {

@@ -21,7 +21,8 @@ namespace Team_7_WebApi_Client
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css" ,
+                      "~/Content/cdnjs.cloudflare.com_ajax_libs_font-awesome_6.4.0_css_all.min"));
         }
     }
 }

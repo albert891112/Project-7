@@ -114,13 +114,10 @@
         $(document).on("change", select + "GenderSelect", function () {
 
             var genderId = $(this).val();
-
-            //將分類選單設為Invalid
-            $(select + "CategorySelect").removeClass("valid");
-            $(select + "CategorySelect").addClass("invalid");
-            
             
             setCategorySelect(genderId, select);
+
+            
         })
     })
 
