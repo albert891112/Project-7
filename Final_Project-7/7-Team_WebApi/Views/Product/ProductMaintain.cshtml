@@ -21,6 +21,9 @@
     body {
         margin-top: 120px;
     }
+    textarea{
+        max-width: none;
+    }
   
 </style>
 <body>
@@ -68,10 +71,10 @@
             </div>
             <div class="col-12 col-md-6">
                 <div class="item my-2">
-                    <button type="button" class="btn btn-primary SearchProduct">
+                    <button type="button" class="btn btn-dark SearchProduct">
                         搜尋商品
                     </button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateProductModel">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#CreateProductModel">
                         新增商品
                     </button>
                 </div>
@@ -130,7 +133,7 @@
                                     </table>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary ToEdit" ProductId="" data-bs-toggle="modal" data-bs-target="#EditProductModel">
+                                    <button type="button" class="btn btn-outline-dark ToEdit" ProductId="" data-bs-toggle="modal" data-bs-target="#EditProductModel">
                                         編輯商品
                                     </button>
                                 </div>
@@ -249,7 +252,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary EditProductClose" data-bs-dismiss="modal">關閉</button>
-                    <button type="button" class="btn btn-primary submmit EditProduct " data-bs-dismiss="modal" ProductId="">儲存變更</button>
+                    <button type="button" class="btn btn-dark submmit EditProduct " data-bs-dismiss="modal" ProductId="">儲存變更</button>
                 </div>
             </div>
         </div>
@@ -349,7 +352,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary CreateProductClose" data-bs-dismiss="modal">關閉</button>
-                    <button type="button" class="btn btn-primary submmit CreateProduct " data-bs-dismiss="modal" ProductId="" disabled="disabled">新增</button>
+                    <button type="button" class="btn btn-dark submmit CreateProduct " data-bs-dismiss="modal" ProductId="" disabled="disabled">新增</button>
                 </div>
             </div>
         </div>

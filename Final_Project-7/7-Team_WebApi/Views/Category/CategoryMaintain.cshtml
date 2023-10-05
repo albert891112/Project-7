@@ -22,6 +22,11 @@
     body {
         margin-top: 120px;
     }
+    .listborder{
+        border: 4px solid rgb(165, 163, 163);
+        border-radius: 5px;
+
+    }
 </style>
 <body>
     <!--分類模板-->
@@ -37,13 +42,13 @@
                 <div class="col-3 w-auto mx-auto my-auto"><input type="checkbox" class="EditMenCheck" categoryId="" gender="1"> 加入男裝</div>
                 <div class="col-3 w-auto mx-auto my-auto"><input type="checkbox" class="EditWomenCheck" categoryId="" gender="2"> 加入女裝</div>
                 <div class="col-3 w-auto mx-auto my-auto">
-                    <button type="button" class="btn btn-primary SaveEdit" categoryId="">
+                    <button type="button" class="btn btn-dark SaveEdit" categoryId="">
                         儲存變更
                     </button>
-                    <button type="button" class="btn btn-primary EditCategoryButton" data-bs-toggle="modal" data-bs-target="#EditCategoryModel" categoryId="">
+                    <button type="button" class="btn btn-dark EditCategoryButton" data-bs-toggle="modal" data-bs-target="#EditCategoryModel" categoryId="">
                         編輯名稱
                     </button>
-                    <button type="button" class="btn btn-primary DeleteCategoryButton" data-bs-toggle="modal" data-bs-target="#DeleteCategoryModel" categoryId="">
+                    <button type="button" class="btn btn-outline-danger DeleteCategoryButton" data-bs-toggle="modal" data-bs-target="#DeleteCategoryModel" categoryId="">
                         刪除分類
                     </button>
                 </div>
@@ -55,23 +60,23 @@
     <h2 class="text-center my-5">商品分類維護</h2>
 
     <!--商拼分類列表-->
-    <div class="container">
+    <div class="container " >
         <div class="row">
             <!--男裝列表-->
             <div class="col-12 col-md-6 my-2 ">
                 <h4 class="text-center">男裝</h4>
-                <div class="item bordercolor scroll w-75 mx-auto">
-                    <ul class="list-group list-group-flush men">
+                <div class="item bordercolor scroll w-75 mx-auto listborder">
+                    <ul class="list-group list-group-flush men ">
                         <li class="list-group-item">商品分類表</li>
                     </ul>
                 </div>
             </div>
             <!--男裝列表-->
             <!--女裝列表-->
-            <div class="col-12 col-md-6 my-2">
+            <div class="col-12 col-md-6 my-2 ">
                 <h4 class="text-center">女裝</h4>
-                <div class="item bordercolor scroll w-75 mx-auto">
-                    <ul class="list-group list-group-flush women">
+                <div class="item bordercolor scroll w-75 mx-auto listborder">
+                    <ul class="list-group list-group-flush women ">
                     </ul>
                 </div>
             </div>
@@ -79,10 +84,10 @@
         </div>
         <!--編輯分類-->
         <div class="row my-4">
-            <div class="col-12">
+            <div class="col-12 ">
                 <h4 class="text-center">編輯分類</h4>
-                <div class="item bordercolor  scroll w-75 mx-auto">
-                    <ul class="list-group list-group-flush categories">
+                <div class="item bordercolor  scroll w-75 mx-auto listborder">
+                    <ul class="list-group list-group-flush categories ">
                     </ul>
                 </div>
             </div>
@@ -92,7 +97,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="item d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary CreateCategoryButton" data-bs-toggle="modal" data-bs-target="#CreateCategoryModel">
+                    <button type="button" class="btn btn-dark CreateCategoryButton" data-bs-toggle="modal" data-bs-target="#CreateCategoryModel">
                         新增分類
                     </button>
                 </div>
@@ -118,7 +123,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary EditCateogryClose" data-bs-dismiss="modal">關閉</button>
-                    <button type="button" class="btn btn-primary submmit EditCateogry " data-bs-dismiss="modal">儲存變更</button>
+                    <button type="button" class="btn btn-dark submmit EditCateogry " data-bs-dismiss="modal">儲存變更</button>
                 </div>
             </div>
         </div>

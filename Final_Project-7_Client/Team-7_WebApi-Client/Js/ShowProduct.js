@@ -122,6 +122,24 @@
     })
 
 
+    //====================================
+    //評論新增
+
+    setCreateStar();
+    HaveBought();
+
+    $(document).on("click" , ".CreateReview" , function(){
+
+        var comment = $("#CreateReview").find(".createReviewDes").val();
+        var rating = $("#CreateReview").find(".panel li.active").length;
+
+        var data = {
+            "ProductId": 10,
+            "Description": comment,
+            "Rating": rating,
+            "ProductSize": "M"
+        }
+    })
 
 });
 
@@ -214,4 +232,140 @@ var reSetStock = function () {
     //reset stock
     return getProductStock()
 
+}
+
+
+ //====================================
+        //評論新增
+var getReview = function(){
+
+    // //取得網址參數
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const Id = urlParams.get('Id');
+
+
+    // let url = '/api/ProductApi/GetReview?ProductId=' + Id;
+
+    // fetch(url, {
+    //     method: 'GET',
+    //     headers: new Headers({
+    //         'Content-Type': 'application/json'
+    //     })
+    // })
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .then(function (data) {
+    //         console.log(data);
+    //        // setReview(data);
+    // })
+}
+
+
+
+
+var setReview = function(data){
+    
+        var template = getTemplate("CheckReviewTemplate");
+
+        var reviewList = $(".reviewList");
+
+        reviewList.empty();
+
+        data.array.forEach(element => {
+            var item = template.clone();
+
+            item.find(".accountName").text(data.Member.Name);
+            item.find(".reviewTime").text(data.ReviewTime);
+            item.find(".reviewContent").text(data.Description);
+            item.find(".reviewSize").text(data.ProductSize);
+
+            setCheckStar(data.Rating , item);
+
+            reviewList.append(template);
+            
+        });
+}
+       
+var setCheckStar = function(numOfStar , item){
+
+    item.find(".panel li").each(function(index){
+        if(index < numOfStar){
+            $(this).removeClass("blank").addClass("active");
+        }else{
+            $(this).removeClass("hover active").addClass("blank");
+        }
+    });
+        
+} 
+
+var setCreateStar = function(){
+
+    var stars = $("#CreateReview").find(".panel li");
+    // 重設 start class
+    stars.removeClass("active hover blank")
+        .addClass("blank")
+        .mouseover(function(){
+
+            var current = $(this);
+
+            stars.each(function(index){
+                if(index <= current.index()){
+                    $(this).removeClass("blank").addClass("hover");
+                }else{
+                    $(this).removeClass("hover active").addClass("blank");
+                }
+            });
+        })
+        .mouseout(function(){
+            stars.removeClass("hover").addClass("blank");
+        })
+        .click(function(){
+            var current = $(this);
+
+            stars.each(function(index){
+                if(index <= current.index()){
+                    $(this).removeClass("blank").addClass("active");
+                }else{
+                    $(this).removeClass("hover active").addClass("blank");
+                }
+            });
+
+        })
+}
+
+
+var setCreateReview = function(data){
+
+    var item = $("#CreateReview");
+
+    item.find(".CreateReviewtName").text(data.Member.Name);
+    item.find(".CreateReviewSize").text('尺寸：' + data.Size);
+    item.find(".CreateReviewOrderTime").text(data.OrderTime);
+}
+
+var HaveBought = function(){
+    // //取得網址參數
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const Id = urlParams.get('Id');
+
+    // let url = '/api/ProductApi/CheckOrderItemExist?ProductId=' + Id;
+
+    // fetch(url, {
+    //     method: 'GET',
+    //     headers: new Headers({
+    //         'Content-Type': 'application/json'
+    //     })
+    // })
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .then(function (data) {
+    //         console.log(data);
+    //         if(data){
+    //             setCreateReview(data);
+    //         }else{
+    //             $(".ToCreateReview").attr("disabled" , "disabled");
+    //         }
+    // })
 }

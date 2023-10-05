@@ -200,6 +200,7 @@
     <Compile Include="Models\DTOS\OrderStatusDTO.cs" />
     <Compile Include="Models\DTOS\PaymentDTO.cs" />
     <Compile Include="Models\DTOS\ProductDTO.cs" />
+    <Compile Include="Models\DTOS\ReviewDTO.cs" />
     <Compile Include="Models\DTOS\ShippingDTO.cs" />
     <Compile Include="Models\DTOS\StockDTO.cs" />
     <Compile Include="Models\EFModels\AppDbContext.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="Models\Views\OrderVM.cs" />
     <Compile Include="Models\Views\PaymentVM.cs" />
     <Compile Include="Models\Views\ProductVM.cs" />
+    <Compile Include="Models\Views\ReviewVM.cs" />
     <Compile Include="Models\Views\ShippingVM.cs" />
     <Compile Include="Models\Views\StockVM.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
@@ -277,6 +279,7 @@
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\ReviewService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -377,6 +380,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Star.css" />
     <Content Include="favicon.ico" />
     <Content Include="Files\men.jpeg" />
     <Content Include="Files\pic-login.jpg" />
@@ -406,6 +410,7 @@
     <Content Include="Global.asax" />
     <Content Include="Js\addCart.js" />
     <Content Include="Js\Cart.js" />
+    <Content Include="Content\cdnjs.cloudflare.com_ajax_libs_font-awesome_6.4.0_css_all.min.css" />
     <Content Include="Js\HomePage.es5.js">
       <DependentUpon>HomePage.js</DependentUpon>
     </Content>
