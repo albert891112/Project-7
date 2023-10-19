@@ -27,7 +27,15 @@ namespace Team_7_WebApi_Client.Controllers.Cart
         {
             var dto = vm.ToDTO();
 
-			serv.AddCartItem(dto);
+            try
+            {
+                serv.AddCartItem(dto);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+			
 
             return Ok();
         }

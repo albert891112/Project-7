@@ -47,13 +47,17 @@
             }),
             body: JSON.stringify(data)
         }).then (function (response) {
+            console.log(response)
             if(response.ok){
                 alert("加入購物車成功")
             }
-            else{
+            else if(response.status == 401){
                 alert("請先登入會員")
                 window.location.href = "../Members/Login"
-            }                                                  
+            }
+            else{   
+                alert("庫存不足,加入購物車失敗")
+            }                                                 
         })
        
 

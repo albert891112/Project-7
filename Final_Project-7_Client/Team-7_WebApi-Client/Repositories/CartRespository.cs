@@ -37,6 +37,28 @@ namespace Team_7_WebApi_Client.Repositories
 		{
             var exist = db.CartItems.FirstOrDefault(o => o.CartId == entity.CartId && o.ProductId == entity.ProductId && o.Size == entity.Size);
 
+			StockRepository stockRepo = new StockRepository();
+
+			var stock = stockRepo.GetByStockId(entity.ProductId);
+
+			int stockQty = 0;
+
+			if(entity.Size.Trim() == "S")
+			{
+				stockQty = stock.S;
+			}
+			else if(entity.Size.Trim() == "M")
+			{
+                stockQty = stock.M;
+            }
+            else if(entity.Size.Trim() == "L")
+			{
+                stockQty = stock.L;
+            }
+            else if(entity.Size.Trim() == "XL")
+			{
+                stockQty = stock.XL;
+            }
 
 			if(exist == null)
 			{
@@ -46,6 +68,13 @@ namespace Team_7_WebApi_Client.Repositories
 			{	
 				entity.Id = exist.Id;
 				entity.Qty += exist.Qty;
+
+				if(entity.Qty > stockQty)
+				{
+					throw new Exception("Stock is not enough");
+                }
+
+
 				db.Entry(exist).CurrentValues.SetValues(entity.ToModel());
 			}
 

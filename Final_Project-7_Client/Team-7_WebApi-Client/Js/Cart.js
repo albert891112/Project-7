@@ -26,9 +26,12 @@
         var btn = $(this);
         var Max = btn.attr("Max");
         var currentQty = btn.closest("tr").find(".cart_qty").attr("value");
+
+        currentQty = parseInt(currentQty);
     
-    
-        if (currentQty >= Max) {
+        if (Max <= currentQty) {
+            console.log(currentQty >= Max);
+            console.log("currentQty=", currentQty);
             alert("已達庫存上限");
             return;
         }
@@ -91,7 +94,7 @@ var addOne = function () {
         }),
         body: JSON.stringify(data)
     }).then(function (response) {
-        console.log("response=", response);
+     
         if (response.ok) {           
             getToCart();
         }

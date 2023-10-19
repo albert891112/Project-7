@@ -60,6 +60,7 @@ namespace _7_Team_WebApi.Services
                 new FileRequired(),
                 //照片必須是圖片
                 new ImageValidator(),
+                new FileSizeValidator(100*1024),
             };
 
             try

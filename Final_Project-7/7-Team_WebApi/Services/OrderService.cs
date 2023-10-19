@@ -65,7 +65,7 @@ namespace _7_Team_WebApi.Services
         {
             List<OrderEntity> entities = this.repo.GetAll();
 
-            entities = entities.Select(x => x).Where(x => x.OrderStatus.Id == StatusId).ToList();   
+            entities = entities.Select(x => x).Where(x => x.OrderStatus.Id == StatusId).OrderBy(x => x.OrderTime).ToList();   
 
             return entities;
         }   

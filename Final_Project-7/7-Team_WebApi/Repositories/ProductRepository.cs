@@ -205,13 +205,15 @@ namespace _7_Team_WebApi.Repositories
         {
 
             //Update Product data
-            string sql = "UPDATE Products SET " +
-                "Name = CASE WHEN @Name IS NULL THEN Name ELSE @Name END, " +
-                "Price = CASE WHEN @Price IS NULL THEN Price ELSE @Price END, " +
-                "Image = CASE WHEN @Image IS NULL THEN Image ELSE @Image END, " +
-                "Description = CASE WHEN @Description IS NULL THEN Description ELSE @Description END, " +
-                "Enable = CASE WHEN @Enable IS NULL THEN Enable ELSE @Enable END " +
-                "WHERE Id = @Id";
+            string sql = @"UPDATE Products SET 
+                    Name = CASE WHEN @Name IS NULL THEN Name ELSE @Name END, 
+                    Price = CASE WHEN @Price IS NULL THEN Price ELSE @Price END,  
+                    Image = CASE WHEN @Image IS NULL THEN Image ELSE @Image END, 
+                    Description = CASE WHEN @Description IS NULL THEN Description ELSE @Description END,
+                    Enable = CASE WHEN @Enable IS NULL THEN Enable ELSE @Enable END ,
+                    GenderId = CASE WHEN @GenderId IS NULL THEN GenderId ELSE @GenderId END ,
+                    CategoryId = CASE WHEN @CategoryId IS NULL THEN CategoryId ELSE @CategoryId END
+                    WHERE Id = @Id";
 
             object obj = new
             {
@@ -220,7 +222,9 @@ namespace _7_Team_WebApi.Repositories
                 Price = entity.Price,
                 Image = entity.Image,
                 Description = entity.Description,
-                Enable = entity.Enable
+                Enable = entity.Enable,
+                GenderId = entity.GenderId,
+                CategoryId = entity.CategoryId
             };
 
             this.connection.Update(sql, "default", obj);

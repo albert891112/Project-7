@@ -72,27 +72,35 @@ namespace Team_7_WebApi_Client.Services
 
 			//Get Cart by MemberId
 			var existCart = IsCartExist(account);
-
-			if (existCart == null)
+			try 
 			{
-				//Create new cart
-				CartCreateEntity newCart = new CartCreateEntity
-				{
-					MemberId = MemberId,
-					CartItem = cart.ToEntity()
-				};
+                if (existCart == null)
+                {
+                    //Create new cart
+                    CartCreateEntity newCart = new CartCreateEntity
+                    {
+                        MemberId = MemberId,
+                        CartItem = cart.ToEntity()
+                    };
 
 
-				this.repo.Create(newCart);
-			}
-			else
+                    this.repo.Create(newCart);
+                }
+                else
+                {
+                    cart.CartId = existCart.Id;
+
+                    CartItemCreateEntity cartItem = cart.ToEntity();
+
+                    this.repo.Upsert(cartItem);
+                }
+            }
+			catch (Exception ex)
 			{
-				cart.CartId = existCart.Id;
-
-				CartItemCreateEntity cartItem = cart.ToEntity();
-
-				this.repo.Upsert(cartItem);
+				throw ex;
 			}
+
+			
 		}
 
 

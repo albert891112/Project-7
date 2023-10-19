@@ -9,6 +9,21 @@
     EditProductValidation();
     CreateProductValidation();
 
+    var LowPrice = document.querySelector(".SearchProductLowPrice")
+
+    LowPrice.addEventListener("input", function () {
+        LowPrice.value = LowPrice.value.replace(/[^\d]/g, '')
+    })
+
+    var HightPrice = document.querySelector(".SearchProductHightPrice")
+
+    HightPrice.addEventListener("input", function () {
+        HightPrice.value = HightPrice.value.replace(/[^\d]/g, '')
+    })
+
+
+   
+
     $(document).on("click", ".ToEdit", function () {
 
         var ProductId = $(this).attr("ProductId");
@@ -71,13 +86,15 @@
         data.append("GenderId", GenderId);
         data.append("Enable", Status);
 
+        console.log(ProductId);
 
-        console.log("saveChange"   );
+
         saveChange(data);
 
     })
     $(document).on("click", ".CreateProduct", function () {
 
+        console.log("CreateProduct");
         var data = new FormData();
 
         var ProductName = $(".CreateProductName").val();
@@ -128,8 +145,8 @@
         var GenderId = $("#SearchGenderSelect").val();
         var CategoryId = $("#SearchCategorySelect").val();
         var Status = $("#SearchStatus").val();
-        var LowPrice = $(".CreateProductLowPrice").val();
-        var HightPrice = $(".CreateProductHightPrice").val();
+        var LowPrice = $(".SearchProductLowPrice").val();
+        var HightPrice = $(".SearchProductHightPrice").val();
 
         var Criteria = {
             "Name": ProductName,
@@ -177,8 +194,6 @@ var setProductList = function (data) {
     data.forEach(element => {
 
         item.find(".ToEdit").attr("ProductId", element.Id);
-
-        console.log(element);
 
         item.find(".photo").attr("src", "../../File/" + element.Image);
         item.find(".price").text(element.Price);
@@ -541,7 +556,13 @@ var saveCreate = function (data) {
     fetch(url, {
         method: "POST",
         body: data
-    }).then(function (result) {
+    })
+    .then(function (response) {
+        if(response.ok == false){
+            alert("新增失敗");
+        }
+    })
+    .then(function (result) {
         setProducts();
     })
 }

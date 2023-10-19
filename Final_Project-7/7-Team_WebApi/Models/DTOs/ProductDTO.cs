@@ -111,7 +111,7 @@ namespace _7_Team_WebApi.Models.DTOs
                 Image = Image,
                 Stock = new StockUploadDTO
                 {
-                    Id = Form["Id"].IntHasValue(),
+                    ProductId = Form["Id"].IntHasValue(),
                     S = Form["S"].IntHasValue(),
                     M = Form["M"].IntHasValue(),
                     L = Form["L"].IntHasValue(),
