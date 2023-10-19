@@ -38,8 +38,6 @@ namespace Team_7_WebApi_Client.Models.Entities
 		public bool Enabled { get; set; }
 	}
 
-
-
 	public class DiscountTypeEntity
 	{
 		public int Id { get; set; }

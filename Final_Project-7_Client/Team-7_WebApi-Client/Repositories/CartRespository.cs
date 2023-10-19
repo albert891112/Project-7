@@ -17,7 +17,7 @@ namespace Team_7_WebApi_Client.Repositories
 
 
 		/// <summary>
-		/// Search for a cart by MemberId
+		/// 
 		/// </summary>
 		/// <param name="MemberId"></param>
 		/// <returns></returns>
@@ -78,8 +78,7 @@ namespace Team_7_WebApi_Client.Repositories
 				db.Entry(exist).CurrentValues.SetValues(entity.ToModel());
 			}
 
-			db.SaveChanges();
-           
+			db.SaveChanges();           
         }
 
 		
@@ -115,7 +114,7 @@ namespace Team_7_WebApi_Client.Repositories
 
 
 		/// <summary>
-		/// Get Cart by MemberId
+		/// 
 		/// </summary>
 		/// <param name="Account"></param>
 		/// <returns></returns>
@@ -154,7 +153,7 @@ namespace Team_7_WebApi_Client.Repositories
 		}
 
 		/// <summary>
-		/// Get CartItem by CartId
+		///
 		/// </summary>
 		/// <param name="entity"></param>
 		/// <returns></returns>
@@ -180,14 +179,11 @@ namespace Team_7_WebApi_Client.Repositories
 					return ci;
 
                 }, o).ToList();
-
             };
 			
 			List<CartItemEntity> CartItems = this.connection.Get<List<CartItemEntity>>(sql, "default", obj, func);
 
 			return CartItems;
-
-
 		}
 
 
@@ -200,7 +196,6 @@ namespace Team_7_WebApi_Client.Repositories
 			SqlDb connection = new SqlDb();
 
 			string sql = @"SELECT * FROM Shippings  ORDER BY Id";
-
 
 			List<ShippingEntity> entities = connection.GetAll<ShippingEntity>(sql, "default");
 
@@ -215,8 +210,7 @@ namespace Team_7_WebApi_Client.Repositories
 		{
 			SqlDb connection = new SqlDb();
 
-			string sql = @"SELECT * FROM Payments  ORDER BY Id";
-			
+			string sql = @"SELECT * FROM Payments  ORDER BY Id";			
 
 			List<PaymentEntity> entities = connection.GetAll<PaymentEntity>(sql, "default");
 

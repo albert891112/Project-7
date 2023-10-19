@@ -55,9 +55,6 @@
 
         subOne.call(this);
     });
-
-
-
 });
 
 //加一
@@ -73,9 +70,7 @@ var addOne = function () {
 
     // 從父元素中獲取所需的數據
     var Size = parentRow.find(".cart_size").attr("size");
-    var Id = parentRow.find(".cart_size").attr("product");
-
-   
+    var Id = parentRow.find(".cart_size").attr("product");   
 
     // 建立商品數據，包括商品ID、購物車數量和尺寸
     var data = {
@@ -139,8 +134,7 @@ var subOne = function () {
             if (response.ok) {
                 getToCart();
             }
-        })
-    
+        })    
 }
 
 var getToCart = function () {
@@ -161,13 +155,12 @@ var getToCart = function () {
         
         console.log(err);
     });
-
 };
 
-var setCart = function (data) {    
-   
+var setCart = function (data) {       
     
-    if(data.CartItems == null){
+    if (data.CartItems == null) {
+
         $("#btnPay").attr("disabled", true);
     }
     else{
@@ -245,8 +238,6 @@ var btnCheckoutHome = function () {
 
 }
 
-
-
 var DelCartItem = function (Id) {
 
     let url = "/api/CartApi/DeleteCartItem?Id=" + Id;
@@ -263,6 +254,4 @@ var DelCartItem = function (Id) {
             getToCart();
         }
     })
-
-
 }
